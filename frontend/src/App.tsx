@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getProduct } from './api/index';
-import reactLogo from './assets/react.svg';
+import reactLogo from '../public/img/react.svg';
 import './App.css';
 import './test.scss';
 
@@ -19,7 +19,7 @@ function App() {
       <div>
         <a href="https://www.naver.com">네이버</a>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
+          <img src="../public/img/vite.svg" className="logo" alt="Vite logo" />
         </a>
         <a href="https://reactjs.org" target="_blank" rel="noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
