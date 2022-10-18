@@ -6,7 +6,7 @@ import eslint from 'vite-plugin-eslint';
 // const path = require('path');
 
 // https://vitejs.dev/config/
-/** @type {import('vite').UserConfig} */
+// /** @type {import('vite').UserConfig} */
 export default defineConfig({
   plugins: [
     react(),
