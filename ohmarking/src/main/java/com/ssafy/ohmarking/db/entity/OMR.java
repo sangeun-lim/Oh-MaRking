@@ -15,7 +15,6 @@ public class OMR {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "omr_id")
     private Long id;
 
     @Column(nullable = false)
@@ -28,6 +27,6 @@ public class OMR {
     private List<Note> noteList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "fk_user_id")
     private User user;
 }
