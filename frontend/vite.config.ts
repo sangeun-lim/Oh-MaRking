@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import legacy from '@vitejs/plugin-legacy';
 import eslint from 'vite-plugin-eslint';
+// import path from 'path';
 // const path = require('path');
 
 // https://vitejs.dev/config/

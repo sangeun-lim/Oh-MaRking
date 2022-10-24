@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src", // 현재 디렉토리를 기준으로 한다.
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
