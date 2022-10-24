@@ -1,0 +1,10 @@
+@use 'style/color';
+
+$red: red;
+
+// @mixin test {
+
+// }
+.test {
+  color: $red;
+}
