@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from 'pages/Home';
-import CheerPage from 'pages/CheerPage';
-import EventPage from 'pages/EventPage';
-import NavBar from 'components/NavBar';
-import Error from 'pages/Error';
+import Home from '../pages/Home';
+import CheerPage from '../pages/CheerPage';
+import EventPage from '../pages/EventPage';
+import Error from '../pages/Error';
+import NavBar from './NavBar';
 
 function Router(): JSX.Element {
   return (

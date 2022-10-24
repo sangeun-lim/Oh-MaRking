@@ -3,10 +3,9 @@ import Router from './Router';
 
 function App(): JSX.Element {
   return (
-    <>
-      <div>App</div>
+    <div className="image">
       <Router />
-    </>
+    </div>
   );
 }
 
