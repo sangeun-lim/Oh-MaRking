@@ -2,7 +2,7 @@ import axios from 'axios';
 import Url from './Url';
 import { LoginData } from './ApiInterface';
 
-const Api = {
+const AuthApi = {
   auth: {
     login: async (formData: LoginData) => {
       const response = await axios({
@@ -18,4 +18,4 @@ const Api = {
   },
 };
 
-export default Api;
+export default AuthApi;
