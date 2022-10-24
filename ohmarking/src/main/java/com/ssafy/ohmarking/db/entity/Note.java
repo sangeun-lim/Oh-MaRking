@@ -40,7 +40,7 @@ public class Note {
     @Column(nullable = false)
     private Integer check_num;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "fk_omr_id")
     private OMR omr;
 }

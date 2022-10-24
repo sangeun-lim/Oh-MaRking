@@ -18,15 +18,12 @@ public class OMR {
     private Long id;
 
     @Column(nullable = false)
-    private Integer check_cnt;
-
-    @Column(nullable = false)
     private Integer page_num;
 
     @OneToMany(mappedBy = "omr", cascade = CascadeType.ALL)
     private List<Note> noteList = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "fk_user_id")
     private User user;
 }

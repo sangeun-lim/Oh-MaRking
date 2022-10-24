@@ -31,7 +31,4 @@ public class User {
 
     @Column(nullable = false)
     private Integer total_omr;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OMR> omrList = new ArrayList<>();
 }
