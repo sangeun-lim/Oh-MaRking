@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from 'pages/Home';
-import CheerPage from 'pages/CheerPage';
-import EventPage from 'pages/EventPage';
-import NavBar from 'components/NavBar';
-import Error from 'pages/Error';
+import Home from '../pages/Home';
+import CheerPage from '../pages/CheerPage';
+import EventPage from '../pages/EventPage';
+import Error from '../pages/Error';
+import NavBar from './NavBar';
 
-function AppRouter(): JSX.Element {
+function Router(): JSX.Element {
   return (
-    <Router>
+    <BrowserRouter>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,8 +16,8 @@ function AppRouter(): JSX.Element {
         <Route path="/event" element={<EventPage />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
-export default AppRouter;
+export default Router;
