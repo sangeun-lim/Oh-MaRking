@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
-// http://localhost:포트번호/contextpath이름/swagger-ui/index.html
+// http://localhost:포트번호/context-path/swagger-ui/index.html
 
 @Configuration
 @EnableSwagger2
@@ -32,7 +32,9 @@ public class SwaggerConfig {
                 .description("OhMarking Project API")
                 .termsOfServiceUrl("https://edu.ssafy.com")
                 .license("SSAFY License")
-                .licenseUrl("ssafy@ssafy.com").version("1.0").build();
+                .licenseUrl("ssafy@ssafy.com")
+                .version("1.0")
+                .build();
     }
 
 }

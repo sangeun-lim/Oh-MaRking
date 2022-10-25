@@ -20,6 +20,7 @@ public class OMR {
     @Column(nullable = false)
     private Integer page_num;
 
+    @Builder.Default
     @OneToMany(mappedBy = "omr", cascade = CascadeType.ALL)
     private List<Note> noteList = new ArrayList<>();
 
