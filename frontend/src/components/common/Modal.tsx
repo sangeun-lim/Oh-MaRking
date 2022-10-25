@@ -1,3 +1,5 @@
+// import styles from './Modal.module.scss';
+
 // function Modal(): JSX.Element {
 //   return (
 //     <div className="nav">
