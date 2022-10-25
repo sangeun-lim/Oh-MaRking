@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.card {
+  width: 25%;
+  height: 100%;
+  margin-bottom: 4%;
+}
+
+.card_img {
+  max-width: 95%;
+  max-height: 100%;
+}
+
+// 전체화면 꽉차게 하고 이동할 링크 클릭할수있게하기
+// hover 아니라 새로운 모달창 뜨게해야될거같음
+// .card_img:hover {
+// transform: scale(1.8);
+// }
+
+.card_link {
+}
