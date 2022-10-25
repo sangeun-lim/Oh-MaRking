@@ -1,0 +1,5 @@
+@use 'src/style/all';
+
+.container {
+  @include all.flex(column, center, center);
+}

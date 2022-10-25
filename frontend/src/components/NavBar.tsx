@@ -9,7 +9,7 @@ function NavBar(): JSX.Element {
     <div className="nav">
       <div>
         <NavLink to="/">
-          <img src="src/img/character1.png" alt="로고" className="logo" />
+          {/* <img src="src/img/character1.png" alt="로고" className="logo" /> */}
         </NavLink>
       </div>
       <div>
