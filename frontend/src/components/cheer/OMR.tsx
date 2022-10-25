@@ -1,23 +1,35 @@
+import { Children } from 'react';
 import Search from './Search';
 import styles from './OMR.module.scss';
-import { Children } from 'react';
 
 interface CheerProps {
   msg: number[][];
 }
 
 function Cheer({ msg }: CheerProps): JSX.Element {
+  const check = (problemNum: number, elementNum: number) => {
+    console.log(problemNum, elementNum);
+  };
   return (
     <ul>
-      {Children.toArray()}
-      {msg.map((problem, i) => (
-        <li key={i}>
-          문제번호{i}
-          {problem.map((element, index) => (
-            <div key={index}>{element}</div>
-          ))}
-        </li>
-      ))}
+      {Children.toArray(
+        msg.map((problem, problemNum) => (
+          <li key={Date.now().toString()}>
+            문제번호{problemNum}
+            {problem.map((element, elementNum) => (
+              <button
+                key={Date.now().toString()}
+                type="button"
+                // onClick={(problemNum: number, elementNum: number) =>
+                // check(problemNum, elementNum)
+                // }
+              >
+                [{elementNum}] 상태:{element}
+              </button>
+            ))}
+          </li>
+        ))
+      )}
     </ul>
   );
 }
