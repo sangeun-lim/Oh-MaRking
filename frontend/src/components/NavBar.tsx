@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './NavBar.scss';
+import styles from './NavBar.module.scss';
 
 function NavBar(): JSX.Element {
   const navigate = useNavigate();
 
   return (
     <div>
-      <div className="navList">
-        <div className="left">
+      <div className={styles.navList}>
+        <div className={styles.left}>
           <NavLink to="/">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character1.png?alt=media&token=e6eb279b-6fe1-441a-9a81-b065c24c9f4b"
               alt="로고"
-              className="logo"
+              className={styles.logo}
             />
           </NavLink>
         </div>
-        <div className="right">
+        <div className={styles.right}>
           <div>
-            <NavLink className="nav_font" to="/event">
+            <NavLink className={styles.nav_font} to="/event">
               이벤트 모음 바로가기
             </NavLink>
           </div>
@@ -29,7 +29,7 @@ function NavBar(): JSX.Element {
             <img
               src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/kakao_login_large_narrow.png?alt=media&token=ee673d01-4ce5-4ec8-8a80-30de5a28f2e9"
               alt="카카오로그인"
-              className="kakao_login"
+              className={styles.kakao_login}
             />
           </div>
           {/* </a> */}

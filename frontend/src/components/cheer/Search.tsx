@@ -1,3 +1,5 @@
+import styles from './Search.module.scss';
+
 import Button from '../common/Button';
 
 function Search(): JSX.Element {

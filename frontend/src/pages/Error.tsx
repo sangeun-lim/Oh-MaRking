@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './Error.module.scss';
 
 function Error(): JSX.Element {
   const navigate = useNavigate();

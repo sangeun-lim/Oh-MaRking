@@ -1,4 +1,4 @@
-import './EventCard.scss';
+import './EventCard.module.scss';
 
 function EventCard(): JSX.Element {
   return <div>eventCard</div>;
