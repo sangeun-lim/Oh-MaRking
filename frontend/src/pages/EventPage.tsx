@@ -1,5 +1,11 @@
+import EventCard from '../components/event/EventCard';
+
 function EventPage(): JSX.Element {
-  return <div>EventPage</div>;
+  return (
+    <div>
+      <EventCard />
+    </div>
+  );
 }
 
 export default EventPage;
