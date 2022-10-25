@@ -1,5 +1,9 @@
-function Button(): JSX.Element {
-  return <div>Button</div>;
+interface BtnProps {
+  text: string;
+}
+
+function Button({ text }: BtnProps): JSX.Element {
+  return <button type="button">{text}</button>;
 }
 
 export default Button;

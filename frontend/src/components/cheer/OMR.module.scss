@@ -1,0 +1,40 @@
+@use 'src/style/all';
+@use 'src/style/color';
+
+@mixin fill-stroke($fill, $stroke) {
+  background-color: #{$fill};
+  border: 3px solid #{$stroke};
+}
+@mixin omr() {
+  @include all.box(29px, 39px);
+  @include all.flex(column, center, center);
+  @include fill-stroke(color.$before_marking, color.$primary);
+  border-radius: 50px;
+  color: color.$primary;
+  padding-bottom: 3px;
+}
+
+// 마킹 안했을 때
+.before_marking {
+  @include omr();
+}
+
+// 마킹 했을 때
+.after_marking {
+  @include omr();
+  background: color.$after_marking;
+}
+
+// 노란 테마를 선택했을 때
+.yellow_sheet {
+  @include all.box(1388px, 854px);
+  @include fill-stroke(color.$before_marking, color.$line_yellow);
+  .omr_top {
+    @include all.flex(row, flex-end, center);
+    // @include fill-stroke();
+  }
+}
+
+.omr_body {
+  @include all.flex(row, space-around, center);
+}
