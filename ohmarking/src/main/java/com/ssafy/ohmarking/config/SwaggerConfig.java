@@ -2,52 +2,38 @@ package com.ssafy.ohmarking.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.HashSet;
-import java.util.Set;
+import static springfox.documentation.builders.PathSelectors.regex;
+
+// http://localhost:포트번호/contextpath이름/swagger-ui/index.html
 
 @Configuration
-@EnableWebMvc
-public class SwaggerConfig implements WebMvcConfigurer {
-
+@EnableSwagger2
+public class SwaggerConfig {
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.OAS_30)
-                .consumes(getConsumeContentTypes())
-                .produces(getProduceContentTypes())
-                .apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.sharemind.api.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .useDefaultResponseMessages(false);
-    }
-
-    private Set<String> getConsumeContentTypes() {
-        Set<String> consumes = new HashSet<>();
-        consumes.add("application/json;charset=UTF-8");
-        consumes.add("application/x-www-form-urlencoded");
-        return consumes;
-    }
-
-    private Set<String> getProduceContentTypes() {
-        Set<String> produces = new HashSet<>();
-        produces.add("application/json;charset=UTF-8");
-        return produces;
-    }
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("ShareMind API")
-                .description("ShareMind API")
-                .version("1.0")
+    public Docket postsApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("ohmarking")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.ohmarking.controller"))
+                .paths(regex("/.*"))
                 .build();
     }
 
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder().title("OhMarking REST API")
+                .description("OhMarking Project API")
+                .termsOfServiceUrl("https://edu.ssafy.com")
+                .license("SSAFY License")
+                .licenseUrl("ssafy@ssafy.com").version("1.0").build();
+    }
+
 }
+
