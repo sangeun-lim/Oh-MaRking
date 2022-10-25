@@ -1,5 +1,7 @@
+import './EventCard.scss';
+
 function EventCard(): JSX.Element {
-  return <div>EventCard</div>;
+  return <div>eventCard</div>;
 }
 
 export default EventCard;

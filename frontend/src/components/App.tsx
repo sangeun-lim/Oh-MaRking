@@ -1,9 +1,9 @@
-import './App.scss';
+import styles from './App.module.scss';
 import Router from './Router';
 
 function App(): JSX.Element {
   return (
-    <div className="image">
+    <div className={styles.image}>
       <Router />
     </div>
   );
