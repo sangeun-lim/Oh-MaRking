@@ -3,8 +3,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import legacy from '@vitejs/plugin-legacy';
 import eslint from 'vite-plugin-eslint';
-// import path from 'path';
-// const path = require('path');
 
 // https://vitejs.dev/config/
 // /** @type {import('vite').UserConfig} */
@@ -16,11 +14,9 @@ export default defineConfig({
     }),
     eslint(),
   ],
-  // resolve: {
-  //   alias: {
-  //     '@': path.resolve(__dirname, './src'),
-  //   },
-  // },
+  define: {
+    global: {},
+  },
   // 기본 포트 5173 => 3000 설정
   server: {
     port: 3000,

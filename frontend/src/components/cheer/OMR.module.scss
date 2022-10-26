@@ -1,10 +1,13 @@
 @use 'src/style/all';
 @use 'src/style/color';
 
+// 배경색 - 외곽선 스타일
 @mixin fill-stroke($fill, $stroke) {
   background-color: #{$fill};
   border: 3px solid #{$stroke};
 }
+
+// OMR 마킹하는 곳
 @mixin omr() {
   @include all.box(29px, 39px);
   @include all.flex(column, center, center);
@@ -31,10 +34,21 @@
   @include fill-stroke(color.$before_marking, color.$line_yellow);
   .omr_top {
     @include all.flex(row, flex-end, center);
-    // @include fill-stroke();
   }
 }
 
 .omr_body {
-  @include all.flex(row, space-around, center);
+  @include all.flex(row, flex-start, center);
+}
+
+// 좌측 - 정보 구역
+.info {
+  @include all.box(30%, 100%);
+  @include all.flex(column, center, center);
+}
+
+// 가운데, 우측 - 응원한마디 구역
+.cheer {
+  @include all.box(35%, 100%);
+  @include all.flex(row, center, center);
 }
