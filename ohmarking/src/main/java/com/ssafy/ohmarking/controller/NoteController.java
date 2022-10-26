@@ -54,12 +54,12 @@ public class NoteController {
     }
 
     @ApiOperation(value = "응원글 삭제", notes = "응원글을 삭제한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteNote(@PathVariable long id, @RequestParam String registerPwd) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteNote(@RequestBody NoteDto note) {
         Map<String,Object> resultMap = new HashMap<>();
         try {
             // 삭제할 응원글 번호(id)와 등록시 비밀번호
-            noteService.deleteNote(id, registerPwd);
+            noteService.deleteNote(note.getId(),note.getPwd());
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
