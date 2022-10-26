@@ -1,7 +1,77 @@
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import styles from './CreateMsg.module.scss';
 
-function CreateMsg(): JSX.Element {
-  return <div>CreateMsg</div>;
+interface CreateMsgProps {
+  problemNum: number;
+  elementNum: number;
+  show: boolean;
+  setShow: boolean | any;
+}
+
+function CreateMsg({
+  problemNum,
+  elementNum,
+  show,
+  setShow,
+}: CreateMsgProps): JSX.Element {
+  // const [show, setShow] = useState(false);
+  // const { problemNum, elementNum, show, setShow } = props;
+
+  const handleClose = () => setShow(false);
+  // const  = () => setShow(true);
+  //   <Button variant="primary" onClick={handleShow}>
+  //     모달체크
+  // </Button>
+  return (
+    <div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>응원글 작성</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="cheerForm.ControlInput1">
+              <Form.Label>닉네임</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="닉네임을 입력해주세요"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="cheerForm.ControlInput1">
+              <Form.Label>비밀번호</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="cheerForm.ControlInput1">
+              <Form.Label>공개 날짜</Form.Label>
+              <Form.Control type="date" placeholder="공개날짜를 입력해주세요" />
+            </Form.Group>
+            <Form.Group
+              className="{styles.textarea}"
+              controlId="cheerFrom.ControlTextarea1"
+            >
+              <Form.Label>서술형 응원</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            응원하기
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 export default CreateMsg;
