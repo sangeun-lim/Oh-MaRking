@@ -1,3 +1,6 @@
+$header: 'hanna_11yrs';
+$body: 'inter_medium';
+
 @mixin box($width, $height) {
   display: block;
   width: #{$width};
