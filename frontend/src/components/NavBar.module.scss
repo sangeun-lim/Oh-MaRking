@@ -19,18 +19,17 @@
 
 .navList > .right {
   display: flex;
-  justify-content: end;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
 }
 
 .nav_font {
   font-family: 'hanna_11yrs';
-  // font-family: 'inter_regular';
   font-size: 20px;
 }
 
 .kakao_login {
-  width: 50%;
-  height: 50%;
+  // width: 50%;
+  // height: 50%;
 }

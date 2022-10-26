@@ -1,3 +1,4 @@
+// import { useState } from 'react';
 import styles from './EventCard.module.scss';
 
 // 칠판 배경 넣어야되고
@@ -5,7 +6,15 @@ import styles from './EventCard.module.scss';
 // 배치 얘기해야되고
 // 사진 누르면 크게 보이게 하고 링크 이동 하게하고
 
+// 이미지를 클릭하면 모달로 이미지 크게 띄워주고 이동링크 밑에 넣어주고
+// 상태는 모달을 누른 상태인지 아닌지 useState로 toggle값 변경
 function EventCard(): JSX.Element {
+  // const [modal, setModal] = useState(false);
+
+  // const imageClick = () => {
+  //   console.log('Click');
+  // };
+
   return (
     <div>
       <div className={styles.container}>
@@ -14,6 +23,7 @@ function EventCard(): JSX.Element {
             className={styles.card_img}
             src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/KakaoTalk_20220827_015314341_24.jpg?alt=media&token=b4cd0204-20fb-4039-9648-9ee662d7b938"
             alt="테스트1"
+            // onClick={() => imageClick()}
           />
         </div>
         <div className={styles.card}>
