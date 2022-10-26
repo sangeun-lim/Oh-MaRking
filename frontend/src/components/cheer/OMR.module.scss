@@ -1,10 +1,20 @@
 @use 'src/style/all';
 @use 'src/style/color';
 
-// 배경색 - 외곽선 스타일
-@mixin fill-stroke($fill, $stroke) {
+// 폰트
+@mixin fill_stroke($fill, $stroke) {
   background-color: #{$fill};
   border: 3px solid #{$stroke};
+}
+
+@mixin header($fill, $stroke) {
+  font-family: all.$header;
+  @include fill_stroke(#{$fill}, #{$stroke});
+}
+
+@mixin body($fill, $stroke) {
+  font-family: all.$body;
+  @include fill_stroke(#{$fill}, #{$stroke});
 }
 
 // OMR 마킹하는 곳
@@ -17,38 +27,68 @@
   padding-bottom: 3px;
 }
 
-// 마킹 안했을 때
-.before_marking {
-  @include omr();
-}
-
-// 마킹 했을 때
-.after_marking {
-  @include omr();
-  background: color.$after_marking;
-}
-
-// 노란 테마를 선택했을 때
-.yellow_sheet {
+// 시험지
+.sheet {
   @include all.box(1388px, 854px);
-  @include fill-stroke(color.$before_marking, color.$line_yellow);
-  .omr_top {
-    @include all.flex(row, flex-end, center);
-  }
+}
+.omr_top {
+  @include all.flex(row, flex-end, center);
 }
 
 .omr_body {
   @include all.flex(row, flex-start, center);
 }
 
-// 좌측 - 정보 구역
+// 시험지 좌측 - 정보 구역
 .info {
   @include all.box(30%, 100%);
   @include all.flex(column, center, center);
+  .section {
+    @include all.flex(row, flex-start, center);
+  }
 }
 
-// 가운데, 우측 - 응원한마디 구역
+// 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
   @include all.box(35%, 100%);
   @include all.flex(row, center, center);
+}
+
+// 마킹
+.before_marking {
+  @include omr();
+}
+
+.after_marking {
+  @include omr();
+  background: color.$after_marking;
+}
+
+/* 색깔별 */
+// 노란색
+.yellow_ver {
+  .header {
+    @include header(color.$bg_yellow, color.$line_yellow);
+  }
+  .body {
+    @include body(color.$before_marking, color.$line_yellow);
+  }
+}
+
+// 하늘색
+.skyblue_ver {
+  .header {
+    @include header(color.$bg_skyblue, color.$line_skyblue);
+  }
+  .body {
+    @include body(color.$before_marking, color.$line_skyblue);
+  }
+}
+
+li {
+  display: block;
+  width: 100%;
+  div {
+    display: inline-block;
+  }
 }
