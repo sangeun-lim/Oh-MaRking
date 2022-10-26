@@ -38,7 +38,9 @@ public class NoteServiceImpl implements NoteService{
     public NoteDto updateNote(NoteDto noteDto) throws Exception {
         Note note = noteRepository.getReferenceById(noteDto.getId());
         // 수정 본문이 공백이 아니면 본문 수정
-        if (noteDto.getContent() != null) note.setContent(noteDto.getContent());
+        if(note.getPwd() == noteDto.getPwd()) {
+            if (noteDto.getContent() != null) note.setContent(noteDto.getContent());
+        }
         // 공개날짜 변경
         Date beforeDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(noteDto.getShow_date()));
         Date showDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(note.getShow_date().toInstant()));
