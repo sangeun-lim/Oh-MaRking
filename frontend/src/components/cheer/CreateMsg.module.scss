@@ -1,9 +1,50 @@
-.textarea{
-    margin-bottom: 3px;
-    resize: none;
+@use 'src/style/all';
+
+
+
+.full_screen {
+  width: 100%
 }
 
-// .msg-modal{
-//     width:80%;
-//     height:30%;
-// }
+span {
+  margin: none;
+}
+.textarea{
+  margin-bottom: 3px;
+  width: 100%;
+  resize: none;
+}
+
+.cheerHeader {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  
+  .vertical_lr {
+    writing-mode: vertical-lr;
+    width: 10px;
+    font-size: 1rem;
+  }
+  // flex-wrap: wrap;
+}
+
+.group {
+  height:100%
+}
+.header {
+  margin-right: 15px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  height: 100%;
+  align-items: center;
+  // align-items: ro;
+  .horization {
+    width: 75px;
+    font-size: 1rem;
+  }
+}
+
+.controlInput {
+  margin-right: 15px;
+}
