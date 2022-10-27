@@ -37,14 +37,14 @@ function CreateMsg({
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="cheerForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="cheerForm.ControlInput2">
               <Form.Label>비밀번호</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="비밀번호를 입력해주세요"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="cheerForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="cheerForm.ControlInput3">
               <Form.Label>공개 날짜</Form.Label>
               <Form.Control type="date" placeholder="공개날짜를 입력해주세요" />
             </Form.Group>
@@ -59,10 +59,10 @@ function CreateMsg({
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
-            {problemNum}
+            {problemNum + 1}
           </Button>
           <Button variant="secondary" onClick={handleClose}>
-            닫기
+            {elementNum + 1}
           </Button>
         </Modal.Footer>
       </Modal>

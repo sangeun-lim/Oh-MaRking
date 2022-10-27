@@ -20,10 +20,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const where = (problemNum: number, elementNum: number) => {
     console.log(problemNum, elementNum);
   };
+  const [problemNumber, setProblemNumber] = useState(0);
+  const [elementNumber, setElementNumber] = useState(0);
+
   const openModal = (problemNum: number, elementNum: number) => {
     setShow(true);
-    const problemNumber = problemNum;
-    const elementNumber = elementNum;
+    setProblemNumber(problemNum);
+    setElementNumber(elementNum);
   };
   return (
     <div>
@@ -40,20 +43,21 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                 >
                   [{elementNum + 1}]
                 </button>
-                      {show && (
-
-                        <CreateMsg
-                          problemNum={problemNumber}
-                          elementNum={elementNumber}
-                          show={show}
-                          setShow={setShow}
-                          />: null)}
               ))}
             </div>
           </li>
         ))}
       </ul>
-
+      <div>
+        {show && (
+          <CreateMsg
+            problemNum={problemNumber}
+            elementNum={elementNumber}
+            show={show}
+            setShow={setShow}
+          />
+        )}
+      </div>
     </div>
   );
 }
