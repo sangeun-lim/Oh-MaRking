@@ -18,9 +18,6 @@ function CreateMsg({
 }: CreateMsgProps): JSX.Element {
   const handleClose = () => setShow(false);
 
-  //   <Button variant="primary" onClick={handleShow}>
-  //     모달체크
-  // </Button>
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
