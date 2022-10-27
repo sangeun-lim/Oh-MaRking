@@ -1,6 +1,11 @@
 @use 'src/style/all';
 @use 'src/style/color';
 
+@mixin witdh_height($width, $height) {
+  width: #{$width};
+  height: #{$height};
+}
+
 // 폰트
 @mixin fill_stroke($fill, $stroke) {
   background-color: #{$fill};
@@ -22,27 +27,37 @@
   @include all.box(29px, 39px);
   @include all.flex(column, center, center);
   @include fill-stroke(color.$before_marking, color.$primary);
+  display: inline-block;
   border-radius: 50px;
   color: color.$primary;
-  padding-bottom: 3px;
+  padding: 5px;
+  margin: 5px;
 }
 
 // 시험지
-.sheet {
+.omr {
   @include all.box(1388px, 854px);
 }
-.omr_top {
+
+.omr_head {
   @include all.flex(row, flex-end, center);
+  height: 60px;
 }
 
 .omr_body {
   @include all.flex(row, flex-start, center);
+  height: 30em;
+}
+
+.omr_footer {
+  height: 20px;
 }
 
 // 시험지 좌측 - 정보 구역
 .info {
+  font-size: 32;
   @include all.box(30%, 100%);
-  @include all.flex(column, center, center);
+  @include all.flex(column, space-between, center);
   .section {
     @include all.flex(row, flex-start, center);
   }
@@ -51,7 +66,28 @@
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
   @include all.box(35%, 100%);
-  @include all.flex(row, center, center);
+  // margin-top: 30px;
+  // margin-t: 30px;
+}
+
+.left {
+  @include witdh_height(70px, 100px);
+  border-radius: 20px 0px 0px 20px;
+  border-right-color: inherit;
+}
+
+.right {
+  @include witdh_height(300px, 100px);
+  border-radius: 0px 20px 20px 0px;
+}
+
+.top {
+  @include witdh_height(370px, 50px);
+  border-radius: 20px 20px 0px 0px;
+}
+.bottom {
+  @include witdh_height(370px, 300px);
+  border-radius: 0px 0px 20px 20px;
 }
 
 // 마킹
@@ -85,10 +121,11 @@
   }
 }
 
-li {
-  display: block;
-  width: 100%;
-  div {
-    display: inline-block;
-  }
+.problem {
+  @include all.flex(row, center, center);
+}
+
+span {
+  display: inline-block;
+  width: 30px;
 }
