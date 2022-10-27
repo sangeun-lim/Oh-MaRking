@@ -1,15 +1,50 @@
+@use 'src/style/all';
+
+
+
+.full_screen {
+  width: 100%
+}
+
+span {
+  margin: none;
+}
 .textarea{
-    margin-bottom: 3px;
-    resize: none;
+  margin-bottom: 3px;
+  width: 100%;
+  resize: none;
 }
 
-.modal-dialog{
-    --bs-modal-width: 70%;
+.cheerHeader {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  
+  .vertical_lr {
+    writing-mode: vertical-lr;
+    width: 10px;
+    font-size: 1rem;
+  }
+  // flex-wrap: wrap;
 }
 
-.modal-content{
-    width: 1000px;
+.group {
+  height:100%
 }
-.test {
-    --bs-modal-width: 70%;
+.header {
+  margin-right: 15px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  height: 100%;
+  align-items: center;
+  // align-items: ro;
+  .horization {
+    width: 75px;
+    font-size: 1rem;
+  }
+}
+
+.controlInput {
+  margin-right: 15px;
 }
