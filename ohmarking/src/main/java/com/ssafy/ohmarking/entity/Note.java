@@ -1,14 +1,12 @@
-package com.ssafy.ohmarking.db.entity;
+package com.ssafy.ohmarking.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.DateTimeException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Table(name = "Note")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

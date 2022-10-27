@@ -2,15 +2,17 @@ package com.ssafy.ohmarking.util;
 
 // Dto <-> Entity Converter
 
-import com.ssafy.ohmarking.db.entity.Note;
+import com.ssafy.ohmarking.entity.Note;
 import com.ssafy.ohmarking.dto.NoteDto;
 import org.modelmapper.Conditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class DEConverter {
     private ModelMapper modelMapper;
     @Autowired

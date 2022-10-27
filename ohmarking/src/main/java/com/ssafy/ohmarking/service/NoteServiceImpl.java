@@ -1,7 +1,7 @@
 package com.ssafy.ohmarking.service;
 
-import com.ssafy.ohmarking.db.entity.Note;
-import com.ssafy.ohmarking.db.repository.NoteRepository;
+import com.ssafy.ohmarking.entity.Note;
+import com.ssafy.ohmarking.repository.NoteRepository;
 import com.ssafy.ohmarking.dto.NoteDto;
 import com.ssafy.ohmarking.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service
@@ -37,8 +35,9 @@ public class NoteServiceImpl implements NoteService{
     @Override
     public NoteDto updateNote(NoteDto noteDto) throws Exception {
         Note note = noteRepository.getReferenceById(noteDto.getId());
-        // 수정 본문이 공백이 아니면 본문 수정
+        // DB 에 저장된 비밀번호가 현재 입력하는 비밀번호와 일치하면
         if(note.getPwd() == noteDto.getPwd()) {
+            // 수정 본문이 공백이 아니면 본문 수정
             if (noteDto.getContent() != null) note.setContent(noteDto.getContent());
         }
         // 공개날짜 변경

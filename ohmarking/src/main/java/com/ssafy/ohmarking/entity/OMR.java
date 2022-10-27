@@ -1,4 +1,4 @@
-package com.ssafy.ohmarking.db.entity;
+package com.ssafy.ohmarking.entity;
 
 import lombok.*;
 
@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Table(name = "OMR")
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder

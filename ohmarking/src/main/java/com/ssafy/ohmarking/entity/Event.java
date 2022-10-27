@@ -1,4 +1,4 @@
-package com.ssafy.ohmarking.db.entity;
+package com.ssafy.ohmarking.entity;
 
 import lombok.*;
 
@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Getter
+@Table(name = "Event")
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
