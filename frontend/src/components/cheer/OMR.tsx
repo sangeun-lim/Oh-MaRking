@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { getKey, temp, randomOmr } from '../../utils/utils';
+import { useState } from 'react';
+import { getKey, randomOmr } from '../../utils/utils';
 import Search from './Search';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
@@ -17,9 +17,6 @@ interface InfoProps {
 function Cheer({ msg, start }: CheerProps): JSX.Element {
   // OMR 문항 좌표 출력 함수
   const [show, setShow] = useState(false);
-  const where = (problemNum: number, elementNum: number) => {
-    console.log(problemNum, elementNum);
-  };
   const [problemNumber, setProblemNumber] = useState(0);
   const [elementNumber, setElementNumber] = useState(0);
 
@@ -30,24 +27,25 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   };
   return (
     <div>
-      <ul>
-        {msg.map((problemList, problemNum) => (
-          <li key={getKey()}>
-            <strong className={styles.header}>{problemNum + start + 1}</strong>
-            <div className={styles.body}>
-              {problemList.map((elementList, elementNum) => (
-                <button
-                  key={getKey()}
-                  type="button"
-                  onClick={() => openModal(problemNum, elementNum)}
-                >
-                  [{elementNum + 1}]
-                </button>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {msg.map((problemList, problemNum) => (
+        <div className={styles.problem} key={getKey()}>
+          <div>{problemNum + start + 1}</div>
+          <div>
+            {problemList.map((elementList, elementNum) => (
+              <button
+                className={styles.before_marking}
+                key={getKey()}
+                type="button"
+                onClick={() =>
+                  openModal(problemNum + start + 1, elementNum + 1)
+                }
+              >
+                {elementNum + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
       <div>
         {show && (
           <CreateMsg
@@ -64,9 +62,9 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
 
 function Info({ title, content }: InfoProps): JSX.Element {
   return (
-    <div className={styles.sections}>
-      <div className={(styles.title, styles.header)}>{title}</div>
-      <div className={(styles.content, styles.body)}>{content}</div>
+    <div className={styles.section}>
+      <div className={`${styles.header} ${styles.left}`}>{title}</div>
+      <div className={` ${styles.body} ${styles.right}`}>{content}</div>
     </div>
   );
 }
@@ -75,9 +73,9 @@ function OMR(): JSX.Element {
   const color = ['skyblue_ver', 'yellow_ver'];
   return (
     <div className={styles[color[0]]}>
-      <div className={`${styles.sheet} ${styles.body}`}>
+      <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
-        <div className={styles.omr_top}>
+        <div className={styles.omr_head}>
           <div className={styles.header}>새 페이지 작성</div>
           <div className={styles.header}>
             <Search />
@@ -93,21 +91,22 @@ function OMR(): JSX.Element {
               content={'안녕하세요. 저는 노은영입니다.'}
             />
             <div>
-              <div className={(styles.title, styles.header)}>주의사항</div>
-              <div className={styles.body}>
+              <div className={`${styles.header} ${styles.top}`}>주의사항</div>
+              <div className={`${styles.body} ${styles.bottom}`}>
                 응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요
               </div>
             </div>
             <Info title={'감독 확인란'} content={''} />
           </div>
           {/* 그 외:응원구역 */}
-          <div className={styles.cheer}>
-            <Cheer msg={temp.slice(0, 10)} start={0} />
+          <div className={`${styles.cheer} ${styles.body}`}>
+            <Cheer msg={randomOmr().slice(0, 10)} start={0} />
           </div>
-          <div className={styles.cheer}>
-            <Cheer msg={temp.slice(10, 20)} start={10} />
+          <div className={`${styles.cheer} ${styles.body}`}>
+            <Cheer msg={randomOmr().slice(10, 20)} start={10} />
           </div>
         </div>
+        <div className={styles.omr_footer} />
       </div>
     </div>
   );
