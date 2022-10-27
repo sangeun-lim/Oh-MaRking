@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +6,7 @@ import styles from './CreateMsg.module.scss';
 interface CreateMsgProps {
   problemNum: number;
   elementNum: number;
-  show: boolean;
+  show: any;
   setShow: boolean | any;
 }
 
@@ -17,11 +16,8 @@ function CreateMsg({
   show,
   setShow,
 }: CreateMsgProps): JSX.Element {
-  // const [show, setShow] = useState(false);
-  // const { problemNum, elementNum, show, setShow } = props;
-
   const handleClose = () => setShow(false);
-  // const  = () => setShow(true);
+
   //   <Button variant="primary" onClick={handleShow}>
   //     모달체크
   // </Button>
@@ -63,7 +59,7 @@ function CreateMsg({
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
-            응원하기
+            {problemNum}
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             닫기

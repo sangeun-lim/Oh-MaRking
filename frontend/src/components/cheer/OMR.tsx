@@ -1,5 +1,7 @@
+import React, { useState } from 'react';
 import { getKey, temp, randomOmr } from '../../utils/utils';
 import Search from './Search';
+import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
 
 interface CheerProps {
@@ -14,29 +16,45 @@ interface InfoProps {
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
   // OMR 문항 좌표 출력 함수
+  const [show, setShow] = useState(false);
   const where = (problemNum: number, elementNum: number) => {
     console.log(problemNum, elementNum);
   };
-
+  const openModal = (problemNum: number, elementNum: number) => {
+    setShow(true);
+    const problemNumber = problemNum;
+    const elementNumber = elementNum;
+  };
   return (
-    <ul>
-      {msg.map((problemList, problemNum) => (
-        <li key={getKey()}>
-          <strong className={styles.header}>{problemNum + start + 1}</strong>
-          <div className={styles.body}>
-            {problemList.map((elementList, elementNum) => (
-              <button
-                key={getKey()}
-                type="button"
-                onClick={() => where(problemNum + start, elementNum)}
-              >
-                [{elementNum + 1}]
-              </button>
-            ))}
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul>
+        {msg.map((problemList, problemNum) => (
+          <li key={getKey()}>
+            <strong className={styles.header}>{problemNum + start + 1}</strong>
+            <div className={styles.body}>
+              {problemList.map((elementList, elementNum) => (
+                <button
+                  key={getKey()}
+                  type="button"
+                  onClick={() => openModal(problemNum, elementNum)}
+                >
+                  [{elementNum + 1}]
+                </button>
+                      {show && (
+
+                        <CreateMsg
+                          problemNum={problemNumber}
+                          elementNum={elementNumber}
+                          show={show}
+                          setShow={setShow}
+                          />: null)}
+              ))}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+    </div>
   );
 }
 
