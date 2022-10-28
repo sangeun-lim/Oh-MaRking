@@ -117,10 +117,10 @@ function CreateMsg({
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
-            {problemNum + 1}
+            {problemNum}
           </Button>
           <Button variant="secondary" onClick={handleClose}>
-            {elementNum + 1}
+            {elementNum}
           </Button>
         </Modal.Footer>
       </Modal>
