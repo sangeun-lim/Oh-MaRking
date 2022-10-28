@@ -1,12 +1,15 @@
 .modal-dialog {
-    --bs-modal-width: 70%;
-    /* // width:70%; */
+  --bs-modal-width: 70%;
+  /* // width:70%; */
 }
 
 span > .form-label {
-    margin-bottom: 0px;
-    margin-right: 5px;
+  margin-bottom: 0px;
+  margin-right: 5px;
 }
 // .cheer-header {
 //     display: flex;
 // }
+.form-control {
+  font-size: 100px;
+}

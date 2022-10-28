@@ -27,8 +27,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     setElementNumber(elementNum);
   };
   return (
-    <div className={`${styles.section} ${styles.body}`}>
-      <div className={styles.num}> </div>
+    <div className={`${styles.section} ${styles.body} test`}>
+      {/* <div className={styles.num}> </div> */}
       {msg.map((problemList, problemNum) => (
         <div className={styles.problem} key={getKey()}>
           <span>{problemNum + start + 1}</span>

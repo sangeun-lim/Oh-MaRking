@@ -67,17 +67,24 @@
 .cheer {
   @include all.box(35%, 100%);
   .section {
-    @include witdh_height(80%, 100%);
+    @include witdh_height(80%, inherit);
     margin: auto;
     border-radius: 20px;
     position: relative;
+
+    .problem:nth-child(1) > span {
+      border-radius: 20px 0px 0px 0px;
+    }
+
+    .problem:nth-child(10) > span {
+      border-radius: 0px 0px 0px 20px;
+    }
   }
 }
 
 .left {
   @include witdh_height(70px, 100px);
   border-radius: 20px 0px 0px 20px;
-  border-right-color: inherit;
 }
 
 .right {
@@ -106,18 +113,18 @@
 
 .problem {
   @include all.flex(row, space-around, center);
-  // position: relative;
+  position: relative;
   // > div {
-  // width: 10px;
+  height: 10%;
   // }
   > span {
-    display: block;
     width: 40px;
     height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     text-align: center;
-    background-color: color.$bg_skyblue;
-    border-right-color: color.$line_skyblue;
-    // background-color: color.$bg_skyblue;
   }
 }
 
@@ -140,10 +147,16 @@
   .body {
     @include body(color.$before_marking, color.$line_skyblue);
   }
-  .num {
-    border-radius: 20px 0px 0px 20px;
-    position: absolute;
+  span {
     background-color: color.$bg_skyblue;
-    @include witdh_height(70px, inherit);
+    border-right-color: color.$line_skyblue;
+    // border-radius: 20px 0px 0px 20px;
   }
+
+  // .num {
+  // border-radius: 20px 0px 0px 20px;
+  // position: absolute;
+  // background-color: color.$bg_skyblue;
+  // @include witdh_height(70px, inherit);
+  // }
 }
