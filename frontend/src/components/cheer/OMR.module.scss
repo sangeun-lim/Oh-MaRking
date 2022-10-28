@@ -6,19 +6,21 @@
   height: #{$height};
 }
 
-// 폰트
 @mixin fill_stroke($fill, $stroke) {
   background-color: #{$fill};
   border: 3px solid #{$stroke};
+  border-collapse: collapse;
 }
 
 @mixin header($fill, $stroke) {
-  font-family: all.$OMR_header;
+  // font-family: all.$OMR_header;
+  font-size: all.$OMR_header_font_size;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
 @mixin body($fill, $stroke) {
-  font-family: all.$OMR_body;
+  // font-family: all.$OMR_body;
+  font-size: all.$OMR_body_font_size;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
@@ -34,23 +36,62 @@
   margin: 10px;
 }
 
+* {
+  text-align: center;
+}
+
+.left {
+  @include witdh_height(100px, 100px);
+  border-radius: all.$IF_radius 0px 0px all.$IF_radius;
+}
+
+.right {
+  @include witdh_height(270px, 100px);
+  border-radius: 0px all.$IF_radius all.$IF_radius 0px;
+}
+
+.top {
+  @include witdh_height(370px, 50px);
+  border-radius: all.$IF_radius all.$IF_radius 0px 0px;
+}
+
+.bottom {
+  @include witdh_height(370px, 300px);
+  border-radius: 0px 0px all.$IF_radius all.$IF_radius;
+}
+
 // 시험지
 .omr {
   @include all.box(1388px, 854px);
-}
+  font-family: all.$OMR_header;
+  // @include all.box(70%, 60%);
+  // font-family: all.$OMR_header;
 
-.omr_head {
-  @include all.flex(row, flex-end, center);
-  height: 60px;
-}
+  .omr_head {
+    @include all.flex(row, flex-end, center);
+    height: 60px;
+    .header {
+      border-radius: all.$IF_radius;
+      font-size: 24px;
+      min-width: 100px;
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-right: 5px;
+    }
+  }
+  .omr_body {
+    @include all.flex(row, flex-start, center);
+    height: 30em;
+  }
 
-.omr_body {
-  @include all.flex(row, flex-start, center);
-  height: 30em;
-}
+  .omr_body .header {
+    font-family: all.$OMR_header;
+    font-weight: bold;
+  }
 
-.omr_footer {
-  height: 20px;
+  .omr_footer {
+    height: 20px;
+  }
 }
 
 // 시험지 좌측 - 정보 구역
@@ -61,44 +102,49 @@
   .section {
     @include all.flex(row, flex-start, center);
   }
+  .page {
+    width: 370px;
+    font-family: all.$OMR_header;
+    text-align: start;
+    > span:nth-child(1) {
+      display: inline-block;
+      vertical-align: text-bottom;
+      font-size: 40px;
+      font-weight: bold;
+      width: 70px;
+      border-radius: 50%;
+      padding-top: 7px;
+    }
+    > span:last-child {
+      display: inline-block;
+      margin-left: 3px;
+      font-size: 32px;
+    }
+  }
 }
 
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
   @include all.box(35%, 100%);
+  font-family: all.$OMR_body;
   .section {
     @include witdh_height(80%, inherit);
     margin: auto;
-    border-radius: 20px;
+    border-radius: all.$OMR_radius;
     position: relative;
-
-    .problem:nth-child(1) > span {
-      border-radius: 20px 0px 0px 0px;
+    border-collapse: collapse;
+    > .top {
+      @include all.flex(row, space-around, center);
+      width: 100%;
+      border-radius: all.$OMR_small_radius all.$OMR_small_radius 0px 0px;
     }
-
-    .problem:nth-child(10) > span {
-      border-radius: 0px 0px 0px 20px;
+    .problem:nth-child(1) > span {
+      border-radius: all.$OMR_small_radius 0px 0px 0px;
+    }
+    .problem:nth-child(11) > span {
+      border-radius: 0px 0px 0px all.$OMR_small_radius;
     }
   }
-}
-
-.left {
-  @include witdh_height(70px, 100px);
-  border-radius: 20px 0px 0px 20px;
-}
-
-.right {
-  @include witdh_height(300px, 100px);
-  border-radius: 0px 20px 20px 0px;
-}
-
-.top {
-  @include witdh_height(370px, 50px);
-  border-radius: 20px 20px 0px 0px;
-}
-.bottom {
-  @include witdh_height(370px, 300px);
-  border-radius: 0px 0px 20px 20px;
 }
 
 // 마킹
@@ -114,12 +160,11 @@
 .problem {
   @include all.flex(row, space-around, center);
   position: relative;
-  // > div {
-  height: 10%;
-  // }
+  height: 9.4%;
   > span {
-    width: 40px;
+    width: 50px;
     height: 100%;
+    line-height: 74px;
     display: block;
     position: absolute;
     top: 0;
@@ -144,10 +189,19 @@
   .header {
     @include header(color.$bg_skyblue, color.$line_skyblue);
   }
+  .cheer .header {
+    border: none;
+  }
   .body {
     @include body(color.$before_marking, color.$line_skyblue);
+    .right {
+      border-left-style: hidden;
+    }
+    .bottom {
+      border-top-style: hidden;
+    }
   }
-  span {
+  .cheer span {
     background-color: color.$bg_skyblue;
     border-right-color: color.$line_skyblue;
     // border-radius: 20px 0px 0px 20px;

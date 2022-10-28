@@ -1,5 +1,15 @@
+// OMR 둥글게 관련 변수
+$OMR_radius: 45px;
+$OMR_small_radius: 42px;
+$IF_radius: 30px;
+
+// OMR 글씨체
 $OMR_header: 'hanna_11yrs';
 $OMR_body: 'inter_medium';
+
+// OMR 글씨 사이즈
+$OMR_header_font_size: 32px;
+$OMR_body_font_size: 32px;
 
 @mixin box($width, $height) {
   display: block;
