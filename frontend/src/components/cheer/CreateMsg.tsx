@@ -81,15 +81,13 @@ function CreateMsg({
                     </Form.Label>
                   </span>
                   <span>
-                    <Form.Control
-                      type="date"
-                      placeholder="공개날짜를 입력해주세요"
-                      className={styles.controlInput}
-                    />
+                    <Form.Control type="date" />
                   </span>
                 </div>
               </Form.Group>
             </div>
+            <br />
+            <br />
             <div className={styles.cheerHeader}>
               <Form.Group
                 className={styles.full_screen}
