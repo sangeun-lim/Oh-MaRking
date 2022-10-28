@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getKey, randomOmr } from '../../utils/utils';
+// import { style } from '@mui/system';
 import Search from './Search';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
@@ -26,10 +27,11 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     setElementNumber(elementNum);
   };
   return (
-    <div>
+    <div className={`${styles.section} ${styles.body}`}>
+      <div className={styles.num}> </div>
       {msg.map((problemList, problemNum) => (
         <div className={styles.problem} key={getKey()}>
-          <div>{problemNum + start + 1}</div>
+          <span>{problemNum + start + 1}</span>
           <div>
             {problemList.map((elementList, elementNum) => (
               <button
@@ -98,11 +100,11 @@ function OMR(): JSX.Element {
             </div>
             <Info title={'감독 확인란'} content={''} />
           </div>
-          {/* 그 외:응원구역 */}
-          <div className={`${styles.cheer} ${styles.body}`}>
+          {/* 그 외: 응원구역 */}
+          <div className={`${styles.cheer}`}>
             <Cheer msg={randomOmr().slice(0, 10)} start={0} />
           </div>
-          <div className={`${styles.cheer} ${styles.body}`}>
+          <div className={`${styles.cheer}`}>
             <Cheer msg={randomOmr().slice(10, 20)} start={10} />
           </div>
         </div>
