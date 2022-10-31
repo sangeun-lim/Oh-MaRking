@@ -22,7 +22,6 @@ function CreateMsg({
   setShow,
 }: CreateMsgProps): JSX.Element {
   const handleClose = () => setShow(false);
-  const [tab, setTab] = useState<string>('curr');
   // 비밀번호 양식
   // const [pwCheck, setPwCheck] = useState<boolean>(false);
   // // 비밀번호 중복 체크
@@ -43,10 +42,12 @@ function CreateMsg({
         <Modal.Body>
           <form>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: '100%', padding: '0px' }}>
+              <div style={{ margin: 'auto', padding: '0px' }}>
+                {/* <Container> */}
                 <Row style={{ margin: '0px' }}>
                   <div className={styles.group}>
                     <Col>
+                      {/* <Container> */}
                       <Row>
                         <Col>
                           <label
@@ -67,8 +68,10 @@ function CreateMsg({
                           </div>
                         </Col>
                       </Row>
+                      {/* </Container> */}
                     </Col>
                     <Col>
+                      {/* <Container> */}
                       <Row>
                         <Col>
                           <label
@@ -84,13 +87,17 @@ function CreateMsg({
                           </div>
                         </Col>
                       </Row>
+                      {/* </Container> */}
                     </Col>
                   </div>
                 </Row>
+                {/* </Container> */}
 
+                {/* <Container> */}
                 <Row style={{ margin: '0px' }}>
                   <div className={styles.group}>
                     <Col>
+                      {/* <Container> */}
                       <Row>
                         <Col>
                           <label
@@ -110,8 +117,10 @@ function CreateMsg({
                           </div>
                         </Col>
                       </Row>
+                      {/* </Container> */}
                     </Col>
                     <Col>
+                      {/* <Container> */}
                       <Row>
                         <Col>
                           <label
@@ -125,56 +134,42 @@ function CreateMsg({
                           <div>
                             <input
                               id="password-check"
-                              type="password"
+                              type="password-check"
                               placeholder="동일한 비밀번호를 입력하세요."
                             />
                           </div>
                         </Col>
                       </Row>
+                      {/* </Container> */}
                     </Col>
                   </div>
                 </Row>
+                {/* </Container> */}
               </div>
             </div>
             <br />
-            <div className={styles.cheer_box}>
-              <div className={styles.cheerHeader}>
-                <label className={styles.vertical_lr} htmlFor="cheer-text">
-                  서술형 응원
-                </label>
-                <div>
-                  <textarea
-                    placeholder="응원글을 작성해주세요."
-                    name="cheer-text"
-                    id="cheer-text"
-                    cols={30}
-                    rows={10}
-                  />
-                  <ul>
-                    <li>
-                      <button
-                        className={styles.btn_hover_border_3}
-                        type="button"
-                        onClick={handleClose}
-                      >
-                        응원하기
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className={styles.btn_hover_border_3}
-                        type="button"
-                        onClick={handleClose}
-                      >
-                        응원취소
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            <div className={styles.cheerHeader}>
+              <label className={styles.vertical_lr} htmlFor="cheer-text">
+                서술형 응원
+              </label>
+              <textarea
+                placeholder="응원글을 작성해주세요."
+                name="cheer-text"
+                id="cheer-text"
+                cols={30}
+                rows={10}
+              />
             </div>
           </form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            {problemNum}
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            {elementNum}
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
