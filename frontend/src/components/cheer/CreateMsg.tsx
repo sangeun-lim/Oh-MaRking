@@ -1,8 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-// import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import styles from './CreateMsg.module.scss';
@@ -15,25 +13,63 @@ interface CreateMsgProps {
   setShow: boolean | any;
 }
 
+interface NoteData {
+  nickname: string;
+  date: string;
+  password1: string;
+  password2: string;
+  content: string;
+}
+
+const NoteDefaultData = {
+  nickname: '',
+  date: '',
+  password1: '',
+  password2: '',
+  content: '',
+};
+
 function CreateMsg({
   problemNum,
   elementNum,
   show,
   setShow,
 }: CreateMsgProps): JSX.Element {
+  const navigate = useNavigate();
   const handleClose = () => setShow(false);
-  const [tab, setTab] = useState<string>('curr');
-  // 비밀번호 양식
-  // const [pwCheck, setPwCheck] = useState<boolean>(false);
-  // // 비밀번호 중복 체크
-  // const [pwCommomCheck, setPwCommonCheck] = useState<boolean>(false);
 
+  // 노트에 넣어야되는 데이터
+  const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
+  // 비밀번호 일치 체크
+  const [pass, setPass] = useState<boolean>(false);
   // const checkValid = () => setPwCheck(true);
   // const checkCommon = () => setPwCommonCheck(true);
-
   // const passwordValid = function () {};
-
   // const passwordCheckValid = function () {};
+
+  // 노트에 쓰는 모든 값들이 입력하면서 바뀔때마다 값 바꿔주는 함수
+  const onChange = (e: any) => {
+    const { name, value } = e.target;
+
+    setNewNote((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  // 취소버튼 눌렀을 때
+  const onCancelClick = () => {
+    // 작성하려던 유저의 페이지로 이동
+    navigate('/cheer/asf');
+  };
+
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    // 조건주고 axios 받고 등등의 제출할때 필요한 처리해주는 함수
+  };
+
   return (
     <div>
       <Modal show={show} onHide={handleClose} className={styles.test}>
