@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import Container from 'react-bootstrap/Container';
 // import Button from 'react-bootstrap/Button';
 // import Form from 'react-bootstrap/Form';
 import styles from './EventCard.module.scss';
@@ -29,17 +30,42 @@ function EventCard(): JSX.Element {
 
   return (
     <div>
-      <div className={styles.container}>
-        <div className={styles.card}>
-          <button type="button" onClick={imageClick}>
-            <img
-              className={styles.card_img}
-              src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/KakaoTalk_20220827_015314341_24.jpg?alt=media&token=b4cd0204-20fb-4039-9648-9ee662d7b938"
-              alt="테스트1"
-            />
-          </button>
+      <Container className={styles.background}>
+        {/* <div className={styles.container}> */}
+        <div className={styles.card_flex}>
+          <div className={styles.card}>
+            <div className={`${styles.img_tape} ${styles.img_tape_1}`}>
+              <button
+                className={styles.card_shadow}
+                type="button"
+                onClick={imageClick}
+              >
+                <img
+                  className={styles.card_img}
+                  src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/KakaoTalk_20220827_015314341_24.jpg?alt=media&token=b4cd0204-20fb-4039-9648-9ee662d7b938"
+                  alt="테스트1"
+                />
+              </button>
+            </div>
+          </div>
+          <div className={styles.card}>
+            <div className={`${styles.img_tape} ${styles.img_tape_1}`}>
+              <button
+                className={styles.card_shadow}
+                type="button"
+                onClick={imageClick}
+              >
+                <img
+                  className={styles.card_img}
+                  src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/KakaoTalk_20220827_015314341_24.jpg?alt=media&token=b4cd0204-20fb-4039-9648-9ee662d7b938"
+                  alt="테스트1"
+                />
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </Container>
+      {/* </div> */}
       <Modal show={open} onHide={imageClick}>
         {/* <Modal.Header closeButton>
           <Modal.Title>이벤트 페이지</Modal.Title>
