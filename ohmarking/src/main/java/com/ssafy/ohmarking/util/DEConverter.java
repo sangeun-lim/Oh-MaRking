@@ -2,8 +2,10 @@ package com.ssafy.ohmarking.util;
 
 // Dto <-> Entity Converter
 
+import com.ssafy.ohmarking.dto.OMRDto;
 import com.ssafy.ohmarking.entity.Note;
 import com.ssafy.ohmarking.dto.NoteDto;
+import com.ssafy.ohmarking.entity.OMR;
 import org.modelmapper.Conditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
@@ -29,11 +31,13 @@ public class DEConverter {
                 .collect(Collectors.toList());
     }
 
-    public NoteDto toNoteDto(Note note) {
-        return modelMapper.map(note, NoteDto.class);
-    }
+    /** Note 관련 **/
+    public NoteDto toNoteDto(Note note) { return modelMapper.map(note, NoteDto.class); }
 
-    public Note toNoteEntity(NoteDto noteDto) {
-        return modelMapper.map(noteDto, Note.class);
-    }
+    public Note toNoteEntity(NoteDto noteDto) { return modelMapper.map(noteDto, Note.class); }
+
+    /** OMR 관련 **/
+    public OMRDto toOMRDto(OMR omr) { return modelMapper.map(omr, OMRDto.class);}
+    public OMR toOMREntity(OMRDto omrDto) { return modelMapper.map(omrDto, OMR.class); }
+
 }

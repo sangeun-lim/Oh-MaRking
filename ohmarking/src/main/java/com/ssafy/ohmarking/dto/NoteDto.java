@@ -15,7 +15,7 @@ import java.time.Instant;
 @ApiModel(value = "Note : 응원메시지", description = "응원메시지의 상세정보를 나타낸다.")
 public class NoteDto implements Serializable {
     @ApiModelProperty(value = "응원글 id")
-    private Long id;
+    private long id;
     @ApiModelProperty(value = "응원글 작성자")
     private String nickname;
     @ApiModelProperty(value = "응원글 내용")
@@ -27,8 +27,8 @@ public class NoteDto implements Serializable {
     @ApiModelProperty(value = "응원글 공개 지정 날짜")
     private Instant show_date;
     @ApiModelProperty(value = "해당 응원글 문항번호")
-    private Integer problem_num;
+    private int problem_num;
     @ApiModelProperty(value = "해당 응원글 체크번호")
-    private Integer check_num;
+    private int check_num;
 
 }

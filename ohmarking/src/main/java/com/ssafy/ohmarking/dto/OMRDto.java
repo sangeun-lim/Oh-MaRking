@@ -12,7 +12,24 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "OMR : Note 보드", description = "OMR의 상세정보를 나타낸다")
 public class OMRDto {
     @ApiModelProperty(value = "OMR id")
-    private Long id;
+    private long id;
+    @ApiModelProperty(value = "OMR 소유자 id")
+    private long userId;
     @ApiModelProperty(value = "OMR 페이지 수")
-    private Integer page_num;
+    private int pageNum;
+    @ApiModelProperty(value = "OMR 테마색")
+    private int color;
+
+    // OMR 등록 반환 DTO
+    public OMRDto(long userId, int pageNum, int color) {
+        this.userId = userId;
+        this.pageNum = pageNum;
+        this.color = color;
+    }
+
+    // OMR 수정 반환 DTO
+    public OMRDto(int pageNum, int color) {
+        this.pageNum = pageNum;
+        this.color = color;
+    }
 }

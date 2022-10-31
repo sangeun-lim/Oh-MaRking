@@ -18,14 +18,19 @@ public class OMR {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+    @Column(name = "fkUserId", nullable = false)
+    private Long fkUserId;
+    **/
+
+    @Column(name = "pageNum", nullable = false)
+    private Integer pageNum;
+
     @Column(nullable = false)
-    private Integer page_num;
+    private Integer color;
 
     @Builder.Default
     @OneToMany(mappedBy = "omr", cascade = CascadeType.ALL)
     private List<Note> noteList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "fk_user_id")
-    private User user;
 }
