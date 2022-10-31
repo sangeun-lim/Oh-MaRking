@@ -105,11 +105,14 @@ const OMRApi = {
   },
 
   password: {
-    checkPw: async (formData: CheckPw) => {
+    checkPw: async (note_id: number, pwd: string) => {
       const response = await axios({
         url: Url.password.checkPW(),
         method: 'post',
-        data: formData,
+        data: {
+          note_id: note_id,
+          pwd: pwd,
+        },
       });
       return response;
     },

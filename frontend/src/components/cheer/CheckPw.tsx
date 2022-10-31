@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import api from '../../api/OMRApi';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -9,6 +11,27 @@ interface CheckPwProps {
 }
 
 function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
+  // 해당하는 noteId를 자동으로 가져오게해야함
+  const noteId = 0; //how?
+
+  const [pw, setPw] = useState<string>('');
+  const [pass, setPass] = useState<boolean>(false);
+
+  const onChange = (e: any) => {
+    setPw(e.target.value);
+  };
+
+  useEffect(() => {}, [pw]);
+
+  const checkPw = async () => {
+    const response = await api.password.checkPw(noteId, pw);
+    if (response.status === 200) {
+      alert('비밀번호가 일치합니다.');
+    } else {
+      alert('비밀번호가 일치하지 않습니다.');
+    }
+  };
+
   const handleClose = () => setShow(false);
   return (
     <div>
@@ -22,6 +45,7 @@ function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
               <Form.Label>비밀번호</Form.Label>
               <Form.Control
                 type="password"
+                onChange={onChange}
                 placeholder="비밀번호를 입력해주세요"
               />
             </Form.Group>

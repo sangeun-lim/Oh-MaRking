@@ -19,10 +19,10 @@ export interface ChangeColor {
   color: number;
 }
 
-export interface CheckPw {
-  note_id: number;
-  pwd: string;
-}
+// export interface CheckPw {
+//   note_id: number;
+//   pwd: string;
+// }
 
 export interface NewNoteData {
   omr_id: string;
