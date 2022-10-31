@@ -1,13 +1,17 @@
 // import React, { useState } from 'react';
 
+import Container from 'react-bootstrap/Container';
 import styles from './CheerPage.module.scss';
 import OMR from '../components/cheer/OMR';
 
 function CheerPage(): JSX.Element {
   return (
-    <div className={styles.container}>
+    <Container className={styles.screen_container}>
       <OMR />
-    </div>
+    </Container>
+    // <div className={styles.container}>
+    //   <OMR />
+    // </div>
   );
 }
 
