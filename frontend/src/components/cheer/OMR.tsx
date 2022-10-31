@@ -77,6 +77,16 @@ function Info({ title, content }: InfoProps): JSX.Element {
   );
 }
 
+function Code(): JSX.Element {
+  return (
+    <div className={styles.code}>
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
+  );
+}
 function OMR(): JSX.Element {
   const color = ['skyblue_ver', 'yellow_ver'];
   const pageNum = 1;
@@ -84,6 +94,7 @@ function OMR(): JSX.Element {
     <div className={styles[color[0]]}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
+        <Code />
         <div className={styles.omr_head}>
           <div className={styles.header}>새 페이지 작성</div>
           <div className={styles.header}>
@@ -101,7 +112,7 @@ function OMR(): JSX.Element {
 
             <Info title={'이름'} content={'누구게요'} />
             <Info
-              title={'필적  확인란'}
+              title={'필적\n확인란'}
               content={'안녕하세요. 저는 김동입니다.'}
             />
             <div>
@@ -110,7 +121,7 @@ function OMR(): JSX.Element {
                 응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요
               </div>
             </div>
-            <Info title={'감독  확인란'} content={''} />
+            <Info title={'감독\n확인란'} content={''} />
           </div>
           {/* 그 외: 응원구역 */}
           <div className={`${styles.cheer}`}>
@@ -121,6 +132,7 @@ function OMR(): JSX.Element {
           </div>
         </div>
         <div className={styles.omr_footer} />
+        <Code />
       </div>
     </div>
   );

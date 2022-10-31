@@ -43,6 +43,8 @@
 .left {
   @include witdh_height(100px, 100px);
   border-radius: all.$IF_radius 0px 0px all.$IF_radius;
+  line-height: normal;
+  @include all.flex(column, center, center);
 }
 
 .right {
@@ -60,12 +62,34 @@
   border-radius: 0px 0px all.$IF_radius all.$IF_radius;
 }
 
+@mixin code() {
+  @include witdh_height(10px, 30px);
+  display: inline-block;
+  background-color: black;
+  margin-right: 7px;
+}
+
 // 시험지
 .omr {
   @include all.box(1388px, 854px);
   font-family: all.$OMR_header;
-  // @include all.box(70%, 60%);
-  // font-family: all.$OMR_header;
+  white-space: pre-line;
+  position: relative;
+
+  .code:first-child {
+    position: absolute;
+    left: 20px;
+    span {
+      @include code;
+    }
+    .code:last-child {
+      position: absolute;
+
+      span {
+        @include code;
+      }
+    }
+  }
 
   .omr_head {
     @include all.flex(row, flex-end, center);
