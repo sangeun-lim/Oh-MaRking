@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { NoteData } from 'utils/Interface';
+import { NoteDefaultData } from 'utils/DefaultData';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,22 +14,6 @@ interface CreateMsgProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-interface NoteData {
-  nickname: string;
-  date: string;
-  password1: string;
-  password2: string;
-  content: string;
-}
-
-const NoteDefaultData = {
-  nickname: '',
-  date: '',
-  password1: '',
-  password2: '',
-  content: '',
-};
 
 function CreateMsg({
   problemNum,

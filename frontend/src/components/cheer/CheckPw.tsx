@@ -27,6 +27,7 @@ function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
     const response = await api.password.checkPw(noteId, pw);
     if (response.status === 200) {
       alert('비밀번호가 일치합니다.');
+      setPass(true);
     } else {
       alert('비밀번호가 일치하지 않습니다.');
     }

@@ -1,17 +1,56 @@
-import react, { useState } from 'react';
+import react, { useEffect, useState } from 'react';
+import { EventList } from 'utils/Interface';
 import Container from 'react-bootstrap/Container';
 import styles from './EventPage.module.scss';
 import EventCardComponent from '../components/event/EventCardComponent';
+import EventApi from 'api/EventApi';
 
 function EventPage(): JSX.Element {
+  const [eventList, setEventList] = useState<EventList[]>([]);
+
+  const callEvent = async () => {
+    const response = await EventApi.event.readAll();
+    if (response.status === 200) {
+      setEventList(response.data);
+    } else {
+      alert('이벤트 정보를 불러오지 못했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    callEvent();
+  }, []);
+
   const imageUrl =
     'https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/KakaoTalk_20220827_015314341_24.jpg?alt=media&token=b4cd0204-20fb-4039-9648-9ee662d7b938';
   const imageAlt = '사진입니다';
   const [open, setOpen] = useState(false);
+
   return (
     <div>
+      {/* 밑에는 api로 받아와서 나타나게 할 코드 제대로 동작하는지는 모르겠네??*/}
+      {/* <Container className={styles.background}>
+        <div className={styles.card_flex}>
+          <div>
+            {eventList.map((item, i) => {
+              return (
+                <div>
+                  <EventCardComponent
+                    imageUrl={item.imgUrl}
+                    imageAlt={item.imgUrl}
+                    open={open}
+                    setOpen={setOpen}
+                    // link={item.link}
+                    // start={item.start_date}
+                    // end={item.end_date}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Container> */}
       <Container className={styles.background}>
-        {/* <div className={styles.container}> */}
         <div className={styles.card_flex}>
           <EventCardComponent
             imageUrl={imageUrl}
