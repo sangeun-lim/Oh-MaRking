@@ -9,8 +9,8 @@ import '../../style/style.scss';
 interface CreateMsgProps {
   problemNum: number;
   elementNum: number;
-  show: any;
-  setShow: boolean | any;
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface NoteData {
