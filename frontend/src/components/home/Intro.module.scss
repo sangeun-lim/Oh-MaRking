@@ -1,0 +1,28 @@
+.bg_img {
+  width: 70%;
+  height: 70%;
+  // width: 90vw;
+  // height: 90vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.character_img {
+  width: 20%;
+  height: 20%;
+  // position: relative;
+  z-index: 2;
+}
+
+.bg {
+  display: flex;
+  justify-content: center;
+}
+
+.bg_character {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// div 태그 위에 relative 쓰기
+// 이미지 드래그 막기

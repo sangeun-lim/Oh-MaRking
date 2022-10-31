@@ -1,0 +1,7 @@
+@use 'src/style/all';
+@use 'src/style/color';
+
+.container {
+  padding-top: 30px;
+  @include all.flex(column, center, center);
+}
