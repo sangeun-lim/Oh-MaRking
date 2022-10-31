@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NoteData } from 'utils/Interface';
-import { NoteDefaultData } from 'utils/DefaultData';
+// import { NoteData } from 'utils/Interface';
+// import { NoteDefaultData } from 'utils/DefaultData';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -24,37 +24,37 @@ function CreateMsg({
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
 
-  // 노트에 넣어야되는 데이터
-  const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
-  // 비밀번호 일치 체크
-  const [pass, setPass] = useState<boolean>(false);
-  // const checkValid = () => setPwCheck(true);
-  // const checkCommon = () => setPwCommonCheck(true);
-  // const passwordValid = function () {};
-  // const passwordCheckValid = function () {};
+  // // 노트에 넣어야되는 데이터
+  // const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
+  // // 비밀번호 일치 체크
+  // const [pass, setPass] = useState<boolean>(false);
+  // // const checkValid = () => setPwCheck(true);
+  // // const checkCommon = () => setPwCommonCheck(true);
+  // // const passwordValid = function () {};
+  // // const passwordCheckValid = function () {};
 
-  // 노트에 쓰는 모든 값들이 입력하면서 바뀔때마다 값 바꿔주는 함수
-  const onChange = (e: any) => {
-    const { name, value } = e.target;
+  // // 노트에 쓰는 모든 값들이 입력하면서 바뀔때마다 값 바꿔주는 함수
+  // const onChange = (e: any) => {
+  //   const { name, value } = e.target;
 
-    setNewNote((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
+  //   setNewNote((prev) => {
+  //     return {
+  //       ...prev,
+  //       [name]: value,
+  //     };
+  //   });
+  // };
 
-  // 취소버튼 눌렀을 때
-  const onCancelClick = () => {
-    // 작성하려던 유저의 페이지로 이동
-    navigate('/cheer/asf');
-  };
+  // // 취소버튼 눌렀을 때
+  // const onCancelClick = () => {
+  //   // 작성하려던 유저의 페이지로 이동
+  //   navigate('/cheer/asf');
+  // };
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
-    // 조건주고 axios 받고 등등의 제출할때 필요한 처리해주는 함수
-  };
+  // const onSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   // 조건주고 axios 받고 등등의 제출할때 필요한 처리해주는 함수
+  // };
 
   return (
     <div>
