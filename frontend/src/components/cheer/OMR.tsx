@@ -138,7 +138,7 @@ function OMR(): JSX.Element {
 
   const pageNum = 1;
   return (
-    <div className={`${styles[colorList[`${nowColor}`]]}`}>
+    <div className={`${styles[colorList[nowColor]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
