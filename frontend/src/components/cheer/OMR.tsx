@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Reducer } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeColor } from '../../store/nowcolor';
 import Search from './Search';
 import { getKey, randomOmr } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
-import { StateFromReducersMapObject } from '@reduxjs/toolkit';
+import type { RootState } from '../../store/store';
+// import { RootState } from 'modules';
+// import { StateFromReducersMapObject } from '@reduxjs/toolkit';
 
 interface CheerProps {
   msg: number[][];
@@ -109,7 +111,7 @@ function Pallet(): JSX.Element {
   const onClick = (num: number) => {
     dispatch(changeColor(num));
   };
-  const colors = [0, 1, 2, 5, 6, 7];
+  const colors = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
     <>
       {colors.map((color: number) => (
@@ -122,20 +124,26 @@ function Pallet(): JSX.Element {
 }
 
 function OMR(): JSX.Element {
-  // const [colorIdx, setColorIdx] = useState<number>(-1);
-  const [colorIdx, setColorIdx] = useState<number>(-1);
-  // console;
-  const { nowColor } = useSelector<IRootState, number>(
-    (state: { color: number }) => state.color
-  );
-  const colorList = ['skyblue_ver', 'yellow_ver'];
+  const [colorIdx, setColorIdx] = useState<number>(0);
+  const { nowColor } = useSelector((state: RootState) => state);
+  const colorList = [
+    'yellow',
+    'skyblue',
+    'purple',
+    'green',
+    'dark_yellow',
+    'navy',
+    'orange',
+    'pink',
+  ];
+
   useEffect(() => {
     setColorIdx(nowColor);
   }, [nowColor]);
 
   const pageNum = 1;
   return (
-    <div className={`${styles[colorList[`${colorIdx}`]]} test`}>
+    <div className={`${styles[colorList[`${colorIdx}`]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />

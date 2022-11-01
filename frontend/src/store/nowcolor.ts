@@ -15,13 +15,3 @@ const nowColorReducer = createSlice({
 
 export const { changeColor } = nowColorReducer.actions;
 export default nowColorReducer.reducer;
-
-// const store = configureStore({
-//   reducer: {
-//     newColor: nowColorSlice.reducer,
-//   },
-// });
-
-// export const newColorActions = nowColorSlice.actions;
-
-// export default store;
