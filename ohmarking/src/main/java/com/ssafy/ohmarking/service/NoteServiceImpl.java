@@ -4,6 +4,7 @@ import com.ssafy.ohmarking.entity.Note;
 import com.ssafy.ohmarking.repository.NoteRepository;
 import com.ssafy.ohmarking.dto.NoteDto;
 import com.ssafy.ohmarking.util.DEConverter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NoteServiceImpl implements NoteService{
+@RequiredArgsConstructor
+public class NoteServiceImpl implements NoteService {
 
     private NoteRepository noteRepository;
     private DEConverter converter;
@@ -49,7 +51,7 @@ public class NoteServiceImpl implements NoteService{
 
     @Override
     public NoteDto showNote(Long id) throws Exception {
-        return converter.toNoteDto(noteRepository.findByAll(id));
+        return converter.toNoteDto(noteRepository.findAllById(id));
     }
 
     @Override
@@ -74,7 +76,7 @@ public class NoteServiceImpl implements NoteService{
     }
 
     @Override
-    @Transactional
+    // @Transactional
     public void deleteNote(Long id) throws Exception {
         noteRepository.delete(noteRepository.getReferenceById(id));
     }

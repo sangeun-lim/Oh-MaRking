@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface OMRRepository extends JpaRepository<OMR, Long> {
 //    fidById 했는데 Optional 조건 필요없고 어차피 id에 해당하는 OMR은 하나라서 아래 구문 사용
-    OMR findAll(Long id) throws Exception;
+    OMR findAllById(Long id) throws Exception;
 }

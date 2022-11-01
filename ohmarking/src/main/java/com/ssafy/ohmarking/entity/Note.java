@@ -39,6 +39,6 @@ public class Note {
     private Integer checkNum;
 
     @ManyToOne
-    @JoinColumn(name = "fkOmrId")
+    @JoinColumn(name = "fk_omr_Id")
     private OMR omr;
 }

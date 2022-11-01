@@ -24,14 +24,14 @@ public class OMRController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Autowired
+//    @Autowired
     private OMRService omrService;
 
     // 토큰 존재 O
     @ApiOperation(value = "OMR 읽기(회원)", notes = "본인 소유의 OMR을 반환한다", response = Map.class)
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<Map<String, Object>> showUserOMR(
-            // @RequestHeader("authorization") String authorization,
+//            @RequestHeader("authorization") String authorization,
             @PathVariable("id")
             @ApiParam(
                     name = "id",
@@ -61,7 +61,7 @@ public class OMRController {
 
     // 토큰 존재 X
     @ApiOperation(value = "OMR 읽기(비회원)", notes = "링크 주인의 OMR을 반환한다", response = Map.class)
-    @GetMapping("/{id}")
+    @GetMapping("/guest/{id}")
     public ResponseEntity<Map<String, Object>> seeUserOMR(
             @PathVariable("id")
             @ApiParam(

@@ -25,35 +25,43 @@ public class NoteController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Autowired
+//    @Autowired
     private NoteService noteService;
 
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
     public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long omrId, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum) {
         Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
         try {
             // 굳이 resultMap 에 넣을 필요 없지만 일단 넣어주고 본다
             // resultMap.put("noteDto", noteService.insertNote(noteDto));
             noteService.insertNote(noteDto);
             resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
+            logger.error("응원글(Note) 등록 실패 : {}", e);
             resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "작성한 Note 보기 (작성자)", notes = "비밀번호를 확인하여 작성한 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-    @PostMapping
+    @PostMapping("/check")
     public ResponseEntity<Map<String, Object>> seeNote(@RequestBody long id, @RequestBody String pwd) {
         Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, pwd);
         try {
             resultMap.put("returnNote", noteService.seeNote(noteDto));
             resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
+            logger.error("작성한 응원글(Note) 보기 실패 : {}", e);
             resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
@@ -69,11 +77,15 @@ public class NoteController {
                     required = true) Long id
     ) {
         Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
         try {
             resultMap.put("returnNote", noteService.showNote(id));
             resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
+            logger.error("작성된 응원글(Note) 보기 실패 : {}", e);
             resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
@@ -82,12 +94,16 @@ public class NoteController {
     @PutMapping
     public ResponseEntity<Map<String, Object>> updateBoard(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody Instant showDate) {
         Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, nickname, content, showDate);
         try {
             noteService.updateNote(noteDto);
             resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
+            logger.error("응원글 수정 실패 : {}", e);
             resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
@@ -95,12 +111,16 @@ public class NoteController {
     @ApiOperation(value = "응원글 삭제", notes = "응원글을 삭제한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
     @DeleteMapping
     public ResponseEntity<String> deleteNote(@RequestBody long id) {
+        HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id);
         try {
             // 삭제할 응원글 번호(id)와 등록시 비밀번호
             noteService.deleteNote(noteDto.getId());
+            status = HttpStatus.ACCEPTED;
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error("응원글 삭제 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
             return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
         }
     }
@@ -115,6 +135,7 @@ public class NoteController {
                     value = "Note 작성자",
                     required = true) String nickname
     ) {
+        HttpStatus status = HttpStatus.ACCEPTED;
         Map<String, Object> resultMap = new HashMap<>();
         List<NoteDto> refineNoteList = new ArrayList<>();
         try {
@@ -131,8 +152,11 @@ public class NoteController {
             }
             resultMap.put("noteList", refineNoteList);
             resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
+            logger.error("응원글 검색 실패 : {}", e);
             resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

@@ -1,9 +1,11 @@
 package com.ssafy.ohmarking.service;
 
 import com.ssafy.ohmarking.dto.NoteDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface NoteService {
     NoteDto insertNote(NoteDto noteDto) throws Exception;
     NoteDto seeNote(NoteDto noteDto) throws Exception;
