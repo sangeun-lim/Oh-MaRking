@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { getKey, randomOmr } from '../../utils/utils';
-// import { style } from '@mui/system';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeColor } from '../../store/nowcolor';
 import Search from './Search';
+import { getKey, randomOmr } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
+import { StateFromReducersMapObject } from '@reduxjs/toolkit';
 
 interface CheerProps {
   msg: number[][];
@@ -102,15 +104,38 @@ function Code(): JSX.Element {
   );
 }
 
-// function Pallet(): JSX.Element {
-//   const colors = [0, 1, 2, 3, 4, 5];
-//   return ( {colors.map((color) => <button type="button" key={} ></button>);
-// }
+function Pallet(): JSX.Element {
+  const dispatch = useDispatch();
+  const onClick = (num: number) => {
+    dispatch(changeColor(num));
+  };
+  const colors = [0, 1, 2, 5, 6, 7];
+  return (
+    <>
+      {colors.map((color: number) => (
+        <button type="button" key={color} onClick={() => onClick(color)}>
+          {color}
+        </button>
+      ))}
+    </>
+  );
+}
+
 function OMR(): JSX.Element {
-  const color = ['skyblue_ver', 'yellow_ver'];
+  // const [colorIdx, setColorIdx] = useState<number>(-1);
+  const [colorIdx, setColorIdx] = useState<number>(-1);
+  // console;
+  const { nowColor } = useSelector<IRootState, number>(
+    (state: { color: number }) => state.color
+  );
+  const colorList = ['skyblue_ver', 'yellow_ver'];
+  useEffect(() => {
+    setColorIdx(nowColor);
+  }, [nowColor]);
+
   const pageNum = 1;
   return (
-    <div className={styles[color[1]]}>
+    <div className={`${styles[colorList[`${colorIdx}`]]} test`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
@@ -138,7 +163,10 @@ function OMR(): JSX.Element {
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
-                응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요
+                <div>응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요</div>
+                <div>
+                  <Pallet />
+                </div>
               </div>
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
