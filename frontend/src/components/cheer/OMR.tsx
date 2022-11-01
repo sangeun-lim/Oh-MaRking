@@ -124,7 +124,6 @@ function Pallet(): JSX.Element {
 }
 
 function OMR(): JSX.Element {
-  const [colorIdx, setColorIdx] = useState<number>(0);
   const { nowColor } = useSelector((state: RootState) => state);
   const colorList = [
     'yellow',
@@ -137,13 +136,9 @@ function OMR(): JSX.Element {
     'pink',
   ];
 
-  useEffect(() => {
-    setColorIdx(nowColor);
-  }, [nowColor]);
-
   const pageNum = 1;
   return (
-    <div className={`${styles[colorList[`${colorIdx}`]]}`}>
+    <div className={`${styles[colorList[`${nowColor}`]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
