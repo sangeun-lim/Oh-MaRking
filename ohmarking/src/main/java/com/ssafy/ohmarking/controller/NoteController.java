@@ -30,10 +30,10 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long omrId, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum) {
+    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
-        NoteDto noteDto = new NoteDto(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
+        NoteDto noteDto = new NoteDto(id, nickname, content, pwd, showDate, problemNum, checkNum);
         try {
             // 굳이 resultMap 에 넣을 필요 없지만 일단 넣어주고 본다
             // resultMap.put("noteDto", noteService.insertNote(noteDto));
@@ -92,7 +92,7 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 수정", notes = "응원글 id에 맞는 응원글을 수정한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PutMapping
-    public ResponseEntity<Map<String, Object>> updateBoard(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody Instant showDate) {
+    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody Instant showDate) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, nickname, content, showDate);
@@ -126,7 +126,7 @@ public class NoteController {
     }
 
     @ApiOperation(value = "응원글 검색", notes = "응원글 nickname에 맞는 글을 검색한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
-    @GetMapping("search/{nickname}")
+    @GetMapping("/search/{nickname}")
     public ResponseEntity<Map<String, Object>> searchNote(
             @PathVariable("nickname")
             @ApiParam(
