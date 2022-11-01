@@ -90,7 +90,7 @@ public class OMRController {
 
     @ApiOperation(value = "OMR 등록 (페이지 추가)", notes = "OMR을 추가한다", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> plusOMR(@RequestBody long userId, @RequestBody int color, @RequestBody int pageNum) {
+    public ResponseEntity<Map<String, Object>> plusOMR(@RequestBody long userId, int color, int pageNum) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
@@ -110,7 +110,7 @@ public class OMRController {
 
     @ApiOperation(value = "OMR 색깔 수정", notes = "OMR을 색깔을 수정한다", response = Map.class)
     @PutMapping
-    public ResponseEntity<Map<String, Object>> modifyOMR(@RequestBody long id, @RequestBody int color, @RequestHeader("authorization") String authorization) {
+    public ResponseEntity<Map<String, Object>> modifyOMR(@RequestBody long id, int color) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 

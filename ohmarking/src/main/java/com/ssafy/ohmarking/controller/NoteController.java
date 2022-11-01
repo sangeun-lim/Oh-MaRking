@@ -30,7 +30,7 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long omrId, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum) {
+    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long omrId, String nickname, String content, String pwd, Instant showDate, int problemNum, int checkNum) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
@@ -50,7 +50,7 @@ public class NoteController {
 
     @ApiOperation(value = "작성한 Note 보기 (작성자)", notes = "비밀번호를 확인하여 작성한 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
     @PostMapping("/check")
-    public ResponseEntity<Map<String, Object>> seeNote(@RequestBody long id, @RequestBody String pwd) {
+    public ResponseEntity<Map<String, Object>> seeNote(@RequestBody long id, String pwd) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, pwd);
@@ -92,7 +92,7 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 수정", notes = "응원글 id에 맞는 응원글을 수정한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PutMapping
-    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody Instant showDate) {
+    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody long id, String nickname, String content, Instant showDate) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, nickname, content, showDate);
