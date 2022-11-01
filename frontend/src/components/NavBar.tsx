@@ -23,7 +23,7 @@ function NavBar(): JSX.Element {
   // };
 
   return (
-    <Navbar className={styles.navList} expand="xl">
+    <Navbar className={styles.navList} style={{ padding: '0px' }} expand="xxl">
       {/* <Container className={styles.box_container}> */}
       <div className={styles.box_container}>
         <Navbar.Brand className={styles.left} href="/">
@@ -35,7 +35,11 @@ function NavBar(): JSX.Element {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="justify-content-end flex-grow-1 pe-3">
+          <Nav className="justify-content-end align-items-center flex-grow-1 pe-3">
+            <Nav.Link className={styles.nav_font} href="/event">
+              설문조사
+            </Nav.Link>
+
             <Nav.Link className={styles.nav_font} href="/cheer/wfaw">
               내 응원가기
             </Nav.Link>

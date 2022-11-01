@@ -1,7 +1,7 @@
 @use 'src/style/all';
 
 
-*:not(button) {
+.test:not(button) {
   font-weight: bold;
 }
 
