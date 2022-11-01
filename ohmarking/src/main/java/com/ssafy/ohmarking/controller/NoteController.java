@@ -30,10 +30,10 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum) {
+    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long omrId, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
-        NoteDto noteDto = new NoteDto(id, nickname, content, pwd, showDate, problemNum, checkNum);
+        NoteDto noteDto = new NoteDto(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
         try {
             // 굳이 resultMap 에 넣을 필요 없지만 일단 넣어주고 본다
             // resultMap.put("noteDto", noteService.insertNote(noteDto));
