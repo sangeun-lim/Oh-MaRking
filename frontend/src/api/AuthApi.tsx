@@ -1,17 +1,17 @@
 import axios from 'axios';
 import Url from 'api/Url';
-import { LoginData } from 'api/ApiInterface';
+import { UserData } from 'api/ApiInterface';
 
 const AuthApi = {
   auth: {
-    login: async (formData: LoginData) => {
+    // 로그인 로그아웃 을 만들어야되나?
+
+    updateUserProfile: async (formData: UserData) => {
       const response = await axios({
-        url: Url.auth.login(),
-        method: 'post',
-        data: {
-          email: formData.id,
-          password: formData.pw,
-        },
+        url: Url.auth.updateIntroduction(),
+        headers: {},
+        method: 'put',
+        data: { ...formData },
       });
       return response;
     },

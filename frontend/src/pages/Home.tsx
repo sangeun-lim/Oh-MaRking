@@ -1,8 +1,12 @@
-// 시작메인페이지
+import styles from './Home.module.scss';
 import Intro from '../components/home/Intro';
 
 function Home(): JSX.Element {
-  return <Intro />;
+  return (
+    <div>
+      <Intro />
+    </div>
+  );
 }
 
 export default Home;

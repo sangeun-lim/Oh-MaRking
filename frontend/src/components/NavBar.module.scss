@@ -1,0 +1,52 @@
+.logo {
+  width: 80px;
+  height: 60px;
+}
+// e4cca6
+
+.navList {
+  display: flex;
+  flex-direction: row;
+  // flex-wrap:nowrap;
+  align-items: center;
+  box-shadow: #000000 0px 0px 27px 0px, rgba(0, 0, 0, 0.3) 0px 0px 16px 0px;
+}
+
+.navList > .left {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.navList > .right {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.nav_font {
+  font-family: 'hanna_11yrs';
+  font-size: 20px;
+  // width: 200px;
+}
+
+.kakao_login {
+  // width: 50%;
+  // height: 50%;
+}
+
+
+.navList > .box_container {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
+  margin-right: auto;
+  margin-left: auto;
+}

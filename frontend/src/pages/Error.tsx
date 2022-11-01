@@ -1,20 +1,20 @@
-// import React, { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './Error.module.scss';
 
 function Error(): JSX.Element {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const [t, setT] = useState<number>(5);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     navigate('/');
-  //   }, 5000);
-  // }, [navigate]);
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('/');
+    }, 5000);
+  }, [navigate]);
 
   // useEffect(() => {
   //   const id = setInterval(() => {
   //     setT((t) => t - 1);
-  //     // 왜 빨간줄인거여
   //   }, 1000);
   //   if (t === 0) {
   //     clearInterval(id);
