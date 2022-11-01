@@ -4,11 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="759bbe91-f6d7-4ef9-a2d2-0830a631743e" name="Changes" comment="" />
+    <list default="true" id="759bbe91-f6d7-4ef9-a2d2-0830a631743e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/src/main/java/com/ssafy/ohmarking/login_server/LoginServerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_server/src/test/java/com/ssafy/ohmarking/login_server/LoginServerApplicationTests.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -33,9 +49,25 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.import&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JAVA&quot;
+    ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\multicampus\Desktop\자율프로젝트\BE_login\S07P31C102\login_server\src\main\java\com\ssafy\ohmarking\db\entity" />
+      <recent name="C:\Users\multicampus\Desktop\자율프로젝트\BE_login\S07P31C102\login_server\src\main\java\com\ssafy\ohmarking" />
+      <recent name="C:\Users\multicampus\Desktop\자율프로젝트\BE_login\S07P31C102\login_server\src\main\resources" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -46,6 +78,10 @@
       <updated>1666830886596</updated>
       <workItem from="1666830890794" duration="354000" />
       <workItem from="1666831636257" duration="368000" />
+      <workItem from="1667175430625" duration="2545000" />
+      <workItem from="1667261949689" duration="77000" />
+      <workItem from="1667262040488" duration="4625000" />
+      <workItem from="1667269197553" duration="128000" />
     </task>
     <servers />
   </component>
