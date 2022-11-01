@@ -1,4 +1,4 @@
-import { useState, useEffect, Reducer } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeColor } from '../../store/nowcolor';
 import Search from './Search';
@@ -17,6 +17,10 @@ interface CheerProps {
 interface InfoProps {
   title: string;
   content: string;
+}
+
+interface PalletProps {
+  colorList: string[];
 }
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
@@ -106,18 +110,24 @@ function Code(): JSX.Element {
   );
 }
 
-function Pallet(): JSX.Element {
+function Pallet({ colorList }: PalletProps): JSX.Element {
   const dispatch = useDispatch();
-  const onClick = (num: number) => {
-    dispatch(changeColor(num));
+  const onClick = (color: number) => {
+    dispatch(changeColor(color));
   };
   const colors = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
     <>
       {colors.map((color: number) => (
-        <button type="button" key={color} onClick={() => onClick(color)}>
-          {color}
-        </button>
+        <span key={color} className={`${styles[colorList[color]]}`}>
+          <button
+            className={styles.body}
+            type="button"
+            onClick={() => onClick(color)}
+          >
+            {' '}
+          </button>
+        </span>
       ))}
     </>
   );
@@ -167,8 +177,8 @@ function OMR(): JSX.Element {
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
                 <div>응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요</div>
-                <div>
-                  <Pallet />
+                <div className={styles.pallet}>
+                  <Pallet colorList={colorList} />
                 </div>
               </div>
             </div>
