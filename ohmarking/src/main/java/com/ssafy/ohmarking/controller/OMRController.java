@@ -31,7 +31,7 @@ public class OMRController {
     @ApiOperation(value = "OMR 읽기(회원)", notes = "본인 소유의 OMR을 반환한다", response = Map.class)
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> showUserOMR(
-            @RequestHeader("authorization") String authorization,
+            // @RequestHeader("authorization") String authorization,
             @PathVariable("id")
             @ApiParam(
                     name = "id",

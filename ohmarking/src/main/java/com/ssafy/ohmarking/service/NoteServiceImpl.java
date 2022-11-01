@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class NoteServiceImpl implements NoteService{
@@ -34,39 +35,53 @@ public class NoteServiceImpl implements NoteService{
     }
 
     @Override
-    public void findNote(NoteDto noteDto) throws Exception {
+    public NoteDto seeNote(NoteDto noteDto) throws Exception {
         String originPwd = noteRepository.findByIdAndPwd(noteDto.getId(), noteDto.getPwd()).getPwd();
         // 기존에 입력한 비밀번호와 현재 입력한 비밀번호가 같다면
-        if(originPwd.equals(noteDto.getPwd())) {
+        if (originPwd.equals(noteDto.getPwd())) {
+            Note note = noteRepository.findByIdAndPwd(noteDto.getId(), noteDto.getPwd());
             // 해당 응원글 반환
-            return converter.toNoteDto(noteRepository.findById(noteDto.getId()));
-            return converter.toNoteDto(noteRepository.save(converter.toNoteEntity(noteDto)));
+            NoteDto returnNoteDto = new NoteDto(note.getNickname(), note.getContent(), note.getShowDate().toInstant(), note.getDate().toInstant(), note.getProblemNum(), note.getCheckNum());
+            return returnNoteDto;
         }
+        return null;
     }
 
     @Override
-    public NoteDto updateNote(NoteDto noteDto) throws Exception {
+    public NoteDto showNote(Long id) throws Exception {
+        return converter.toNoteDto(noteRepository.findByAll(id));
+    }
+
+    @Override
+    public void updateNote(NoteDto noteDto) throws Exception {
         Note note = noteRepository.getReferenceById(noteDto.getId());
-        // DB 에 저장된 비밀번호가 현재 입력하는 비밀번호와 일치하면
+        note.setContent(noteDto.getContent());
+        note.setShowDate(Timestamp.from(noteDto.getShowDate()));
+        return;
+        /**
+        // DB 에 저장된 비밀번호가 현재 입력하는 비밀번호와 일치하면 ( 이 로직이 필요없는 이유 : 애초에 비밀번호 검사 하고 노트 보여짐)
         if(note.getPwd() == noteDto.getPwd()) {
             // 수정 본문이 공백이 아니면 본문 수정
             if (noteDto.getContent() != null) note.setContent(noteDto.getContent());
         }
+         **/
+        /**
         // 공개날짜 변경
         Date beforeDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(noteDto.getShow_date()));
         Date showDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(note.getShow_date().toInstant()));
         if(!beforeDate.equals(showDate)) note.setShow_date(Timestamp.from(noteDto.getShow_date()));
-
-        return converter.toNoteDto(note);
+        **/
     }
 
     @Override
     @Transactional
-    public void deleteNote(Long id, String inputPwd) throws Exception {
-        String notePwd = noteRepository.getReferenceById(id).getPwd();
-        // 프론트에서 입력한 비밀번호와 notePwd(처음 지정한 비밀번호)가 일치하면 삭제
-        if(notePwd==inputPwd) {
-            noteRepository.delete(noteRepository.getReferenceById(id));
-        }
+    public void deleteNote(Long id) throws Exception {
+        noteRepository.delete(noteRepository.getReferenceById(id));
     }
+
+    @Override
+    public List<NoteDto> findNote(String nickname) {
+        return converter.toNoteDtoList(noteRepository.findByNickname(nickname));
+    }
+
 }

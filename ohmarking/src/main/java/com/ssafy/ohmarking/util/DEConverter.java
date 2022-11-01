@@ -39,6 +39,6 @@ public class DEConverter {
     /** OMR 관련 **/
     public OMRDto toOMRDto(OMR omr) { return modelMapper.map(omr, OMRDto.class);}
     public OMR toOMREntity(OMRDto omrDto) { return modelMapper.map(omrDto, OMR.class); }
-//    public List<OMR> toOMRDto(List<OMR> omrList){ return mapList(omrList, OMRDto.class); }
 
+    public List<NoteDto> toNoteDtoList(List<Note> list) { return mapList(list, NoteDto.class);  }
 }
