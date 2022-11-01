@@ -277,11 +277,38 @@ $cheer_section_height: 30em;
     border-right: 3px solid color.$line_skyblue;
   }
 }
-
-.skyblue_ver {
+.skyblue {
   @include color(color.$bg_skyblue, color.$line_skyblue, color.$before_marking);
 }
 
-.yellow_ver {
+.yellow {
   @include color(color.$bg_yellow, color.$line_yellow, color.$before_marking);
+}
+
+.purple {
+  @include color(color.$bg_purple, color.$line_purple, color.$before_marking);
+}
+
+.green {
+  @include color(color.$bg_green, color.$line_green, color.$before_marking);
+}
+
+.dark_yellow {
+  @include color(
+    color.$bg_dark_yellow,
+    color.$line_dark_yellow,
+    color.$before_marking
+  );
+}
+
+.navy {
+  @include color(color.$bg_navy, color.$line_navy, color.$before_marking);
+}
+
+.orange {
+  @include color(color.$bg_orange, color.$line_orange, color.$before_marking);
+}
+
+.pink {
+  @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }

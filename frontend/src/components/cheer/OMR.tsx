@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { getKey, randomOmr } from '../../utils/utils';
-// import { style } from '@mui/system';
+import { useState, useEffect, Reducer } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeColor } from '../../store/nowcolor';
 import Search from './Search';
+import { getKey, randomOmr } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
+import type { RootState } from '../../store/store';
+// import { RootState } from 'modules';
+// import { StateFromReducersMapObject } from '@reduxjs/toolkit';
 
 interface CheerProps {
   msg: number[][];
@@ -102,15 +106,39 @@ function Code(): JSX.Element {
   );
 }
 
-// function Pallet(): JSX.Element {
-//   const colors = [0, 1, 2, 3, 4, 5];
-//   return ( {colors.map((color) => <button type="button" key={} ></button>);
-// }
+function Pallet(): JSX.Element {
+  const dispatch = useDispatch();
+  const onClick = (num: number) => {
+    dispatch(changeColor(num));
+  };
+  const colors = [0, 1, 2, 3, 4, 5, 6, 7];
+  return (
+    <>
+      {colors.map((color: number) => (
+        <button type="button" key={color} onClick={() => onClick(color)}>
+          {color}
+        </button>
+      ))}
+    </>
+  );
+}
+
 function OMR(): JSX.Element {
-  const color = ['skyblue_ver', 'yellow_ver'];
+  const { nowColor } = useSelector((state: RootState) => state);
+  const colorList = [
+    'yellow',
+    'skyblue',
+    'purple',
+    'green',
+    'dark_yellow',
+    'navy',
+    'orange',
+    'pink',
+  ];
+
   const pageNum = 1;
   return (
-    <div className={styles[color[1]]}>
+    <div className={`${styles[colorList[nowColor]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
@@ -138,7 +166,10 @@ function OMR(): JSX.Element {
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
-                응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요
+                <div>응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요</div>
+                <div>
+                  <Pallet />
+                </div>
               </div>
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
