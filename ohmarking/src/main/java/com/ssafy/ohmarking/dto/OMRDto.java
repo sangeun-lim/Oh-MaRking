@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 @Data
-@Getter @Setter
+// @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "OMR : Note 보드", description = "OMR의 상세정보를 나타낸다")

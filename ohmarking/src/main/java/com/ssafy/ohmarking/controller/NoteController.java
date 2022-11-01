@@ -1,7 +1,6 @@
 package com.ssafy.ohmarking.controller;
 
 import com.ssafy.ohmarking.dto.NoteDto;
-import com.ssafy.ohmarking.dto.TempDto;
 import com.ssafy.ohmarking.service.NoteService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,11 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/note")
@@ -26,43 +23,37 @@ public class NoteController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-//    @Autowired
+    @Autowired
     private NoteService noteService;
-
-//    @ApiOperation(value = "응원글 테스트", notes = "응원글을 입력을 테스트. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
-//    @PostMapping("/test")
-//    public ResponseEntity<Map<String, Object>> testNoted(@RequestBody Map<String, String> map2) {
-//        System.out.println("omrId: " +map2.get("omrId"));
-//
-//        Map<String, Object> resultMap = new HashMap<>();
-//
-//        HttpStatus status = HttpStatus.ACCEPTED;
-//        NoteDto noteDto = new NoteDto(Long.parseLong(map2.get("omrId")), map2.get("omrId"), map2.get("omrId"));
-//        try {
-//            noteService.insertNote(noteDto);
-//            resultMap.put("message", SUCCESS);
-//            status = HttpStatus.ACCEPTED;
-//        } catch (Exception e) {
-//            logger.error("응원글(Note) 등록 실패 : {}", e);
-//            resultMap.put("message", e.getMessage());
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-//        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-//    }
 
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
-    // @RequestBody long omrId, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum
-    public ResponseEntity<Map<String, Object>> writeNote() {
-        System.out.println("omrId: " + omrId);
-
+    // @RequestBody는 덩어리로 넘어오기 때문에 매개변수의 나열은 컴퓨터가 인식을 못한다
+    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody Map<String, String> map) {
+        // System.out.println("omrId: " + omrId);
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
-        NoteDto noteDto = new NoteDto(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
+
+        // 프론트에서 받아온 값을 map을 통해 읽어온다
+        long omrId = Long.parseLong(map.get("omrId"));
+        String nickname = map.get("nickname");
+        String content = map.get("content");
+        String pwd = map.get("pwd");
+        // simpledateformat에서 parse를 사용할때는 코드가 try~catch 문 안에 있지 않으면 에러가 나기 때문에 일단 주석
+        // Date showDate = new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate"));
+        // String showDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(map.get("showDate"));
+        int problemNum = Integer.parseInt(map.get("problemNum"));
+        int checkNum = Integer.parseInt(map.get("checkNum"));
+
         try {
-            // 굳이 resultMap 에 넣을 필요 없지만 일단 넣어주고 본다
-            // resultMap.put("noteDto", noteService.insertNote(noteDto));
-            noteService.insertNote(noteDto);
+            noteService.insertNote(
+                    omrId,
+                    nickname,
+                    content,
+                    pwd,
+                    new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate")),
+                    problemNum,
+                    checkNum);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -165,7 +156,7 @@ public class NoteController {
         List<NoteDto> refineNoteList = new ArrayList<>();
         try {
             List<NoteDto> listNoteDtos = noteService.findNote(nickname);
-            for (int i = 0; i<listNoteDtos.size(); i++) {
+            for (int i = 0; i < listNoteDtos.size(); i++) {
                 NoteDto returnNoteDto = new NoteDto(
                         listNoteDtos.get(i).getId(),
                         listNoteDtos.get(i).getPageNum(),

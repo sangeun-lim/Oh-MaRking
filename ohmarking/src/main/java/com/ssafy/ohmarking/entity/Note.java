@@ -1,20 +1,24 @@
 package com.ssafy.ohmarking.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 @Table(name = "Note")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicInsert
 @Builder
 public class Note {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
@@ -26,11 +30,14 @@ public class Note {
     @Column(nullable = false)
     private String pwd;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
+    @Column(nullable = true)
     private Timestamp date;
 
-    @Column(name="show_date", nullable = false)
+    // @Column(name="show_date", nullable = false)
+    @Column(name="show_date")
     private Timestamp showDate;
+    // private Instant showDate;
 
     @Column(name="problem_num", nullable = false)
     private Integer problemNum;

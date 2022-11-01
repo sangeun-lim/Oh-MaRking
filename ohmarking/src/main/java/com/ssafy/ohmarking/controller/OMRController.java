@@ -24,7 +24,7 @@ public class OMRController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-//    @Autowired
+    @Autowired
     private OMRService omrService;
 
     // 토큰 존재 O

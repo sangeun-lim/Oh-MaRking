@@ -16,7 +16,7 @@ import java.time.Instant;
 public class NoteDto implements Serializable {
     @ApiModelProperty(value = "응원글 id")
     private long id;
-    @ApiModelProperty(value = "OMR id (fk)")
+    @ApiModelProperty(name = "fk_omr_id", value = "OMR id (fk)")
     private long fkOmrId;
     @ApiModelProperty(value = "해당 응원글 페이지번호")
     private int pageNum;
