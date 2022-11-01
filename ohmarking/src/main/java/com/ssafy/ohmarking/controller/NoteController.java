@@ -1,6 +1,7 @@
 package com.ssafy.ohmarking.controller;
 
 import com.ssafy.ohmarking.dto.NoteDto;
+import com.ssafy.ohmarking.dto.TempDto;
 import com.ssafy.ohmarking.service.NoteService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,9 +29,33 @@ public class NoteController {
 //    @Autowired
     private NoteService noteService;
 
+//    @ApiOperation(value = "응원글 테스트", notes = "응원글을 입력을 테스트. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
+//    @PostMapping("/test")
+//    public ResponseEntity<Map<String, Object>> testNoted(@RequestBody Map<String, String> map2) {
+//        System.out.println("omrId: " +map2.get("omrId"));
+//
+//        Map<String, Object> resultMap = new HashMap<>();
+//
+//        HttpStatus status = HttpStatus.ACCEPTED;
+//        NoteDto noteDto = new NoteDto(Long.parseLong(map2.get("omrId")), map2.get("omrId"), map2.get("omrId"));
+//        try {
+//            noteService.insertNote(noteDto);
+//            resultMap.put("message", SUCCESS);
+//            status = HttpStatus.ACCEPTED;
+//        } catch (Exception e) {
+//            logger.error("응원글(Note) 등록 실패 : {}", e);
+//            resultMap.put("message", e.getMessage());
+//            status = HttpStatus.INTERNAL_SERVER_ERROR;
+//        }
+//        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+//    }
+
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> writeNote(@RequestBody long omrId, String nickname, String content, String pwd, Instant showDate, int problemNum, int checkNum) {
+    // @RequestBody long omrId, @RequestBody String nickname, @RequestBody String content, @RequestBody String pwd, @RequestBody Instant showDate, @RequestBody int problemNum, @RequestBody int checkNum
+    public ResponseEntity<Map<String, Object>> writeNote() {
+        System.out.println("omrId: " + omrId);
+
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
@@ -50,7 +75,7 @@ public class NoteController {
 
     @ApiOperation(value = "작성한 Note 보기 (작성자)", notes = "비밀번호를 확인하여 작성한 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
     @PostMapping("/check")
-    public ResponseEntity<Map<String, Object>> seeNote(@RequestBody long id, String pwd) {
+    public ResponseEntity<Map<String, Object>> seeNote(@RequestBody long id, @RequestBody String pwd) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, pwd);
@@ -92,7 +117,7 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 수정", notes = "응원글 id에 맞는 응원글을 수정한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PutMapping
-    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody long id, String nickname, String content, Instant showDate) {
+    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody Instant showDate) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         NoteDto noteDto = new NoteDto(id, nickname, content, showDate);

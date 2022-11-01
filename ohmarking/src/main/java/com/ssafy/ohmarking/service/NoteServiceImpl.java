@@ -32,7 +32,9 @@ public class NoteServiceImpl implements NoteService {
     public NoteDto insertNote(NoteDto noteDto) throws Exception {
         // 응원글 작성 시간 백엔드에서 처리해주기
 //        noteDto.setDate(Instant.now());
-        noteRepository.findById(noteDto.getId()).get().setDate(Timestamp.from(Instant.now()));
+
+        // testDto 임시 주석
+        // noteRepository.findById(noteDto.getId()).get().setDate(Timestamp.from(Instant.now()));
 
         // 1) DTO를 Entity로 변경 2) 저장 3) 다시 DTO로 변경(Controller는 DTO 사용)
         return converter.toNoteDto(noteRepository.save(converter.toNoteEntity(noteDto)));

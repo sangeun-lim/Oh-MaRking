@@ -37,6 +37,13 @@ public class NoteDto implements Serializable {
     @ApiModelProperty(value = "해당 응원글 체크번호")
     private int checkNum;
 
+//    // NOTE 테스트 DTO
+//    public NoteDto(long fkOmrId, String nickname, String content) {
+//        this.fkOmrId = fkOmrId;
+//        this.nickname = nickname;
+//        this.content = content;
+//    }
+
     // NOTE 등록 요청 DTO
     public NoteDto(long fkOmrId, String nickname, String content, String pwd, Instant showDate, int problemNum, int checkNum) {
         this.fkOmrId = fkOmrId;
