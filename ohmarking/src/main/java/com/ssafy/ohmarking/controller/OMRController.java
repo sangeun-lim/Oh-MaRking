@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class OMRController {
 
     // 토큰 존재 O
     @ApiOperation(value = "OMR 읽기(회원)", notes = "본인 소유의 OMR을 반환한다", response = Map.class)
-    @GetMapping("/omr/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> showUserOMR(
             @RequestHeader("authorization") String authorization,
             @PathVariable("id")
@@ -40,10 +41,13 @@ public class OMRController {
             HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
-
         try {
+            // 프론트에서 해당 OMR id가 PathVariable로 넘어왔으므로 해당 OMR에 대한 정보를 불러온다
             OMRDto omrDto = omrService.getOMR(id);
-            resultMap.put("omrInfo", omrDto);
+
+            // omrDto 라는 이름으로 API 문서에 맞게 리턴타입 반환
+            OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo(), omrDto.isOwner());
+            resultMap.put("omrDto", omrReturnDto);
             resultMap.put("message", "게이트웨이 통신 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -57,7 +61,7 @@ public class OMRController {
 
     // 토큰 존재 X
     @ApiOperation(value = "OMR 읽기(비회원)", notes = "링크 주인의 OMR을 반환한다", response = Map.class)
-    @GetMapping("/omr/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> seeUserOMR(
             @PathVariable("id")
             @ApiParam(
@@ -71,7 +75,8 @@ public class OMRController {
 
         try {
             OMRDto omrDto = omrService.getOMR(id);
-            resultMap.put("omrInfo", omrDto);
+            OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo());
+            resultMap.put("omrDto", omrReturnDto);
             resultMap.put("message", "게이트웨이 통신 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -84,13 +89,14 @@ public class OMRController {
     }
 
     @ApiOperation(value = "OMR 등록 (페이지 추가)", notes = "OMR을 추가한다", response = Map.class)
-    @PostMapping("/omr")
-    public ResponseEntity<Map<String, Object>> plusOMR(@RequestBody OMRDto omr, @RequestHeader("authorization") String authorization) {
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> plusOMR(@RequestBody long userId, @RequestBody int color, @RequestBody int pageNum) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
+        OMRDto omrDto = new OMRDto(userId, color, pageNum);
         try {
-            omrService.addOMR(omr);
+            omrService.addOMR(omrDto);
             resultMap.put("message", "OMR 카드 등록 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -103,13 +109,14 @@ public class OMRController {
     }
 
     @ApiOperation(value = "OMR 색깔 수정", notes = "OMR을 색깔을 수정한다", response = Map.class)
-    @PutMapping("/omr")
-    public ResponseEntity<Map<String, Object>> modifyOMR(@RequestBody OMRDto omr) {
+    @PutMapping
+    public ResponseEntity<Map<String, Object>> modifyOMR(@RequestBody long id, @RequestBody int color, @RequestHeader("authorization") String authorization) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
+        OMRDto omrDto = new OMRDto(id, color);
         try {
-            omrService.updateColorOMR(omr);
+            omrService.updateColorOMR(omrDto);
             resultMap.put("message", "OMR 카드 색깔 변경 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {

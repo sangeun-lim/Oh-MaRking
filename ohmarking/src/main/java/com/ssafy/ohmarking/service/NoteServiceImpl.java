@@ -27,9 +27,21 @@ public class NoteServiceImpl implements NoteService{
 
     @Override
     public NoteDto insertNote(NoteDto noteDto) throws Exception {
+        // 응원글 작성 시간 백엔드에서 처리해주기
         noteDto.setDate(Instant.now());
         // 1) DTO를 Entity로 변경 2) 저장 3) 다시 DTO로 변경(Controller는 DTO 사용)
         return converter.toNoteDto(noteRepository.save(converter.toNoteEntity(noteDto)));
+    }
+
+    @Override
+    public void findNote(NoteDto noteDto) throws Exception {
+        String originPwd = noteRepository.findByIdAndPwd(noteDto.getId(), noteDto.getPwd()).getPwd();
+        // 기존에 입력한 비밀번호와 현재 입력한 비밀번호가 같다면
+        if(originPwd.equals(noteDto.getPwd())) {
+            // 해당 응원글 반환
+            return converter.toNoteDto(noteRepository.findById(noteDto.getId()));
+            return converter.toNoteDto(noteRepository.save(converter.toNoteEntity(noteDto)));
+        }
     }
 
     @Override

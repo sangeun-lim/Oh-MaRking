@@ -29,16 +29,16 @@ public class Note {
     @Column(nullable = false)
     private Timestamp date;
 
-    @Column(nullable = false)
-    private Timestamp show_date;
+    @Column(name="show_date", nullable = false)
+    private Timestamp showDate;
 
-    @Column(nullable = false)
-    private Integer problem_num;
+    @Column(name="problem_num", nullable = false)
+    private Integer problemNum;
 
-    @Column(nullable = false)
-    private Integer check_num;
+    @Column(name="check_num",nullable = false)
+    private Integer checkNum;
 
     @ManyToOne
-    @JoinColumn(name = "fk_omr_id")
+    @JoinColumn(name = "fkOmrId")
     private OMR omr;
 }

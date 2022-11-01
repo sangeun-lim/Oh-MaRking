@@ -18,12 +18,10 @@ public class OMR {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-    @Column(name = "fkUserId", nullable = false)
+    @Column(name = "fk_user_id", nullable = false)
     private Long fkUserId;
-    **/
 
-    @Column(name = "pageNum", nullable = false)
+    @Column(name = "page_num", nullable = false)
     private Integer pageNum;
 
     @Column(nullable = false)
