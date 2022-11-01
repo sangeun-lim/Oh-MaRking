@@ -1,25 +1,24 @@
-
-* {
-  font-family: "hanna_11yrs";
+.user_text {
+  font-family: 'hanna_11yrs';
 }
 
-.blackboard_title{
-    // font-weight: bold;
-    font-size: 5rem;
-    color: #fff
-  }
-  
-  .blackboard_content{
-    padding: 30px;
-  }
-  
-  p{
+.blackboard_title {
+  // font-weight: bold;
+  font-size: 5rem;
+  color: #fff;
+}
+
+.blackboard_content {
+  padding: 30px;
+
+  p {
     // font-weight: bold;
     font-size: 2rem;
-    color: #fff /* pre tag내에 word wrap */
-    }
-  
-  .user_text {
-    width: 100%;
-    text-align: center;
+    color: #fff; /* pre tag내에 word wrap */
   }
+}
+
+.user_text {
+  width: 100%;
+  text-align: center;
+}

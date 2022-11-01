@@ -247,9 +247,8 @@ $cheer_section_height: 30em;
   }
   // 주의사항 내용
   .bottom {
-    font-weight: normal;
-    font-size: 20px;
     @include all.flex(column, space-between, center);
+    color: red;
     span {
       button {
         @include witdh_height(30px, 30px);
@@ -258,8 +257,15 @@ $cheer_section_height: 30em;
         // margin-right: 3px;
       }
     }
+
     .pallet {
       margin-bottom: 10px;
+    }
+  }
+
+  .bottom {
+    p {
+      color: rgb(253, 11, 11);
     }
   }
 
@@ -272,8 +278,8 @@ $cheer_section_height: 30em;
 
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
-  @include all.box(29%, 100%);
   font-family: all.$OMR_body;
+  @include all.box(29%, 100%);
 
   // 응원한마디 영역
   .section {
@@ -291,7 +297,7 @@ $cheer_section_height: 30em;
       > span {
         padding: 5px;
         margin: 10px;
-        margin-right: 13px;
+        margin-right: 16px;
       }
     }
     > :nth-child(1) {

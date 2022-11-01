@@ -176,7 +176,7 @@ function OMR(): JSX.Element {
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
-                <div>응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요</div>
+                <p>응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요</p>
                 <div className={styles.pallet}>
                   <Pallet colorList={colorList} />
                 </div>
