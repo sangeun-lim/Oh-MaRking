@@ -3,8 +3,6 @@ package com.ssafy.ohmarking.service;
 import com.ssafy.ohmarking.dto.NoteDto;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 @Service
