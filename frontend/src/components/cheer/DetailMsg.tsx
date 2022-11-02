@@ -3,6 +3,7 @@ import { NoteDetail, EditNote } from 'utils/Interface';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import OMRApi from '../../api/OMRApi';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -13,6 +14,9 @@ interface Props {
 }
 
 function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
+  // props로 noteId값 얻어야하는데
+  const noteId = '';
+
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
     nickname: formData.nickname,
@@ -36,18 +40,40 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
+
+    const changeFormData = {
+      nickname: editMsg.nickname,
+      content: editMsg.content,
+      show_date: editMsg.show_date,
+      date: editMsg.date,
+    };
+
+    const response = await OMRApi.note.updateNote(noteId, changeFormData);
+
+    // api명세서보면 내 생각으론 변화된 값을 그대로 전달해줘야되는데,
+    // 그냥 수정됨만 보내주는디.. 흠
+    // if (response.status === 200) {
+
+    // }
   };
 
   const onEditClick = () => {
     setOnEdit(!onEdit);
   };
 
-  const onDeleteClick = () => {
+  const onDeleteClick = async () => {
     const del: boolean = window.confirm(
       '작성된 응원메시지를 삭제하시겠습니까?'
     );
     if (del) {
       try {
+        const response = await OMRApi.note.deleteNote(noteId);
+
+        // if (response.status === 200) {
+
+        // } else {
+        //   alert("응원메시지를 삭제할 수 없습니다.")
+        // }
       } catch (err) {
         console.log(err);
       }
