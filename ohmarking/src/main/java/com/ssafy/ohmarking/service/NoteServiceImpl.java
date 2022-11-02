@@ -3,6 +3,7 @@ package com.ssafy.ohmarking.service;
 import com.ssafy.ohmarking.entity.Note;
 import com.ssafy.ohmarking.repository.NoteRepository;
 import com.ssafy.ohmarking.dto.NoteDto;
+import com.ssafy.ohmarking.repository.OMRRepository;
 import com.ssafy.ohmarking.util.DEConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ import java.util.List;
 public class NoteServiceImpl implements NoteService {
 
     private NoteRepository noteRepository;
+    private OMRRepository omrRepository;
     private DEConverter converter;
 
     @Autowired
-    public NoteServiceImpl(NoteRepository noteRepository, DEConverter converter) {
+    public NoteServiceImpl(NoteRepository noteRepository, OMRRepository omrRepository, DEConverter converter) {
         this.noteRepository = noteRepository;
+        this.omrRepository = omrRepository;
         this.converter = converter;
     }
 

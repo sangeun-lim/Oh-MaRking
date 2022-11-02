@@ -31,7 +31,7 @@ public class Note {
     private String pwd;
 
     // @Column(nullable = false)
-    @Column(nullable = true)
+    @Column
     private Timestamp date;
 
     // @Column(name="show_date", nullable = false)
