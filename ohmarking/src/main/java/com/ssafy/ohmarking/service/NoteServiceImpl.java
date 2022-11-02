@@ -60,12 +60,12 @@ public class NoteServiceImpl implements NoteService {
         }
         return null;
     }
-//
-//    @Override
-//    public NoteDto showNote(Long id) throws Exception {
-//        return converter.toNoteDto(noteRepository.findAllById(id));
-//    }
-//
+
+    @Override
+    public NoteDto showNote(long id) throws Exception {
+        return converter.toNoteDto(noteRepository.findAllById(id));
+    }
+
 //    @Override
 //    public void updateNote(NoteDto noteDto) throws Exception {
 //        Note note = noteRepository.getReferenceById(noteDto.getId());
