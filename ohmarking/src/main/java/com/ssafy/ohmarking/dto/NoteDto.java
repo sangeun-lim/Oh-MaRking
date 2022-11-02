@@ -56,17 +56,17 @@ public class NoteDto implements Serializable {
 //        this.id = id;
 //        this.pwd = pwd;
 //    }
-//
-//    // NOTE 보기 (작성자 비밀번호 확인) 반환 DTO, NOTE 보기 (수험생) 반환 DTO
-//    public NoteDto(String nickname, String content, Instant date, Instant showDate, int problemNum, int checkNum) {
-//        this.nickname = nickname;
-//        this.content = content;
-//        this.date = date;
-//        this.showDate = showDate;
-//        this.problemNum = problemNum;
-//        this.checkNum = checkNum;
-//    }
-//
+
+    // NOTE 보기 (작성자 비밀번호 확인) 반환 DTO, NOTE 보기 (수험생) 반환 DTO
+    public NoteDto(String nickname, String content, String date, String showDate, int problemNum, int checkNum) {
+        this.nickname = nickname;
+        this.content = content;
+        this.date = date;
+        this.showDate = showDate;
+        this.problemNum = problemNum;
+        this.checkNum = checkNum;
+    }
+
 //    // NOTE 수정 요청 DTO
 //    public NoteDto(long id, String nickname, String content, Instant showDate) {
 //        this.id = id;

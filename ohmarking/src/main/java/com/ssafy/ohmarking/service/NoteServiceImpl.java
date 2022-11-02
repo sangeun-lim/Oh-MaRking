@@ -48,18 +48,18 @@ public class NoteServiceImpl implements NoteService {
         return;
     }
 
-//    @Override
-//    public NoteDto seeNote(NoteDto noteDto) throws Exception {
-//        String originPwd = noteRepository.findByIdAndPwd(noteDto.getId(), noteDto.getPwd()).getPwd();
-//        // 기존에 입력한 비밀번호와 현재 입력한 비밀번호가 같다면
-//        if (originPwd.equals(noteDto.getPwd())) {
-//            Note note = noteRepository.findByIdAndPwd(noteDto.getId(), noteDto.getPwd());
-//            // 해당 응원글 반환
-//            NoteDto returnNoteDto = new NoteDto(note.getNickname(), note.getContent(), note.getShowDate().toInstant(), note.getDate().toInstant(), note.getProblemNum(), note.getCheckNum());
-//            return returnNoteDto;
-//        }
-//        return null;
-//    }
+    @Override
+    public NoteDto seeNote(long id, String pwd) throws Exception {
+        String originPwd = noteRepository.findByIdAndPwd(id, pwd).getPwd();
+        // 기존에 입력한 비밀번호와 현재 입력한 비밀번호가 같다면
+        if (originPwd.equals(pwd)) {
+            Note note = noteRepository.findByIdAndPwd(id, pwd);
+            // 해당 응원글 반환
+            NoteDto returnNoteDto = new NoteDto(note.getNickname(), note.getContent(), note.getDate(), note.getShowDate(), note.getProblemNum(), note.getCheckNum());
+            return returnNoteDto;
+        }
+        return null;
+    }
 //
 //    @Override
 //    public NoteDto showNote(Long id) throws Exception {

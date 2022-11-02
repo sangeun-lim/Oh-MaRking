@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface NoteService {
     void insertNote(long omrId, String nickname, String content, String pwd, String showDate, int problemNum, int checkNum) throws Exception;
-//    NoteDto seeNote(NoteDto noteDto) throws Exception;
+    NoteDto seeNote(long id, String pwd) throws Exception;
 //    NoteDto showNote(Long id) throws Exception;
 //    void updateNote(NoteDto noteDto) throws Exception;
 //    void deleteNote(Long id) throws Exception;

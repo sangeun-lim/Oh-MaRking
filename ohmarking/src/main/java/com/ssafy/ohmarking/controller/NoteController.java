@@ -28,7 +28,7 @@ public class NoteController {
 
     @ApiOperation(value = "응원글 등록", notes = "응원글을 입력한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
     @PostMapping
-    // @RequestBody는 덩어리로 넘어오기 때문에 매개변수의 나열은 컴퓨터가 인식을 못한다
+    // @RequestBody는 덩어리(객체)로 넘어오기 때문에 매개변수의 나열은 컴퓨터가 인식을 못한다
     public ResponseEntity<Map<String, Object>> writeNote(@RequestBody Map<String, String> map) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
@@ -58,24 +58,27 @@ public class NoteController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "작성한 Note 보기 (작성자)", notes = "비밀번호를 확인하여 작성한 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-//    @PostMapping("/check")
-//    public ResponseEntity<Map<String, Object>> seeNote(@RequestBody long id, @RequestBody String pwd) {
-//        Map<String, Object> resultMap = new HashMap<>();
-//        HttpStatus status = HttpStatus.ACCEPTED;
-//        NoteDto noteDto = new NoteDto(id, pwd);
-//        try {
-//            resultMap.put("returnNote", noteService.seeNote(noteDto));
-//            resultMap.put("message", SUCCESS);
-//            status = HttpStatus.ACCEPTED;
-//        } catch (Exception e) {
-//            logger.error("작성한 응원글(Note) 보기 실패 : {}", e);
-//            resultMap.put("message", e.getMessage());
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-//        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-//    }
-//
+    @ApiOperation(value = "작성한 Note 보기 (작성자)", notes = "비밀번호를 확인하여 작성한 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
+    @PostMapping("/check")
+    public ResponseEntity<Map<String, Object>> seeNote(@RequestBody Map<String, String> map) {
+        // @RequestBody long id, @RequestBody String pwd
+        long id = Long.parseLong(map.get("id"));
+        String pwd = map.get("pwd");
+
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+        try {
+            resultMap.put("note", noteService.seeNote(id, pwd));
+            resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("작성한 응원글(Note) 보기 실패 : {}", e);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
 //    @ApiOperation(value = "작성된 Note 보기 (수험생)", notes = "작성된 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Map<String, Object>> showNote(
