@@ -30,7 +30,6 @@ public class NoteController {
     @PostMapping
     // @RequestBody는 덩어리로 넘어오기 때문에 매개변수의 나열은 컴퓨터가 인식을 못한다
     public ResponseEntity<Map<String, Object>> writeNote(@RequestBody Map<String, String> map) {
-        // System.out.println("omrId: " + omrId);
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
@@ -39,21 +38,15 @@ public class NoteController {
         String nickname = map.get("nickname");
         String content = map.get("content");
         String pwd = map.get("pwd");
+        String showDate = map.get("showDate");
         // simpledateformat에서 parse를 사용할때는 코드가 try~catch 문 안에 있지 않으면 에러가 나기 때문에 일단 주석
         // Date showDate = new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate"));
         int problemNum = Integer.parseInt(map.get("problemNum"));
         int checkNum = Integer.parseInt(map.get("checkNum"));
 
         try {
-            System.out.println("omrId: "+omrId);
-            noteService.insertNote(
-                    omrId,
-                    nickname,
-                    content,
-                    pwd,
-                    new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate")),
-                    problemNum,
-                    checkNum);
+            // Date showDate = new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate"));
+            noteService.insertNote(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {

@@ -32,11 +32,13 @@ public class Note {
 
     // @Column(nullable = false)
     @Column
-    private Timestamp date;
+    // private Timestamp date;
+    private String date;
 
     // @Column(name="show_date", nullable = false)
     @Column(name="show_date")
-    private Timestamp showDate;
+    private String showDate;
+    // private Timestamp showDate;
     // private Instant showDate;
 
     @Column(name="problem_num", nullable = false)
