@@ -3,6 +3,7 @@
 
 $cheer_front_width: 56px;
 $cheer_section_height: 30em;
+
 @mixin witdh_height($width, $height) {
   width: #{$width};
   height: #{$height};
@@ -11,18 +12,15 @@ $cheer_section_height: 30em;
 @mixin fill_stroke($fill, $stroke) {
   background-color: #{$fill};
   border: 3px solid #{$stroke};
-  border-collapse: collapse;
 }
 
 @mixin header($fill, $stroke) {
-  // font-family: all.$OMR_header;
   font-size: all.$OMR_header_font_size;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
 @mixin body($fill, $stroke) {
-  // font-family: all.$OMR_body;
-  font-size: all.$OMR_body_font_size;
+  // font-size: all.$OMR_body_font_size;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
@@ -36,40 +34,10 @@ $cheer_section_height: 30em;
   color: color.$primary;
   padding: 5px;
   margin: 10px;
-  margin-right: 13px;
+  margin-right: 16px;
 }
 
-* {
-  text-align: center;
-  font-weight: normal;
-}
-
-.left {
-  @include witdh_height(120px, 100px);
-  border-radius: all.$IF_radius 0px 0px all.$IF_radius;
-  line-height: normal;
-  @include all.flex(column, center, center);
-  white-space: pre;
-  text-align: justify-all;
-}
-
-.right {
-  @include witdh_height(290px, 100px);
-  border-radius: 0px all.$IF_radius all.$IF_radius 0px;
-  @include all.flex(column, center, center);
-  font-weight: normal;
-}
-.top {
-  @include witdh_height(410px, 50px);
-  border-radius: all.$IF_radius all.$IF_radius 0px 0px;
-}
-
-.bottom {
-  @include witdh_height(410px, 300px);
-  border-radius: 0px 0px all.$IF_radius all.$IF_radius;
-  font-family: all.$OMR_body;
-}
-
+// 바코드
 @mixin code() {
   @include witdh_height(10px, 30px);
   display: inline-block;
@@ -77,7 +45,7 @@ $cheer_section_height: 30em;
   margin-right: 7px;
 }
 
-// 색깔별
+// OMR 색깔
 @mixin color($bg, $line, $basic) {
   .header {
     @include header(#{$bg}, #{$line});
@@ -106,6 +74,69 @@ $cheer_section_height: 30em;
   }
   .problem:nth-child(5) {
     border-bottom: 3px solid #{$line};
+  }
+}
+
+// 팔레트 버튼 색깔
+@mixin btn_color($bt_bg, $bt_ln) {
+  background-color: #{$bt_bg};
+  border: 2px solid #{$bt_ln};
+}
+
+* {
+  text-align: center;
+  font-weight: normal;
+}
+
+// 영역별
+.left {
+  @include witdh_height(120px, 100px);
+  border-radius: all.$IF_radius 0px 0px all.$IF_radius;
+  line-height: normal;
+  @include all.flex(column, center, center);
+  white-space: pre;
+  text-align: justify-all;
+}
+
+.right {
+  @include witdh_height(290px, 100px);
+  border-radius: 0px all.$IF_radius all.$IF_radius 0px;
+  @include all.flex(column, center, center);
+  font-weight: normal;
+}
+
+.top {
+  @include witdh_height(410px, 60px);
+  border-radius: all.$IF_radius all.$IF_radius 0px 0px;
+}
+
+.bottom {
+  @include witdh_height(410px, 300px);
+  border-radius: 0px 0px all.$IF_radius all.$IF_radius;
+  font-family: all.$OMR_body;
+  span:nth-child(1) button {
+    @include btn_color(color.$bg_yellow, color.$line_yellow);
+  }
+  span:nth-child(2) button {
+    @include btn_color(color.$bg_skyblue, color.$line_skyblue);
+  }
+  span:nth-child(3) button {
+    @include btn_color(color.$bg_purple, color.$line_purple);
+  }
+  span:nth-child(4) button {
+    @include btn_color(color.$bg_green, color.$line_green);
+  }
+  span:nth-child(5) button {
+    @include btn_color(color.$bg_dark_yellow, color.$line_dark_yellow);
+  }
+  span:nth-child(6) button {
+    @include btn_color(color.$bg_navy, color.$line_navy);
+  }
+  span:nth-child(7) button {
+    @include btn_color(color.$bg_orange, color.$line_orange);
+  }
+  span:nth-child(8) button {
+    @include btn_color(color.$bg_pink, color.$line_pink);
   }
 }
 
@@ -174,14 +205,15 @@ $cheer_section_height: 30em;
 
 // 시험지 좌측 - 정보 구역
 .info {
-  font-size: 20;
+  // font-size: 20px;
   @include all.box(32%, 100%);
   @include all.flex(column, space-between, center);
+
   .section {
     @include all.flex(row, flex-start, center);
   }
 
-  // ①교시 응원영역
+  // ①교시 응원영역 파트
   .page {
     width: 370px;
     font-family: all.$OMR_header;
@@ -203,6 +235,39 @@ $cheer_section_height: 30em;
       font-size: 32px;
     }
   }
+
+  // 이름 제목
+  > div:nth-child(2) > div {
+    height: 80px;
+  }
+
+  // 주의사항 제목
+  .top {
+    @include all.flex(row, center, center);
+  }
+  // 주의사항 내용
+  .bottom {
+    @include all.flex(column, space-between, center);
+    p {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-inline: 5px;
+    }
+    span {
+      button {
+        @include witdh_height(30px, 30px);
+        border-radius: 50%;
+        margin-left: 12px;
+        // margin-right: 3px;
+      }
+    }
+
+    .pallet {
+      margin-bottom: 10px;
+    }
+  }
+
+  // 감독 확인란 내용 파트
   img {
     @include witdh_height(80%, inherit);
     object-fit: cover;
@@ -211,12 +276,12 @@ $cheer_section_height: 30em;
 
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
-  @include all.box(29%, 100%);
   font-family: all.$OMR_body;
+  @include all.box(29%, 100%);
 
   // 응원한마디 영역
   .section {
-    @include witdh_height(90%, 100%);
+    @include witdh_height(93%, 100%);
     margin: auto;
     border-radius: all.$OMR_radius;
     position: relative;
@@ -230,7 +295,7 @@ $cheer_section_height: 30em;
       > span {
         padding: 5px;
         margin: 10px;
-        margin-right: 13px;
+        margin-right: 16px;
       }
     }
     > :nth-child(1) {
@@ -243,17 +308,6 @@ $cheer_section_height: 30em;
       border-radius: 0px 0px 0px all.$OMR_small_radius;
     }
   }
-}
-
-// 마킹 O
-.before_marking {
-  @include omr();
-}
-
-// 마킹 X
-.after_marking {
-  @include omr();
-  background: color.$after_marking;
 }
 
 // 문제(1~20번)
@@ -277,6 +331,19 @@ $cheer_section_height: 30em;
     border-right: 3px solid color.$line_skyblue;
   }
 }
+
+// 문항 - 마킹 O
+.before_marking {
+  @include omr();
+}
+
+// 문항 - 마킹 X
+.after_marking {
+  @include omr();
+  background: color.$after_marking;
+}
+
+// 색깔
 .skyblue {
   @include color(color.$bg_skyblue, color.$line_skyblue, color.$before_marking);
 }
