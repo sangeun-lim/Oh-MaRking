@@ -248,7 +248,11 @@ $cheer_section_height: 30em;
   // 주의사항 내용
   .bottom {
     @include all.flex(column, space-between, center);
-    color: red;
+    p {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-inline: 5px;
+    }
     span {
       button {
         @include witdh_height(30px, 30px);
@@ -260,12 +264,6 @@ $cheer_section_height: 30em;
 
     .pallet {
       margin-bottom: 10px;
-    }
-  }
-
-  .bottom {
-    p {
-      color: rgb(253, 11, 11);
     }
   }
 
