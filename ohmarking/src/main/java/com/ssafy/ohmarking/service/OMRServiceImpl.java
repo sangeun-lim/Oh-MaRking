@@ -29,18 +29,21 @@ public class OMRServiceImpl implements OMRService {
         // DB에서 OMR 고유 id를 조회하여 해당 id에 맞는 튜플 반환
         OMR omr = omrRepository.findAllById(id);
 //        OMR omr = omrRepository.findById(id).orElseThrow();
+
         // 1) Entity를 DTO로 변경 2) 리턴
         return converter.toOMRDto(omr);
     }
 
     @Override
-    public void addOMR(OMRDto omrDto) throws Exception {
+    public void addOMR(long userId, int color, int pageNum) throws Exception {
+        OMRDto omrDto = new OMRDto(userId, color, pageNum);
         omrRepository.save(converter.toOMREntity(omrDto));
         return;
     }
 
     @Override
-    public void updateColorOMR(OMRDto omrDto) throws Exception {
+    public void updateColorOMR(long id, int color) throws Exception {
+        OMRDto omrDto = new OMRDto(id, color);
         omrRepository.save(converter.toOMREntity(omrDto));
         return;
     }

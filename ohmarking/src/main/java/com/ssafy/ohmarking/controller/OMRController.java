@@ -31,7 +31,7 @@ public class OMRController {
     @ApiOperation(value = "OMR 읽기(회원)", notes = "본인 소유의 OMR을 반환한다", response = Map.class)
     @GetMapping("/user/{id}")
     public ResponseEntity<Map<String, Object>> showUserOMR(
-//            @RequestHeader("authorization") String authorization,
+            @RequestHeader("authorization") String authorization,
             @PathVariable("id")
             @ApiParam(
                     name = "id",
@@ -42,14 +42,20 @@ public class OMRController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         try {
-            // 프론트에서 해당 OMR id가 PathVariable로 넘어왔으므로 해당 OMR에 대한 정보를 불러온다
-            OMRDto omrDto = omrService.getOMR(id);
+            // 인가받은 사용자라면 (로그인한 사용자라면)
+//            logger.debug("로그인 토큰정보 : {}", token);
+//            resultMap.put("access-token", token);
+            if(authorization != null) {
+                // 프론트에서 해당 OMR id가 PathVariable로 넘어왔으므로 해당 OMR에 대한 정보를 불러온다
+                OMRDto omrDto = omrService.getOMR(id);
+                omrDto.setOwner(true);
 
-            // omrDto 라는 이름으로 API 문서에 맞게 리턴타입 반환
-            OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo(), omrDto.isOwner());
-            resultMap.put("omrDto", omrReturnDto);
-            resultMap.put("message", "게이트웨이 통신 성공");
-            status = HttpStatus.ACCEPTED;
+                // omrDto 라는 이름으로 API 문서에 맞게 리턴타입 반환
+                OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo(), omrDto.isOwner());
+                resultMap.put("omrDto", omrReturnDto);
+                resultMap.put("message", "게이트웨이 통신 성공");
+                status = HttpStatus.ACCEPTED;
+            }
         } catch (Exception e) {
             logger.error("게이트웨이 통신 실패 : {}", e);
             resultMap.put("message", e.getMessage());
@@ -75,7 +81,7 @@ public class OMRController {
 
         try {
             OMRDto omrDto = omrService.getOMR(id);
-            OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo());
+            OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo(), omrDto.isOwner());
             resultMap.put("omrDto", omrReturnDto);
             resultMap.put("message", "게이트웨이 통신 성공");
             status = HttpStatus.ACCEPTED;
@@ -90,13 +96,17 @@ public class OMRController {
 
     @ApiOperation(value = "OMR 등록 (페이지 추가)", notes = "OMR을 추가한다", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> plusOMR(@RequestBody long userId, int color, int pageNum) {
+    public ResponseEntity<Map<String, Object>> plusOMR(@RequestBody Map<String, String> map) {
+        // @RequestBody long userId, int color, int pageNum
+        long userId = Long.parseLong(map.get("userId"));
+        int color = Integer.parseInt(map.get("color"));
+        int pageNum = Integer.parseInt(map.get("pageNum"));
+
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        OMRDto omrDto = new OMRDto(userId, color, pageNum);
         try {
-            omrService.addOMR(omrDto);
+            omrService.addOMR(userId, color, pageNum);
             resultMap.put("message", "OMR 카드 등록 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -110,13 +120,16 @@ public class OMRController {
 
     @ApiOperation(value = "OMR 색깔 수정", notes = "OMR을 색깔을 수정한다", response = Map.class)
     @PutMapping
-    public ResponseEntity<Map<String, Object>> modifyOMR(@RequestBody long id, int color) {
+    public ResponseEntity<Map<String, Object>> modifyOMR(@RequestBody Map<String, String> map) {
+        // @RequestBody long id, int color
+        long id = Long.parseLong(map.get("id"));
+        int color = Integer.parseInt(map.get("color"));
+
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        OMRDto omrDto = new OMRDto(id, color);
         try {
-            omrService.updateColorOMR(omrDto);
+            omrService.updateColorOMR(id, color);
             resultMap.put("message", "OMR 카드 색깔 변경 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -127,4 +140,5 @@ public class OMRController {
 
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
+
 }

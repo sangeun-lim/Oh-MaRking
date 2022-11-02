@@ -18,9 +18,9 @@ public class OMRDto {
     private int pageNum;
     @ApiModelProperty(value = "OMR 테마색")
     private int color;
-    @ApiModelProperty(value = "OMR 정보") //[문항번호][각 번호 노트상태(0:없음 - 7:읽기상태 및 즐겨찾기)]
+    @ApiModelProperty(value = "OMR 정보") //[문항번호][체크번호]
     private int[][] omrInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
-    @ApiModelProperty(value = "note 정보") //[문항번호][각번호에 노트번호 표시(없으면 0)]
+    @ApiModelProperty(value = "note 정보") //[문항번호][체크번호]
     private int[][] noteInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
     @ApiModelProperty(value = "OMR 소유여부")
     private boolean isOwner;
@@ -34,13 +34,13 @@ public class OMRDto {
         this.isOwner = isOwner;
     }
 
-    // OMR 읽기 비회원 반환 DTO
-    public OMRDto(int color, int pageNum, int[][] omrInfo, int[][] noteInfo) {
-        this.pageNum = pageNum;
-        this.color = color;
-        this.omrInfo = omrInfo;
-        this.noteInfo = noteInfo;
-    }
+//    // OMR 읽기 비회원 반환 DTO
+//    public OMRDto(int color, int pageNum, int[][] omrInfo, int[][] noteInfo) {
+//        this.pageNum = pageNum;
+//        this.color = color;
+//        this.omrInfo = omrInfo;
+//        this.noteInfo = noteInfo;
+//    }
 
     // OMR 등록 요청 DTO
     public OMRDto(long userId, int color, int pageNum) {
