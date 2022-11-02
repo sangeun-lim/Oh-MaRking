@@ -11,6 +11,9 @@ $OMR_body: 'inter_medium';
 $OMR_header_font_size: 25px;
 $OMR_body_font_size: 24px;
 
+// OMR 하트 URL
+$heart_url: 'https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/favourite-removebg-preview.png?alt=media&token=31a51ce2-73e4-4d11-a6ae-a30331ed9a85';
+
 @mixin box($width, $height) {
   display: block;
   width: #{$width};
