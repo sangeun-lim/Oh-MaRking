@@ -87,12 +87,12 @@ public class NoteServiceImpl implements NoteService {
         **/
     }
 
-//    @Override
-//    // @Transactional
-//    public void deleteNote(Long id) throws Exception {
-//        noteRepository.delete(noteRepository.getReferenceById(id));
-//    }
-//
+    @Override
+    // @Transactional
+    public void deleteNote(long id) throws Exception {
+        noteRepository.delete(noteRepository.getReferenceById(id));
+    }
+
 //    @Override
 //    public List<NoteDto> findNote(String nickname) {
 //        return converter.toNoteDtoList(noteRepository.findByNickname(nickname));

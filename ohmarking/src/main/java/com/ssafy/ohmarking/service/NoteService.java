@@ -13,6 +13,6 @@ public interface NoteService {
     NoteDto seeNote(long id, String pwd) throws Exception;
     NoteDto showNote(long id) throws Exception;
     void updateNote(long id, String nickname, String content, String showDate) throws Exception;
-//    void deleteNote(Long id) throws Exception;
+    void deleteNote(long id) throws Exception;
 //    List<NoteDto> findNote(String nickname);
 }

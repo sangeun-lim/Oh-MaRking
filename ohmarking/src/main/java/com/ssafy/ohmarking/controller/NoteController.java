@@ -30,9 +30,6 @@ public class NoteController {
     @PostMapping
     // @RequestBody는 덩어리(객체)로 넘어오기 때문에 매개변수의 나열은 컴퓨터가 인식을 못한다
     public ResponseEntity<Map<String, Object>> writeNote(@RequestBody Map<String, String> map) {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = HttpStatus.ACCEPTED;
-
         // 프론트에서 받아온 값을 map을 통해 읽어온다
         long omrId = Long.parseLong(map.get("omrId"));
         String nickname = map.get("nickname");
@@ -44,6 +41,8 @@ public class NoteController {
         int problemNum = Integer.parseInt(map.get("problemNum"));
         int checkNum = Integer.parseInt(map.get("checkNum"));
 
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
         try {
             // Date showDate = new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate"));
             // 프론트에서 받은 Parameter를 service 로직 처리에 필요하므로 보내준다
@@ -126,23 +125,26 @@ public class NoteController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "응원글 삭제", notes = "응원글을 삭제한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-//    @DeleteMapping
-//    public ResponseEntity<String> deleteNote(@RequestBody long id) {
-//        HttpStatus status = HttpStatus.ACCEPTED;
-//        NoteDto noteDto = new NoteDto(id);
-//        try {
-//            // 삭제할 응원글 번호(id)와 등록시 비밀번호
-//            noteService.deleteNote(noteDto.getId());
-//            status = HttpStatus.ACCEPTED;
-//            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-//        } catch (Exception e) {
-//            logger.error("응원글 삭제 실패 : {}", e);
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//            return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
-//        }
-//    }
-//
+    @ApiOperation(value = "응원글 삭제", notes = "응원글을 삭제한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
+    @DeleteMapping
+    public ResponseEntity<String> deleteNote(@RequestBody Map<String, String> map) {
+        // @RequestBody long id
+        long id = Long.parseLong(map.get("id"));
+
+        // resultMap 생성하지 않고 String으로 결과 반환하기
+        HttpStatus status = HttpStatus.ACCEPTED;
+        try {
+            // 삭제할 응원글 번호(id)와 등록시 비밀번호
+            noteService.deleteNote(id);
+            status = HttpStatus.ACCEPTED;
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("응원글 삭제 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
+        }
+    }
+
 //    @ApiOperation(value = "응원글 검색", notes = "응원글 nickname에 맞는 글을 검색한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
 //    @GetMapping("/search/{nickname}")
 //    public ResponseEntity<Map<String, Object>> searchNote(
