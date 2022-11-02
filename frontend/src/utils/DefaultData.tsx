@@ -5,3 +5,7 @@ export const NoteDefaultData = {
   password2: '',
   content: '',
 };
+
+export const NoNyung = {
+  a: '',
+};

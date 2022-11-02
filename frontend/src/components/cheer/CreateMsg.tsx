@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { NoteData } from 'utils/Interface';
-// import { NoteDefaultData } from 'utils/DefaultData';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { NoteData } from '../../utils/Interface';
+import { NoteDefaultData } from '../../utils/DefaultData';
+// import { NoteData } from 'utils/Interface';
+// import { NoteDefaultData } from 'utils/DefaultData';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -23,27 +25,45 @@ function CreateMsg({
 }: CreateMsgProps): JSX.Element {
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
-
+  const password1 = '';
+  const password2 = '';
   // // 노트에 넣어야되는 데이터
-  // const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
-  // // 비밀번호 일치 체크
-  // const [pass, setPass] = useState<boolean>(false);
-  // // const checkValid = () => setPwCheck(true);
-  // // const checkCommon = () => setPwCommonCheck(true);
-  // // const passwordValid = function () {};
-  // // const passwordCheckValid = function () {};
+  const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
+  // 비밀번호 일치 체크
+  const [pass, setPass] = useState<boolean>(true);
+  // const [password]
+  // const checkValid = () => setPwCheck(true);
+  // const checkCommon = () => setPwCommonCheck(true);
+  // const passwordValid = function () {};
+  const passwordCheckValid = function () {
+    if (newNote.password1 === newNote.password2) {
+      setPass(true);
+    } else {
+      setPass(false);
+    }
+  };
+  // 비밀 >_0
+  document
+    .querySelector('#password-check')
+    ?.addEventListener('focusout', passwordCheckValid);
+
+  // useEffect(() => {
+
+  // });
+  // useEffect(() => {
+  //   console.log('노으녕');
+  // }, [newNote]);
 
   // // 노트에 쓰는 모든 값들이 입력하면서 바뀔때마다 값 바꿔주는 함수
-  // const onChange = (e: any) => {
-  //   const { name, value } = e.target;
-
-  //   setNewNote((prev) => {
-  //     return {
-  //       ...prev,
-  //       [name]: value,
-  //     };
-  //   });
-  // };
+  const onChange = (e: any) => {
+    const { name, value } = e.target;
+    setNewNote((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
 
   // // 취소버튼 눌렀을 때
   // const onCancelClick = () => {
@@ -81,9 +101,11 @@ function CreateMsg({
                         <Col>
                           <div>
                             <input
+                              name="nickname"
                               id="nickname"
                               type="text"
                               placeholder="닉네임을 입력해주세요."
+                              onChange={onChange}
                               maxLength={10}
                             />
                           </div>
@@ -125,9 +147,12 @@ function CreateMsg({
                         <Col>
                           <div>
                             <input
+                              name="password1"
                               id="password"
                               type="password"
                               placeholder="비밀번호를 입력해주세요."
+                              value={newNote.password1}
+                              onChange={onChange}
                             />
                           </div>
                         </Col>
@@ -146,9 +171,13 @@ function CreateMsg({
                         <Col>
                           <div>
                             <input
+                              name="password2"
                               id="password-check"
                               type="password"
                               placeholder="동일한 비밀번호를 입력하세요."
+                              value={newNote.password2}
+                              onChange={onChange}
+                              // value={newNote.password2}
                             />
                           </div>
                         </Col>
@@ -158,6 +187,8 @@ function CreateMsg({
                 </Row>
               </div>
             </div>
+            {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null}
+
             <br />
             <div className={styles.cheer_box}>
               <div className={styles.cheerHeader}>
@@ -167,10 +198,11 @@ function CreateMsg({
                 <div>
                   <textarea
                     placeholder="응원글을 작성해주세요."
-                    name="cheer-text"
+                    name="content"
                     id="cheer-text"
+                    onChange={onChange}
                     cols={30}
-                    rows={10}
+                    rows={5}
                   />
                   <ul>
                     <li>
