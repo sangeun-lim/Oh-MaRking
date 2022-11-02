@@ -5,18 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="759bbe91-f6d7-4ef9-a2d2-0830a631743e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/src/main/java/com/ssafy/ohmarking/login_server/LoginServerApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_server/src/test/java/com/ssafy/ohmarking/login_server/LoginServerApplicationTests.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/NotFindIdException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/TokenNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/UserNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/handler/ExceptionAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/handler/ExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/model/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/CustomUserDetailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/JwtAccessDeniedHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/config/JwtSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/db/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/db/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/login/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/resources/application.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +84,7 @@
       <workItem from="1667261949689" duration="77000" />
       <workItem from="1667262040488" duration="4625000" />
       <workItem from="1667269197553" duration="128000" />
+      <workItem from="1667346716260" duration="28000" />
     </task>
     <servers />
   </component>
