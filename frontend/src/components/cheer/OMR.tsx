@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { stampUrl } from '../../utils/imgUrl';
 import { changeColor } from '../../store/nowcolor';
 import Search from './Search';
 import { getKey, randomOmr } from '../../utils/utils';
@@ -90,10 +91,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
         {content !== '감독확인란' ? (
           content
         ) : (
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/%EA%B0%90%EB%8F%85%ED%99%95%EC%9D%B8%EB%9E%802.png?alt=media&token=d15291fc-453b-418c-9a7c-705ac3a4601c"
-            alt="감독은 노녕과 아이들"
-          />
+          <img src={stampUrl} alt="감독은 노녕과 아이들" />
         )}
       </div>
     </div>
