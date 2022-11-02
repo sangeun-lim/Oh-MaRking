@@ -25,7 +25,7 @@ $cheer_section_height: 30em;
 }
 
 // OMR 마킹하는 곳
-@mixin omr() {
+@mixin omr($bg) {
   @include all.box(29px, 39px);
   @include all.flex(column, center, center);
   @include fill-stroke(color.$before_marking, color.$primary);
@@ -35,6 +35,7 @@ $cheer_section_height: 30em;
   padding: 5px;
   margin: 10px;
   margin-right: 16px;
+  background: #{$bg};
 }
 
 // 바코드
@@ -333,15 +334,46 @@ $cheer_section_height: 30em;
 }
 
 // 문항 - 마킹 O
-.before_marking {
-  @include omr();
+.empty {
+  @include omr(color.$before_marking);
 }
 
 // 문항 - 마킹 X
-.after_marking {
-  @include omr();
-  background: color.$after_marking;
+.already {
+  @include omr(color.$after_marking);
 }
+
+.notyet {
+  @include omr(color.$notyet_marking);
+}
+
+.cannot {
+  @include omr(color.$after_marking);
+  background: linear-gradient(
+    120deg,
+    color.$before_marking 48%,
+    red 0,
+    red 60%,
+    color.$before_marking 0
+  );
+}
+
+.liked {
+  @include omr(color.$after_marking);
+  // img {
+  // display: absolute;
+  // @include witdh_height(inherit, inherit);
+  background-color: none;
+  background-image: url(all.$heart_url);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px;
+  // font-display: hidd
+  // object-fit: cover;
+  // button {
+  // }
+}
+// background-color: none;
 
 // 색깔
 .skyblue {

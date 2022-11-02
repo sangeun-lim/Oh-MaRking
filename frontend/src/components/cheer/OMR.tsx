@@ -34,6 +34,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
   };
+  // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
+  const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
   return (
     <div className={`${styles.section} ${styles.body}`}>
       <div className={`${styles.header} ${styles.top}`}>
@@ -52,14 +54,14 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             <div>
               {problemList.map((elementList, elementNum) => (
                 <button
-                  className={styles.before_marking}
+                  className={`${styles[omrBg[elementList]]}`}
                   key={getKey()}
                   type="button"
                   onClick={() =>
                     openModal(problemNum + start + 1, elementNum + 1)
                   }
                 >
-                  {elementNum + 1}
+                  {elementList === 4 ? null : elementNum + 1}
                 </button>
               ))}
             </div>
