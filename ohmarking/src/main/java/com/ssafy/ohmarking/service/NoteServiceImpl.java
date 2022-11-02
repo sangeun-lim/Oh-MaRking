@@ -93,9 +93,9 @@ public class NoteServiceImpl implements NoteService {
         noteRepository.delete(noteRepository.getReferenceById(id));
     }
 
-//    @Override
-//    public List<NoteDto> findNote(String nickname) {
-//        return converter.toNoteDtoList(noteRepository.findByNickname(nickname));
-//    }
+    @Override
+    public List<NoteDto> findNote(String nickname) {
+        return converter.toNoteDtoList(noteRepository.findByNickname(nickname));
+    }
 
 }

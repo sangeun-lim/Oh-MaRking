@@ -145,39 +145,39 @@ public class NoteController {
         }
     }
 
-//    @ApiOperation(value = "응원글 검색", notes = "응원글 nickname에 맞는 글을 검색한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
-//    @GetMapping("/search/{nickname}")
-//    public ResponseEntity<Map<String, Object>> searchNote(
-//            @PathVariable("nickname")
-//            @ApiParam(
-//                    name = "nickname",
-//                    type = "String",
-//                    value = "Note 작성자",
-//                    required = true) String nickname
-//    ) {
-//        HttpStatus status = HttpStatus.ACCEPTED;
-//        Map<String, Object> resultMap = new HashMap<>();
-//        List<NoteDto> refineNoteList = new ArrayList<>();
-//        try {
-//            List<NoteDto> listNoteDtos = noteService.findNote(nickname);
-//            for (int i = 0; i < listNoteDtos.size(); i++) {
-//                NoteDto returnNoteDto = new NoteDto(
-//                        listNoteDtos.get(i).getId(),
-//                        listNoteDtos.get(i).getPageNum(),
-//                        listNoteDtos.get(i).getDate(),
-//                        listNoteDtos.get(i).getShowDate(),
-//                        listNoteDtos.get(i).getProblemNum(),
-//                        listNoteDtos.get(i).getCheckNum());
-//                refineNoteList.add(returnNoteDto);
-//            }
-//            resultMap.put("noteList", refineNoteList);
-//            resultMap.put("message", SUCCESS);
-//            status = HttpStatus.ACCEPTED;
-//        } catch (Exception e) {
-//            logger.error("응원글 검색 실패 : {}", e);
-//            resultMap.put("message", FAIL);
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-//        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-//    }
+    @ApiOperation(value = "응원글 검색", notes = "응원글 nickname에 맞는 글을 검색한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
+    @GetMapping("/search/{nickname}")
+    public ResponseEntity<Map<String, Object>> searchNote(
+            @PathVariable("nickname")
+            @ApiParam(
+                    name = "nickname",
+                    type = "String",
+                    value = "Note 작성자",
+                    required = true) String nickname
+    ) {
+        HttpStatus status = HttpStatus.ACCEPTED;
+        Map<String, Object> resultMap = new HashMap<>();
+        List<NoteDto> refineNoteList = new ArrayList<>();
+        try {
+            List<NoteDto> listNoteDtos = noteService.findNote(nickname);
+            for (int i = 0; i < listNoteDtos.size(); i++) {
+                NoteDto returnNoteDto = new NoteDto(
+                        listNoteDtos.get(i).getId(),
+                        listNoteDtos.get(i).getPageNum(),
+                        listNoteDtos.get(i).getDate(),
+                        listNoteDtos.get(i).getShowDate(),
+                        listNoteDtos.get(i).getProblemNum(),
+                        listNoteDtos.get(i).getCheckNum());
+                refineNoteList.add(returnNoteDto);
+            }
+            resultMap.put("noteList", refineNoteList);
+            resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("응원글 검색 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }

@@ -67,26 +67,13 @@ public class NoteDto implements Serializable {
         this.checkNum = checkNum;
     }
 
-//    // NOTE 수정 요청 DTO
-//    public NoteDto(long id, String nickname, String content, Instant showDate) {
-//        this.id = id;
-//        this.nickname = nickname;
-//        this.content = content;
-//        this.showDate = showDate;
-//    }
-//
-//    // NOTE 삭제 요청 DTO
-//    public NoteDto(long id) {
-//        this.id = id;
-//    }
-//
-//    // NOTE 검색 반환 DTO
-//    public NoteDto(long id, int pageNum, Instant date, Instant showDate, int problemNum, int checkNum) {
-//        this.id = id;
-//        this.pageNum = pageNum;
-//        this.date = date;
-//        this.showDate = showDate;
-//        this.problemNum = problemNum;
-//        this.checkNum = checkNum;
-//    }
+    // NOTE 검색 반환 DTO
+    public NoteDto(long id, int pageNum, String date, String showDate, int problemNum, int checkNum) {
+        this.id = id;
+        this.pageNum = pageNum;
+        this.date = date;
+        this.showDate = showDate;
+        this.problemNum = problemNum;
+        this.checkNum = checkNum;
+    }
 }
