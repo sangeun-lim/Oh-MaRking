@@ -12,7 +12,7 @@ public interface NoteService {
     void insertNote(long omrId, String nickname, String content, String pwd, String showDate, int problemNum, int checkNum) throws Exception;
     NoteDto seeNote(long id, String pwd) throws Exception;
     NoteDto showNote(long id) throws Exception;
-//    void updateNote(NoteDto noteDto) throws Exception;
+    void updateNote(long id, String nickname, String content, String showDate) throws Exception;
 //    void deleteNote(Long id) throws Exception;
 //    List<NoteDto> findNote(String nickname);
 }

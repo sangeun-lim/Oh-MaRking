@@ -103,24 +103,29 @@ public class NoteController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "응원글 수정", notes = "응원글 id에 맞는 응원글을 수정한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
-//    @PutMapping
-//    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody Instant showDate) {
-//        Map<String, Object> resultMap = new HashMap<>();
-//        HttpStatus status = HttpStatus.ACCEPTED;
-//        NoteDto noteDto = new NoteDto(id, nickname, content, showDate);
-//        try {
-//            noteService.updateNote(noteDto);
-//            resultMap.put("message", SUCCESS);
-//            status = HttpStatus.ACCEPTED;
-//        } catch (Exception e) {
-//            logger.error("응원글 수정 실패 : {}", e);
-//            resultMap.put("message", FAIL);
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-//        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-//    }
-//
+    @ApiOperation(value = "응원글 수정", notes = "응원글 id에 맞는 응원글을 수정한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
+    @PutMapping
+    public ResponseEntity<Map<String, Object>> modifyNote(@RequestBody Map<String, String> map) {
+        // @RequestBody long id, @RequestBody String nickname, @RequestBody String content, @RequestBody String showDate
+        long id = Long.parseLong(map.get("id"));
+        String nickname = map.get("nickname");
+        String content = map.get("content");
+        String showDate = map.get("showDate");
+
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+        try {
+            noteService.updateNote(id, nickname, content, showDate);
+            resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("응원글 수정 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
 //    @ApiOperation(value = "응원글 삭제", notes = "응원글을 삭제한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
 //    @DeleteMapping
 //    public ResponseEntity<String> deleteNote(@RequestBody long id) {

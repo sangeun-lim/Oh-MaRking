@@ -66,27 +66,27 @@ public class NoteServiceImpl implements NoteService {
         return converter.toNoteDto(noteRepository.findAllById(id));
     }
 
-//    @Override
-//    public void updateNote(NoteDto noteDto) throws Exception {
-//        Note note = noteRepository.getReferenceById(noteDto.getId());
-//        note.setContent(noteDto.getContent());
-//        note.setShowDate(Timestamp.from(noteDto.getShowDate()));
-//        return;
-//        /**
-//        // DB 에 저장된 비밀번호가 현재 입력하는 비밀번호와 일치하면 ( 이 로직이 필요없는 이유 : 애초에 비밀번호 검사 하고 노트 보여짐)
-//        if(note.getPwd() == noteDto.getPwd()) {
-//            // 수정 본문이 공백이 아니면 본문 수정
-//            if (noteDto.getContent() != null) note.setContent(noteDto.getContent());
-//        }
-//         **/
-//        /**
-//        // 공개날짜 변경
-//        Date beforeDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(noteDto.getShow_date()));
-//        Date showDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(note.getShow_date().toInstant()));
-//        if(!beforeDate.equals(showDate)) note.setShow_date(Timestamp.from(noteDto.getShow_date()));
-//        **/
-//    }
-//
+    @Override
+    public void updateNote(long id, String nickname, String content, String showDate) throws Exception {
+        Note note = noteRepository.getReferenceById(id);
+        note.setContent(content);
+        note.setShowDate(showDate);
+        return;
+        /**
+        // DB 에 저장된 비밀번호가 현재 입력하는 비밀번호와 일치하면 ( 이 로직이 필요없는 이유 : 애초에 비밀번호 검사 하고 노트 보여짐)
+        if(note.getPwd() == noteDto.getPwd()) {
+            // 수정 본문이 공백이 아니면 본문 수정
+            if (noteDto.getContent() != null) note.setContent(noteDto.getContent());
+        }
+         **/
+        /**
+        // 공개날짜 변경
+        Date beforeDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(noteDto.getShow_date()));
+        Date showDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(String.valueOf(note.getShow_date().toInstant()));
+        if(!beforeDate.equals(showDate)) note.setShow_date(Timestamp.from(noteDto.getShow_date()));
+        **/
+    }
+
 //    @Override
 //    // @Transactional
 //    public void deleteNote(Long id) throws Exception {
