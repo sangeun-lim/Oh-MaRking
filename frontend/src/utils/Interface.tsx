@@ -14,3 +14,21 @@ export interface NoteData {
   password2: string;
   content: string;
 }
+
+export interface NoteDetail {
+  nickname: string;
+  content: string;
+  show_date: string;
+  date: string;
+  problem_num: number;
+  check_num: number;
+}
+
+export interface EditNote {
+  nickname: string;
+  content: string;
+  show_date: string;
+  date: string;
+  problem_num: number;
+  check_num: number;
+}
