@@ -46,6 +46,7 @@ public class NoteController {
 
         try {
             // Date showDate = new SimpleDateFormat("yyyy-MM-dd").parse(map.get("showDate"));
+            // 프론트에서 받은 Parameter를 service 로직 처리에 필요하므로 보내준다
             noteService.insertNote(omrId, nickname, content, pwd, showDate, problemNum, checkNum);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
