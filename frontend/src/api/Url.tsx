@@ -25,6 +25,7 @@ const Url = {
     createOrUpdateOrDeleteNote: () => `${HOST + NOTE}`,
     readNote: (noteId: string) => `${HOST + NOTE}${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
+    likeNote: () => `${HOST + NOTE}favorite`,
   },
   password: {
     checkPW: () => `${HOST + CHECK}`,

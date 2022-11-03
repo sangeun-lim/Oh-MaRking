@@ -102,6 +102,18 @@ const OMRApi = {
       });
       return response;
     },
+
+    likeNote: async (noteId: string, favorite: number) => {
+      const response = await axios({
+        url: Url.note.likeNote(),
+        method: 'put',
+        data: {
+          noteId,
+          favorite,
+        },
+      });
+      return response;
+    },
   },
 
   password: {

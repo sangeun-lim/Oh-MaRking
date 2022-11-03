@@ -87,6 +87,12 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
     onEditClick();
   };
 
+  const onLikeClick = async (e: any) => {
+    e.preventDefault();
+
+    // const response = await OMRApi.note.likeNote(noteId, favorite);
+  };
+
   return (
     <div>
       {/*  본인의 페이지인가 아닌가에 따라 조건처리를 해줘야함 */}
