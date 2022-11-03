@@ -39,5 +39,4 @@ export interface UpdateNoteData {
   nickname: string;
   content: string;
   show_date: string;
-  date: string;
 }
