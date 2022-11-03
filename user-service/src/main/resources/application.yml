@@ -7,6 +7,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql_user:3306/ohmarking?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: c102akdlsql
 
   redis:
     host: redis_db
