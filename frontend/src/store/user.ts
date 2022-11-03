@@ -27,5 +27,3 @@ const userReducer = createSlice({
 
 export const { updateIntro } = userReducer.actions;
 export default userReducer.reducer;
-
-// const nameInitailState = { isLoggined: '', name: '', color: '', token: '' };
