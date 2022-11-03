@@ -153,7 +153,7 @@ function OMR(): JSX.Element {
         {/* OMR TOP */}
         <Code />
         <div className={styles.omr_head}>
-          <div className={styles.header}>새 페이지 작성</div>
+          <div className={styles.header}>답안지 교체</div>
           <div className={styles.header}>
             <Search />
           </div>
