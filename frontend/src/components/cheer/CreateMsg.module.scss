@@ -1,12 +1,17 @@
 @use 'src/style/all';
+@use 'src/style/color';
 @import url("//fonts.googleapis.com/earlyaccess/nanumgothic.css" );
 
 
 .test:not(button) {
   // font-weight: bold;
-  font-family: 'hanna_11yrs', "Nanum Gothic", sans-serif;
+  font-family: 'hanna_11yrs';
+  // cursor: url('../../img/pen-solid.svg'), pointer;
 }
 
+// .test > * {
+//   // cursor: url('../../img/pen-solid.svg'), pointer;
+// }
 .full_screen {
   width: 100%
 }
@@ -21,12 +26,13 @@ span {
   height: 100%;
   // justify-content: space-between;
   .vertical_lr {
+    // border-right: 0px;
     // margin-left: auto; 
     // margin-right: auto;
     text-align: center;
     // align-items: center;
     writing-mode: vertical-lr;
-    border-right: 1px solid #000;
+    // border-right: 3px solid;
     width: 5%;
     font-size: 0.75rem;
   }
@@ -45,13 +51,9 @@ span {
 }
 
 .group {
-  // width: 100%;
-  // border: 2px solid #000;
   display:flex;
-  // display: grid;
   flex-wrap: nowrap;
   justify-content: space-between;
-  // align-items: center;
   height:100%;
   label {
     width: 100%;
@@ -67,9 +69,10 @@ span {
       display: block;
       overflow: hidden;
       padding: 0 5px 0 0;
+
     }
     input[type=password]{
-      font-family:"Nanum Gothic", sans-serif    
+      font-family:"Nanum Gothic", sans-serif; 
     }
     input[type=password]::placeholder {
       font-family: "hanna_11yrs"; 
@@ -90,7 +93,7 @@ span {
   align-items: center;
 }
 .cheer_box {
-  border:1px solid #000;
+  border:3px solid #000;
 }
 
 // 버튼관련 css
@@ -135,19 +138,7 @@ ul {
     opacity: 1;
     transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
   }
-  // .btn span {
-  //   position: relative;
-  //   display: inline-block;
-  //   font-size: 14px;
-  //   font-weight: bold;
-  //   letter-spacing: 2px;
-  //   text-transform: uppercase;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   padding: 15px 20px;
-  //   transition: 0.3s;
-  // }
+ 
   .btn_hover_border_3:hover{
     color: #000;
   }
@@ -169,14 +160,104 @@ ul {
     border-bottom: 1px solid rgb(28, 31, 30);
     border-right: 1px solid rgb(28, 31, 30);
   }
-  // .btn_hover_border_3::after {
-    
-  // }
-  
-  // .btn_hover_border_3.active {
-    
-  // }
+
   .btn_hover_border_3 {
     border: none; 
     color: #a7aaad;
   }
+
+
+
+//color
+@mixin fill_stroke($fill, $stroke) {
+  background-color: #{$fill};
+  border: 3px solid #{$stroke};
+}
+
+@mixin header($fill, $stroke) {
+  font-size: all.$OMR_header_font_size;
+  @include fill_stroke(#{$fill}, #{$stroke});
+}
+
+@mixin body($fill, $stroke) {
+  // font-size: all.$OMR_body_font_size;
+  @include fill_stroke(#{$fill}, #{$stroke});
+}
+@mixin color($bg, $line, $basic) {
+  .first_header {
+    @include header(#{$bg}, #{$line});
+  }
+  .header {
+    @include header(#{$bg}, #{$line});
+    // .form_label {
+      border-left-style: hidden;
+    // }
+  }
+  .bottom_header{
+    border-bottom-style: hidden;
+  }
+  .cheer .header {
+    border: none;
+    border-bottom: 3px solid #{$line};
+  }
+  .body {
+    @include body(#{$basic}, #{$line});
+    border-left-style: hidden;
+    // .right {
+    //   border-left-style: hidden;
+    // }
+    // .bottom {
+    //   border-top-style: hidden;
+    // }
+  }
+  .cheer span {
+    background-color: #{$bg};
+    border-right-color: #{$line};
+  }
+  .problem {
+    span {
+      border-right-color: #{$line};
+    }
+  }
+  .problem:nth-child(5) {
+    border-bottom: 3px solid #{$line};
+  }
+}
+
+
+.skyblue {
+  @include color(color.$bg_skyblue, color.$line_skyblue, color.$before_marking);
+}
+
+.yellow {
+  @include color(color.$bg_yellow, color.$line_yellow, color.$before_marking);
+}
+
+.purple {
+  @include color(color.$bg_purple, color.$line_purple, color.$before_marking);
+}
+
+.green {
+  @include color(color.$bg_green, color.$line_green, color.$before_marking);
+}
+
+.dark_yellow {
+  @include color(
+    color.$bg_dark_yellow,
+    color.$line_dark_yellow,
+    color.$before_marking
+  );
+}
+
+.navy {
+  @include color(color.$bg_navy, color.$line_navy, color.$before_marking);
+}
+
+.orange {
+  @include color(color.$bg_orange, color.$line_orange, color.$before_marking);
+}
+
+.pink {
+  @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
+}
+

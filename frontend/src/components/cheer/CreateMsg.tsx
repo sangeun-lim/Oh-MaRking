@@ -2,11 +2,11 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { NoteData } from '../../utils/Interface';
 import { NoteDefaultData } from '../../utils/DefaultData';
-// import { NoteData } from 'utils/Interface';
-// import { NoteDefaultData } from 'utils/DefaultData';
+import type { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -23,10 +23,19 @@ function CreateMsg({
   show,
   setShow,
 }: CreateMsgProps): JSX.Element {
+  const { nowColor } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
-  const password1 = '';
-  const password2 = '';
+  const colorList = [
+    'yellow',
+    'skyblue',
+    'purple',
+    'green',
+    'dark_yellow',
+    'navy',
+    'orange',
+    'pink',
+  ];
   // // 노트에 넣어야되는 데이터
   const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
   // 비밀번호 일치 체크
@@ -46,6 +55,9 @@ function CreateMsg({
   document
     .querySelector('#password-check')
     ?.addEventListener('focusout', passwordCheckValid);
+  document
+    .querySelector('#password-check')
+    ?.addEventListener('focusin', () => setPass(true));
 
   // useEffect(() => {
 
@@ -75,38 +87,54 @@ function CreateMsg({
   //   e.preventDefault();
   //   // 조건주고 axios 받고 등등의 제출할때 필요한 처리해주는 함수
   // };
-
+  useEffect(() => {
+    // console.log(document.querySelector('#ASDF').parentNode?.parentNode);
+  }, []);
   return (
     <div>
-      <Modal show={show} onHide={handleClose} className={styles.test}>
-        <Modal.Header closeButton>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        className={`${styles[colorList[nowColor]]} ${styles.test}`}
+      >
+        <Modal.Header
+          style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+          closeButton
+        >
           <Modal.Title>응원글 작성</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
           <form>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ width: '100%', padding: '0px' }}>
                 <Row style={{ margin: '0px' }}>
+                  {/* <div className={styles.group}> */}
                   <div className={styles.group}>
                     <Col>
                       <Row>
-                        <Col>
+                        <Col
+                          className={`${styles.first_header} ${styles.bottom_header}`}
+                        >
                           <label
-                            className={styles.form_label}
+                            className={`${styles.form_label}`}
                             htmlFor="nickname"
                           >
                             닉네임
                           </label>
                         </Col>
-                        <Col>
+                        <Col
+                          className={`${styles.header} ${styles.bottom_header}`}
+                        >
                           <div>
                             <input
+                              style={{ backgroundColor: '#FBFFFE' }}
                               name="nickname"
                               id="nickname"
                               type="text"
                               placeholder="닉네임을 입력해주세요."
                               onChange={onChange}
                               maxLength={10}
+                              required
                             />
                           </div>
                         </Col>
@@ -114,7 +142,9 @@ function CreateMsg({
                     </Col>
                     <Col>
                       <Row>
-                        <Col>
+                        <Col
+                          className={`${styles.header} ${styles.bottom_header}`}
+                        >
                           <label
                             className={styles.form_label}
                             htmlFor="opendate"
@@ -122,9 +152,16 @@ function CreateMsg({
                             공개 날짜
                           </label>
                         </Col>
-                        <Col>
+                        <Col
+                          className={`${styles.header} ${styles.bottom_header}`}
+                        >
                           <div>
-                            <input type="date" id="opendate" />
+                            <input
+                              style={{ backgroundColor: '#FBFFFE' }}
+                              type="date"
+                              id="opendate"
+                              required
+                            />
                           </div>
                         </Col>
                       </Row>
@@ -136,7 +173,7 @@ function CreateMsg({
                   <div className={styles.group}>
                     <Col>
                       <Row>
-                        <Col>
+                        <Col className={styles.first_header}>
                           <label
                             className={styles.form_label}
                             htmlFor="password"
@@ -144,15 +181,17 @@ function CreateMsg({
                             비밀번호
                           </label>
                         </Col>
-                        <Col>
+                        <Col className={styles.header}>
                           <div>
                             <input
+                              style={{ backgroundColor: '#FBFFFE' }}
                               name="password1"
                               id="password"
                               type="password"
                               placeholder="비밀번호를 입력해주세요."
                               value={newNote.password1}
                               onChange={onChange}
+                              required
                             />
                           </div>
                         </Col>
@@ -160,7 +199,7 @@ function CreateMsg({
                     </Col>
                     <Col>
                       <Row>
-                        <Col>
+                        <Col className={styles.header}>
                           <label
                             className={styles.form_label}
                             htmlFor="password-check"
@@ -168,15 +207,17 @@ function CreateMsg({
                             비밀번호 확인
                           </label>
                         </Col>
-                        <Col>
+                        <Col className={styles.header}>
                           <div>
                             <input
+                              style={{ backgroundColor: '#FBFFFE' }}
                               name="password2"
                               id="password-check"
                               type="password"
                               placeholder="동일한 비밀번호를 입력하세요."
                               value={newNote.password2}
                               onChange={onChange}
+                              required
                               // value={newNote.password2}
                             />
                           </div>
@@ -190,21 +231,27 @@ function CreateMsg({
             {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null}
 
             <br />
-            <div className={styles.cheer_box}>
-              <div className={styles.cheerHeader}>
-                <label className={styles.vertical_lr} htmlFor="cheer-text">
+            {/* <div className={`${styles.cheer_box}`}> */}
+            <div>
+              <div className={`${styles.cheerHeader}`}>
+                <label
+                  className={`${styles.vertical_lr} ${styles.first_header}`}
+                  htmlFor="cheer-text"
+                >
                   서술형 응원
                 </label>
-                <div>
+                <div className={styles.body}>
                   <textarea
                     placeholder="응원글을 작성해주세요."
                     name="content"
                     id="cheer-text"
                     onChange={onChange}
+                    style={{ backgroundColor: '#FBFFFE' }}
                     cols={30}
                     rows={5}
+                    required
                   />
-                  <ul>
+                  <ul style={{ margin: '0px' }}>
                     <li>
                       <button
                         className={styles.btn_hover_border_3}
