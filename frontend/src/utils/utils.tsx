@@ -18,7 +18,7 @@ export const randomOmr = () => {
   return omr;
 };
 
-export const temp = [
+export const omrinfo = [
   [4, 0, 1, 7, 3], // 1번문제
   [0, 1, 2, 3, 4],
   [0, 1, 2, 3, 4],
@@ -40,3 +40,7 @@ export const temp = [
   [0, 1, 2, 3, 4],
   [0, 1, 2, 3, 4],
 ];
+
+export const setSessionStorage = (key: string, value: string) => {
+  sessionStorage.setItem(key, value);
+};

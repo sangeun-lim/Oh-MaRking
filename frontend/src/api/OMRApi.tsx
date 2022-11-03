@@ -80,7 +80,7 @@ const OMRApi = {
         method: 'put',
         data: {
           ...formData,
-          note_id: note_id,
+          note_id,
         },
       });
       return response;
@@ -110,8 +110,8 @@ const OMRApi = {
         url: Url.password.checkPW(),
         method: 'post',
         data: {
-          note_id: note_id,
-          pwd: pwd,
+          note_id,
+          pwd,
         },
       });
       return response;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import api from '../../api/OMRApi';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import api from '../../api/OMRApi';
 import styles from './CheckPw.module.scss';
 
 interface CheckPwProps {
@@ -12,7 +12,7 @@ interface CheckPwProps {
 
 function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
   // 해당하는 noteId를 자동으로 가져오게해야함
-  const noteId = 0; //how?
+  const noteId = 0; // how?
 
   const [pw, setPw] = useState<string>('');
   const [pass, setPass] = useState<boolean>(false);

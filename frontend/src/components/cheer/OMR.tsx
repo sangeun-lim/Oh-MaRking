@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
 import { changeColor } from '../../store/nowcolor';
 import Search from './Search';
@@ -113,8 +114,10 @@ function Code(): JSX.Element {
 function Pallet({ colorList }: PalletProps): JSX.Element {
   const dispatch = useDispatch();
   const onClick = (color: number) => {
-    dispatch(changeColor(color));
+    // dispatch(changeColor(color));
+    dispatch(updateIntro(`${color}`));
   };
+
   const colors = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
     <>
@@ -134,7 +137,8 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
 }
 
 function OMR(): JSX.Element {
-  const { nowColor } = useSelector((state: RootState) => state);
+  const { nowColor, user } = useSelector((state: RootState) => state);
+  // const { nowColor } = useSelector((state: RootState) => state);
   const colorList = [
     'yellow',
     'skyblue',
@@ -168,15 +172,23 @@ function OMR(): JSX.Element {
               <span>교시 응원영역</span>
             </div>
 
-            <Info title={'이  름'} content={'누구게요'} />
-            <Info
-              title={'필  적\n확인란'}
-              content={'안녕하세요ㅇwㅇ\n저는 김동유  입니다.'}
-            />
+            <Info title={'이  름'} content={`${user.name}`} />
+            <Info title={'필  적\n확인란'} content={user.introduction} />
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
-                <p>응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요</p>
+                <p>
+                  &#8251; 응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요
+                </p>
+                <p>
+                  &#8251; 마지막 페이지에서 마킹이 5개 이상일 때, 새로운
+                  페이지를 생성할 수 있습니다.
+                </p>
+                <p>&#8251; 표시안내</p>
+                {/* <span className={}/> */}
+                {/* <span className={}/> */}
+                {/* <span className={}/> */}
+                {/* <span className={}/> */}
                 <div className={styles.pallet}>
                   <Pallet colorList={colorList} />
                 </div>
