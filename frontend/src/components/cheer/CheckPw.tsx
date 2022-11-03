@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import api from '../../api/OMRApi';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import DetailOrUpdateMsg from './DetailOrUpdateMsg';
@@ -15,7 +14,7 @@ interface CheckPwProps {
 function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
   // 해당 omr을 읽었을때 받는 noteid정보를 가져와서 저장을 시켜야한다.
   // 해당하는 noteId를 자동으로 가져오게해야함
-  const noteId = 0; //how?
+  const noteId = 0; // how?
 
   const [pw, setPw] = useState<string>('');
   const [pass, setPass] = useState(false);

@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// 초기값
-const nowColorInitialState = 0;
-
 const nowColorReducer = createSlice({
   name: 'nowColor',
-  initialState: nowColorInitialState,
+  initialState: 0,
   reducers: {
     changeColor(state: number, actions: { type: string; payload: number }) {
       return actions.payload;
