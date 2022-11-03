@@ -28,7 +28,4 @@ export interface EditNote {
   nickname: string;
   content: string;
   show_date: string;
-  date: string;
-  problem_num: number;
-  check_num: number;
 }

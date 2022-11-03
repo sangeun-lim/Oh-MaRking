@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/OMRApi';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import DetailMsg from './DetailMsg';
-import { NoteDetail } from 'utils/Interface';
-import { NoteDetailData } from 'utils/DefaultData';
+import DetailOrUpdateMsg from './DetailOrUpdateMsg';
+import { NoteDetail } from '../../utils/Interface';
+import { NoteDetailData } from '../../utils/DefaultData';
 import styles from './CheckPw.module.scss';
 
 interface CheckPwProps {
@@ -60,16 +59,12 @@ function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
               <Form.Control
                 type="password"
                 onChange={onChange}
+                value={pw || ''}
                 placeholder="비밀번호를 입력해주세요"
+                required
               />
             </Form.Group>
             <Modal.Footer>
-              {/* <Button variant="primary" onClick={handleClose}>
-                취소
-              </Button>
-              <Button variant="secondary" onClick={handleClose}>
-                확인
-              </Button> */}
               <ul>
                 <li>
                   <button type="button" onClick={handleClose}>
@@ -82,9 +77,15 @@ function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
                   </button>
                 </li>
               </ul>
+
               {/* 비밀번호가 일치하면 */}
+              {/* noteId도 넘겨줘야됨 */}
               {pass ? (
-                <DetailMsg pass={pass} setPass={setPass} formData={formData} />
+                <DetailOrUpdateMsg
+                  pass={pass}
+                  setPass={setPass}
+                  formData={formData}
+                />
               ) : null}
             </Modal.Footer>
           </Form>

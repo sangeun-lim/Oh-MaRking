@@ -1,5 +1,6 @@
 import React, { Dispatch, useState } from 'react';
-import { NoteDetail, EditNote } from 'utils/Interface';
+import { useNavigate } from 'react-router-dom';
+import { NoteDetail, EditNote } from '../../utils/Interface';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,8 +14,13 @@ interface Props {
   formData: NoteDetail;
 }
 
-function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
-  // props로 noteId값 얻어야하는데
+// props로 noteId값 얻고
+// user 응원페이지의 url도 얻어야됨
+// 응원페이지에 주인 토큰을 가지고 있으면 삭제버튼만 보이게
+// 아니라면 수정 삭제버튼보이게
+function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
+  const navigate = useNavigate();
+
   const noteId = '';
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
@@ -22,9 +28,6 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
     nickname: formData.nickname,
     content: formData.content,
     show_date: formData.show_date,
-    date: formData.date,
-    problem_num: formData.problem_num,
-    check_num: formData.check_num,
   });
 
   const onChange = (e: any) => {
@@ -38,6 +41,11 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
     });
   };
 
+  const onEditClick = () => {
+    setOnEdit(!onEdit);
+  };
+
+  // 수정버튼눌렀을때 동작
   const onSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -45,21 +53,19 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
       nickname: editMsg.nickname,
       content: editMsg.content,
       show_date: editMsg.show_date,
-      date: editMsg.date,
     };
 
     const response = await OMRApi.note.updateNote(noteId, changeFormData);
 
-    // api명세서보면 내 생각으론 변화된 값을 그대로 전달해줘야되는데,
-    // 그냥 수정됨만 보내주는디.. 흠
-    // if (response.status === 200) {
+    if (response.status === 200) {
+      alert('응원메시지가 수정되었습니다.');
+      navigate(`/cheer/user`);
+    }
 
-    // }
+    onEditClick();
   };
 
-  const onEditClick = () => {
-    setOnEdit(!onEdit);
-  };
+  const handleClose = () => setPass(false);
 
   const onDeleteClick = async () => {
     const del: boolean = window.confirm(
@@ -69,24 +75,28 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
       try {
         const response = await OMRApi.note.deleteNote(noteId);
 
-        // if (response.status === 200) {
-
-        // } else {
-        //   alert("응원메시지를 삭제할 수 없습니다.")
-        // }
+        if (response.status === 200) {
+          navigate(`/cheer/user`);
+        } else {
+          alert('응원메시지를 삭제할 수 없습니다.');
+        }
       } catch (err) {
         console.log(err);
       }
     }
+    onEditClick();
   };
+
   return (
     <div>
-      <Modal show={show} onHide={handleClose} className={styles.test}>
+      {/*  본인의 페이지인가 아닌가에 따라 조건처리를 해줘야함 */}
+      {/*  내 토큰과 페이지의 어떤값과 비교를 할 수가 있나? userid 값으로 비교가 가능한가? */}
+      <Modal pass={pass} onHide={handleClose} className={styles.test}>
         <Modal.Header closeButton>
           <Modal.Title>응원글 수정</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ width: '100%', padding: '0px' }}>
                 <Row style={{ margin: '0px' }}>
@@ -104,10 +114,14 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
                         <Col>
                           <div>
                             <input
+                              name="nickname"
                               id="nickname"
                               type="text"
                               placeholder="닉네임을 입력해주세요."
+                              onChange={onChange}
+                              value={formData.nickname}
                               maxLength={10}
+                              disabled={true}
                             />
                           </div>
                         </Col>
@@ -125,53 +139,13 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
                         </Col>
                         <Col>
                           <div>
-                            <input type="date" id="opendate" />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </div>
-                </Row>
-
-                <Row style={{ margin: '0px' }}>
-                  <div className={styles.group}>
-                    <Col>
-                      <Row>
-                        <Col>
-                          <label
-                            className={styles.form_label}
-                            htmlFor="password"
-                          >
-                            비밀번호
-                          </label>
-                        </Col>
-                        <Col>
-                          <div>
                             <input
-                              id="password"
-                              type="password"
-                              placeholder="비밀번호를 입력해주세요."
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col>
-                      <Row>
-                        <Col>
-                          <label
-                            className={styles.form_label}
-                            htmlFor="password-check"
-                          >
-                            비밀번호 확인
-                          </label>
-                        </Col>
-                        <Col>
-                          <div>
-                            <input
-                              id="password-check"
-                              type="password"
-                              placeholder="동일한 비밀번호를 입력하세요."
+                              name="date"
+                              type="date"
+                              id="opendate"
+                              value={formData.show_date}
+                              onChange={onChange}
+                              required
                             />
                           </div>
                         </Col>
@@ -189,25 +163,32 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
                 </label>
                 <div>
                   <textarea
+                    name="content"
                     placeholder="응원글을 작성해주세요."
-                    name="cheer-text"
                     id="cheer-text"
+                    onChange={onChange}
+                    value={editMsg.content}
                     cols={30}
                     rows={10}
+                    required
                   />
                   <ul>
                     <li>
-                      <button type="button" onClick={handleClose}>
-                        취소
+                      <button
+                        className={styles.btn_hover_border_3}
+                        type="button"
+                        onClick={onEditClick}
+                      >
+                        수정하기
                       </button>
                     </li>
                     <li>
                       <button
                         className={styles.btn_hover_border_3}
                         type="button"
-                        onClick={handleClose}
+                        onClick={onDeleteClick}
                       >
-                        응원취소
+                        삭제
                       </button>
                     </li>
                   </ul>
@@ -221,4 +202,4 @@ function DetailMsg({ pass, setPass, formData }: Props): JSX.Element {
   );
 }
 
-export default DetailMsg;
+export default DetailOrUpdateMsg;
