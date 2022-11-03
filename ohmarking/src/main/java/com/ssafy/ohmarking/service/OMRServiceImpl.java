@@ -50,6 +50,7 @@ public class OMRServiceImpl implements OMRService {
             int d = Integer.parseInt(noteLists.get(i).getDate().replaceAll("-", ""));
             int sd = Integer.parseInt(noteLists.get(i).getShowDate().replaceAll("-", ""));
             int status = 0; // 노트 저장 상태
+            int favorite = noteLists.get(i).getIsFavorite();
             long noteId = noteLists.get(i).getId(); // noteInfo 에 저장할 noteId 값
             if(sd-d>0){ // 현재날짜보다 공개날짜가 이후이면 비공개(대기)
                 status = 3; // 못읽는거
@@ -57,20 +58,27 @@ public class OMRServiceImpl implements OMRService {
                 // 체크된 번호에 해당 노트 id 저장
                 saveNoteInfo[pn][cn] = noteId;
             }
-            // 현재날짜와 공개날짜가 같거나, 공개날짜가 지났다면 공개(읽기 가능)인데, 안열어봤거나
-            else if(sd-d<=0 && noteLists.get(i).getIsOpen()==0) {
+            // 현재날짜와 공개날짜가 같거나, 공개날짜가 지났다면 공개(읽기 가능)
+            else if(sd-d<=0 && noteLists.get(i).getIsOpen()==0) { // 안읽음
                 status = 2;
                 saveOmrInfo[pn][cn] = status;
                 // 체크된 번호에 해당 노트 id 저장
                 saveNoteInfo[pn][cn] = noteId;
             }
-            else if(sd-d<=0 && noteLists.get(i).getIsOpen()!=0) {
+            else if(sd-d<=0 && noteLists.get(i).getIsOpen()!=0) { // 읽음
                 status = 1;
                 saveOmrInfo[pn][cn] = status;
                 // 체크된 번호에 해당 노트 id 저장
                 saveNoteInfo[pn][cn] = noteId;
             }
 
+            // 즐겨찾기 관련 로직
+            if(favorite==1) { // 즐겨찾기 등록이 되어있다면
+                status = 4;
+                saveOmrInfo[pn][cn] = status;
+                // 체크된 번호에 해당 노트 id 저장
+                saveNoteInfo[pn][cn] = noteId;
+            }
 
 //            else { // 현재날짜와 공개날짜가 같거나, 공개날짜가 지났다면 공개(읽기 가능)
 //                if(noteLists.get(i).getIsOpen()==0){ // 안열어봤거나
