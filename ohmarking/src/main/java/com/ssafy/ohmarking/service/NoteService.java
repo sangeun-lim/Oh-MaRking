@@ -14,4 +14,5 @@ public interface NoteService {
     void deleteNote(long id) throws Exception;
     List<NoteDto> findNote(String nickname);
     void bookmarkNote(long id, int isFavorite);
+    List<NoteDto> findBookmarkNote(long id, int isFavorite);
 }

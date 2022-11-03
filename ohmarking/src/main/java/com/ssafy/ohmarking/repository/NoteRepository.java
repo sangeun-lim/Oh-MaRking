@@ -20,4 +20,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findByNickname(String nickname);
 
     List<Note> findAllByOmrId(Long omrId);
+
+    List<Note> findByIsFavorite(int isFavorite);
 }

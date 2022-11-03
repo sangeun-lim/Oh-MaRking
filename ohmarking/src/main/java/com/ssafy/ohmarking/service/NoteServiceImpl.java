@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -108,6 +109,31 @@ public class NoteServiceImpl implements NoteService {
         Note note = noteRepository.findAllById(id);
         note.setIsFavorite(isFavorite);
         noteRepository.save(note);
+    }
+
+    @Override
+    public List<NoteDto> findBookmarkNote(long id, int isFavorite) {
+        List<NoteDto> returnNoteDtoLists = new ArrayList<>();
+        NoteDto returnNoteDto = new NoteDto();
+        // isFavorite 이 1이면 List 에 담아주고
+        if(isFavorite==1) {
+            int pageNum = noteRepository.findById(id).get().getOmr().getPageNum();
+            int problemNum = noteRepository.findAllById(id).getProblemNum();
+            int checkNum = noteRepository.findAllById(id).getCheckNum();
+            String content = noteRepository.findAllById(id).getContent();
+            String nickname = noteRepository.findAllById(id).getNickname();
+
+            for (int i = 0; i<noteRepository.findByIsFavorite(isFavorite).size(); i++) {
+                // 아래 코드의 return 형식이 void 라서 set 으로 pageNum 을 설정하고 그 뒤를 모르겠어서 일단 노가다로 하기
+                converter.toNoteDtoList(noteRepository.findByIsFavorite(isFavorite)).get(i).setPageNum(pageNum);
+                returnNoteDto = new NoteDto(pageNum, nickname, content, problemNum, checkNum);
+                returnNoteDtoLists.add(returnNoteDto);
+            }
+            return returnNoteDtoLists;
+//            return converter.toNoteDtoList(noteRepository.findByIsFavorite(isFavorite));
+        }
+        // 그렇지 않으면 담지 않는다
+        return null;
     }
 
 }

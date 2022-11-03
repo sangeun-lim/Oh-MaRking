@@ -201,4 +201,37 @@ public class NoteController {
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "즐겨찾기한 응원글 목록", notes = "즐겨찾기한 NOTE 글 리스트 목록 반환한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
+    @PostMapping("/favorites")
+    public ResponseEntity<Map<String, Object>> showBookmarkedNotes(@RequestBody Map<String, String> map) {
+        long id = Long.parseLong(map.get("id"));
+        int isFavorite = Integer.parseInt(map.get("isFavorite"));
+
+        HttpStatus status = HttpStatus.ACCEPTED;
+        Map<String, Object> resultMap = new HashMap<>();
+
+        // 최종적으로 즐겨찾기 응원글을 담을 List 선언
+        List<NoteDto> refineNoteList = new ArrayList<>();
+        try {
+            List<NoteDto> listNoteDtos = noteService.findBookmarkNote(id, isFavorite);
+            for (int i = 0; i < listNoteDtos.size(); i++) {
+                NoteDto returnNoteDto = new NoteDto(
+                        listNoteDtos.get(i).getPageNum(),
+                        listNoteDtos.get(i).getNickname(),
+                        listNoteDtos.get(i).getContent(),
+                        listNoteDtos.get(i).getProblemNum(),
+                        listNoteDtos.get(i).getCheckNum());
+                refineNoteList.add(returnNoteDto);
+            }
+            resultMap.put("noteList", refineNoteList);
+            resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("즐겨찾기한 응원글 목록 검색 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }

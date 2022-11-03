@@ -84,4 +84,18 @@ public class NoteDto implements Serializable {
         this.problemNum = problemNum;
         this.checkNum = checkNum;
     }
+
+    // 즐겨찾기 NOTE 검색 반환 DTO
+    public NoteDto(int pageNum, String nickname, String content, int problemNum, int checkNum) {
+        this.pageNum = pageNum;
+        this.nickname = nickname;
+        this.content = content;
+        this.problemNum = problemNum;
+        this.checkNum = checkNum;
+    }
+
+    // pageNum 갱신용 DTO
+    public NoteDto(int pageNum) {
+        this.pageNum = pageNum;
+    }
 }
