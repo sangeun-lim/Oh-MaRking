@@ -6,6 +6,7 @@ import com.ssafy.ohmarking.dto.NoteDto;
 import com.ssafy.ohmarking.repository.OMRRepository;
 import com.ssafy.ohmarking.util.DEConverter;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -100,7 +101,31 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<NoteDto> findNote(String nickname) {
-        return converter.toNoteDtoList(noteRepository.findByNickname(nickname));
+//        return converter.toNoteDtoList(noteRepository.findByNickname(nickname));
+
+        List<NoteDto> returnNoteDtoLists = new ArrayList<>();
+        NoteDto returnNoteDto = new NoteDto();
+
+        // 1) nickname 으로 해당 entity 를 찾아서
+        List<Note> noteLists = new ArrayList<>();
+        // 1-1) nickname 으로 찾으면 entity list 가 반환되므로
+        List<Note> noteList = new ArrayList<>();
+        noteList = noteRepository.findByNickname(nickname);
+        // 1-2) for 문을 돌면서 하나의 튜플을 꺼내와서 id 를 가져온다
+        for (int i=0; i<noteList.size(); i++) {
+            long id = noteList.get(i).getId(); // noteId
+            int problemNum = noteList.get(i).getProblemNum();
+            int checkNum = noteList.get(i).getCheckNum();
+            String showDate = noteList.get(i).getShowDate();
+            String date = noteList.get(i).getDate();
+
+            // 1-3) 가져온 id 로 omr entity 접근할 때 열쇠로 사용한다
+            // 그 entity 에서 omr entity 로 접근해서 페이지번호 가져와야 함 (.findById(id).get().getOmr().getPageNum())
+            int pageNum = noteRepository.getReferenceById(id).getOmr().getPageNum();
+            returnNoteDto = new NoteDto(id, pageNum, date, showDate, problemNum, checkNum);
+            returnNoteDtoLists.add(returnNoteDto);
+        }
+        return returnNoteDtoLists;
     }
 
     @Override
