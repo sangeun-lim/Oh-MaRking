@@ -76,19 +76,23 @@ public class NoteController {
     }
 
     @ApiOperation(value = "작성된 Note 보기 (수험생)", notes = "작성된 Note를 확인한다. 그리고 DB 입력 성공여부 메세지, 등록한 글 객체를 반환한다.", response = Map.class)
-    @GetMapping("/{id}")
+    @PostMapping("/see")
     public ResponseEntity<Map<String, Object>> showNote(
-            @PathVariable("id")
-            @ApiParam(
-                    name = "id",
-                    type = "Long",
-                    value = "Note 고유 id",
-                    required = true) Long id
+//            @PathVariable("id")
+            @RequestBody Map<String, String> map
+//            @ApiParam(
+//                    name = "id",
+//                    type = "Long",
+//                    value = "Note 고유 id",
+//                    required = true) Long id
     ) {
+        long id = Long.parseLong(map.get("id"));
+        int isOpen = Integer.parseInt(map.get("isOpen"));
+
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
         try {
-            resultMap.put("note", noteService.showNote(id));
+            resultMap.put("note", noteService.showNote(id, isOpen));
             resultMap.put("message", SUCCESS);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {

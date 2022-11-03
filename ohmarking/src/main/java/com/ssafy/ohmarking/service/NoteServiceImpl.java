@@ -59,8 +59,15 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public NoteDto showNote(long id) throws Exception {
-        return converter.toNoteDto(noteRepository.findAllById(id));
+    public NoteDto showNote(long id, int isOpen) throws Exception {
+        // 1) Note id 에 맞는 note entity 를 불러와서
+        Note note = noteRepository.findAllById(id);
+        // 2) isOpen 값을 entity 에 저장해준후에
+        note.setIsOpen(isOpen);
+        // 3) Dto 로 변환해서 리턴해주기
+        return converter.toNoteDto(note);
+
+        // return converter.toNoteDto(noteRepository.findAllById(id));
     }
 
     @Override
