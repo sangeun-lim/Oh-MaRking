@@ -16,14 +16,14 @@ const Url = {
 
   omr: {
     LinkAccess: (email: string) => `${HOST + USER}${email}`,
-    ReadOmr: (omr_id: number) => `${HOST + OMR}${omr_id}`,
+    ReadOmr: (omrId: number) => `${HOST + OMR}${omrId}`,
     newOMRorChangeColor: () => `${HOST + OMR}`,
     createOrUpdateOrDeleteNote: (noteId: number) => `${HOST + OMR}${noteId}`,
   },
 
   note: {
     createOrUpdateOrDeleteNote: () => `${HOST + NOTE}`,
-    readNote: (note_id: number) => `${HOST + NOTE}${note_id}`,
+    readNote: (noteId: string) => `${HOST + NOTE}${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
   },
   password: {

@@ -3,7 +3,7 @@ import Url from 'api/Url';
 import {
   NewOmr,
   ChangeColor,
-  CheckPw,
+  // CheckPw,
   NewNoteData,
   UpdateNoteData,
 } from 'api/ApiInterface';
@@ -18,18 +18,18 @@ const OMRApi = {
       return response;
     },
 
-    getUserOmr: async (omr_id: number) => {
+    getUserOmr: async (omrId: number) => {
       const response = await axios({
-        url: Url.omr.ReadOmr(omr_id),
+        url: Url.omr.ReadOmr(omrId),
         headers: {},
         method: 'get',
       });
       return response;
     },
 
-    getNotUserOmr: async (omr_id: number) => {
+    getNotUserOmr: async (omrId: number) => {
       const response = await axios({
-        url: Url.omr.ReadOmr(omr_id),
+        url: Url.omr.ReadOmr(omrId),
         method: 'get',
       });
       return response;
@@ -65,32 +65,32 @@ const OMRApi = {
       return response;
     },
 
-    readNote: async (note_id: number) => {
+    readNote: async (noteId: number) => {
       const response = await axios({
-        url: Url.note.readNote(note_id),
+        url: Url.note.readNote(noteId),
         headers: {},
         method: 'get',
       });
       return response;
     },
 
-    updateNote: async (note_id: string, formData: UpdateNoteData) => {
+    updateNote: async (noteId: string, formData: UpdateNoteData) => {
       const response = await axios({
         url: Url.note.createOrUpdateOrDeleteNote(),
         method: 'put',
         data: {
+          noteId,
           ...formData,
-          note_id,
         },
       });
       return response;
     },
 
-    deleteNOte: async (note_id: string) => {
+    deleteNote: async (noteId: string) => {
       const response = await axios({
         url: Url.note.createOrUpdateOrDeleteNote(),
         method: 'delete',
-        data: note_id,
+        data: noteId,
       });
       return response;
     },
@@ -105,12 +105,12 @@ const OMRApi = {
   },
 
   password: {
-    checkPw: async (note_id: number, pwd: string) => {
+    checkPw: async (noteId: number, pwd: string) => {
       const response = await axios({
         url: Url.password.checkPW(),
         method: 'post',
         data: {
-          note_id,
+          noteId,
           pwd,
         },
       });

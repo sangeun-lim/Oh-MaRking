@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "src", // 현재 디렉토리를 기준으로 한다.
+    // "baseUrl": "src", // 현재 디렉토리를 기준으로 한다.
+    "baseUrl": "./", // 현재 디렉토리를 기준으로 한다.
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true, // allowJs: false
     "skipLibCheck": true,
-    "esModuleInterop": false,
+    // "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,

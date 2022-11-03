@@ -10,7 +10,7 @@ export interface UserData {
 
 export interface NewOmr {
   color: number;
-  pagenum: number;
+  pageNum: number;
   user_id: string;
 }
 
@@ -38,5 +38,5 @@ export interface UpdateNoteData {
   // note_id: string;
   nickname: string;
   content: string;
-  show_data: string;
+  show_date: string;
 }
