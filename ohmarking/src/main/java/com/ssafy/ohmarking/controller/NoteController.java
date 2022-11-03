@@ -181,4 +181,24 @@ public class NoteController {
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "응원글 즐겨찾기", notes = "응원글을 즐겨찾기한다. 그리고 DB 입력 성공여부 메세지를 반환한다.", response = Map.class)
+    @PutMapping("/favorite")
+    public ResponseEntity<Map<String, Object>> bookmarkNote(@RequestBody Map<String, String> map) {
+        long id = Long.parseLong(map.get("id"));
+        int isFavorite = Integer.parseInt(map.get("isFavorite"));
+
+        HttpStatus status = HttpStatus.ACCEPTED;
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            noteService.bookmarkNote(id, isFavorite);
+            resultMap.put("message", SUCCESS);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("응원글 즐겨찾기 등록/해제 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }

@@ -102,4 +102,12 @@ public class NoteServiceImpl implements NoteService {
         return converter.toNoteDtoList(noteRepository.findByNickname(nickname));
     }
 
+    @Override
+    public void bookmarkNote(long id, int isFavorite) {
+        // 해당 응원글의 즐겨찾기 여부 DB에 저장하기
+        Note note = noteRepository.findAllById(id);
+        note.setIsFavorite(isFavorite);
+        noteRepository.save(note);
+    }
+
 }

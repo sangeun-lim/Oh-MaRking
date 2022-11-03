@@ -51,6 +51,10 @@ public class Note {
     @Column
     private Integer isOpen;
 
+    // 즐겨찾기 여부 (0이면 즐겨찾기 해제(default), 1이면 즐겨찾기 등록)
+    @Column
+    private Integer isFavorite;
+
     @ManyToOne
     @JoinColumn(name = "fk_omr_Id")
     private OMR omr;

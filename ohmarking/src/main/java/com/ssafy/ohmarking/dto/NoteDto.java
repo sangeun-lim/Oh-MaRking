@@ -25,8 +25,10 @@ public class NoteDto implements Serializable {
     private int[][] noteInfo = new int[21][6]; // 배열 인덱스와 번호 순서 맞춤
 //    @ApiModelProperty(value = "note 정보")
 //    private int noteStatus;
-    @ApiModelProperty(value = "응원글 작성자")
+    @ApiModelProperty(value = "응원글 열람여부")
     private int isOpen;
+    @ApiModelProperty(value = "응원글 즐겨찾기여부")
+    private int isFavorite;
 
     @ApiModelProperty(value = "응원글 작성자")
     private String nickname;
