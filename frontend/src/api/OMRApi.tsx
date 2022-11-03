@@ -1,12 +1,12 @@
 import axios from 'axios';
-import Url from 'api/Url';
+import Url from './Url';
 import {
   NewOmr,
   ChangeColor,
   // CheckPw,
   NewNoteData,
   UpdateNoteData,
-} from 'api/ApiInterface';
+} from './ApiInterface';
 
 const OMRApi = {
   omr: {
@@ -65,7 +65,7 @@ const OMRApi = {
       return response;
     },
 
-    readNote: async (noteId: number) => {
+    readNote: async (noteId: string) => {
       const response = await axios({
         url: Url.note.readNote(noteId),
         headers: {},
