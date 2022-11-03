@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import CheerPage from '../pages/CheerPage';
 import EventPage from '../pages/EventPage';
 import Error from '../pages/Error';
+import TotalArticlePage from '../pages/TotalArticlePage';
 import NavBar from './NavBar';
 
 function Router(): JSX.Element {
@@ -14,6 +15,7 @@ function Router(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path="/cheer/:userUrl" element={<CheerPage />} />
         <Route path="/event" element={<EventPage />} />
+        <Route path="/article/:userUrl" element={<TotalArticlePage />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

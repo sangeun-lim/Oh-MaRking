@@ -149,17 +149,17 @@ ul {
     opacity: 0;
     transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
   }
-  .btn_hover_border_3::before {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid rgb(28, 31, 30);
-    border-left: 1px solid rgb(28, 31, 30);
+  // .btn_hover_border_3::before {
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   border-top: 1px solid rgb(28, 31, 30);
+  //   border-left: 1px solid rgb(28, 31, 30);
 
-    border-bottom: 1px solid rgb(28, 31, 30);
-    border-right: 1px solid rgb(28, 31, 30);
-  }
+  //   border-bottom: 1px solid rgb(28, 31, 30);
+  //   border-right: 1px solid rgb(28, 31, 30);
+  // }
 
   .btn_hover_border_3 {
     border: none; 
