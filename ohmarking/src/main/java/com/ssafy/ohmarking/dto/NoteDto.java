@@ -20,8 +20,14 @@ public class NoteDto implements Serializable {
     private long fkOmrId;
     @ApiModelProperty(value = "해당 응원글 페이지번호")
     private int pageNum;
+
     @ApiModelProperty(value = "note 정보") //[문항번호][체크번호] = note 상태(0:없음 ~ 4:즐겨찾기)
     private int[][] noteInfo = new int[21][6]; // 배열 인덱스와 번호 순서 맞춤
+//    @ApiModelProperty(value = "note 정보")
+//    private int noteStatus;
+    @ApiModelProperty(value = "응원글 작성자")
+    private int isOpen;
+
     @ApiModelProperty(value = "응원글 작성자")
     private String nickname;
     @ApiModelProperty(value = "응원글 내용")

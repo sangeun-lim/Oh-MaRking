@@ -18,10 +18,14 @@ public class OMRDto {
     private int pageNum;
     @ApiModelProperty(value = "OMR 테마색")
     private int color;
+
     @ApiModelProperty(value = "OMR 정보") //[문항번호][체크번호]
     private int[][] omrInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
     @ApiModelProperty(value = "note 정보") //[문항번호][체크번호]
     private int[][] noteInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+//    @ApiModelProperty(value = "note 정보")
+//    private int omrStatus;
+
     @ApiModelProperty(value = "OMR 소유여부")
     private boolean isOwner;
 

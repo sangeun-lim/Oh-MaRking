@@ -18,4 +18,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     // 반환하는 Note가 여러개일수 있으므로 List로 반환
     List<Note> findByNickname(String nickname);
+
+    List<Note> findAllByOmrId(Long omrId);
 }

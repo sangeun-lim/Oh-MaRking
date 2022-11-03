@@ -45,6 +45,12 @@ public class Note {
     @Column(name="check_num",nullable = false)
     private Integer checkNum;
 
+//    @Column(name="note_status")
+//    private Integer noteStatus;
+    // 0이면 미개봉, 1이면 개봉
+    @Column
+    private Integer isOpen;
+
     @ManyToOne
     @JoinColumn(name = "fk_omr_Id")
     private OMR omr;
