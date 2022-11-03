@@ -19,10 +19,12 @@ public class OMRDto {
     @ApiModelProperty(value = "OMR 테마색")
     private int color;
 
+    // 체크번호별 노트 상태 저장
     @ApiModelProperty(value = "OMR 정보") //[문항번호][체크번호]
     private int[][] omrInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+    // 체크번호별 노트 id 저장
     @ApiModelProperty(value = "note 정보") //[문항번호][체크번호]
-    private int[][] noteInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+    private long[][] noteInfo = new long[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
 //    @ApiModelProperty(value = "note 정보")
 //    private int omrStatus;
 
@@ -30,7 +32,7 @@ public class OMRDto {
     private boolean isOwner;
 
     // OMR 읽기 회원 반환 DTO
-    public OMRDto(int color, int pageNum, int[][] omrInfo, int[][] noteInfo, boolean isOwner) {
+    public OMRDto(int color, int pageNum, int[][] omrInfo, long[][] noteInfo, boolean isOwner) {
         this.pageNum = pageNum;
         this.color = color;
         this.omrInfo = omrInfo;

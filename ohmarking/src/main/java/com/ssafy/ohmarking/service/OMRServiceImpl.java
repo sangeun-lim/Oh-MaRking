@@ -41,6 +41,8 @@ public class OMRServiceImpl implements OMRService {
 //        StatusDto statusDto = new StatusDto();
         // 2차원 배열을 선언해서 저장해주기 (진짜 omrInfo 에 저장전에 임시 저장)
         int[][] saveOmrInfo = new int[21][6];
+        // 2차원 배열을 선언해서 저장해주기 (진짜 noteInfo 에 저장전에 임시 저장)
+        long[][] saveNoteInfo = new long[21][6];
         // problemNum과 checkNum, date, showDate 날짜를 불러와서 (날짜는 계산하기 위해 형변환 해주기)
         for (int i=0; i<noteLists.size(); i++) {
             int pn = noteLists.get(i).getProblemNum();
@@ -48,18 +50,25 @@ public class OMRServiceImpl implements OMRService {
             int d = Integer.parseInt(noteLists.get(i).getDate().replaceAll("-", ""));
             int sd = Integer.parseInt(noteLists.get(i).getShowDate().replaceAll("-", ""));
             int status = 0; // 노트 저장 상태
+            long noteId = noteLists.get(i).getId(); // noteInfo 에 저장할 noteId 값
             if(sd-d>0){ // 현재날짜보다 공개날짜가 이후이면 비공개(대기)
                 status = 3; // 못읽는거
                 saveOmrInfo[pn][cn] = status;
+                // 체크된 번호에 해당 노트 id 저장
+                saveNoteInfo[pn][cn] = noteId;
             }
             // 현재날짜와 공개날짜가 같거나, 공개날짜가 지났다면 공개(읽기 가능)인데, 안열어봤거나
             else if(sd-d<=0 && noteLists.get(i).getIsOpen()==0) {
                 status = 2;
                 saveOmrInfo[pn][cn] = status;
+                // 체크된 번호에 해당 노트 id 저장
+                saveNoteInfo[pn][cn] = noteId;
             }
             else if(sd-d<=0 && noteLists.get(i).getIsOpen()!=0) {
                 status = 1;
                 saveOmrInfo[pn][cn] = status;
+                // 체크된 번호에 해당 노트 id 저장
+                saveNoteInfo[pn][cn] = noteId;
             }
 
 
@@ -77,6 +86,7 @@ public class OMRServiceImpl implements OMRService {
         OMRDto returnOMRDto = new OMRDto();
         returnOMRDto = converter.toOMRDto(omr);
         returnOMRDto.setOmrInfo(saveOmrInfo);
+        returnOMRDto.setNoteInfo(saveNoteInfo);
 
         // 반환
         return returnOMRDto;
