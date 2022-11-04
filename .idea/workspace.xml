@@ -5,20 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="759bbe91-f6d7-4ef9-a2d2-0830a631743e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/NotFindIdException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/TokenNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/handler/ExceptionAdvice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/handler/ExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/model/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/CustomUserDetailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/JwtAccessDeniedHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/config/JwtSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/db/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/db/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/login/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/src/main/resources/application.properties" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/controller/EventController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/controller/NoteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/controller/OMRController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/response/UserInfoResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/service/NoteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/service/NoteServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/service/OMRService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/service/OMRServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/exception/AccessDeniedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/config/JpaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/entity/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/entity/Note.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/entity/OMR.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/repository/EventRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/repository/NoteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/repository/OMRRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/dto/EventDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/dto/NoteDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/dto/OMRDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/dto/StatusDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/util/DEConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/master/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/master/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/master/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/master/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/master/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/master/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/master/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/LoginApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/MasterApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/request/UserRegisterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/request/UserRegisterDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/request/UserUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/request/UserUpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/response/TokenResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/response/TokenResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/response/UserResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/api/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/api/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/auth/OAuth2AuthenticationSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/auth/OAuth2AuthenticationSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/auth/OAuth2LogoutSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/auth/OAuth2LogoutSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/auth/UserOAuth2Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/auth/UserOAuth2Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/NotFindIdException.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/exception/NotFindIdException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/TokenNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/exception/TokenNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/exception/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/handler/ExceptionAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/exception/handler/ExceptionAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/exception/handler/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/exception/handler/ExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/model/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/model/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/model/JsonDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/model/JsonDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/model/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/model/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/CustomUserDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/util/CustomUserDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/JwtAccessDeniedHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/util/JwtAccessDeniedHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/JwtAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/util/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/util/JwtFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/util/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/common/util/TokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/common/util/TokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/config/JwtSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/config/JwtSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/db/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/java/com/ssafy/login/db/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/java/com/ssafy/master/db/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/test/java/com/ssafy/login/LoginApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/master/src/test/java/com/ssafy/master/MasterApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +133,11 @@
       <workItem from="1667262040488" duration="4625000" />
       <workItem from="1667269197553" duration="128000" />
       <workItem from="1667346716260" duration="28000" />
+      <workItem from="1667527381926" duration="168000" />
+      <workItem from="1667527572539" duration="269000" />
+      <workItem from="1667527901313" duration="70000" />
+      <workItem from="1667528193782" duration="28000" />
+      <workItem from="1667544399928" duration="5000" />
     </task>
     <servers />
   </component>
