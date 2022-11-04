@@ -50,20 +50,21 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         <span>디</span>
       </div>
       <div>
-        {msg.map((problemList, problemNum) => (
+        {msg.map((problem, problemIdx) => (
           <div className={styles.problem} key={getKey()}>
-            <span>{problemNum + start + 1}</span>
+            <span>{problemIdx + start + 1}</span>
             <div>
-              {problemList.map((elementList, elementNum) => (
+              {problem.map((element, elementIdx) => (
                 <button
-                  className={`${styles[omrBg[elementList]]}`}
+                  className={`${styles[omrBg[element]]}`}
                   key={getKey()}
                   type="button"
                   onClick={() =>
-                    openModal(problemNum + start + 1, elementNum + 1)
+                    openModal(problemIdx + start + 1, elementIdx + 1)
                   }
                 >
-                  {elementList === 4 ? null : elementNum + 1}
+                  {element === 4 ? null : elementIdx + 1}
+                  {/* {element === 4 ? null : elementIdx + 1}[{elementIdx}] */}
                 </button>
               ))}
             </div>
@@ -137,6 +138,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
 }
 
 function OMR(): JSX.Element {
+  const temp = randomOmr();
   const { nowColor, user } = useSelector((state: RootState) => state);
   // const { nowColor } = useSelector((state: RootState) => state);
   const colorList = [
@@ -198,10 +200,10 @@ function OMR(): JSX.Element {
           </div>
           {/* 그 외: 응원구역 */}
           <div className={`${styles.cheer}`}>
-            <Cheer msg={randomOmr().slice(0, 10)} start={0} />
+            <Cheer msg={temp.slice(0, 10)} start={0} />
           </div>
           <div className={`${styles.cheer}`}>
-            <Cheer msg={randomOmr().slice(10, 20)} start={10} />
+            <Cheer msg={temp.slice(10, 20)} start={10} />
           </div>
           <button type="button">&#10095;</button>
         </div>
