@@ -33,7 +33,7 @@ public class UserOAuth2Service extends DefaultOAuth2UserService {
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
         String nickname = (String) properties.get("nickname");
 
-        User user = userRepository.findByCodedEmail(email).orElse(null);
+        User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
             String introduction = "자기소개를 입력해주세요.";
             log.info("가입되지 않은 사용자입니다. DB에 저장합니다.");

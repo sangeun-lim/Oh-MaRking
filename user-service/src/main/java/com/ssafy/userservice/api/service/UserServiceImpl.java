@@ -2,6 +2,7 @@ package com.ssafy.userservice.api.service;
 
 import com.ssafy.userservice.api.request.UserUpdateDto;
 import com.ssafy.userservice.api.response.TokenResponseDto;
+import com.ssafy.userservice.api.response.UserInfoByTokenDto;
 import com.ssafy.userservice.api.response.UserInfoResponseDto;
 import com.ssafy.userservice.common.exception.UserNotFoundException;
 import com.ssafy.userservice.common.util.RedisService;
@@ -66,5 +67,24 @@ public class UserServiceImpl implements UserService {
         userRepository.findById(Long.parseLong(uid))
                 .orElseThrow(() -> new UserNotFoundException("수험생 정보를 찾을 수 없습니다."));
         redisService.deleteValues(uid);
+    }
+
+    @Override
+    public UserInfoByTokenDto getUserID(String accessToken) {
+        String uid = tokenProvider.getUserId(accessToken);
+        UserInfoByTokenDto userInfoResponseDto = UserInfoByTokenDto.builder()
+                .id(Long.parseLong(uid))
+                .build();
+
+        return userInfoResponseDto;
+    }
+
+    @Override
+    public UserInfoByTokenDto getUserId(String codedEmail) {
+        User user = userRepository.findByCodedEmail(codedEmail).orElseThrow(UserNotFoundException::new);
+        UserInfoByTokenDto userInfoResponseDto = UserInfoByTokenDto.builder()
+                .id(user.getId())
+                .build();
+        return userInfoResponseDto;
     }
 }
