@@ -104,10 +104,11 @@ public class OMRServiceImpl implements OMRService {
     }
 
     @Override
-    public void addOMR(long userId, int color, int pageNum) throws Exception {
+    public OMRDto addOMR(long userId, int color, int pageNum) throws Exception {
         OMRDto omrDto = new OMRDto(userId, color, pageNum);
         omrRepository.save(converter.toOMREntity(omrDto));
-        return;
+        OMR omr = omrRepository.save(converter.toOMREntity(omrDto));
+        return converter.toOMRDto(omr);
     }
 
     @Override

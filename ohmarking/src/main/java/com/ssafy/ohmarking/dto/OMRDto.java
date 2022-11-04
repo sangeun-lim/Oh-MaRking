@@ -1,5 +1,6 @@
 package com.ssafy.ohmarking.dto;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -29,6 +30,8 @@ public class OMRDto {
     private long[][] noteInfo = new long[20][5]; // 배열 인덱스와 번호 순서 맞추지 말래 (프론트피셜)
 //    @ApiModelProperty(value = "note 정보")
 //    private int omrStatus;
+//    @ApiModelProperty(value = "OMR 페이지 정보")
+//    private  int[] omrPageInfo = new int[pageNum];
 
     @ApiModelProperty(value = "OMR 소유여부")
     private boolean isOwner;

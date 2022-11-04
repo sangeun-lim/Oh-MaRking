@@ -104,7 +104,8 @@ public class OMRController {
         HttpStatus status = HttpStatus.ACCEPTED;
 
         try {
-            omrService.addOMR(userId, color, pageNum);
+            // omrService.addOMR(userId, color, pageNum);
+            resultMap.put("omrId", omrService.addOMR(userId, color, pageNum).getId());
             resultMap.put("message", "OMR 카드 등록 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
