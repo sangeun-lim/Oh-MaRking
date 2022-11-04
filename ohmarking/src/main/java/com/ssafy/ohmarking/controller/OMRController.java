@@ -46,7 +46,7 @@ public class OMRController {
             if(authorization != null) {
                 // 프론트에서 해당 OMR id가 PathVariable로 넘어왔으므로 해당 OMR에 대한 정보를 불러온다
                 OMRDto omrDto = omrService.getOMR(id);
-                omrDto.setOwner(true);
+                omrDto.setOwner(true); // isOwner
 
                 // omrDto 라는 이름으로 API 문서에 맞게 리턴타입 반환
                 OMRDto omrReturnDto = new OMRDto(omrDto.getColor(), omrDto.getPageNum(), omrDto.getOmrInfo(), omrDto.getNoteInfo(), omrDto.isOwner());
