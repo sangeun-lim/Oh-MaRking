@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/error",
             "/logout",
             "/user/token/reissuance/*",
-            "/user/info"
+            "/user/info/*"
     };
 
     @Override

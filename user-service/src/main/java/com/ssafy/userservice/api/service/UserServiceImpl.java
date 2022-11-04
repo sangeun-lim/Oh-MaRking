@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserInfoResponseDto getUserInfo(String coded_email) {
-        User user = userRepository.findByCodedEmail(coded_email).orElseThrow(UserNotFoundException::new);
+    public UserInfoResponseDto getUserInfo(String codedEmail) {
+        User user = userRepository.findByCodedEmail(codedEmail).orElseThrow(UserNotFoundException::new);
 
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.builder()
                 .id(user.getId())
-                .coded_email(user.getCoded_email())
+                .codedEmail(user.getCodedEmail())
                 .nickname(user.getNickname())
                 .introduction(user.getIntroduction())
                 .build();

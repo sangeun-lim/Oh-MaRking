@@ -17,10 +17,10 @@ public class UserController {
     private final UserService userService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/info")
+    @GetMapping("/info/{codedEmail}")
     @ApiOperation(value = "수험생 정보 조회", notes = "수험생 아이디, 닉네임, 자기소개를 반환한다.")
-    public Response<?> getUserInfo(@PathVariable String coded_email) {
-        return new Response<>(true, 200, "수험생 정보 조회 성공", userService.getUserInfo(coded_email));
+    public Response<?> getUserInfo(@PathVariable String codedEmail) {
+        return new Response<>(true, 200, "수험생 정보 조회 성공", userService.getUserInfo(codedEmail));
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)

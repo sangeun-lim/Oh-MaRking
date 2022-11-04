@@ -40,7 +40,7 @@ public class UserOAuth2Service extends DefaultOAuth2UserService {
             userRepository.save(User.builder()
                     .email(email)
                     .nickname(nickname)
-                    .coded_email(encodeEmail(email))
+                    .codedEmail(encodeEmail(email))
                     .introduction(introduction)
                     .build());
         }

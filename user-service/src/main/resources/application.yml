@@ -51,7 +51,7 @@ spring:
             user-name-attribute: id
 
 jwt:
-  secret:
+  secret: 4e081be499c5d9be6491d6809a470f313b15df8fa3a493a3b0aa44c03e3d7eb6571ce312bf495bf7879a863bc1cbc346f06d5fba61f13617074d7a6d8d00fbd2
   access-token-validity-in-seconds: 43200
   refresh-token-validity-in-seconds: 86400
 

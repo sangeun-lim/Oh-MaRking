@@ -3,9 +3,7 @@ package com.ssafy.userservice.db.entity;
 import com.ssafy.userservice.api.request.UserUpdateDto;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,8 +12,8 @@ import javax.persistence.Id;
 @Builder
 public class User {
     @Id
-    @Column(nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String nickname;
@@ -24,7 +22,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String coded_email;
+    private String codedEmail;
 
     @Column(nullable = false)
     private String introduction;

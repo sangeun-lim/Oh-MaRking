@@ -40,7 +40,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> kakaoAccount = oAuth2User.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email");
-        User user = userRepository.findByCodedEmail(email).orElseThrow(UserNotFoundException::new);
+
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
         String id = String.valueOf(user.getId());
         String accessToken = tokenProvider.createAccessToken(id);
         String refreshToken = tokenProvider.createRefreshToken(id);
