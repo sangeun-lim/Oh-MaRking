@@ -4,7 +4,8 @@ import styles from './TotalArticlePage.module.scss';
 
 function TotalArticlePage(): JSX.Element {
   return (
-    <Container className={styles.screen_container}>{/* <OMR /> */}</Container>
+    <div />
+    // <Container className={styles.screen_container}>{/* <OMR /> */}</Container>
   );
 }
 

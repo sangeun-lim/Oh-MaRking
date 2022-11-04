@@ -12,35 +12,22 @@ export const randomOmr = () => {
   const omr: number[][] = Array.from(Array(20), () => new Array(5));
   for (let problem = 0; problem < 20; problem += 1) {
     for (let element = 0; element < 5; element += 1) {
-      omr[problem][element] = Math.floor(Math.random() * 5);
+      omr[problem][element] = Math.floor(Math.random() * 1);
     }
   }
   return omr;
 };
 
-export const omrinfo = [
-  [4, 0, 1, 7, 3], // 1번문제
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-  [0, 1, 2, 3, 4],
-];
-
 export const setSessionStorage = (key: string, value: string) => {
+  console.log(key, value, typeof key, typeof value);
   sessionStorage.setItem(key, value);
+  console.log(sessionStorage.getItem(key));
+};
+
+export const deleteSessionStorage = (key: string) => {
+  sessionStorage.removeItem(key);
+};
+
+export const getSessionStorage = (key: string) => {
+  return sessionStorage.getItem(key);
 };

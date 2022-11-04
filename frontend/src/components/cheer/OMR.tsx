@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateIntro } from '../../store/user';
+// import { updateIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
 import { changeColor } from '../../store/nowcolor';
+import { changeNote } from '../../store/omr';
 import Search from './Search';
-import { getKey, randomOmr } from '../../utils/utils';
+import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
 import type { RootState } from '../../store/store';
@@ -26,7 +27,12 @@ interface PalletProps {
 }
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
-  // OMR 문항 좌표 출력 함수
+  const { omr } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
+
+  const test = (problemIdx: number, elementIdx: number) => {
+    dispatch(changeNote({ problemIdx, elementIdx, status: 4 }));
+  };
   const [show, setShow] = useState(false);
   const [problemNumber, setProblemNumber] = useState(0);
   const [elementNumber, setElementNumber] = useState(0);
@@ -50,20 +56,21 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         <span>디</span>
       </div>
       <div>
-        {msg.map((problemList, problemNum) => (
+        {msg.map((problem, problemIdx) => (
           <div className={styles.problem} key={getKey()}>
-            <span>{problemNum + start + 1}</span>
+            <span>{problemIdx + start + 1}</span>
             <div>
-              {problemList.map((elementList, elementNum) => (
+              {problem.map((element, elementIdx) => (
                 <button
-                  className={`${styles[omrBg[elementList]]}`}
+                  className={`${styles[omrBg[element]]}`}
                   key={getKey()}
                   type="button"
-                  onClick={() =>
-                    openModal(problemNum + start + 1, elementNum + 1)
+                  onClick={
+                    () => test(problemIdx + start, elementIdx)
+                    // openModal(problemIdx + start + 1, elementIdx + 1)
                   }
                 >
-                  {elementList === 4 ? null : elementNum + 1}
+                  {element === 4 ? null : elementIdx + 1}
                 </button>
               ))}
             </div>
@@ -114,8 +121,8 @@ function Code(): JSX.Element {
 function Pallet({ colorList }: PalletProps): JSX.Element {
   const dispatch = useDispatch();
   const onClick = (color: number) => {
-    // dispatch(changeColor(color));
-    dispatch(updateIntro(`${color}`));
+    dispatch(changeColor(color));
+    // dispatch(updateIntro(`${color}`));
   };
 
   const colors = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -137,8 +144,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
 }
 
 function OMR(): JSX.Element {
-  const { nowColor, user } = useSelector((state: RootState) => state);
-  // const { nowColor } = useSelector((state: RootState) => state);
+  const { nowColor, user, omr } = useSelector((state: RootState) => state);
   const colorList = [
     'yellow',
     'skyblue',
@@ -198,10 +204,10 @@ function OMR(): JSX.Element {
           </div>
           {/* 그 외: 응원구역 */}
           <div className={`${styles.cheer}`}>
-            <Cheer msg={randomOmr().slice(0, 10)} start={0} />
+            <Cheer msg={omr.omrInfo.slice(0, 10)} start={0} />
           </div>
           <div className={`${styles.cheer}`}>
-            <Cheer msg={randomOmr().slice(10, 20)} start={10} />
+            <Cheer msg={omr.omrInfo.slice(10, 20)} start={10} />
           </div>
           <button type="button">&#10095;</button>
         </div>
