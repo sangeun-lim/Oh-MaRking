@@ -2,7 +2,13 @@ import styles from './ExampleOmr.module.scss';
 
 function ExampleOmr(): JSX.Element {
   return (
-    <div>HI</div>
+    <div>
+      <div>응원페이지 꾸미기?</div>
+      <div>
+        <p>응원페이지를 이쁘게 꾸며주세요</p>
+      </div>
+      {/* img */}
+    </div>
     // <div className={styles.user_text}>
     //   <div className={styles.blackboard_title}>Oh! Marking</div>
     //   <div className={styles.blackboard_content}>
