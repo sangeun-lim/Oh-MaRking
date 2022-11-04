@@ -107,7 +107,6 @@ public class NoteServiceImpl implements NoteService {
         NoteDto returnNoteDto = new NoteDto();
 
         // 1) nickname 으로 해당 entity 를 찾아서
-        List<Note> noteLists = new ArrayList<>();
         // 1-1) nickname 으로 찾으면 entity list 가 반환되므로
         List<Note> noteList = new ArrayList<>();
         noteList = noteRepository.findByNickname(nickname);

@@ -21,10 +21,12 @@ public class OMRDto {
 
     // 체크번호별 노트 상태 저장
     @ApiModelProperty(value = "OMR 정보") //[문항번호][체크번호]
-    private int[][] omrInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+//    private int[][] omrInfo = new int[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+    private int[][] omrInfo = new int[20][5]; // 배열 인덱스와 번호 순서 맞추지 말래 (프론트피셜)
     // 체크번호별 노트 id 저장
     @ApiModelProperty(value = "note 정보") //[문항번호][체크번호]
-    private long[][] noteInfo = new long[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+//    private long[][] noteInfo = new long[21][6]; // 배열인덱스랑 번호(1번부터시작)를 맞추기 위함
+    private long[][] noteInfo = new long[20][5]; // 배열 인덱스와 번호 순서 맞추지 말래 (프론트피셜)
 //    @ApiModelProperty(value = "note 정보")
 //    private int omrStatus;
 

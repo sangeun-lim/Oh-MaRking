@@ -40,9 +40,9 @@ public class OMRServiceImpl implements OMRService {
 //        // StatusDto에 저장해주기
 //        StatusDto statusDto = new StatusDto();
         // 2차원 배열을 선언해서 저장해주기 (진짜 omrInfo 에 저장전에 임시 저장)
-        int[][] saveOmrInfo = new int[21][6];
+        int[][] saveOmrInfo = new int[20][5];
         // 2차원 배열을 선언해서 저장해주기 (진짜 noteInfo 에 저장전에 임시 저장)
-        long[][] saveNoteInfo = new long[21][6];
+        long[][] saveNoteInfo = new long[20][5];
         // problemNum과 checkNum, date, showDate 날짜를 불러와서 (날짜는 계산하기 위해 형변환 해주기)
         for (int i=0; i<noteLists.size(); i++) {
             int pn = noteLists.get(i).getProblemNum();
