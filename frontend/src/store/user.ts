@@ -1,29 +1,41 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { initial } from 'lodash';
 
 // 초기값
-// interface User {
-//   name: string;
-//   coded_email: string;
-//   introduction: string;
-// }
+interface User {
+  name: string;
+  coded_email: string;
+  introduction: string;
+  omr_list: number[];
+}
 
 const initialState = {
-  name: '노은영',
+  name: '소정현',
   coded_email: '',
-  introduction: '안녕하세요',
+  introduction: '낭만 소년 소정현입니다.',
+  omr_list: [-1],
 };
 
 const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateIntro: (state, action: PayloadAction<string>) => {
-      // eslint-disable-next-line no-param-reassign
+    setUser(state, action: PayloadAction<User>) {
+      state.name = action.payload.name;
+      state.coded_email = action.payload.coded_email;
+      state.introduction = action.payload.introduction;
+    },
+    setOmrList(state, action: PayloadAction<number[]>) {
+      state.omr_list = action.payload;
+    },
+    setIntro(state, action: PayloadAction<string>) {
       state.introduction = action.payload;
+    },
+    addOmr(state, action: PayloadAction<number>) {
+      state.omr_list.push(action.payload);
     },
   },
 });
 
-export const { updateIntro } = userReducer.actions;
+export const { setUser, setOmrList, setIntro, addOmr } = userReducer.actions;
 export default userReducer.reducer;

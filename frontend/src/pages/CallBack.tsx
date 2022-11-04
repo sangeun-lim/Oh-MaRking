@@ -1,27 +1,30 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/auth';
 import { setSessionStorage } from '../utils/utils';
 
 function CallBackPage(): JSX.Element {
   const { search } = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const url = new URLSearchParams(search);
 
   const accessToken = url.get('accessToken');
   const refreshToken = url.get('refreshToken');
-  const loginUser = 'eunyoung';
+  const codedEmail = url.get('coded_email');
 
   useEffect(() => {
     if (accessToken && refreshToken) {
       setSessionStorage('accessToken', accessToken);
       setSessionStorage('refreshToken', refreshToken);
-
-      // 연결지어 줄 이메일 받아오기 요청쏘기
-      const path = 'axios응답.coded_email';
-      navigate(`/cheer/${loginUser}`, { replace: true });
+      // sessionStorage.setItem('accessToken', accessToken);
+      // sessionStorage.setItem('refreshToken', refreshToken);
+      dispatch(login());
+      navigate(`/cheer/${codedEmail}`, { replace: true });
     }
-  }, [accessToken, refreshToken, loginUser, navigate]);
+  }, [accessToken, refreshToken, codedEmail, navigate, dispatch]);
   return <div />;
 }
 export default CallBackPage;

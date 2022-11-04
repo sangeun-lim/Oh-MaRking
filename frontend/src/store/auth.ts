@@ -4,26 +4,22 @@ import { getSessionStorage, deleteSessionStorage } from '../utils/utils';
 
 const initialState = {
   isLoggedIn: !!getSessionStorage('refreshToken'),
-  isOwner: false,
 };
 
-const userReducer = createSlice({
+const authReducer = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logIn: (state, action: PayloadAction<boolean>) => {
-      state.isLoggedIn = action.payload;
+    login: (state) => {
+      state.isLoggedIn = !!getSessionStorage('refreshToken');
     },
-    logOut: (state) => {
+    logout: (state) => {
       deleteSessionStorage('accessToken');
       deleteSessionStorage('refreshToken');
       state.isLoggedIn = !!getSessionStorage('refreshToken');
     },
-    checkOwner: (state, action: PayloadAction<boolean>) => {
-      state.isOwner = action.payload;
-    },
   },
 });
 
-export const { logIn, logOut, checkOwner } = userReducer.actions;
-export default userReducer.reducer;
+export const { login, logout } = authReducer.actions;
+export default authReducer.reducer;

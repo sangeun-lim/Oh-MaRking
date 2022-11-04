@@ -14,9 +14,9 @@ function Router(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cheer/:userUrl" element={<CheerPage />} />
+        <Route path="/cheer/:codedEmail" element={<CheerPage />} />
         <Route path="/event" element={<EventPage />} />
-        <Route path="/article/:userUrl" element={<TotalArticlePage />} />
+        <Route path="/article/:codedEmail" element={<TotalArticlePage />} />
         <Route path="/callback" element={<CallBack />} />
         <Route path="*" element={<Error />} />
       </Routes>

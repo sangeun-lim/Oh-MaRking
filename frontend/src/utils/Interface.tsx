@@ -29,3 +29,22 @@ export interface EditNote {
   content: string;
   show_date: string;
 }
+
+interface User {
+  name: string;
+  coded_email: string;
+  introduction: string;
+}
+
+interface Omr {
+  color: number;
+  pageNum: number;
+  omrInfo: [];
+  noteInfo: [];
+  isOwner: boolean;
+}
+
+export interface OmrData {
+  user: User;
+  omr: Omr;
+}
