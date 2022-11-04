@@ -105,10 +105,21 @@ public class OMRServiceImpl implements OMRService {
 
     @Override
     public OMRDto addOMR(long userId, int color, int pageNum) throws Exception {
-        OMRDto omrDto = new OMRDto(userId, color, pageNum);
-        omrRepository.save(converter.toOMREntity(omrDto));
-        OMR omr = omrRepository.save(converter.toOMREntity(omrDto));
-        return converter.toOMRDto(omr);
+        // 마지막페이지인 pageNum OMR id 에서 20개 이상 체크된 경우에만 추가생성 가능한데
+        int cnt = 0;
+        // OMR 테이블에서 omr id 와 omr pageNum은 일대일대응 관계
+        OMR omr = omrRepository.findByPageNum(pageNum);
+        List<Note> checkNumNoteLists = noteRepository.findAllByOmrId(omr.getId());
+        cnt = checkNumNoteLists.size();
+
+        if(cnt >= 20) { // 20개 이상 작성되었을 때 다음페이지 생성 가능
+            OMRDto omrDto = new OMRDto(userId, color, pageNum+1);
+            OMR returnOmr = omrRepository.save(converter.toOMREntity(omrDto));
+            return converter.toOMRDto(returnOmr);
+        }
+
+        // 아니면 null 반환 (catch 문에 걸리게 된다)
+        return null;
     }
 
     @Override

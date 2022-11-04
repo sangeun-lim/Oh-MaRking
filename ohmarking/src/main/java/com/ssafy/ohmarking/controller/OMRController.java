@@ -109,7 +109,7 @@ public class OMRController {
             resultMap.put("message", "OMR 카드 등록 성공");
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
-            logger.error("게이트웨이 통신 실패 : {}", e);
+            logger.error("게이트웨이 통신 실패 : {카드 등록 실패}", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
