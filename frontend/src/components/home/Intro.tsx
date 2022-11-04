@@ -21,6 +21,11 @@ function Intro(): JSX.Element {
             alt="마스코트"
             className={styles.character_img}
           />
+          {/* <img
+            src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character1.png?alt=media&token=e6eb279b-6fe1-441a-9a81-b065c24c9f4b"
+            alt="로고"
+            // className={styles.logo}
+          /> */}
         </Carousel.Item>
         <Carousel.Item>
           <ExampleOmr />
