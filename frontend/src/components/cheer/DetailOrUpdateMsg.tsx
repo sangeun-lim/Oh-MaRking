@@ -1,9 +1,9 @@
 import React, { Dispatch, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NoteDetail, EditNote } from '../../utils/Interface';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { NoteDetail, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
@@ -87,6 +87,12 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
     onEditClick();
   };
 
+  const onLikeClick = async (e: any) => {
+    e.preventDefault();
+
+    // const response = await OMRApi.note.likeNote(noteId, favorite);
+  };
+
   return (
     <div>
       {/*  본인의 페이지인가 아닌가에 따라 조건처리를 해줘야함 */}
@@ -121,7 +127,7 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
                               onChange={onChange}
                               value={formData.nickname}
                               maxLength={10}
-                              disabled={true}
+                              disabled
                             />
                           </div>
                         </Col>

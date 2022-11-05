@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Url from 'api/Url';
-import { UserData } from 'api/ApiInterface';
+import Url from './Url';
+import { UserData } from './ApiInterface';
 
 const AuthApi = {
   auth: {

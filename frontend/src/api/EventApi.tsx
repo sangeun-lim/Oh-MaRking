@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Url from 'api/Url';
+import Url from './Url';
 
 const EventApi = {
   event: {
