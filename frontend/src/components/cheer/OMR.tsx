@@ -102,7 +102,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
       </div>
       <div>
         {/* noteId가 없고(빈칸일때) show 가 true일때 */}
-        {!noteId && show && (
+        {show && (
           <CreateMsg
             problemNum={problemNumber}
             elementNum={elementNumber}
@@ -110,6 +110,14 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             setShow={setShow}
           />
         )}
+        {/* {!noteId && show && (
+          <CreateMsg
+            problemNum={problemNumber}
+            elementNum={elementNumber}
+            show={show}
+            setShow={setShow}
+          />
+        )} */}
 
         {/* noteId가 있고(빈칸이 아닐때) show가 true일때 */}
         {/* {noteId && show && isOwner ? ( 
