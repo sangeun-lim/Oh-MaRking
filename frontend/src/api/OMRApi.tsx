@@ -7,6 +7,7 @@ import {
   NewNoteData,
   UpdateNoteData,
 } from './ApiInterface';
+import { getSessionStorage } from '../utils/utils';
 
 const OMRApi = {
   omr: {
@@ -23,7 +24,7 @@ const OMRApi = {
         url: Url.omr.ReadUserOmr(omrId),
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `토큰값 가져오려면 만들어논 함수에 키값 넣어야되지않나?`,
+          Authorization: `Bearer Token ${getSessionStorage('accessToken')}`,
         },
         method: 'get',
       });

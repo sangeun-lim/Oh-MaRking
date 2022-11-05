@@ -79,6 +79,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
+        {/* noteId가 없고(빈칸일때) show 가 true일때 */}
+
         {show && (
           <CreateMsg
             problemNum={problemNumber}
@@ -87,6 +89,9 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             setShow={setShow}
           />
         )}
+        {/* noteId가 있고(빈칸이 아닐때) show가 true일때
+        또 위 경우에서 주인일때는 볼수 있는가 없는가로 나눠줘야됨
+        주인이 아닐때는 비밀번호를 확인해야하는 페이지로 넘겨야됨 */}
       </div>
     </div>
   );
