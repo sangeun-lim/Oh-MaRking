@@ -6,6 +6,10 @@ interface User {
   name: string;
   coded_email: string;
   introduction: string;
+}
+
+interface UserInfo {
+  user_id: number;
   omr_list: number[];
 }
 
@@ -13,6 +17,7 @@ const initialState = {
   name: '소정현',
   coded_email: '',
   introduction: '낭만 소년 소정현입니다.',
+  user_id: 0,
   omr_list: [-1],
 };
 
@@ -25,8 +30,9 @@ const userReducer = createSlice({
       state.coded_email = action.payload.coded_email;
       state.introduction = action.payload.introduction;
     },
-    setOmrList(state, action: PayloadAction<number[]>) {
-      state.omr_list = action.payload;
+    setUserInfo(state, action: PayloadAction<UserInfo>) {
+      state.user_id = action.payload.user_id;
+      state.omr_list = action.payload.omr_list;
     },
     setIntro(state, action: PayloadAction<string>) {
       state.introduction = action.payload;
@@ -37,5 +43,5 @@ const userReducer = createSlice({
   },
 });
 
-export const { setUser, setOmrList, setIntro, addOmr } = userReducer.actions;
+export const { setUser, setUserInfo, setIntro, addOmr } = userReducer.actions;
 export default userReducer.reducer;
