@@ -10,9 +10,9 @@ import {
 
 const OMRApi = {
   omr: {
-    linkAccess: async (email: string) => {
+    linkAccess: async (codedEmail: string) => {
       const response = await axios({
-        url: Url.omr.LinkAccess(email),
+        url: Url.omr.LinkAccess(codedEmail),
         method: 'get',
       });
       return response;
@@ -20,8 +20,11 @@ const OMRApi = {
 
     getUserOmr: async (omrId: number) => {
       const response = await axios({
-        url: Url.omr.ReadOmr(omrId),
-        headers: {},
+        url: Url.omr.ReadUserOmr(omrId),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `토큰값 가져오려면 만들어논 함수에 키값 넣어야되지않나?`,
+        },
         method: 'get',
       });
       return response;
@@ -29,7 +32,7 @@ const OMRApi = {
 
     getNotUserOmr: async (omrId: number) => {
       const response = await axios({
-        url: Url.omr.ReadOmr(omrId),
+        url: Url.omr.ReadGuestOmr(omrId),
         method: 'get',
       });
       return response;
@@ -65,9 +68,9 @@ const OMRApi = {
       return response;
     },
 
-    readNote: async (noteId: string) => {
+    readNote: async () => {
       const response = await axios({
-        url: Url.note.readNote(noteId),
+        url: Url.note.readNote(),
         headers: {},
         method: 'get',
       });
@@ -99,6 +102,18 @@ const OMRApi = {
       const response = await axios({
         url: Url.note.searchNote(nickname),
         method: 'get',
+      });
+      return response;
+    },
+
+    likeNote: async (noteId: string, favorite: number) => {
+      const response = await axios({
+        url: Url.note.likeNote(),
+        method: 'put',
+        data: {
+          noteId,
+          favorite,
+        },
       });
       return response;
     },

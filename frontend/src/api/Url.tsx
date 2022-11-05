@@ -15,19 +15,22 @@ const Url = {
   },
 
   omr: {
-    LinkAccess: (email: string) => `${HOST + USER}${email}`,
-    ReadOmr: (omrId: number) => `${HOST + OMR}${omrId}`,
+    LinkAccess: (codedEmail: string) => `${HOST + USER}info/${codedEmail}`,
+    ReadUserOmr: (omrId: number) => `${HOST + OMR + USER}${omrId}`,
+    ReadGuestOmr: (omrId: number) => `${HOST + OMR}guest/${omrId}`,
     newOMRorChangeColor: () => `${HOST + OMR}`,
     createOrUpdateOrDeleteNote: (noteId: number) => `${HOST + OMR}${noteId}`,
   },
 
   note: {
     createOrUpdateOrDeleteNote: () => `${HOST + NOTE}`,
-    readNote: (noteId: string) => `${HOST + NOTE}${noteId}`,
+    readNote: () => `${HOST + NOTE}see`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
+    likeNote: () => `${HOST + NOTE}favorite`,
+    likeList: () => `${HOST + NOTE}favorites`,
   },
   password: {
-    checkPW: () => `${HOST + CHECK}`,
+    checkPW: () => `${HOST + NOTE + CHECK}`,
   },
   event: {
     readEvent: () => HOST + EVENT,

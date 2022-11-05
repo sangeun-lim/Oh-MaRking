@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { setOmr } from '../store/omr';
 import { randomOmr } from '../utils/utils';
-// import { useParams } from 'react-router-dom';
-// import OMRApi from '../api/OMRApi';
-
-import styles from './CheerPage.module.scss';
+import OMRApi from '../api/OMRApi';
 import OMR from '../components/cheer/OMR';
-// import { useEffect } from 'react';
+import { RootState } from '../store/store';
+import styles from './CheerPage.module.scss';
 
 function CheerPage(): JSX.Element {
   // 1. url에 있는 이메일을 codedEmail에 담는다
@@ -21,6 +20,7 @@ function CheerPage(): JSX.Element {
   // dispatch(setOmr(response.data.omr))
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     const payload = {
       color: 0,
@@ -32,14 +32,30 @@ function CheerPage(): JSX.Element {
     dispatch(setOmr(payload));
   }, [dispatch]);
 
-  // const { codedEmail } = useParams();
+  const { codedEmail } = useParams();
+  // 이렇게 가져오는게 맞나요?
+  const { auth, omr } = useSelector((state: RootState) => state);
 
-  // const linkAccess = async () => {
-  //   const response = await OMRApi.omr.linkAccess(codedEmail || '');
-  //   if (response.status === 200) {
-  //     setOmrId(response.data.omr_list[0])
-  //   }
-  // };
+  const linkAccess = async () => {
+    const response = await OMRApi.omr.linkAccess(codedEmail || '');
+    if (response.status === 200) {
+      dispatch(setOmr(response.data.omr_list[0]));
+      // dispatch(setOmrList(response.data.omr_list[0])); ??
+
+      // 4-1
+      if (auth.isLoggedIn) {
+        // omrId를 넣어줘야되는데?
+        // const response = await OMRApi.omr.getUserOmr(omr.omrInfo???)
+      }
+      // 4-2
+      else {
+        // const response = await OMRApi.omr.getNotUserOmr(omrId가져와야되는데)
+      }
+    } else {
+      console.error();
+    }
+  };
+
   // const OmrUserRead = async () => {
   //   const response = await OMRApi.omr.getUserOmr(omrId);
   //   if (response.status === 200) {
@@ -68,9 +84,6 @@ function CheerPage(): JSX.Element {
     <Container className={styles.screen_container}>
       <OMR />
     </Container>
-    // <div className={styles.container}>
-    //   <OMR />
-    // </div>
   );
 }
 
