@@ -23,7 +23,7 @@ function CreateMsg({
   show,
   setShow,
 }: CreateMsgProps): JSX.Element {
-  const { nowColor } = useSelector((state: RootState) => state);
+  const { omr } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
   const handleClose = () => setShow(false);
   const colorList = [
@@ -95,7 +95,7 @@ function CreateMsg({
       <Modal
         show={show}
         onHide={handleClose}
-        className={`${styles[colorList[nowColor]]} ${styles.test}`}
+        className={`${styles[colorList[omr.color]]} ${styles.test}`}
       >
         <Modal.Header
           style={{ backgroundColor: '#FBFFFE', border: '0px' }}
