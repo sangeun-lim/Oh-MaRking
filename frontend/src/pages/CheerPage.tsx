@@ -22,7 +22,14 @@ function CheerPage(): JSX.Element {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setOmr(randomOmr()));
+    const payload = {
+      color: 0,
+      pageNum: 1,
+      omrInfo: randomOmr(5),
+      noteInfo: randomOmr(50),
+      isOnwer: false,
+    };
+    dispatch(setOmr(payload));
   }, [dispatch]);
 
   // const { codedEmail } = useParams();

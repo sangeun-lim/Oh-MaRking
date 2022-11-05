@@ -8,20 +8,18 @@ export const getKey = () => {
 };
 
 // 페이지네이션 테스트용 OMR
-export const randomOmr = () => {
+export const randomOmr = (max: number) => {
   const omr: number[][] = Array.from(Array(20), () => new Array(5));
   for (let problem = 0; problem < 20; problem += 1) {
     for (let element = 0; element < 5; element += 1) {
-      omr[problem][element] = Math.floor(Math.random() * 1);
+      omr[problem][element] = Math.floor(Math.random() * max);
     }
   }
   return omr;
 };
 
 export const setSessionStorage = (key: string, value: string) => {
-  console.log(key, value, typeof key, typeof value);
   sessionStorage.setItem(key, value);
-  console.log(sessionStorage.getItem(key));
 };
 
 export const deleteSessionStorage = (key: string) => {

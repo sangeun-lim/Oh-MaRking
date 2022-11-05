@@ -2,15 +2,12 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { updateIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
-import { changeColor } from '../../store/nowcolor';
-import { changeNote } from '../../store/omr';
+import { setColor, setNoteStatus } from '../../store/omr';
 import Search from './Search';
 import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import styles from './OMR.module.scss';
 import type { RootState } from '../../store/store';
-// import { RootState } from 'modules';
-// import { StateFromReducersMapObject } from '@reduxjs/toolkit';
 
 interface CheerProps {
   msg: number[][];
@@ -27,12 +24,16 @@ interface PalletProps {
 }
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
-  const { omr } = useSelector((state: RootState) => state);
-  const dispatch = useDispatch();
+  // const { omr } = useSelector((state: RootState) => state);
+  // const dispatch = useDispatch();
 
-  const test = (problemIdx: number, elementIdx: number) => {
-    dispatch(changeNote({ problemIdx, elementIdx, status: 4 }));
-  };
+  // const test = (problemIdx: number, elementIdx: number) => {
+  //   if (omr.omrInfo[problemIdx][elementIdx] === 0) {
+  //     dispatch(setNote({ problemIdx, elementIdx, status: 4 }));
+  //   } else {
+  //     dispatch(setNote({ problemIdx, elementIdx, status: 0 }));
+  //   }
+  // };
   const [show, setShow] = useState(false);
   const [problemNumber, setProblemNumber] = useState(0);
   const [elementNumber, setElementNumber] = useState(0);
@@ -66,8 +67,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                   key={getKey()}
                   type="button"
                   onClick={
-                    () => test(problemIdx + start, elementIdx)
-                    // openModal(problemIdx + start + 1, elementIdx + 1)
+                    // () => test(problemIdx + start, elementIdx)
+                    () => openModal(problemIdx + start + 1, elementIdx + 1)
                   }
                 >
                   {element === 4 ? null : elementIdx + 1}
@@ -121,7 +122,7 @@ function Code(): JSX.Element {
 function Pallet({ colorList }: PalletProps): JSX.Element {
   const dispatch = useDispatch();
   const onClick = (color: number) => {
-    dispatch(changeColor(color));
+    dispatch(setColor(color));
     // dispatch(updateIntro(`${color}`));
   };
 
@@ -144,7 +145,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
 }
 
 function OMR(): JSX.Element {
-  const { nowColor, user, omr } = useSelector((state: RootState) => state);
+  const { user, omr } = useSelector((state: RootState) => state);
   const colorList = [
     'yellow',
     'skyblue',
@@ -158,7 +159,7 @@ function OMR(): JSX.Element {
 
   const pageNum = 1;
   return (
-    <div className={`${styles[colorList[nowColor]]}`}>
+    <div className={`${styles[colorList[omr.color]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />

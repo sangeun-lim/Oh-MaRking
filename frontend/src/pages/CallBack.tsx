@@ -19,8 +19,6 @@ function CallBackPage(): JSX.Element {
     if (accessToken && refreshToken) {
       setSessionStorage('accessToken', accessToken);
       setSessionStorage('refreshToken', refreshToken);
-      // sessionStorage.setItem('accessToken', accessToken);
-      // sessionStorage.setItem('refreshToken', refreshToken);
       dispatch(login());
       navigate(`/cheer/${codedEmail}`, { replace: true });
     }
