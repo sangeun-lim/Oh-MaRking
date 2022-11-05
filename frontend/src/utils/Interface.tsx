@@ -22,6 +22,7 @@ export interface NoteDetail {
   date: string;
   problem_num: number;
   check_num: number;
+  isFavorite: number;
 }
 
 export interface EditNote {
