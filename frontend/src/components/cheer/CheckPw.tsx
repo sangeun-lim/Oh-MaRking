@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import DetailOrUpdateMsg from './DetailOrUpdateMsg';
+import OMRApi from '../../api/OMRApi';
 import { NoteDetail } from '../../utils/Interface';
 import { NoteDetailData } from '../../utils/DefaultData';
 import styles from './CheckPw.module.scss';
@@ -12,8 +13,7 @@ interface CheckPwProps {
 }
 
 function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
-  // 해당 omr을 읽었을때 받는 noteid정보를 가져와서 저장을 시켜야한다.
-  // 해당하는 noteId를 자동으로 가져오게해야함
+  // noteId 값이 있으면 이 모달을 띄우게 처리해야함
   const noteId = 0; // how?
 
   const [pw, setPw] = useState<string>('');
@@ -24,10 +24,10 @@ function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
     setPw(e.target.value);
   };
 
-  useEffect(() => {}, [pw]);
+  // useEffect(() => {}, [pw]);
 
   const checkPw = async () => {
-    const response = await api.password.checkPw(noteId, pw);
+    const response = await OMRApi.password.checkPw(noteId, pw);
     if (response.status === 200) {
       alert('비밀번호가 일치합니다.');
       setPass(true);
@@ -79,11 +79,13 @@ function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
 
               {/* 비밀번호가 일치하면 */}
               {/* noteId도 넘겨줘야됨 */}
+              {/* detail 페이지에서 보여줄꺼 아니니까 굳이 필요없어졌다고 볼수있나? */}
               {pass ? (
                 <DetailOrUpdateMsg
                   pass={pass}
                   setPass={setPass}
                   formData={formData}
+                  // noteId={noteId}
                 />
               ) : null}
             </Modal.Footer>

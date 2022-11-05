@@ -1,10 +1,12 @@
 import React, { Dispatch, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { NoteDetail, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
+import { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -20,8 +22,18 @@ interface Props {
 // 아니라면 수정 삭제버튼보이게
 function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { omr, user } = useSelector((state: RootState) => state);
+
+  // 페이지 주인이냐 아니냐에 따라 보여주는게 달라서 가져와야됨
+  // const isOnwer = omr.isOnwer;
 
   const noteId = '';
+  // useParams로 그냥 codedEmail을 가져와야되나?
+  // 해당 유저의 응원페이지 링크로 보내기 위해서 codedEmail을 가져올라그러는데
+  // 이게 맞나?
+  const codedEmail = user.coded_email;
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
@@ -59,7 +71,7 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
 
     if (response.status === 200) {
       alert('응원메시지가 수정되었습니다.');
-      navigate(`/cheer/user`);
+      navigate(`/cheer/${codedEmail}`);
     }
 
     onEditClick();
@@ -74,9 +86,9 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
     if (del) {
       try {
         const response = await OMRApi.note.deleteNote(noteId);
-
         if (response.status === 200) {
-          navigate(`/cheer/user`);
+          alert('응원 메시지가 삭제되었습니다.');
+          navigate(`/cheer/${codedEmail}`);
         } else {
           alert('응원메시지를 삭제할 수 없습니다.');
         }
@@ -96,7 +108,7 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
   return (
     <div>
       {/*  본인의 페이지인가 아닌가에 따라 조건처리를 해줘야함 */}
-      {/*  내 토큰과 페이지의 어떤값과 비교를 할 수가 있나? userid 값으로 비교가 가능한가? */}
+      {/* {isOnwer ? () : ()} */}
       <Modal pass={pass} onHide={handleClose} className={styles.test}>
         <Modal.Header closeButton>
           <Modal.Title>응원글 수정</Modal.Title>

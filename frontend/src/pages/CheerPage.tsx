@@ -20,6 +20,7 @@ function CheerPage(): JSX.Element {
   // dispatch(setOmr(response.data.omr))
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setOmr(randomOmr()));
   }, [dispatch]);
