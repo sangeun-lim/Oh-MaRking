@@ -11,11 +11,11 @@ export interface UserData {
 export interface NewOmr {
   color: number;
   pageNum: number;
-  user_id: string;
+  userId: number;
 }
 
 export interface ChangeColor {
-  omr_id: string;
+  omrId: number;
   color: number;
 }
 
@@ -25,7 +25,7 @@ export interface ChangeColor {
 // }
 
 export interface NewNoteData {
-  omr_id: string;
+  omrId: string;
   nickname: string;
   content: string;
   pwd: string;
