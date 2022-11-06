@@ -14,9 +14,9 @@ interface UserInfo {
 }
 
 const initialState = {
-  nickname: '소정현',
+  nickname: '',
   codedEmail: '',
-  introduction: '낭만 소년 소정현입니다.',
+  introduction: '',
   userId: 0,
   omrList: [-1],
 };
