@@ -242,6 +242,12 @@ $cheer_section_height: 30em;
     height: 80px;
   }
 
+  // 수정버튼
+  .edit {
+    width: 20px;
+    height: 20px;
+  }
+
   // 주의사항 제목
   .top {
     @include all.flex(row, center, center);
