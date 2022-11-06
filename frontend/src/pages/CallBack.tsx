@@ -13,13 +13,14 @@ function CallBackPage(): JSX.Element {
 
   const accessToken = url.get('accessToken');
   const refreshToken = url.get('refreshToken');
-  const codedEmail = url.get('coded_email');
+  const codedEmail = url.get('codedEmail');
 
   useEffect(() => {
     if (accessToken && refreshToken) {
       setSessionStorage('accessToken', accessToken);
       setSessionStorage('refreshToken', refreshToken);
       dispatch(login());
+      console.log(accessToken, refreshToken, codedEmail);
       navigate(`/cheer/${codedEmail}`, { replace: true });
     }
   }, [accessToken, refreshToken, codedEmail, navigate, dispatch]);

@@ -4,41 +4,51 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // 초기값
 interface User {
   name: string;
-  coded_email: string;
+  codedEmail: string;
   introduction: string;
 }
 
 interface UserInfo {
-  user_id: number;
-  omr_list: number[];
+  userId: number;
+  omrList: number[];
 }
 
 const initialState = {
   name: '소정현',
-  coded_email: '',
+  codedEmail: '',
   introduction: '낭만 소년 소정현입니다.',
-  user_id: 0,
-  omr_list: [-1],
+  userId: 0,
+  omrList: [-1],
 };
 
 const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setUserInfo(state, action: PayloadAction<UserInfo>) {
+      // console.log(
+      //   '전 state',
+      //   state,
+      //   state.name,
+      //   state.introduction,
+      //   state.userId
+      // );
+      console.log(state.userId, state.omrList[0]);
+      console.log('payload', action.payload);
+      state.userId = action.payload.userId;
+      state.omrList = action.payload.omrList;
+      console.log('후 state', state.userId, state.omrList);
+    },
     setUser(state, action: PayloadAction<User>) {
       state.name = action.payload.name;
-      state.coded_email = action.payload.coded_email;
+      state.codedEmail = action.payload.codedEmail;
       state.introduction = action.payload.introduction;
-    },
-    setUserInfo(state, action: PayloadAction<UserInfo>) {
-      state.user_id = action.payload.user_id;
-      state.omr_list = action.payload.omr_list;
     },
     setIntro(state, action: PayloadAction<string>) {
       state.introduction = action.payload;
     },
     addOmr(state, action: PayloadAction<number>) {
-      state.omr_list.push(action.payload);
+      state.omrList.push(action.payload);
     },
   },
 });

@@ -1,4 +1,5 @@
-const HOST = 'https://k7c102.p.ssafy.io/';
+// const HOST = 'https://k7c102.p.ssafy.io/';
+const HOST = 'http://oh-marking.com:8081/api/';
 
 // const AUTH = 'auth/';
 const USER = 'user/';

@@ -23,8 +23,8 @@ const OMRApi = {
       const response = await axios({
         url: Url.omr.ReadUserOmr(omrId),
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer Token ${getSessionStorage('accessToken')}`,
+          // 'Content-Type': 'application/json',
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
         },
         method: 'get',
       });

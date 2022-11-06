@@ -27,24 +27,35 @@ function CheerPage(): JSX.Element {
   const { codedEmail } = useParams();
   const { auth, user, omr } = useSelector((state: RootState) => state);
 
-  useEffect(() => {
-    const linkAccess = async () => {
-      const response = await OMRApi.omr.linkAccess(codedEmail || '');
-      if (response.status === 200) {
-        dispatch(setUserInfo(response.data));
-        // isOwner는 생각안해도되나?
-        if (auth.isLoggedIn && omr.isOwner) {
-          const secondResponse = await OMRApi.omr.getUserOmr(user.omr_list[0]);
+  const linkAccess = async () => {
+    console.log('linkAccess 요청');
+    const response = await OMRApi.omr.linkAccess(codedEmail || '');
+    console.log('linkAccess 요청');
+    if (response.status === 200) {
+      console.log('response', response);
+      console.log('response.data.data', response.data.data);
+      dispatch(setUserInfo(response.data.data));
+      const saveUserInfo = () => {
+        return new Promise<void>(() => {
+          dispatch(setUserInfo(response.data.data));
+        });
+      };
+      saveUserInfo.then(() =>{
+
+        
+        
+        // 회원일 때
+        if (auth.isLoggedIn) {
+          const secondResponse = await OMRApi.omr.getUserOmr(user.omrList[0]);
           if (secondResponse.status === 200) {
             dispatch(setUser(secondResponse.data.user));
             dispatch(setOmr(secondResponse.data.omr));
           } else {
             alert('회원정보를 불러오지 못했습니다.');
           }
+          // 비회원일 때
         } else {
-          const secondResponse = await OMRApi.omr.getNotUserOmr(
-            user.omr_list[0]
-          );
+          const secondResponse = await OMRApi.omr.getNotUserOmr(user.omrList[0]);
           if (secondResponse.status === 200) {
             dispatch(setUser(secondResponse.data.user));
             dispatch(setOmr(secondResponse.data.omr));
@@ -55,9 +66,13 @@ function CheerPage(): JSX.Element {
       } else {
         console.error();
       }
+    });
     };
-    linkAccess();
-  }, [auth.isLoggedIn, codedEmail, dispatch, user.omr_list, omr.isOwner]);
+    
+    useEffect(() => {
+      linkAccess();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container className={styles.screen_container}>
