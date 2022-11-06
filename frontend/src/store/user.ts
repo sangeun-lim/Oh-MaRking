@@ -3,42 +3,42 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // 초기값
 interface User {
-  name: string;
-  coded_email: string;
+  nickname: string;
+  codedEmail: string;
   introduction: string;
 }
 
 interface UserInfo {
-  user_id: number;
-  omr_list: number[];
+  userId: number;
+  omrList: number[];
 }
 
 const initialState = {
-  name: '소정현',
-  coded_email: '',
+  nickname: '소정현',
+  codedEmail: '',
   introduction: '낭만 소년 소정현입니다.',
-  user_id: 0,
-  omr_list: [-1],
+  userId: 0,
+  omrList: [-1],
 };
 
 const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<User>) {
-      state.name = action.payload.name;
-      state.coded_email = action.payload.coded_email;
-      state.introduction = action.payload.introduction;
-    },
     setUserInfo(state, action: PayloadAction<UserInfo>) {
-      state.user_id = action.payload.user_id;
-      state.omr_list = action.payload.omr_list;
+      state.userId = action.payload.userId;
+      state.omrList = action.payload.omrList;
+    },
+    setUser(state, action: PayloadAction<User>) {
+      state.nickname = action.payload.nickname;
+      state.codedEmail = action.payload.codedEmail;
+      state.introduction = action.payload.introduction;
     },
     setIntro(state, action: PayloadAction<string>) {
       state.introduction = action.payload;
     },
     addOmr(state, action: PayloadAction<number>) {
-      state.omr_list.push(action.payload);
+      state.omrList.push(action.payload);
     },
   },
 });

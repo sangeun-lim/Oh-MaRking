@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -27,37 +27,51 @@ function CheerPage(): JSX.Element {
   const { codedEmail } = useParams();
   const { auth, user, omr } = useSelector((state: RootState) => state);
 
+  const linkAccess = async () => {
+    const response = await OMRApi.omr.linkAccess(codedEmail || '');
+    if (response.status === 200) {
+      dispatch(setUserInfo(response.data.data));
+    } else {
+      console.error();
+    }
+  };
+
+  const getUserOmr = useCallback(async () => {
+    const { status, data } = await OMRApi.omr.getUserOmr(user.omrList[0]);
+    if (status === 200) {
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+    } else {
+      alert('회원정보를 불러오지 못했습니다.');
+    }
+  }, [dispatch, user.omrList]);
+
+  const getNotUserOmr = useCallback(async () => {
+    const { status, data } = await OMRApi.omr.getNotUserOmr(user.omrList[0]);
+    if (status === 200) {
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+    } else {
+      alert('회원정보를 불러오지 못했습니다.');
+    }
+  }, [dispatch, user.omrList]);
+
+  // 처음 렌더링 될 때 -> 링크 접속 API 요청
   useEffect(() => {
-    const linkAccess = async () => {
-      const response = await OMRApi.omr.linkAccess(codedEmail || '');
-      if (response.status === 200) {
-        dispatch(setUserInfo(response.data));
-        // isOwner는 생각안해도되나?
-        if (auth.isLoggedIn && omr.isOwner) {
-          const secondResponse = await OMRApi.omr.getUserOmr(user.omr_list[0]);
-          if (secondResponse.status === 200) {
-            dispatch(setUser(secondResponse.data.user));
-            dispatch(setOmr(secondResponse.data.omr));
-          } else {
-            alert('회원정보를 불러오지 못했습니다.');
-          }
-        } else {
-          const secondResponse = await OMRApi.omr.getNotUserOmr(
-            user.omr_list[0]
-          );
-          if (secondResponse.status === 200) {
-            dispatch(setUser(secondResponse.data.user));
-            dispatch(setOmr(secondResponse.data.omr));
-          } else {
-            alert('회원정보를 불러오지 못했습니다.');
-          }
-        }
-      } else {
-        console.error();
-      }
-    };
     linkAccess();
-  }, [auth.isLoggedIn, codedEmail, dispatch, user.omr_list, omr.isOwner]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Omr id 받아왔을 때 -> Omr 정보 API 요청
+  useEffect(() => {
+    if (user.omrList[0] !== -1) {
+      if (auth.isLoggedIn) {
+        getUserOmr();
+      } else {
+        getNotUserOmr();
+      }
+    }
+  }, [user.omrList, auth.isLoggedIn, getNotUserOmr, getUserOmr]);
 
   return (
     <Container className={styles.screen_container}>

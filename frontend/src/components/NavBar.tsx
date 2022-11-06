@@ -12,8 +12,8 @@ function NavBar(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { auth } = useSelector((state: RootState) => state);
-
+  const { auth, user } = useSelector((state: RootState) => state);
+  const url = `/cheer/${user.coded_email}`;
   const logoutRequest = async () => {
     dispatch(logout());
     navigate('/');
@@ -37,7 +37,8 @@ function NavBar(): JSX.Element {
               <Nav.Link className={styles.nav_font} href="/event">
                 설문조사
               </Nav.Link>
-              <Nav.Link className={styles.nav_font} href="/cheer/wfaw">
+              {/* <Nav.Link className={styles.nav_font} href="/cheer/wfaw"> */}
+              <Nav.Link className={styles.nav_font} href={url}>
                 내 응원가기
               </Nav.Link>
               <Nav.Link className={styles.nav_font} href="/event">
@@ -66,16 +67,10 @@ function NavBar(): JSX.Element {
               <Nav.Link className={styles.nav_font} href="/event">
                 설문조사
               </Nav.Link>
-              {/* 나중에 밑에 3줄 지워야됨 */}
-              {/* 근데 href에 `${}` 안먹는건 예상치 못했는데..? */}
-              {/* 본인 페이지로 이동하게 어케하지 */}
-              <Nav.Link className={styles.nav_font} href="/cheer/wefw">
-                내 응원가기
-              </Nav.Link>
               <Nav.Link className={styles.nav_font} href="/event">
                 이벤트 보러가기
               </Nav.Link>
-              <Nav.Link href="/event">
+              <Nav.Link href="http://oh-marking.com:8081/oauth2/authorization/kakao">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/kakao_login_medium_narrow.png?alt=media&token=83a37f58-dce3-4758-bfcf-1ddd7699349f"
                   alt="카카오로그인"

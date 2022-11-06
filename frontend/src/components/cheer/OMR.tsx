@@ -10,6 +10,7 @@ import CheckPw from './CheckPw';
 import DetailOrUpdateMsg from './DetailOrUpdateMsg';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
+import LinkCopy from './LinkCopy';
 
 interface CheerProps {
   msg: number[][];
@@ -218,9 +219,10 @@ function OMR(): JSX.Element {
             <div className={`${styles.page}`}>
               <span className={`${styles.body}`}>{pageNum}</span>
               <span>교시 응원영역</span>
+              <LinkCopy />
             </div>
 
-            <Info title={'이  름'} content={`${user.name}`} />
+            <Info title={'이  름'} content={`${user.nickname}`} />
             <Info title={'필  적\n확인란'} content={user.introduction} />
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
