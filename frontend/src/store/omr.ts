@@ -16,7 +16,7 @@ interface Note {
 }
 
 const initialState = {
-  pageNum: -1, // 현재 페이지 숫자
+  pageNum: -1, // 현재 페이지 인덱스
   color: 0,
   omrInfo: [[-1]],
   noteInfo: [[-1]],
@@ -44,8 +44,13 @@ const omrReducer = createSlice({
     setColor(state, action: PayloadAction<number>) {
       state.color = action.payload;
     },
+    //
+    setIsOwner(state, action: PayloadAction<boolean>) {
+      state.isOwner = action.payload;
+    },
   },
 });
 
-export const { setOmr, setPage, setNoteStatus, setColor } = omrReducer.actions;
+export const { setOmr, setPage, setNoteStatus, setColor, setIsOwner } =
+  omrReducer.actions;
 export default omrReducer.reducer;

@@ -4,6 +4,7 @@ const HOST = 'http://oh-marking.com:8081/api/';
 // const AUTH = 'auth/';
 const USER = 'user/';
 const OMR = 'omr/';
+const OMR2 = 'omr';
 const EVENT = 'event/';
 const NOTE = 'note/';
 const CHECK = 'check/';
@@ -19,7 +20,8 @@ const Url = {
     LinkAccess: (codedEmail: string) => `${HOST + USER}info/${codedEmail}`,
     ReadUserOmr: (omrId: number) => `${HOST + OMR + USER}${omrId}`,
     ReadGuestOmr: (omrId: number) => `${HOST + OMR}guest/${omrId}`,
-    newOMRorChangeColor: () => `${HOST + OMR}`,
+    newOMR: () => `${HOST + OMR2}`,
+    changeColor: () => `${HOST + OMR}color`,
     createOrUpdateOrDeleteNote: (noteId: number) => `${HOST + OMR}${noteId}`,
   },
 

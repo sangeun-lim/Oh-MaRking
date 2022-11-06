@@ -23,7 +23,6 @@ const OMRApi = {
       const response = await axios({
         url: Url.omr.ReadUserOmr(omrId),
         headers: {
-          // 'Content-Type': 'application/json',
           Authorization: `Bearer ${getSessionStorage('accessToken')}`,
         },
         method: 'get',
@@ -41,7 +40,7 @@ const OMRApi = {
 
     createNewOMR: async (formData: NewOmr) => {
       const response = await axios({
-        url: Url.omr.newOMRorChangeColor(),
+        url: Url.omr.newOMR(),
         method: 'post',
         data: formData,
       });
@@ -50,8 +49,10 @@ const OMRApi = {
 
     changeOmrColor: async (formData: ChangeColor) => {
       const response = await axios({
-        url: Url.omr.newOMRorChangeColor(),
-        headers: {},
+        url: Url.omr.changeColor(),
+        headers: {
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
+        },
         method: 'put',
         data: formData,
       });
@@ -72,7 +73,9 @@ const OMRApi = {
     readNote: async () => {
       const response = await axios({
         url: Url.note.readNote(),
-        headers: {},
+        headers: {
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
+        },
         method: 'get',
       });
       return response;

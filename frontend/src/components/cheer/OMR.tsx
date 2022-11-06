@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { updateIntro } from '../../store/user';
+import { addOmr, setUser } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
-import { setColor, setNoteStatus } from '../../store/omr';
+import { setColor, setNoteStatus, setIsOwner, setOmr } from '../../store/omr';
 import Search from './Search';
 import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import CheckPw from './CheckPw';
+import OMRApi from '../../api/OMRApi';
 import DetailOrUpdateMsg from './DetailOrUpdateMsg';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 import LinkCopy from './LinkCopy';
+import updateImgUrl from '../../img/수정 아이콘.png';
 
 interface CheerProps {
   msg: number[][];
@@ -28,15 +30,7 @@ interface PalletProps {
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
   const { omr, note } = useSelector((state: RootState) => state);
-  // const dispatch = useDispatch();
 
-  // const test = (problemIdx: number, elementIdx: number) => {
-  //   if (omr.omrInfo[problemIdx][elementIdx] === 0) {
-  //     dispatch(setNote({ problemIdx, elementIdx, status: 4 }));
-  //   } else {
-  //     dispatch(setNote({ problemIdx, elementIdx, status: 0 }));
-  //   }
-  // };
   const [show, setShow] = useState(false);
   const [problemNumber, setProblemNumber] = useState(0);
   const [elementNumber, setElementNumber] = useState(0);
@@ -91,7 +85,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                   type="button"
                   onClick={
                     // () => test(problemIdx + start, elementIdx)
-                    () => openModal(problemIdx + start + 1, elementIdx + 1)
+                    () => openModal(problemIdx + start, elementIdx)
                   }
                 >
                   {element === 4 ? null : elementIdx + 1}
@@ -102,8 +96,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
-        {/* noteId가 없고(빈칸일때) show 가 true일때 */}
-        {show && (
+        {show && !noteId && (
           <CreateMsg
             problemNum={problemNumber}
             elementNum={elementNumber}
@@ -111,36 +104,57 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             setShow={setShow}
           />
         )}
-        {/* {!noteId && show && (
+        {/* {show && !noteId ? (
           <CreateMsg
             problemNum={problemNumber}
             elementNum={elementNumber}
             show={show}
             setShow={setShow}
           />
+        ) : (
+          <div>
+            {omr.isOwner ? (
+              <div>
+                {noteInfoTrue ? <DetailOrUpdateMsg /> : <div>못읽습니다.</div>}
+              </div>
+            ) : (
+              <CheckPw show={show} setShow={setShow} noteId={noteId} />
+            )}
+          </div>
         )} */}
-
-        {/* noteId가 있고(빈칸이 아닐때) show가 true일때 */}
-        {/* {noteId && show && isOwner ? ( 
-          { noteInfoTrue ? (
-            // <DetailOrUpdateMsg pass={show} setPass={setShow} formData={} />
-          ) : null}
-          ) : (
-            <CheckPw show={show} setShow={setShow} noteId={noteId} />
-          )
-        }  */}
       </div>
     </div>
   );
 }
 
 function Info({ title, content }: InfoProps): JSX.Element {
+  const { isOwner } = useSelector((state: RootState) => state.omr);
+  const [isEdting, setIsEdting] = useState(false);
+  // const switchIsEditing = useCallback(() => {
+  //   console.log('전', isEdting);
+  //   setIsEdting((state) => !state);
+  //   console.log('후', isEdting);
+  // }, [isEdting]);
   return (
     <div className={styles.section}>
-      <div className={`${styles.header} ${styles.left}`}>{title}</div>
+      <div className={`${styles.header} ${styles.left}`}>
+        <div>{title}</div>
+      </div>
       <div className={` ${styles.body} ${styles.right}`}>
         {content !== '감독확인란' ? (
-          content
+          <>
+            <div>{content}</div>
+            <img
+              // onClick={switchIsEditing}
+              role="presentation"
+              className={styles.edit}
+              src={updateImgUrl}
+              alt="수정버튼"
+              style={{
+                display: isOwner ? 'visible' : 'visible',
+              }}
+            />
+          </>
         ) : (
           <img src={stampUrl} alt="감독은 노녕과 아이들" />
         )}
@@ -162,21 +176,40 @@ function Code(): JSX.Element {
 }
 
 function Pallet({ colorList }: PalletProps): JSX.Element {
+  const { omrList } = useSelector((state: RootState) => state.user);
+  const { isOwner, pageNum, color } = useSelector(
+    (state: RootState) => state.omr
+  );
   const dispatch = useDispatch();
-  const onClick = (color: number) => {
-    dispatch(setColor(color));
-    // dispatch(updateIntro(`${color}`));
+
+  const changeColor = useCallback(async (newColor: number, omrId: number) => {
+    const ChangeColor = {
+      color: newColor,
+      omrId,
+    };
+    const { status } = await OMRApi.omr.changeOmrColor(ChangeColor);
+    if (status === 202) {
+      alert('색상이 변경되었습니다.');
+    }
+  }, []);
+
+  const onClick = (newColor: number) => {
+    // 색상이 이전 값과 같을 때 처리하기
+    if (isOwner && color !== newColor) {
+      changeColor(newColor, omrList[pageNum - 1]);
+    }
+    dispatch(setColor(newColor));
   };
 
   const colors = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
     <>
-      {colors.map((color: number) => (
-        <span key={color} className={`${styles[colorList[color]]}`}>
+      {colors.map((newColor: number) => (
+        <span key={newColor} className={`${styles[colorList[newColor]]}`}>
           <button
             className={styles.body}
             type="button"
-            onClick={() => onClick(color)}
+            onClick={() => onClick(newColor)}
           >
             {' '}
           </button>
@@ -187,7 +220,8 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
 }
 
 function OMR(): JSX.Element {
-  const { user, omr } = useSelector((state: RootState) => state);
+  const { user, omr, auth } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
   const colorList = [
     'yellow',
     'skyblue',
@@ -199,14 +233,48 @@ function OMR(): JSX.Element {
     'pink',
   ];
 
-  const pageNum = 1;
+  const movePage = useCallback(
+    async (move: number) => {
+      const leftOrRight = omr.pageNum + move - 1;
+      const { status, data } = auth.isLoggedIn
+        ? await OMRApi.omr.getUserOmr(user.omrList[leftOrRight])
+        : await OMRApi.omr.getNotUserOmr(user.omrList[leftOrRight]);
+      if (status === 200) {
+        dispatch(setUser(data.data.user));
+        dispatch(setOmr(data.data.omr));
+        dispatch(setIsOwner(data.data.isOwner));
+      }
+    },
+    [auth.isLoggedIn, dispatch, omr.pageNum, user.omrList]
+  );
+
+  const createNewPage = useCallback(async () => {
+    const newPage = user.omrList.length + 1;
+    const NewOmr = {
+      color: (newPage % 8) - 1,
+      pageNum: newPage,
+      userId: user.userId,
+    };
+    const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
+    if (status === 201) {
+      alert('새로운 페이지가 추가되었습니다.');
+      dispatch(addOmr(data.data.omrId));
+    }
+  }, [user.userId, user.omrList, dispatch]);
+
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
         <div className={styles.omr_head}>
-          <div className={styles.header}>답안지 교체</div>
+          <button
+            className={styles.header}
+            type="button"
+            onClick={() => createNewPage()}
+          >
+            답안지 교체
+          </button>
           <div className={styles.header}>
             <Search />
           </div>
@@ -214,10 +282,16 @@ function OMR(): JSX.Element {
         {/* OMR BODY */}
         <div className={styles.omr_body}>
           {/* 좌측: 정보확인란 */}
-          <button type="button">&#10094;</button>
+          <button
+            type="button"
+            onClick={() => movePage(-1)}
+            style={{ visibility: omr.pageNum === 1 ? 'hidden' : 'visible' }}
+          >
+            &#10094;
+          </button>
           <div className={styles.info}>
             <div className={`${styles.page}`}>
-              <span className={`${styles.body}`}>{pageNum}</span>
+              <span className={`${styles.body}`}>{omr.pageNum}</span>
               <span>교시 응원영역</span>
               <LinkCopy />
             </div>
@@ -253,7 +327,16 @@ function OMR(): JSX.Element {
           <div className={`${styles.cheer}`}>
             <Cheer msg={omr.omrInfo.slice(10, 20)} start={10} />
           </div>
-          <button type="button">&#10095;</button>
+          <button
+            type="button"
+            onClick={() => movePage(1)}
+            style={{
+              visibility:
+                omr.pageNum === user.omrList.length ? 'hidden' : 'visible',
+            }}
+          >
+            &#10095;
+          </button>
         </div>
         <div className={styles.omr_footer} />
         <Code />

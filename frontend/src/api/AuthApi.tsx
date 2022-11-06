@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Url from './Url';
 import { UserData } from './ApiInterface';
+import { getSessionStorage } from '../utils/utils';
 
 const AuthApi = {
   auth: {
@@ -9,7 +10,9 @@ const AuthApi = {
     updateUserProfile: async (formData: UserData) => {
       const response = await axios({
         url: Url.auth.updateIntroduction(),
-        headers: {},
+        headers: {
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
+        },
         method: 'put',
         data: { ...formData },
       });
