@@ -33,7 +33,7 @@ function DetailOrUpdateMsg({ pass, setPass, formData }: Props): JSX.Element {
   // useParams로 그냥 codedEmail을 가져와야되나?
   // 해당 유저의 응원페이지 링크로 보내기 위해서 codedEmail을 가져올라그러는데
   // 이게 맞나?
-  const codedEmail = user.coded_email;
+  const { codedEmail } = user;
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
