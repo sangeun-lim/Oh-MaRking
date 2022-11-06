@@ -7,9 +7,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql_user:3306/ohmarking?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: c102akdlsql
+#    url: jdbc:mysql://mysql_db:3306/ohmarking?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=UTF-8
+#    username: root
+#    password: c102akdlsql
 
   redis:
     host: redis_db
@@ -56,7 +56,7 @@ jwt:
   refresh-token-validity-in-seconds: 86400
 
 front:
-  url: http://oh-marking.com:3000/oauth/callback
+  url: http://oh-marking.com:3000/callback
 
 logging:
   level:
