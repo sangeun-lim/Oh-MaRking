@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -28,51 +28,50 @@ function CheerPage(): JSX.Element {
   const { auth, user, omr } = useSelector((state: RootState) => state);
 
   const linkAccess = async () => {
-    console.log('linkAccess 요청');
     const response = await OMRApi.omr.linkAccess(codedEmail || '');
-    console.log('linkAccess 요청');
     if (response.status === 200) {
-      console.log('response', response);
-      console.log('response.data.data', response.data.data);
       dispatch(setUserInfo(response.data.data));
-      const saveUserInfo = () => {
-        return new Promise<void>(() => {
-          dispatch(setUserInfo(response.data.data));
-        });
-      };
-      saveUserInfo.then(() =>{
+    } else {
+      console.error();
+    }
+  };
 
-        
-        
-        // 회원일 때
-        if (auth.isLoggedIn) {
-          const secondResponse = await OMRApi.omr.getUserOmr(user.omrList[0]);
-          if (secondResponse.status === 200) {
-            dispatch(setUser(secondResponse.data.user));
-            dispatch(setOmr(secondResponse.data.omr));
-          } else {
-            alert('회원정보를 불러오지 못했습니다.');
-          }
-          // 비회원일 때
-        } else {
-          const secondResponse = await OMRApi.omr.getNotUserOmr(user.omrList[0]);
-          if (secondResponse.status === 200) {
-            dispatch(setUser(secondResponse.data.user));
-            dispatch(setOmr(secondResponse.data.omr));
-          } else {
-            alert('회원정보를 불러오지 못했습니다.');
-          }
-        }
-      } else {
-        console.error();
-      }
-    });
-    };
-    
-    useEffect(() => {
-      linkAccess();
+  const getUserOmr = useCallback(async () => {
+    const { status, data } = await OMRApi.omr.getUserOmr(user.omrList[0]);
+    if (status === 200) {
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+    } else {
+      alert('회원정보를 불러오지 못했습니다.');
+    }
+  }, [dispatch, user.omrList]);
+
+  const getNotUserOmr = useCallback(async () => {
+    const { status, data } = await OMRApi.omr.getNotUserOmr(user.omrList[0]);
+    if (status === 200) {
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+    } else {
+      alert('회원정보를 불러오지 못했습니다.');
+    }
+  }, [dispatch, user.omrList]);
+
+  // 처음 렌더링 될 때 -> 링크 접속 API 요청
+  useEffect(() => {
+    linkAccess();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Omr id 받아왔을 때 -> Omr 정보 API 요청
+  useEffect(() => {
+    if (user.omrList[0] !== -1) {
+      if (auth.isLoggedIn) {
+        getUserOmr();
+      } else {
+        getNotUserOmr();
+      }
+    }
+  }, [user.omrList, auth.isLoggedIn, getNotUserOmr, getUserOmr]);
 
   return (
     <Container className={styles.screen_container}>

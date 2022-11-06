@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // 초기값
 interface User {
-  name: string;
+  nickname: string;
   codedEmail: string;
   introduction: string;
 }
@@ -14,7 +14,7 @@ interface UserInfo {
 }
 
 const initialState = {
-  name: '소정현',
+  nickname: '소정현',
   codedEmail: '',
   introduction: '낭만 소년 소정현입니다.',
   userId: 0,
@@ -26,21 +26,11 @@ const userReducer = createSlice({
   initialState,
   reducers: {
     setUserInfo(state, action: PayloadAction<UserInfo>) {
-      // console.log(
-      //   '전 state',
-      //   state,
-      //   state.name,
-      //   state.introduction,
-      //   state.userId
-      // );
-      console.log(state.userId, state.omrList[0]);
-      console.log('payload', action.payload);
       state.userId = action.payload.userId;
       state.omrList = action.payload.omrList;
-      console.log('후 state', state.userId, state.omrList);
     },
     setUser(state, action: PayloadAction<User>) {
-      state.name = action.payload.name;
+      state.nickname = action.payload.nickname;
       state.codedEmail = action.payload.codedEmail;
       state.introduction = action.payload.introduction;
     },
