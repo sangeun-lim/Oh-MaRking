@@ -10,12 +10,13 @@ import styles from './CheckPw.module.scss';
 interface CheckPwProps {
   show: boolean;
   setShow: boolean | any;
+  noteId: number;
 }
 
-function CheckPw({ show, setShow }: CheckPwProps): JSX.Element {
+function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
   // noteId 값이 있으면 이 모달을 띄우게 처리해야함
 
-  const noteId = 0; // how?
+  // const noteId = 0; // how?
 
   const [pw, setPw] = useState<string>('');
   const [pass, setPass] = useState(false);

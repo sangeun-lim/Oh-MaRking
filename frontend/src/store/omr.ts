@@ -6,7 +6,7 @@ interface Omr {
   pageNum: number; // 현재 페이지 숫자
   omrInfo: number[][];
   noteInfo: number[][];
-  isOnwer: boolean;
+  isOwner: boolean;
 }
 
 interface Note {
@@ -20,7 +20,7 @@ const initialState = {
   color: 0,
   omrInfo: [[-1]],
   noteInfo: [[-1]],
-  isOnwer: false,
+  isOwner: false,
 };
 
 const omrReducer = createSlice({

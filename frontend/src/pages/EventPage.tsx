@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from 'react';
-import { EventList } from 'utils/Interface';
-import EventApi from 'api/EventApi';
+// import { EventList } from 'utils/Interface';
+// import EventApi from 'api/EventApi';
 import Container from 'react-bootstrap/Container';
 import EventCardComponent from '../components/event/EventCardComponent';
 import styles from './EventPage.module.scss';

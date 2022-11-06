@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { updateIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
@@ -6,8 +6,10 @@ import { setColor, setNoteStatus } from '../../store/omr';
 import Search from './Search';
 import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
-import styles from './OMR.module.scss';
+import CheckPw from './CheckPw';
+import DetailOrUpdateMsg from './DetailOrUpdateMsg';
 import type { RootState } from '../../store/store';
+import styles from './OMR.module.scss';
 
 interface CheerProps {
   msg: number[][];
@@ -24,7 +26,7 @@ interface PalletProps {
 }
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
-  // const { omr } = useSelector((state: RootState) => state);
+  const { omr, note } = useSelector((state: RootState) => state);
   // const dispatch = useDispatch();
 
   // const test = (problemIdx: number, elementIdx: number) => {
@@ -43,8 +45,28 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
   };
+
+  // noteId가 필요
+  const noteId = omr.noteInfo[problemNumber][elementNumber];
+
+  // note의 상태가 필요
+  const noteInfo = omr.omrInfo[problemNumber][elementNumber];
+
+  const [noteInfoTrue, setNoteInfoTrue] = useState<boolean>(false);
+
+  // const isOwner = omr.isOwner;
+
+  useEffect(() => {
+    if (noteInfo === 1 || 2) {
+      setNoteInfoTrue(true);
+    }
+  }, [noteInfo]);
+
+  // const noteInfoTrue = noteInfo === 1 || 2
+
   // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
+
   return (
     <div className={`${styles.section} ${styles.body}`}>
       <div className={`${styles.header} ${styles.top}`}>
@@ -80,7 +102,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
       </div>
       <div>
         {/* noteId가 없고(빈칸일때) show 가 true일때 */}
-
         {show && (
           <CreateMsg
             problemNum={problemNumber}
@@ -89,9 +110,24 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             setShow={setShow}
           />
         )}
-        {/* noteId가 있고(빈칸이 아닐때) show가 true일때
-        또 위 경우에서 주인일때는 볼수 있는가 없는가로 나눠줘야됨
-        주인이 아닐때는 비밀번호를 확인해야하는 페이지로 넘겨야됨 */}
+        {/* {!noteId && show && (
+          <CreateMsg
+            problemNum={problemNumber}
+            elementNum={elementNumber}
+            show={show}
+            setShow={setShow}
+          />
+        )} */}
+
+        {/* noteId가 있고(빈칸이 아닐때) show가 true일때 */}
+        {/* {noteId && show && isOwner ? ( 
+          { noteInfoTrue ? (
+            // <DetailOrUpdateMsg pass={show} setPass={setShow} formData={} />
+          ) : null}
+          ) : (
+            <CheckPw show={show} setShow={setShow} noteId={noteId} />
+          )
+        }  */}
       </div>
     </div>
   );

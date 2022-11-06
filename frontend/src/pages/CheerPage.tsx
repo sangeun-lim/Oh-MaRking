@@ -19,27 +19,21 @@ function CheerPage(): JSX.Element {
       pageNum: 1,
       omrInfo: randomOmr(5),
       noteInfo: randomOmr(50),
-      isOnwer: false,
+      isOwner: false,
     };
     dispatch(setOmr(payload));
   }, [dispatch]);
 
   const { codedEmail } = useParams();
-  const { auth, user } = useSelector((state: RootState) => state);
-  // 1. url에 있는 이메일을 codedEmail에 담는다
-  // 2. 링크 접속시 API 요청한다 (codeEmail 이용)
-  // 3. 응답 중 omr_list를 리덕스에 저장(dispatch(setOmrList(response.data.omr_list)))
-  // 4-1. isLoggedIn이 True -> OMR 읽기(회원) API 요청
-  // 4-2. isLoggedIn이 False -> OMR 읽기(비회원) API 요청
-  // 5. 응답 리덕스에 저장하기
-  // dispatch(setUser(response.data.user))
-  // dispatch(setOmr(response.data.omr))
+  const { auth, user, omr } = useSelector((state: RootState) => state);
+
   useEffect(() => {
     const linkAccess = async () => {
       const response = await OMRApi.omr.linkAccess(codedEmail || '');
       if (response.status === 200) {
         dispatch(setUserInfo(response.data));
-        if (auth.isLoggedIn) {
+        // isOwner는 생각안해도되나?
+        if (auth.isLoggedIn && omr.isOwner) {
           const secondResponse = await OMRApi.omr.getUserOmr(user.omr_list[0]);
           if (secondResponse.status === 200) {
             dispatch(setUser(secondResponse.data.user));
@@ -63,7 +57,7 @@ function CheerPage(): JSX.Element {
       }
     };
     linkAccess();
-  }, [auth.isLoggedIn, codedEmail, dispatch, user.omr_list]);
+  }, [auth.isLoggedIn, codedEmail, dispatch, user.omr_list, omr.isOwner]);
 
   return (
     <Container className={styles.screen_container}>
