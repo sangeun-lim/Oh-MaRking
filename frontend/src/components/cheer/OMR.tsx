@@ -34,13 +34,23 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const [show, setShow] = useState(false);
   const [problemNumber, setProblemNumber] = useState(0);
   const [elementNumber, setElementNumber] = useState(0);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
 
   const openModal = (problemNum: number, elementNum: number) => {
     setShow(true);
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
   };
-
+  const handleMouseOver = (problemNum: number, elementNum: number) => {
+    setIsHovering(true);
+    setProblemNumber(problemNum);
+    setElementNumber(elementNum);
+  };
+  const handleMouseOut = () => {
+    setIsHovering(false);
+    setProblemNumber(0);
+    setElementNumber(0);
+  };
   // noteId가 필요
   const noteId = omr.noteInfo[problemNumber][elementNumber];
 
@@ -81,6 +91,10 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                   className={`${styles[omrBg[element]]}`}
                   key={getKey()}
                   type="button"
+                  onMouseEnter={() =>
+                    handleMouseOver(problemIdx + start, elementIdx)
+                  }
+                  onMouseLeave={() => handleMouseOut()}
                   onClick={
                     // () => test(problemIdx + start, elementIdx)
                     () => openModal(problemIdx + start, elementIdx)
@@ -94,14 +108,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
-        {/* {show && !noteId && (
-          <CreateMsg
-            problemNum={problemNumber}
-            elementNum={elementNumber}
-            show={show}
-            setShow={setShow}
-          />
-        )} */}
         {show ? (
           <div>
             {!noteId ? (
@@ -132,6 +138,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             )}
           </div>
         ) : null}
+        {isHovering && (
+          <div>
+            {' '}
+            {omr.nicknameInfo[problemNumber][elementNumber]}{' '}
+            {omr.showDateInfo[problemNumber][elementNumber]}
+          </div>
+        )}
       </div>
     </div>
   );
