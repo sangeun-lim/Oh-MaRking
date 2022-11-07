@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -66,15 +66,17 @@ function CheerPage(): JSX.Element {
   }, []);
 
   // Omr id 받아왔을 때 -> Omr 정보 API 요청
+  const [flag, setFlag] = useState(false);
   useEffect(() => {
-    if (user.omrList[0] !== -1) {
+    if (!flag && user.omrList[0] !== -1) {
       if (auth.isLoggedIn) {
         getUserOmr();
       } else {
         getNotUserOmr();
       }
+      setFlag(true);
     }
-  }, [user.omrList, auth.isLoggedIn, getNotUserOmr, getUserOmr]);
+  }, [user.omrList, auth.isLoggedIn, getNotUserOmr, getUserOmr, flag]);
 
   return (
     <Container className={styles.screen_container}>

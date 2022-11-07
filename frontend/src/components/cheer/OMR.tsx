@@ -115,7 +115,36 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             show={show}
             setShow={setShow}
           />
-        )}
+        {show ? (
+          <div>
+            {!noteId ? (
+              <CreateMsg
+                problemNum={problemNumber}
+                elementNum={elementNumber}
+                show={show}
+                setShow={setShow}
+              />
+            ) : (
+              <div>
+                {omr.isOwner ? (
+                  <div>
+                    {noteInfoTrue ? (
+                      <DetailMsg
+                        pass={show}
+                        setPass={setShow}
+                        noteId={noteId}
+                      />
+                    ) : (
+                      <div>못읽습니다.</div>
+                    )}
+                  </div>
+                ) : (
+                  <CheckPw show={show} setShow={setShow} noteId={noteId} />
+                )}
+              </div>
+            )}
+          </div>
+        ) : null}
         {isHovering && (
           <div>
             {' '}
@@ -123,28 +152,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             {omr.showDateInfo[problemNumber][elementNumber]}
           </div>
         )}
-        {/* {show && !noteId ? (
-          <CreateMsg
-            problemNum={problemNumber}
-            elementNum={elementNumber}
-            show={show}
-            setShow={setShow}
-          />
-        ) : (
-          <div>
-            {omr.isOwner ? (
-              <div>
-                {noteInfoTrue ? (
-                  <DetailMsg pass={show} setPass={setShow} noteId={noteId} />
-                ) : (
-                  <div>못읽습니다.</div>
-                )}
-              </div>
-            ) : (
-              <CheckPw show={show} setShow={setShow} noteId={noteId} />
-            )}
-          </div>
-        )} */}
       </div>
     </div>
   );
@@ -173,7 +180,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
               src={updateImgUrl}
               alt="수정버튼"
               style={{
-                display: isOwner ? 'visible' : 'visible',
+                display: isOwner ? 'visible' : 'none',
               }}
             />
           </>
