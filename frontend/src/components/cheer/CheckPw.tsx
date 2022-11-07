@@ -50,7 +50,6 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
     try {
       const response = await OMRApi.password.checkPw(noteId, pw);
       if (response.status === 200) {
-        console.log(response.data.data);
         setFormData(response.data.data);
         setPass(true);
         alert('비밀번호가 일치합니다.');
@@ -65,8 +64,8 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
   const handleClose = () => setShow(false);
 
   // 확인 버튼 눌렀을 때
-  const accessPw = () => {
-    checkPw();
+  const accessPw = async () => {
+    await checkPw();
   };
 
   return (

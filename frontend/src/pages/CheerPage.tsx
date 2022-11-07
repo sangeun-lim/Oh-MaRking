@@ -20,6 +20,8 @@ function CheerPage(): JSX.Element {
       omrInfo: randomOmr(5),
       noteInfo: randomOmr(50),
       isOwner: false,
+      nicknameInfo: [['']],
+      showDateInfo: [['']],
     };
     dispatch(setOmr(payload));
   }, [dispatch]);
@@ -39,7 +41,6 @@ function CheerPage(): JSX.Element {
   const getUserOmr = useCallback(async () => {
     const { status, data } = await OMRApi.omr.getUserOmr(user.omrList[0]);
     if (status === 200) {
-      console.log(data);
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
