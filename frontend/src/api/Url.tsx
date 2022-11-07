@@ -30,7 +30,7 @@ const Url = {
 
   note: {
     createOrUpdateNote: () => `${HOST + NOTE2}`,
-    DeleteNote: (noteId: number) => `${HOST + NOTE}/${noteId}`,
+    DeleteNote: (noteId: number) => `${HOST + NOTE}del/${noteId}`,
     readNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
     likeNote: () => `${HOST + NOTE}favorite`,
