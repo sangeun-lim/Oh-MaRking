@@ -2,13 +2,14 @@
 const HOST = 'http://oh-marking.com:8081/api/';
 const HOST2 = 'http://oh-marking.com:8081/logout';
 // const AUTH = 'auth/';
+
 const USER = 'user/';
 const OMR = 'omr/';
 const OMR2 = 'omr';
 const EVENT = 'event/';
 const NOTE = 'note/';
 const NOTE2 = 'note';
-const CHECK = 'check/';
+const CHECK = 'check';
 
 const Url = {
   auth: {
@@ -28,7 +29,8 @@ const Url = {
   },
 
   note: {
-    createOrUpdateOrDeleteNote: () => `${HOST + NOTE2}`,
+    createOrUpdateNote: () => `${HOST + NOTE2}`,
+    DeleteNote: (noteId: number) => `${HOST + NOTE}/${noteId}`,
     readNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
     likeNote: () => `${HOST + NOTE}favorite`,

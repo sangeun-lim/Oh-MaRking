@@ -12,12 +12,12 @@ import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
 
 interface Props {
-  pass: boolean;
   setPass: Dispatch<React.SetStateAction<boolean>>;
+  pass: boolean;
   noteId: number;
 }
 
-function DetailMsg({ pass, setPass, noteId }: Props): JSX.Element {
+function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,7 +30,9 @@ function DetailMsg({ pass, setPass, noteId }: Props): JSX.Element {
   const readMsg = async () => {
     const response = await OMRApi.note.readNote(noteId);
     if (response.status === 200) {
+      console.log(response.data);
       setEditMsg(response.data.data);
+      console.log('디테일열림');
     } else {
       alert('메시지를 불러오지 못했습니다.');
     }
@@ -76,7 +78,7 @@ function DetailMsg({ pass, setPass, noteId }: Props): JSX.Element {
 
   return (
     <div>
-      <Modal pass={pass} onHide={handleClose} className={styles.test}>
+      <Modal show={pass} onHide={handleClose} className={styles.test}>
         <Modal.Header closeButton>
           <Modal.Title>응원글 보기</Modal.Title>
         </Modal.Header>

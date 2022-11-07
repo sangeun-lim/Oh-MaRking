@@ -7,8 +7,8 @@ import Search from './Search';
 import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import CheckPw from './CheckPw';
-import OMRApi from '../../api/OMRApi';
 import DetailMsg from './DetailMsg';
+import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 import LinkCopy from './LinkCopy';
@@ -31,16 +31,22 @@ interface PalletProps {
 function Cheer({ msg, start }: CheerProps): JSX.Element {
   const { omr, note } = useSelector((state: RootState) => state);
 
-  const [show, setShow] = useState(false);
-  const [problemNumber, setProblemNumber] = useState(0);
-  const [elementNumber, setElementNumber] = useState(0);
+  const [show, setShow] = useState<boolean>(false);
+  const [pass, setPass] = useState<boolean>(false);
+  const [problemNumber, setProblemNumber] = useState<number>(0);
+  const [elementNumber, setElementNumber] = useState<number>(0);
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [noteInfoTrue, setNoteInfoTrue] = useState<boolean>(false);
 
   const openModal = (problemNum: number, elementNum: number) => {
-    setShow(true);
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
+    if (noteInfoTrue && omr.isOwner) {
+      setPass(true);
+    }
+    setShow(true);
   };
+
   const handleMouseOver = (problemNum: number, elementNum: number) => {
     setIsHovering(true);
     setProblemNumber(problemNum);
@@ -57,18 +63,46 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   // note의 상태가 필요
   const noteInfo = omr.omrInfo[problemNumber][elementNumber];
 
-  const [noteInfoTrue, setNoteInfoTrue] = useState<boolean>(false);
-
-  // const isOwner = omr.isOwner;
-
   useEffect(() => {
     if (noteInfo === 1 || 2) {
       setNoteInfoTrue(true);
+    } else {
+      setNoteInfoTrue(false);
     }
   }, [noteInfo]);
 
   // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
+
+  interface coordsProps {
+    x: number;
+    y: number;
+  }
+
+  const [coords, setCoords] = useState<coordsProps>({ x: 0, y: 0 });
+  const [globalCoords, setGlobalCoords] = useState<coordsProps>({ x: 0, y: 0 });
+  useEffect(() => {
+    // 👇️ get global mouse coordinates
+    const handleWindowMouseMove = (event) => {
+      setGlobalCoords({
+        x: event.screenX,
+        y: event.screenY,
+      });
+      console.log(coords);
+    };
+    window.addEventListener('mousemove', handleWindowMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleWindowMouseMove);
+    };
+  }, [coords]);
+
+  const handleMouseMove = (event) => {
+    setCoords({
+      x: event.clientX - event.target.offsetLeft,
+      y: event.clientY - event.target.offsetTop,
+    });
+  };
 
   return (
     <div className={`${styles.section} ${styles.body}`}>
@@ -81,7 +115,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         <span>마</span>
         <span>디</span>
       </div>
-      <div>
+      <div className={styles.button}>
         {msg.map((problem, problemIdx) => (
           <div className={styles.problem} key={getKey()}>
             <span>{problemIdx + start + 1}</span>
@@ -123,8 +157,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                   <div>
                     {noteInfoTrue ? (
                       <DetailMsg
-                        pass={show}
-                        setPass={setShow}
+                        pass={pass}
+                        setPass={setPass}
                         noteId={noteId}
                       />
                     ) : (
