@@ -14,3 +14,13 @@ export const NoteDetailData = {
   problem_num: 0,
   check_num: 0,
 };
+
+export const NewNoteDefaultData = {
+  omrId: 0,
+  nickname: '',
+  content: '',
+  pwd: '',
+  showDate: '',
+  problemNum: 0,
+  checkNum: 0,
+};

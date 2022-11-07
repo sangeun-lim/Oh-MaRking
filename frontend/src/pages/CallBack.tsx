@@ -20,7 +20,6 @@ function CallBackPage(): JSX.Element {
       setSessionStorage('accessToken', accessToken);
       setSessionStorage('refreshToken', refreshToken);
       dispatch(login());
-      console.log(accessToken, refreshToken, codedEmail);
       navigate(`/cheer/${codedEmail}`, { replace: true });
     }
   }, [accessToken, refreshToken, codedEmail, navigate, dispatch]);
