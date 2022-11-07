@@ -82,6 +82,8 @@ public class OMRServiceImpl implements OMRService {
         List<Note> list = omr.getNoteList();
         int[][] omrInfo = new int[20][5];
         long[][] noteInfo = new long[20][5];
+        String[][] nicknameInfo = new String[20][5];
+        String[][] showDateInfo = new String[20][5];
 
         LocalDate today = LocalDate.now();
         // 0: 없을 때
@@ -99,6 +101,8 @@ public class OMRServiceImpl implements OMRService {
                 omrInfo[r][c] = note.getIsOpened() ? 1 : 2;
             }
             noteInfo[r][c] = note.getId();
+            nicknameInfo[r][c] = note.getNickname();
+            showDateInfo[r][c] = note.getShowDate();
         }
 
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.builder()
@@ -112,6 +116,8 @@ public class OMRServiceImpl implements OMRService {
                 .pageNum(omr.getPageNum())
                 .omrInfo(omrInfo)
                 .noteInfo(noteInfo)
+                .nicknameInfo(nicknameInfo)
+                .showDateInfo(showDateInfo)
                 .build();
         CardInfoResponseDto cardInfoResponseDto = CardInfoResponseDto.builder()
                 .user(userInfoResponseDto)
@@ -130,6 +136,8 @@ public class OMRServiceImpl implements OMRService {
         List<Note> list = omr.getNoteList();
         int[][] omrInfo = new int[20][5];
         long[][] noteInfo = new long[20][5];
+        String[][] nicknameInfo = new String[20][5];
+        String[][] showDateInfo = new String[20][5];
 
 
         for (int i = 0; i < list.size(); i++) {
@@ -138,6 +146,8 @@ public class OMRServiceImpl implements OMRService {
             int c = note.getCheckNum();
             omrInfo[r][c] = 1;
             noteInfo[r][c] = list.get(i).getId();
+            nicknameInfo[r][c] = note.getNickname();
+            showDateInfo[r][c] = note.getShowDate();
         }
 
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.builder()
@@ -151,6 +161,8 @@ public class OMRServiceImpl implements OMRService {
                 .pageNum(omr.getPageNum())
                 .omrInfo(omrInfo)
                 .noteInfo(noteInfo)
+                .nicknameInfo(nicknameInfo)
+                .showDateInfo(showDateInfo)
                 .build();
         CardInfoResponseDto cardInfoResponseDto = CardInfoResponseDto.builder()
                 .user(userInfoResponseDto)

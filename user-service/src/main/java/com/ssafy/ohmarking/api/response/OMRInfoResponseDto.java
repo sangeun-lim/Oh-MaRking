@@ -14,4 +14,6 @@ public class OMRInfoResponseDto {
     private Integer pageNum;
     private int[][] omrInfo;
     private long[][] noteInfo;
+    private String[][] nicknameInfo;
+    private String[][] showDateInfo;
 }

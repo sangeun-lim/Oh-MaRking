@@ -48,7 +48,7 @@ public class UserOAuth2Service extends DefaultOAuth2UserService {
                     .build();
             userRepository.save(newUser);
             omrRepository.save(OMR.builder()
-                    .pageNum(1)
+                    .pageNum(0)
                     .color(0)
                     .user(newUser)
                     .build());
