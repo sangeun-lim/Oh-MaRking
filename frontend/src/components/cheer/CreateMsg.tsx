@@ -1,11 +1,12 @@
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { NoteData } from '../../utils/Interface';
-import { NoteDefaultData } from '../../utils/DefaultData';
+import { NewNoteData } from '../../utils/Interface';
+import { NewNoteDefaultData } from '../../utils/DefaultData';
+import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
@@ -25,7 +26,7 @@ function CreateMsg({
 }: CreateMsgProps): JSX.Element {
   const { omr } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
-  const handleClose = () => setShow(false);
+
   const colorList = [
     'yellow',
     'skyblue',
@@ -36,21 +37,31 @@ function CreateMsg({
     'orange',
     'pink',
   ];
+
+  interface PW {
+    password1: string;
+    password2: string;
+  }
+  const PWData = {
+    password1: '',
+    password2: '',
+  };
+  const [pwd, setPwd] = useState<PW>(PWData);
+
   // // 노트에 넣어야되는 데이터
-  const [newNote, setNewNote] = useState<NoteData>(NoteDefaultData);
+  const [newNote, setNewNote] = useState<NewNoteData>(NewNoteDefaultData);
+
   // 비밀번호 일치 체크
   const [pass, setPass] = useState<boolean>(true);
-  // const [password]
-  // const checkValid = () => setPwCheck(true);
-  // const checkCommon = () => setPwCommonCheck(true);
-  // const passwordValid = function () {};
-  const passwordCheckValid = function () {
-    if (newNote.password1 === newNote.password2) {
+
+  const passwordCheckValid = () => {
+    if (pwd.password1 === pwd.password2) {
       setPass(true);
     } else {
       setPass(false);
     }
   };
+
   // 비밀 >_0
   document
     .querySelector('#password-check')
@@ -59,15 +70,8 @@ function CreateMsg({
     .querySelector('#password-check')
     ?.addEventListener('focusin', () => setPass(true));
 
-  // useEffect(() => {
-
-  // });
-  // useEffect(() => {
-  //   console.log('노으녕');
-  // }, [newNote]);
-
   // // 노트에 쓰는 모든 값들이 입력하면서 바뀔때마다 값 바꿔주는 함수
-  const onChange = (e: any) => {
+  const onChangeData = (e: any) => {
     const { name, value } = e.target;
     setNewNote((prev) => {
       return {
@@ -77,19 +81,50 @@ function CreateMsg({
     });
   };
 
+  const handleClose = () => setShow(false);
+
+  const onChangePwd = (e: any) => {
+    const { name, value } = e.target;
+    setPwd((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const { omrList } = useSelector((state: RootState) => state.user);
+  const { pageNum } = useSelector((state: RootState) => state.omr);
+
+  const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = {
+      omrId: omrList[pageNum - 1],
+      nickname: newNote.nickname,
+      content: newNote.content,
+      pwd: pwd.password1,
+      showDate: newNote.showDate,
+      problemNum,
+      checkNum: elementNum,
+    };
+    // console.log(formData);
+    const response = await OMRApi.note.createNote(formData);
+    if (response.status === 201) {
+      console.log(response.data);
+      setNewNote(response.data.data);
+      setShow(false);
+    }
+  };
   // // 취소버튼 눌렀을 때
   // const onCancelClick = () => {
   //   // 작성하려던 유저의 페이지로 이동
-  //   navigate('/cheer/asf');
+  //   navigate(`/cheer/`${codedEmail}`);
   // };
 
-  // const onSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   // 조건주고 axios 받고 등등의 제출할때 필요한 처리해주는 함수
-  // };
   useEffect(() => {
     // console.log(document.querySelector('#ASDF').parentNode?.parentNode);
   }, []);
+
   return (
     <div>
       <Modal
@@ -104,7 +139,7 @@ function CreateMsg({
           <Modal.Title>응원글 작성</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
-          <form>
+          <form onSubmit={handleOnSubmit}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ width: '100%', padding: '0px' }}>
                 <Row style={{ margin: '0px' }}>
@@ -132,7 +167,7 @@ function CreateMsg({
                               id="nickname"
                               type="text"
                               placeholder="닉네임을 입력해주세요."
-                              onChange={onChange}
+                              onChange={onChangeData}
                               maxLength={10}
                               required
                             />
@@ -147,7 +182,7 @@ function CreateMsg({
                         >
                           <label
                             className={styles.form_label}
-                            htmlFor="opendate"
+                            htmlFor="showDate"
                           >
                             공개 날짜
                           </label>
@@ -159,7 +194,10 @@ function CreateMsg({
                             <input
                               style={{ backgroundColor: '#FBFFFE' }}
                               type="date"
-                              id="opendate"
+                              name="showDate"
+                              id="showDate"
+                              // value={newNote.showDate}
+                              onChange={onChangeData}
                               required
                             />
                           </div>
@@ -189,8 +227,8 @@ function CreateMsg({
                               id="password"
                               type="password"
                               placeholder="비밀번호를 입력해주세요."
-                              value={newNote.password1}
-                              onChange={onChange}
+                              value={pwd.password1}
+                              onChange={onChangePwd}
                               required
                             />
                           </div>
@@ -215,8 +253,8 @@ function CreateMsg({
                               id="password-check"
                               type="password"
                               placeholder="동일한 비밀번호를 입력하세요."
-                              value={newNote.password2}
-                              onChange={onChange}
+                              value={pwd.password2}
+                              onChange={onChangePwd}
                               required
                               // value={newNote.password2}
                             />
@@ -245,7 +283,7 @@ function CreateMsg({
                     placeholder="응원글을 작성해주세요."
                     name="content"
                     id="cheer-text"
-                    onChange={onChange}
+                    onChange={onChangeData}
                     style={{ backgroundColor: '#FBFFFE' }}
                     cols={30}
                     rows={5}
@@ -253,13 +291,11 @@ function CreateMsg({
                   />
                   <ul style={{ margin: '0px' }}>
                     <li>
-                      <button
+                      <input
                         className={styles.btn_hover_border_3}
-                        type="button"
-                        onClick={handleClose}
-                      >
-                        응원하기
-                      </button>
+                        type="submit"
+                        value="응원하기"
+                      />
                     </li>
                     <li>
                       <button

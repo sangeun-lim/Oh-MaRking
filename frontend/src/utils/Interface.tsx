@@ -18,11 +18,21 @@ export interface NoteData {
 export interface NoteDetail {
   nickname: string;
   content: string;
-  show_date: string;
+  showDate: string;
   date: string;
-  problem_num: number;
-  check_num: number;
+  problemNum: number;
+  checkNum: number;
   isFavorite: number;
+}
+
+export interface NewNoteData {
+  omrId: number;
+  nickname: string;
+  content: string;
+  pwd: string;
+  showDate: string;
+  problemNum: number;
+  checkNum: number;
 }
 
 export interface EditNote {
@@ -33,7 +43,7 @@ export interface EditNote {
 
 interface User {
   name: string;
-  coded_email: string;
+  codedEmail: string;
   introduction: string;
 }
 

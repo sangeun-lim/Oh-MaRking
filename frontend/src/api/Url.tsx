@@ -1,18 +1,19 @@
 // const HOST = 'https://k7c102.p.ssafy.io/';
 const HOST = 'http://oh-marking.com:8081/api/';
-
+const HOST2 = 'http://oh-marking.com:8081/logout';
 // const AUTH = 'auth/';
 const USER = 'user/';
 const OMR = 'omr/';
 const OMR2 = 'omr';
 const EVENT = 'event/';
 const NOTE = 'note/';
+const NOTE2 = 'note';
 const CHECK = 'check/';
 
 const Url = {
   auth: {
     //   login: () => `${HOST + AUTH}login`,
-    //   logout: () => `${HOST + AUTH}logout`,
+    logout: () => `${HOST2}`,
     updateIntroduction: () => `${HOST}introduction`,
   },
 
@@ -26,7 +27,7 @@ const Url = {
   },
 
   note: {
-    createOrUpdateOrDeleteNote: () => `${HOST + NOTE}`,
+    createOrUpdateOrDeleteNote: () => `${HOST + NOTE2}`,
     readNote: () => `${HOST + NOTE}see`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
     likeNote: () => `${HOST + NOTE}favorite`,

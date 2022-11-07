@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // 초기값
 interface User {
-  nickname: string;
+  name: string;
   codedEmail: string;
   introduction: string;
 }
@@ -14,7 +14,7 @@ interface UserInfo {
 }
 
 const initialState = {
-  nickname: '',
+  name: '',
   codedEmail: '',
   introduction: '',
   userId: 0,
@@ -30,7 +30,7 @@ const userReducer = createSlice({
       state.omrList = action.payload.omrList;
     },
     setUser(state, action: PayloadAction<User>) {
-      state.nickname = action.payload.nickname;
+      state.name = action.payload.name;
       state.codedEmail = action.payload.codedEmail;
       state.introduction = action.payload.introduction;
     },

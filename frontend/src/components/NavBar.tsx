@@ -5,6 +5,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { logout } from '../store/auth';
+import AuthApi from '../api/AuthApi';
 import { RootState } from '../store/store';
 import styles from './NavBar.module.scss';
 
@@ -13,8 +14,10 @@ function NavBar(): JSX.Element {
   const dispatch = useDispatch();
 
   const { auth, user } = useSelector((state: RootState) => state);
-  const url = `/cheer/${user.coded_email}`;
+  const url = `/cheer/${user.codedEmail}`;
+
   const logoutRequest = async () => {
+    await AuthApi.auth.logout();
     dispatch(logout());
     navigate('/');
   };

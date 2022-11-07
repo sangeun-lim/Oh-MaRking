@@ -296,7 +296,7 @@ function OMR(): JSX.Element {
               <LinkCopy />
             </div>
 
-            <Info title={'이  름'} content={`${user.nickname}`} />
+            <Info title={'이  름'} content={`${user.name}`} />
             <Info title={'필  적\n확인란'} content={user.introduction} />
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>

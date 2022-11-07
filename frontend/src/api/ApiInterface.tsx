@@ -25,13 +25,13 @@ export interface ChangeColor {
 // }
 
 export interface NewNoteData {
-  omrId: string;
+  omrId: number;
   nickname: string;
   content: string;
   pwd: string;
-  show_data: string;
-  problem_num: number;
-  check_num: number;
+  showDate: string;
+  problemNum: number;
+  checkNum: number;
 }
 
 export interface UpdateNoteData {
