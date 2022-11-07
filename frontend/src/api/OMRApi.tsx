@@ -63,7 +63,7 @@ const OMRApi = {
   note: {
     createNote: async (formData: NewNoteData) => {
       const response = await axios({
-        url: Url.note.createOrUpdateOrDeleteNote(),
+        url: Url.note.createOrUpdateNote(),
         method: 'post',
         data: formData,
       });
@@ -83,7 +83,7 @@ const OMRApi = {
 
     updateNote: async (noteId: number, formData: UpdateNoteData) => {
       const response = await axios({
-        url: Url.note.createOrUpdateOrDeleteNote(),
+        url: Url.note.createOrUpdateNote(),
         method: 'put',
         data: {
           noteId,
@@ -95,9 +95,8 @@ const OMRApi = {
 
     deleteNote: async (noteId: number) => {
       const response = await axios({
-        url: Url.note.createOrUpdateOrDeleteNote(),
+        url: Url.note.DeleteNote(noteId),
         method: 'delete',
-        data: noteId,
       });
       return response;
     },
@@ -134,6 +133,16 @@ const OMRApi = {
         },
       });
       return response;
+      //   return axios({
+      //     url: Url.password.checkPW(),
+      //     method: 'post',
+      //     data: {
+      //       noteId,
+      //       pwd,
+      //     },
+      //   })
+      //     .then((res) => res)
+      //     .catch((err) => err);
     },
   },
 };
