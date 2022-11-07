@@ -11,11 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OMRResponseDto {
 
-    private long id;
-    private long userId;
     private int pageNum;
     private int color;
-    private boolean isOwner;
 
     private int[][] omrInfo = new int[20][5];
     private long[][] noteInfo = new long[20][5]; // 배열 인덱스와 번호 순서 맞추지 말래 (프론트피셜)

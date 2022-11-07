@@ -1,19 +1,17 @@
 package com.ssafy.business.db.entity;
 
+import com.ssafy.business.db.entity.OMR;
+import com.ssafy.business.api.request.NoteUpdateDto;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "Note")
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@DynamicInsert
 @Builder
 public class Note {
     @Id
@@ -30,25 +28,38 @@ public class Note {
     private String pwd;
 
     @Column(nullable = false)
-    private Date date;
+    private String date;
 
-    @Column(name="show_date", nullable = false)
-     private Date showDate;
+    @Column(nullable = false)
+    private String showDate;
 
-    @Column(name="problem_num", nullable = false)
+    @Column(nullable = false)
     private Integer problemNum;
 
-    @Column(name="check_num",nullable = false)
+    @Column(nullable = false)
     private Integer checkNum;
 
-    @Column
-    private boolean isOpen;
+    @Column(nullable = false)
+    private Boolean isFavorite;
 
-    @Column
-    private boolean isFavorite;
+    @Column(nullable = false)
+    private Boolean isOpened;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_omr_id")
     private OMR omr;
 
+    public void updateIsFavorite(Boolean isFavorite) {this.isFavorite = isFavorite;}
+    public void updateIsOpened(Boolean isOpened) {this.isOpened = isOpened;}
+    public void updateNote(NoteUpdateDto noteUpdateDto) {
+        this.content = noteUpdateDto.getContent();
+        this.showDate = noteUpdateDto.getShowDate();
+        this.date = LocalDate.now().toString();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.isFavorite = this.isFavorite == null ? false : this.isFavorite;
+        this.isOpened = this.isOpened == null ? false : this.isOpened;
+    }
 }

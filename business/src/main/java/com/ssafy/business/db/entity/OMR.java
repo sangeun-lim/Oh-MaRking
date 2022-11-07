@@ -22,11 +22,13 @@ public class OMR {
     private Long userid;
 
     @Column(name = "page_num",nullable = false)
-    private Integer pagenum;
+    private Integer pageNum;
 
     @Column(nullable = false)
     private Integer color;
 
     @OneToMany(mappedBy = "omr", cascade = CascadeType.ALL)
     private List<Note> noteList = new ArrayList<>();
+    public void updateColor(Integer color) {this.color = color;}
+    public void updatePageNum(Integer pageNum) {this.pageNum = pageNum;}
 }
