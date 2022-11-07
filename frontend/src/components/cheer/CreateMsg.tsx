@@ -50,15 +50,17 @@ function CreateMsg({
 
   // // 노트에 넣어야되는 데이터
   const [newNote, setNewNote] = useState<NewNoteData>(NewNoteDefaultData);
-
+  const [disable, setDisable] = useState<boolean>(true);
   // 비밀번호 일치 체크
   const [pass, setPass] = useState<boolean>(true);
 
   const passwordCheckValid = () => {
     if (pwd.password1 === pwd.password2) {
       setPass(true);
+      setDisable(false);
     } else {
       setPass(false);
+      setDisable(true);
     }
   };
 
@@ -291,11 +293,14 @@ function CreateMsg({
                   />
                   <ul style={{ margin: '0px' }}>
                     <li>
-                      <input
+                      <button
                         className={styles.btn_hover_border_3}
                         type="submit"
-                        value="응원하기"
-                      />
+                        disabled={disable}
+                        // value="응원하기"
+                      >
+                        응원하기
+                      </button>
                     </li>
                     <li>
                       <button
