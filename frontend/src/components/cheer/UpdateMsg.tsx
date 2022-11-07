@@ -17,19 +17,12 @@ interface Props {
   noteId: number;
 }
 
-function DetailOrUpdateMsg({
-  pass,
-  setPass,
-  formData,
-  noteId,
-}: Props): JSX.Element {
+function UpdateMsg({ pass, setPass, formData, noteId }: Props): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { omr, user } = useSelector((state: RootState) => state);
   const { codedEmail } = user;
-
-  const isOnwer = omr.isOwner;
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
@@ -95,20 +88,14 @@ function DetailOrUpdateMsg({
     onEditClick();
   };
 
-  // const onLikeClick = async (e: any) => {
-  //   e.preventDefault();
-
-  //   const response = await OMRApi.note.likeNote(noteId, favorite);
-  // };
-
   return (
     <div>
-      {isOnwer ? (
-        <Modal pass={pass} onHide={handleClose} className={styles.test}>
-          <Modal.Header closeButton>
-            <Modal.Title>응원글 보기</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+      <Modal pass={pass} onHide={handleClose} className={styles.test}>
+        <Modal.Header closeButton>
+          <Modal.Title>응원글 수정</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ width: '100%', padding: '0px' }}>
                 <Row style={{ margin: '0px' }}>
@@ -129,6 +116,7 @@ function DetailOrUpdateMsg({
                               name="nickname"
                               id="nickname"
                               type="text"
+                              placeholder="닉네임을 입력해주세요."
                               onChange={onChange}
                               value={formData.nickname}
                               maxLength={10}
@@ -177,12 +165,22 @@ function DetailOrUpdateMsg({
                     name="content"
                     placeholder="응원글을 작성해주세요."
                     id="cheer-text"
+                    onChange={onChange}
                     value={editMsg.content}
                     cols={30}
                     rows={10}
                     required
                   />
                   <ul>
+                    <li>
+                      <button
+                        className={styles.btn_hover_border_3}
+                        type="button"
+                        onClick={onEditClick}
+                      >
+                        수정하기
+                      </button>
+                    </li>
                     <li>
                       <button
                         className={styles.btn_hover_border_3}
@@ -196,119 +194,11 @@ function DetailOrUpdateMsg({
                 </div>
               </div>
             </div>
-          </Modal.Body>
-        </Modal>
-      ) : (
-        <Modal pass={pass} onHide={handleClose} className={styles.test}>
-          <Modal.Header closeButton>
-            <Modal.Title>응원글 수정</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form onSubmit={onSubmit}>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ width: '100%', padding: '0px' }}>
-                  <Row style={{ margin: '0px' }}>
-                    <div className={styles.group}>
-                      <Col>
-                        <Row>
-                          <Col>
-                            <label
-                              className={styles.form_label}
-                              htmlFor="nickname"
-                            >
-                              닉네임
-                            </label>
-                          </Col>
-                          <Col>
-                            <div>
-                              <input
-                                name="nickname"
-                                id="nickname"
-                                type="text"
-                                placeholder="닉네임을 입력해주세요."
-                                onChange={onChange}
-                                value={formData.nickname}
-                                maxLength={10}
-                                disabled
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                      </Col>
-                      <Col>
-                        <Row>
-                          <Col>
-                            <label
-                              className={styles.form_label}
-                              htmlFor="opendate"
-                            >
-                              공개 날짜
-                            </label>
-                          </Col>
-                          <Col>
-                            <div>
-                              <input
-                                name="showDate"
-                                type="date"
-                                id="opendate"
-                                value={formData.showDate}
-                                onChange={onChange}
-                                required
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </div>
-                  </Row>
-                </div>
-              </div>
-              <br />
-              <div className={styles.cheer_box}>
-                <div className={styles.cheerHeader}>
-                  <label className={styles.vertical_lr} htmlFor="cheer-text">
-                    서술형 응원
-                  </label>
-                  <div>
-                    <textarea
-                      name="content"
-                      placeholder="응원글을 작성해주세요."
-                      id="cheer-text"
-                      onChange={onChange}
-                      value={editMsg.content}
-                      cols={30}
-                      rows={10}
-                      required
-                    />
-                    <ul>
-                      <li>
-                        <button
-                          className={styles.btn_hover_border_3}
-                          type="button"
-                          onClick={onEditClick}
-                        >
-                          수정하기
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          className={styles.btn_hover_border_3}
-                          type="button"
-                          onClick={onDeleteClick}
-                        >
-                          삭제
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </Modal.Body>
-        </Modal>
-      )}
+          </form>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
 
-export default DetailOrUpdateMsg;
+export default UpdateMsg;

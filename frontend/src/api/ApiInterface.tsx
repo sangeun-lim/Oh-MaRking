@@ -35,8 +35,6 @@ export interface NewNoteData {
 }
 
 export interface UpdateNoteData {
-  // note_id: string;
-  nickname: string;
   content: string;
-  show_date: string;
+  showDate: string;
 }

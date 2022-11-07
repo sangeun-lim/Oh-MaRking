@@ -70,9 +70,9 @@ const OMRApi = {
       return response;
     },
 
-    readNote: async () => {
+    readNote: async (noteId: number) => {
       const response = await axios({
-        url: Url.note.readNote(),
+        url: Url.note.readNote(noteId),
         headers: {
           Authorization: `Bearer ${getSessionStorage('accessToken')}`,
         },
@@ -81,7 +81,7 @@ const OMRApi = {
       return response;
     },
 
-    updateNote: async (noteId: string, formData: UpdateNoteData) => {
+    updateNote: async (noteId: number, formData: UpdateNoteData) => {
       const response = await axios({
         url: Url.note.createOrUpdateOrDeleteNote(),
         method: 'put',
@@ -93,7 +93,7 @@ const OMRApi = {
       return response;
     },
 
-    deleteNote: async (noteId: string) => {
+    deleteNote: async (noteId: number) => {
       const response = await axios({
         url: Url.note.createOrUpdateOrDeleteNote(),
         method: 'delete',
@@ -110,7 +110,7 @@ const OMRApi = {
       return response;
     },
 
-    likeNote: async (noteId: string, favorite: number) => {
+    likeNote: async (noteId: number, favorite: number) => {
       const response = await axios({
         url: Url.note.likeNote(),
         method: 'put',

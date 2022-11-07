@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import DetailOrUpdateMsg from './DetailOrUpdateMsg';
+import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
-import { NoteDetail } from '../../utils/Interface';
-import { NoteDetailData } from '../../utils/DefaultData';
+import { NewNoteData } from '../../utils/Interface';
+import { NewNoteDefaultData } from '../../utils/DefaultData';
 import styles from './CheckPw.module.scss';
 
 interface CheckPwProps {
@@ -14,19 +14,13 @@ interface CheckPwProps {
 }
 
 function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
-  // noteId 값이 있으면 이 모달을 띄우게 처리해야함
-
-  // const noteId = 0; // how?
-
   const [pw, setPw] = useState<string>('');
   const [pass, setPass] = useState(false);
-  const [formData, setFormData] = useState<NoteDetail>(NoteDetailData);
+  const [formData, setFormData] = useState<NewNoteData>(NewNoteDefaultData);
 
   const onChange = (e: any) => {
     setPw(e.target.value);
   };
-
-  // useEffect(() => {}, [pw]);
 
   const checkPw = async () => {
     const response = await OMRApi.password.checkPw(noteId, pw);
@@ -78,16 +72,12 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
                   </button>
                 </li>
               </ul>
-
-              {/* 비밀번호가 일치하면 */}
-              {/* noteId도 넘겨줘야됨 */}
-              {/* detail 페이지에서 보여줄꺼 아니니까 굳이 필요없어졌다고 볼수있나? */}
               {pass ? (
-                <DetailOrUpdateMsg
+                <UpdateMsg
                   pass={pass}
                   setPass={setPass}
+                  noteId={noteId}
                   formData={formData}
-                  // noteId={noteId}
                 />
               ) : null}
             </Modal.Footer>

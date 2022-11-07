@@ -99,7 +99,7 @@ function CreateMsg({
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
-      omrId: omrList[pageNum - 1],
+      omrId: omrList[pageNum],
       nickname: newNote.nickname,
       content: newNote.content,
       pwd: pwd.password1,
