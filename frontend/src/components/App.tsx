@@ -13,7 +13,6 @@ function App(): JSX.Element {
   const getCodedEmail = useCallback(async () => {
     const { status, data } = await AuthApi.auth.getCodedEmail();
     if (status === 200) {
-      console.log(data);
       dispatch(setCodedEmail(data.data.codedEmail));
     }
   }, [dispatch]);

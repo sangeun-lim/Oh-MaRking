@@ -90,7 +90,7 @@ function UpdateMsg({ pass, setPass, formData, noteId }: Props): JSX.Element {
 
   return (
     <div>
-      <Modal pass={pass} onHide={handleClose} className={styles.test}>
+      <Modal show={pass} onHide={handleClose} className={styles.test}>
         <Modal.Header closeButton>
           <Modal.Title>응원글 수정</Modal.Title>
         </Modal.Header>
@@ -138,10 +138,11 @@ function UpdateMsg({ pass, setPass, formData, noteId }: Props): JSX.Element {
                         <Col>
                           <div>
                             <input
+                              id="opendate"
                               name="showDate"
                               type="date"
-                              id="opendate"
-                              value={formData.showDate}
+                              // ex) 2022-11-05 => 2022-11-07 로 눈으로보이는 적용은 안되는데 수정하기 눌럿을땐 또 적용이 됨
+                              value={editMsg.showDate}
                               onChange={onChange}
                               required
                             />
