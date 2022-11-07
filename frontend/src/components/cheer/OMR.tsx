@@ -70,6 +70,36 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
 
+  interface coordsProps {
+    x: number;
+    y: number;
+  }
+
+  const [coords, setCoords] = useState<coordsProps>({ x: 0, y: 0 });
+  const [globalCoords, setGlobalCoords] = useState<coordsProps>({ x: 0, y: 0 });
+  useEffect(() => {
+    // 👇️ get global mouse coordinates
+    const handleWindowMouseMove = (event) => {
+      setGlobalCoords({
+        x: event.screenX,
+        y: event.screenY,
+      });
+      console.log(coords);
+    };
+    window.addEventListener('mousemove', handleWindowMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleWindowMouseMove);
+    };
+  }, [coords]);
+
+  const handleMouseMove = (event) => {
+    setCoords({
+      x: event.clientX - event.target.offsetLeft,
+      y: event.clientY - event.target.offsetTop,
+    });
+  };
+
   return (
     <div className={`${styles.section} ${styles.body}`}>
       <div className={`${styles.header} ${styles.top}`}>
@@ -81,7 +111,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         <span>마</span>
         <span>디</span>
       </div>
-      <div>
+      <div className={styles.button}>
         {msg.map((problem, problemIdx) => (
           <div className={styles.problem} key={getKey()}>
             <span>{problemIdx + start + 1}</span>
@@ -108,6 +138,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
+        {isHovering && (
+          <div className={styles.hover} id="cursorFollower">
+            {omr.nicknameInfo[problemNumber][elementNumber]}
+            <br />
+            {omr.showDateInfo[problemNumber][elementNumber]}
+          </div>
+        )}
         {show && !noteId && (
           <CreateMsg
             problemNum={problemNumber}
@@ -116,13 +153,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             setShow={setShow}
           />
         )}
-        {isHovering && (
-          <div>
-            {' '}
-            {omr.nicknameInfo[problemNumber][elementNumber]}{' '}
-            {omr.showDateInfo[problemNumber][elementNumber]}
-          </div>
-        )}
+
         {/* {show && !noteId ? (
           <CreateMsg
             problemNum={problemNumber}

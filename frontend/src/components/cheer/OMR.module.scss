@@ -417,3 +417,48 @@ $cheer_section_height: 30em;
 .pink {
   @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }
+
+
+//hover
+.button:hover {
+  position:relative;
+  color: red;
+}
+  .hover {// 호버시 추가되는 클래스
+    position: absolute;
+  
+    // top: 12%;// 호버시 top 위치를 조금 위로 움직여준다.
+    // left: 12%;
+    z-index: 985;
+    border:5px;
+  
+    animation-duration: 1s;  	// 애니메이션 3초동안 실행 
+    animation-name: fadeout; 	// 애니메이션 효과는 fade-out
+    
+  }
+// .button {
+//   background-color: red;
+// }
+
+// .hover {// 호버시 추가되는 클래스
+//   position: absolute;
+
+//   top: 12%;// 호버시 top 위치를 조금 위로 움직여준다.
+//   left: 12%;
+//   z-index: 985;
+//   border:5px;
+
+//   animation-duration: 1s;  	// 애니메이션 3초동안 실행 
+//   animation-name: fadeout; 	// 애니메이션 효과는 fade-out
+  
+// }
+
+@keyframes fadeout { 		// fade-out시 opacity를 흐릿하다가 선명하기 만들자
+  0% {
+    opacity: 0; 
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
