@@ -3,10 +3,7 @@ package com.ssafy.userservice.api.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.userservice.api.request.UserUpdateDto;
-import com.ssafy.userservice.api.response.TokenResponseDto;
-import com.ssafy.userservice.api.response.UserInfoByCodedEmailDto;
-import com.ssafy.userservice.api.response.UserInfoByTokenDto;
-import com.ssafy.userservice.api.response.UserInfoResponseDto;
+import com.ssafy.userservice.api.response.*;
 import com.ssafy.userservice.common.exception.UserNotFoundException;
 import com.ssafy.userservice.common.util.RedisService;
 import com.ssafy.userservice.common.util.TokenProvider;
@@ -93,6 +90,23 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByCodedEmail(codedEmail).orElseThrow(UserNotFoundException::new);
         UserInfoByTokenDto userInfoByCodedEmailDto=UserInfoByTokenDto.builder().id(user.getId()).build();
         return userInfoByCodedEmailDto;
+    }
+
+    @Override
+    public UserInfoResponseDto getUserInfoByUserid(Long user_id) {
+        User user = userRepository.findById(user_id).orElseThrow(UserNotFoundException::new);
+        UserInfoResponseDto userInfoResponseDto=UserInfoResponseDto.builder().codedEmail(user.getCodedEmail())
+                .id(user.getId()).introduction(user.getIntroduction()).name(user.getName()).build();
+
+        return userInfoResponseDto;
+    }
+
+    @Override
+    public UserEmailResponseDto getUserEmailByToken(String accessToken) {
+        String uid = tokenProvider.getUserId(accessToken);
+        User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
+        UserEmailResponseDto userEmailResponseDto=UserEmailResponseDto.builder().codedEmail(user.getCodedEmail()).build();
+        return userEmailResponseDto;
     }
 
     public List<Integer> getOMRList(Long user_id) throws IOException {

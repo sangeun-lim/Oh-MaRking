@@ -45,6 +45,16 @@ public class UserController {
         return new Response<>(true,200,"토큰으로 수험생 id 조회 성공",userService.getUserID(authorization.replace("Bearer ", "")));
     }
 
+    @GetMapping("/email")
+    public Response<?> getUserEmailByToken(@RequestHeader("authorization") String authorization){
+        return new Response<>(true,200,"암호화 된 이메일 조회 성공",userService.getUserEmailByToken(authorization.replace("Bearer ", "")));
+    }
+
+    @GetMapping("/{user_id}")
+    public Response<?> getUserById(@PathVariable("user_id") Long user_id){
+        return new Response<>(true,200,"수험생 id로 수험생 정보 조회 성공",userService.getUserInfoByUserid(user_id));
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/info/id/{codedEmail}")
     @ApiOperation(value = "수험생 정보 조회", notes = "수험생 아이디, 닉네임, 자기소개를 반환한다.")
