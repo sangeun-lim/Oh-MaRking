@@ -8,7 +8,7 @@ import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import CheckPw from './CheckPw';
 import OMRApi from '../../api/OMRApi';
-import DetailOrUpdateMsg from './DetailOrUpdateMsg';
+import DetailMsg from './DetailMsg';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 import LinkCopy from './LinkCopy';
@@ -56,8 +56,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
       setNoteInfoTrue(true);
     }
   }, [noteInfo]);
-
-  // const noteInfoTrue = noteInfo === 1 || 2
 
   // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
@@ -115,7 +113,11 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
           <div>
             {omr.isOwner ? (
               <div>
-                {noteInfoTrue ? <DetailOrUpdateMsg /> : <div>못읽습니다.</div>}
+                {noteInfoTrue ? (
+                  <DetailMsg pass={show} setPass={setShow} noteId={noteId} />
+                ) : (
+                  <div>못읽습니다.</div>
+                )}
               </div>
             ) : (
               <CheckPw show={show} setShow={setShow} noteId={noteId} />
@@ -145,7 +147,6 @@ function Info({ title, content }: InfoProps): JSX.Element {
           <>
             <div>{content}</div>
             <img
-              // onClick={switchIsEditing}
               role="presentation"
               className={styles.edit}
               src={updateImgUrl}
@@ -196,7 +197,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
   const onClick = (newColor: number) => {
     // 색상이 이전 값과 같을 때 처리하기
     if (isOwner && color !== newColor) {
-      changeColor(newColor, omrList[pageNum - 1]);
+      changeColor(newColor, omrList[pageNum]);
     }
     dispatch(setColor(newColor));
   };
@@ -235,7 +236,7 @@ function OMR(): JSX.Element {
 
   const movePage = useCallback(
     async (move: number) => {
-      const leftOrRight = omr.pageNum + move - 1;
+      const leftOrRight = omr.pageNum + move;
       const { status, data } = auth.isLoggedIn
         ? await OMRApi.omr.getUserOmr(user.omrList[leftOrRight])
         : await OMRApi.omr.getNotUserOmr(user.omrList[leftOrRight]);
@@ -291,7 +292,7 @@ function OMR(): JSX.Element {
           </button>
           <div className={styles.info}>
             <div className={`${styles.page}`}>
-              <span className={`${styles.body}`}>{omr.pageNum}</span>
+              <span className={`${styles.body}`}>{omr.pageNum + 1}</span>
               <span>교시 응원영역</span>
               <LinkCopy />
             </div>
