@@ -41,7 +41,10 @@ function NavBar(): JSX.Element {
                 설문조사
               </Nav.Link>
               {/* <Nav.Link className={styles.nav_font} href="/cheer/wfaw"> */}
-              <Nav.Link className={styles.nav_font} href={url}>
+              <Nav.Link
+                className={styles.nav_font}
+                href={`/cheer/${user.codedEmail}`}
+              >
                 내 응원가기
               </Nav.Link>
               <Nav.Link className={styles.nav_font} href="/event">
