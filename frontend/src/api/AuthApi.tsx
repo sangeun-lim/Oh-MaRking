@@ -17,6 +17,17 @@ const AuthApi = {
       return response;
     },
 
+    getCodedEmail: async () => {
+      const response = await axios({
+        url: Url.auth.getCodedEmail(),
+        headers: {
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
+        },
+        method: 'get',
+      });
+      return response;
+    },
+
     updateUserProfile: async (formData: UserData) => {
       const response = await axios({
         url: Url.auth.updateIntroduction(),

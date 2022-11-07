@@ -13,6 +13,7 @@ const CHECK = 'check/';
 const Url = {
   auth: {
     //   login: () => `${HOST + AUTH}login`,
+    getCodedEmail: () => `${HOST + USER}email`,
     logout: () => `${HOST2}`,
     updateIntroduction: () => `${HOST}introduction`,
   },

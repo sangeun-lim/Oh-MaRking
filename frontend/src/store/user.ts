@@ -40,8 +40,12 @@ const userReducer = createSlice({
     addOmr(state, action: PayloadAction<number>) {
       state.omrList.push(action.payload);
     },
+    setCodedEmail(state, action: PayloadAction<string>) {
+      state.codedEmail = action.payload;
+    },
   },
 });
 
-export const { setUser, setUserInfo, setIntro, addOmr } = userReducer.actions;
+export const { setUser, setUserInfo, setIntro, addOmr, setCodedEmail } =
+  userReducer.actions;
 export default userReducer.reducer;

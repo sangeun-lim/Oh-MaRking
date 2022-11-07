@@ -94,36 +94,44 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
-        {show && !noteId && (
+        {/* {show && !noteId && (
           <CreateMsg
             problemNum={problemNumber}
             elementNum={elementNumber}
             show={show}
             setShow={setShow}
           />
-        )}
-        {/* {show && !noteId ? (
-          <CreateMsg
-            problemNum={problemNumber}
-            elementNum={elementNumber}
-            show={show}
-            setShow={setShow}
-          />
-        ) : (
+        )} */}
+        {show ? (
           <div>
-            {omr.isOwner ? (
+            {!noteId ? (
+              <CreateMsg
+                problemNum={problemNumber}
+                elementNum={elementNumber}
+                show={show}
+                setShow={setShow}
+              />
+            ) : (
               <div>
-                {noteInfoTrue ? (
-                  <DetailMsg pass={show} setPass={setShow} noteId={noteId} />
+                {omr.isOwner ? (
+                  <div>
+                    {noteInfoTrue ? (
+                      <DetailMsg
+                        pass={show}
+                        setPass={setShow}
+                        noteId={noteId}
+                      />
+                    ) : (
+                      <div>못읽습니다.</div>
+                    )}
+                  </div>
                 ) : (
-                  <div>못읽습니다.</div>
+                  <CheckPw show={show} setShow={setShow} noteId={noteId} />
                 )}
               </div>
-            ) : (
-              <CheckPw show={show} setShow={setShow} noteId={noteId} />
             )}
           </div>
-        )} */}
+        ) : null}
       </div>
     </div>
   );
@@ -152,7 +160,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
               src={updateImgUrl}
               alt="수정버튼"
               style={{
-                display: isOwner ? 'visible' : 'visible',
+                display: isOwner ? 'visible' : 'none',
               }}
             />
           </>

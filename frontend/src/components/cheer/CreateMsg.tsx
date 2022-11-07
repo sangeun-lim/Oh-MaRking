@@ -113,7 +113,6 @@ function CreateMsg({
     const response = await OMRApi.note.createNote(formData);
     if (response.status === 201) {
       console.log(response.data);
-      setNewNote(response.data.data);
       setShow(false);
     }
   };
