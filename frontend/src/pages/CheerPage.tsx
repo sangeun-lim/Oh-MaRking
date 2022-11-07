@@ -13,17 +13,6 @@ import styles from './CheerPage.module.scss';
 function CheerPage(): JSX.Element {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const payload = {
-      color: 0,
-      pageNum: 0,
-      omrInfo: randomOmr(5),
-      noteInfo: randomOmr(50),
-      isOwner: false,
-    };
-    dispatch(setOmr(payload));
-  }, [dispatch]);
-
   const { codedEmail } = useParams();
   const { auth, user, omr } = useSelector((state: RootState) => state);
 
@@ -36,28 +25,41 @@ function CheerPage(): JSX.Element {
     }
   };
 
-  const getUserOmr = useCallback(async () => {
-    const { status, data } = await OMRApi.omr.getUserOmr(user.omrList[0]);
-    if (status === 200) {
-      console.log(data);
-      dispatch(setUser(data.data.user));
-      dispatch(setOmr(data.data.omr));
-      dispatch(setIsOwner(data.data.isOwner));
-    } else {
-      alert('회원정보를 불러오지 못했습니다.');
-    }
-  }, [dispatch, user.omrList]);
+  const getOmr = useCallback(
+    async (omrId: number) => {
+      const { status, data } = auth.isLoggedIn
+        ? await OMRApi.omr.getUserOmr(omrId)
+        : await OMRApi.omr.getNotUserOmr(omrId);
+      if (status === 200) {
+        dispatch(setUser(data.data.user));
+        dispatch(setOmr(data.data.omr));
+        dispatch(setIsOwner(data.data.isOwner));
+      }
+    },
+    [auth.isLoggedIn, dispatch]
+  );
 
-  const getNotUserOmr = useCallback(async () => {
-    const { status, data } = await OMRApi.omr.getNotUserOmr(user.omrList[0]);
-    if (status === 200) {
-      dispatch(setUser(data.data.user));
-      dispatch(setOmr(data.data.omr));
-      dispatch(setIsOwner(data.data.isOwner));
-    } else {
-      alert('회원정보를 불러오지 못했습니다.');
-    }
-  }, [dispatch, user.omrList]);
+  // const getUserOmr = useCallback(async () => {
+  //   const { status, data } = await OMRApi.omr.getUserOmr(user.omrList[0]);
+  //   if (status === 200) {
+  //     dispatch(setUser(data.data.user));
+  //     dispatch(setOmr(data.data.omr));
+  //     dispatch(setIsOwner(data.data.isOwner));
+  //   } else {
+  //     alert('회원정보를 불러오지 못했습니다.');
+  //   }
+  // }, [dispatch, user.omrList]);
+
+  // const getNotUserOmr = useCallback(async () => {
+  //   const { status, data } = await OMRApi.omr.getNotUserOmr(user.omrList[0]);
+  //   if (status === 200) {
+  //     dispatch(setUser(data.data.user));
+  //     dispatch(setOmr(data.data.omr));
+  //     dispatch(setIsOwner(data.data.isOwner));
+  //   } else {
+  //     alert('회원정보를 불러오지 못했습니다.');
+  //   }
+  // }, [dispatch, user.omrList]);
 
   // 처음 렌더링 될 때 -> 링크 접속 API 요청
   useEffect(() => {

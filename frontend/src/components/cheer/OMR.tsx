@@ -255,19 +255,26 @@ function OMR(): JSX.Element {
     'pink',
   ];
 
-  const movePage = useCallback(
-    async (move: number) => {
-      const leftOrRight = omr.pageNum + move;
+  const getOmr = useCallback(
+    async (omrId: number) => {
       const { status, data } = auth.isLoggedIn
-        ? await OMRApi.omr.getUserOmr(user.omrList[leftOrRight])
-        : await OMRApi.omr.getNotUserOmr(user.omrList[leftOrRight]);
+        ? await OMRApi.omr.getUserOmr(omrId)
+        : await OMRApi.omr.getNotUserOmr(omrId);
       if (status === 200) {
         dispatch(setUser(data.data.user));
         dispatch(setOmr(data.data.omr));
         dispatch(setIsOwner(data.data.isOwner));
       }
     },
-    [auth.isLoggedIn, dispatch, omr.pageNum, user.omrList]
+    [auth.isLoggedIn, dispatch]
+  );
+
+  const movePage = useCallback(
+    async (move: number) => {
+      const leftOrRight = omr.pageNum + move;
+      getOmr(user.omrList[leftOrRight]);
+    },
+    [omr.pageNum, user.omrList, getOmr]
   );
 
   const createNewPage = useCallback(async () => {
@@ -283,7 +290,7 @@ function OMR(): JSX.Element {
       dispatch(addOmr(data.data.omrId));
     }
   }, [user.userId, user.omrList, dispatch]);
-
+  useEffect(() => {}, []);
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
@@ -307,7 +314,7 @@ function OMR(): JSX.Element {
           <button
             type="button"
             onClick={() => movePage(-1)}
-            style={{ visibility: omr.pageNum === 1 ? 'hidden' : 'visible' }}
+            style={{ display: omr.pageNum === 0 ? 'visible' : 'none' }}
           >
             &#10094;
           </button>
@@ -353,8 +360,7 @@ function OMR(): JSX.Element {
             type="button"
             onClick={() => movePage(1)}
             style={{
-              visibility:
-                omr.pageNum === user.omrList.length ? 'hidden' : 'visible',
+              display: omr.pageNum === user.omrList.length ? 'none' : 'visible',
             }}
           >
             &#10095;

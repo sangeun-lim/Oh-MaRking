@@ -25,6 +25,7 @@ const initialState = {
   nicknameInfo: [['']],
   showDateInfo: [['']],
   isOwner: false,
+  isLoading: true,
 };
 
 const omrReducer = createSlice({
@@ -33,7 +34,7 @@ const omrReducer = createSlice({
   reducers: {
     // omr 정보 저장
     setOmr(state, action: PayloadAction<Omr>) {
-      return action.payload;
+      return { ...action.payload, isLoading: false };
     },
     // 페이지 이동 시 pageNum 바꿔주기
     setPage(state, action: PayloadAction<number>) {
