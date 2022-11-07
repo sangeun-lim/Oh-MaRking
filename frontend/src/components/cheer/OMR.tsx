@@ -151,7 +151,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
               src={updateImgUrl}
               alt="수정버튼"
               style={{
-                display: isOwner ? 'visible' : 'visible',
+                display: isOwner ? 'visible' : 'none',
               }}
             />
           </>
