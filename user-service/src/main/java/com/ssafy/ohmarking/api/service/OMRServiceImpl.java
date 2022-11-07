@@ -40,7 +40,7 @@ public class OMRServiceImpl implements OMRService {
             throw new OMRCountException();
         }
         int num = noteRepository.getNoteCount(user.getId(), omrRegisterDto.getPageNum() - 1);
-        log.info("!!!!!!!!!! num :  " + num);
+        // 테스트 용으로 일단 3개 이상이면 생성할 수 있게 해놓음
         if (num <= 2) {
             throw new NoteCountException();
         }
@@ -104,7 +104,7 @@ public class OMRServiceImpl implements OMRService {
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.builder()
                 .id(user.getId())
                 .codedEmail(user.getCodedEmail())
-                .nickname(user.getNickname())
+                .name(user.getName())
                 .introduction(user.getIntroduction())
                 .build();
         OMRInfoResponseDto omrInfoResponseDto = OMRInfoResponseDto.builder()
@@ -143,7 +143,7 @@ public class OMRServiceImpl implements OMRService {
         UserInfoResponseDto userInfoResponseDto = UserInfoResponseDto.builder()
                 .id(user.getId())
                 .codedEmail(user.getCodedEmail())
-                .nickname(user.getNickname())
+                .name(user.getName())
                 .introduction(user.getIntroduction())
                 .build();
         OMRInfoResponseDto omrInfoResponseDto = OMRInfoResponseDto.builder()

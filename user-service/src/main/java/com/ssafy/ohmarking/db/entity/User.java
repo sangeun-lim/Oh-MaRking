@@ -18,7 +18,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String nickname;
+    private String name;
 
     @Column(nullable = false)
     private String email;
@@ -33,7 +33,7 @@ public class User {
     private List<OMR> omrList = new ArrayList<>();
 
     public void updateUser(UserUpdateDto userUpdateDto) {
-        this.nickname = userUpdateDto.getNickname();
+        this.name = userUpdateDto.getName();
         this.introduction= userUpdateDto.getIntroduction();
     }
 

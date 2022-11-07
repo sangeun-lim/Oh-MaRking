@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserRegisterDto {
     private String email;
-    private String nickname;
+    private String name;
 }

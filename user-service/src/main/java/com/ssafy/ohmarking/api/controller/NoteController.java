@@ -21,9 +21,8 @@ public class NoteController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     @ApiOperation(value = "응원 메시지 등록", notes = "응원 메시지를 등록한다.")
-    public JsonDto writeNote(@RequestBody NoteRegisterDto noteRegisterDto) {
-        noteService.writeNote(noteRegisterDto);
-        return new JsonDto(true, 201, "응원 메시지 등록 성공");
+    public Response<?> writeNote(@RequestBody NoteRegisterDto noteRegisterDto) {
+        return new Response<>(true, 201, "응원 메시지 등록 성공", noteService.writeNote(noteRegisterDto));
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)

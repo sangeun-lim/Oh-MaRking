@@ -56,7 +56,8 @@ jwt:
   refresh-token-validity-in-seconds: 86400
 
 front:
-  url: http://oh-marking.com:3000/callback
+#  url: http://oh-marking.com:3000/callback
+  url: http://127.0.0.1:3000/callback
 
 logging:
   level:

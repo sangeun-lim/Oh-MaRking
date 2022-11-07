@@ -5,6 +5,7 @@ import com.ssafy.ohmarking.api.response.NoteInfoResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface NoteService {
@@ -22,5 +23,5 @@ public interface NoteService {
 
     void updateNote(NoteUpdateDto noteUpdateDto);
 
-    void writeNote(NoteRegisterDto noteRegisterDto);
+    Map<String, Long> writeNote(NoteRegisterDto noteRegisterDto);
 }

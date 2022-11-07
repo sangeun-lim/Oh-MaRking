@@ -55,9 +55,11 @@ public class UserServiceImpl implements UserService {
         if (findRefreshToken == null || !findRefreshToken.equals(refreshToken)) {
             throw new UserNotFoundException("refreshToken을 찾을 수 없습니다.");
         } else {
-            Map<String, String> map = new HashMap<>();
-            map.put("accessToken", tokenProvider.createAccessToken(uid));
-            return map;
+            return new HashMap<String, String>() {
+                {
+                    put("accessToken", tokenProvider.createAccessToken(uid));
+                }
+            };
 //            return TokenResponseDto.builder()
 //                    .accessToken(tokenProvider.createAccessToken(uid))
 //                    .build();
@@ -78,9 +80,11 @@ public class UserServiceImpl implements UserService {
     public Map<String, String> getCodedEmail(String accessToken) {
         String uid = tokenProvider.getUserId(accessToken);
         User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(() -> new UserNotFoundException("수험생 정보를 찾을 수 없습니다."));
-        Map<String, String> map = new HashMap<>();
-        map.put("codedEmail", user.getCodedEmail());
-        return map;
+        return new HashMap<String, String>() {
+            {
+                put("codedEmail", user.getCodedEmail());
+            }
+        };
     }
 
 }

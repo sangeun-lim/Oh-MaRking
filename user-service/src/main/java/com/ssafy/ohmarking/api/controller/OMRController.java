@@ -42,6 +42,6 @@ public class OMRController {
     @GetMapping("/guest/{omrId}")
     @ApiOperation(value = "OMR 조회(링크 주인이 아닐 때)", notes = "링크 주인이 아닌 사용자가 OMR 카드를 조회했을 때 정보를 반환한다.")
     public Response<?> getOMR(@PathVariable Long omrId) {
-        return new Response<>(true, 200, "링크 주인 OMR 정보 조회 성공", omrService.getCardInfo(omrId));
+        return new Response<>(true, 200, "링크 주인이 아닐 때 OMR 정보 조회 성공", omrService.getCardInfo(omrId));
     }
 }
