@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
@@ -18,8 +20,8 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/info/{codedEmail}")
-    @ApiOperation(value = "수험생 정보 조회", notes = "수험생 아이디, 닉네임, 자기소개를 반환한다.")
-    public Response<?> getUserInfo(@PathVariable String codedEmail) {
+    @ApiOperation(value = "수험생 정보 조회", notes = "수험생 아이디 omrid list를 반환한다.")
+    public Response<?> getUserInfo(@PathVariable String codedEmail) throws IOException {
         return new Response<>(true, 200, "수험생 정보 조회 성공", userService.getUserInfo(codedEmail));
     }
 

@@ -67,3 +67,6 @@ logging:
     org:
       hibernate:
         SQL: debug
+
+api-server:
+  url: http://localhost:8080
