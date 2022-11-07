@@ -83,12 +83,12 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const [globalCoords, setGlobalCoords] = useState<coordsProps>({ x: 0, y: 0 });
   useEffect(() => {
     // 👇️ get global mouse coordinates
-    const handleWindowMouseMove = (event) => {
+    const handleWindowMouseMove = (event: any) => {
       setGlobalCoords({
         x: event.screenX,
         y: event.screenY,
       });
-      console.log(coords);
+      // console.log(coords);
     };
     window.addEventListener('mousemove', handleWindowMouseMove);
 
@@ -97,7 +97,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     };
   }, [coords]);
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event: any) => {
     setCoords({
       x: event.clientX - event.target.offsetLeft,
       y: event.clientY - event.target.offsetTop,
@@ -305,9 +305,9 @@ function OMR(): JSX.Element {
   );
 
   const createNewPage = useCallback(async () => {
-    const newPage = user.omrList.length + 1;
+    const newPage = user.omrList.length;
     const NewOmr = {
-      color: (newPage % 8) - 1,
+      color: newPage % 8,
       pageNum: newPage,
       userId: user.userId,
     };
@@ -341,7 +341,7 @@ function OMR(): JSX.Element {
           <button
             type="button"
             onClick={() => movePage(-1)}
-            style={{ visibility: omr.pageNum === 1 ? 'hidden' : 'visible' }}
+            style={{ visibility: omr.pageNum === 0 ? 'hidden' : 'visible' }}
           >
             &#10094;
           </button>
@@ -388,7 +388,7 @@ function OMR(): JSX.Element {
             onClick={() => movePage(1)}
             style={{
               visibility:
-                omr.pageNum === user.omrList.length ? 'hidden' : 'visible',
+                omr.pageNum + 1 === user.omrList.length ? 'hidden' : 'visible',
             }}
           >
             &#10095;
