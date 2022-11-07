@@ -108,13 +108,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
-        {show && !noteId && (
-          <CreateMsg
-            problemNum={problemNumber}
-            elementNum={elementNumber}
-            show={show}
-            setShow={setShow}
-          />
         {show ? (
           <div>
             {!noteId ? (
