@@ -6,6 +6,8 @@ interface Omr {
   pageNum: number; // 현재 페이지 숫자
   omrInfo: number[][];
   noteInfo: number[][];
+  nicknameInfo: string[][];
+  showDateInfo: string[][];
   isOwner: boolean;
 }
 
@@ -20,6 +22,8 @@ const initialState = {
   color: 0,
   omrInfo: [[-1]],
   noteInfo: [[-1]],
+  nicknameInfo: [['']],
+  showDateInfo: [['']],
   isOwner: false,
 };
 
