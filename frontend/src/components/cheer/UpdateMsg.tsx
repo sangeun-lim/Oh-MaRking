@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { NewNoteData, EditNote } from '../../utils/Interface';
+import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
@@ -13,7 +13,7 @@ import '../../style/style.scss';
 interface Props {
   pass: boolean;
   setPass: Dispatch<React.SetStateAction<boolean>>;
-  formData: NewNoteData;
+  formData: EditNoteData;
   noteId: number;
 }
 
@@ -117,7 +117,6 @@ function UpdateMsg({ pass, setPass, formData, noteId }: Props): JSX.Element {
                               id="nickname"
                               type="text"
                               placeholder="닉네임을 입력해주세요."
-                              onChange={onChange}
                               value={formData.nickname}
                               maxLength={10}
                               disabled
@@ -175,7 +174,7 @@ function UpdateMsg({ pass, setPass, formData, noteId }: Props): JSX.Element {
                     <li>
                       <button
                         className={styles.btn_hover_border_3}
-                        type="button"
+                        type="submit"
                         onClick={onEditClick}
                       >
                         수정하기

@@ -35,6 +35,15 @@ export interface NewNoteData {
   checkNum: number;
 }
 
+export interface EditNoteData {
+  nickname: string;
+  content: string;
+  pwd: string;
+  showDate: string;
+  problemNum: number;
+  checkNum: number;
+}
+
 export interface EditNote {
   nickname: string;
   content: string;

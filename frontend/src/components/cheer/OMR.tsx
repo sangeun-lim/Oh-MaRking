@@ -7,8 +7,8 @@ import Search from './Search';
 import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import CheckPw from './CheckPw';
-import OMRApi from '../../api/OMRApi';
 import DetailMsg from './DetailMsg';
+import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 import LinkCopy from './LinkCopy';
@@ -31,16 +31,22 @@ interface PalletProps {
 function Cheer({ msg, start }: CheerProps): JSX.Element {
   const { omr, note } = useSelector((state: RootState) => state);
 
-  const [show, setShow] = useState(false);
-  const [problemNumber, setProblemNumber] = useState(0);
-  const [elementNumber, setElementNumber] = useState(0);
+  const [show, setShow] = useState<boolean>(false);
+  const [pass, setPass] = useState<boolean>(false);
+  const [problemNumber, setProblemNumber] = useState<number>(0);
+  const [elementNumber, setElementNumber] = useState<number>(0);
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [noteInfoTrue, setNoteInfoTrue] = useState<boolean>(false);
 
   const openModal = (problemNum: number, elementNum: number) => {
-    setShow(true);
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
+    if (noteInfoTrue && omr.isOwner) {
+      setPass(true);
+    }
+    setShow(true);
   };
+
   const handleMouseOver = (problemNum: number, elementNum: number) => {
     setIsHovering(true);
     setProblemNumber(problemNum);
@@ -57,13 +63,11 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   // note의 상태가 필요
   const noteInfo = omr.omrInfo[problemNumber][elementNumber];
 
-  const [noteInfoTrue, setNoteInfoTrue] = useState<boolean>(false);
-
-  // const isOwner = omr.isOwner;
-
   useEffect(() => {
     if (noteInfo === 1 || 2) {
       setNoteInfoTrue(true);
+    } else {
+      setNoteInfoTrue(false);
     }
   }, [noteInfo]);
 
@@ -123,8 +127,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                   <div>
                     {noteInfoTrue ? (
                       <DetailMsg
-                        pass={show}
-                        setPass={setShow}
+                        pass={pass}
+                        setPass={setPass}
                         noteId={noteId}
                       />
                     ) : (

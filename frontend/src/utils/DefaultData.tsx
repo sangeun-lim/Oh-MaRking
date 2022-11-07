@@ -25,6 +25,15 @@ export const NewNoteDefaultData = {
   checkNum: 0,
 };
 
+export const EditNoteDefaultData = {
+  nickname: '',
+  content: '',
+  pwd: '',
+  showDate: '',
+  problemNum: 0,
+  checkNum: 0,
+};
+
 export const EditDefaultNote = {
   nickname: '',
   content: '',
