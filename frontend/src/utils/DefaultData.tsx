@@ -24,3 +24,9 @@ export const NewNoteDefaultData = {
   problemNum: 0,
   checkNum: 0,
 };
+
+export const EditDefaultNote = {
+  nickname: '',
+  content: '',
+  showDate: '',
+};

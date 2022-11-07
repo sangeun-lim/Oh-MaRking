@@ -1,8 +1,8 @@
 export interface EventList {
-  event_id: string;
+  eventId: string;
   title: string;
-  start_date: string;
-  end_date: string;
+  startDate: string;
+  endDate: string;
   link: string;
   imgUrl: string;
 }
@@ -38,7 +38,7 @@ export interface NewNoteData {
 export interface EditNote {
   nickname: string;
   content: string;
-  show_date: string;
+  showDate: string;
 }
 
 interface User {

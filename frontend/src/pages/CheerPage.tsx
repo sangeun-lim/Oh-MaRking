@@ -16,7 +16,7 @@ function CheerPage(): JSX.Element {
   useEffect(() => {
     const payload = {
       color: 0,
-      pageNum: 1,
+      pageNum: 0,
       omrInfo: randomOmr(5),
       noteInfo: randomOmr(50),
       isOwner: false,
