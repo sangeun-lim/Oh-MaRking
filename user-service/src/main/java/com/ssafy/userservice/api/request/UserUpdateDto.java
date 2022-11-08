@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UserUpdateDto {
-    private String nickname;
     private String introduction;
 }

@@ -28,7 +28,6 @@ public class User {
     private String introduction;
 
     public void updateUser(UserUpdateDto userUpdateDto) {
-        this.name = userUpdateDto.getNickname();
         this.introduction= userUpdateDto.getIntroduction();
     }
 
