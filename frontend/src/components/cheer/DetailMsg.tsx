@@ -1,9 +1,10 @@
 import React, { Dispatch, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { setIsOwner, setOmr } from '../../store/omr';
+import { setUser } from '../../store/user';
 import { EditNote } from '../../utils/Interface';
 import { EditDefaultNote } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -13,15 +14,15 @@ import '../../style/style.scss';
 
 interface Props {
   setPass: Dispatch<React.SetStateAction<boolean>>;
+  setShow: Dispatch<React.SetStateAction<boolean>>;
   pass: boolean;
   noteId: number;
 }
 
-function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
-  const navigate = useNavigate();
+function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const dispatch = useDispatch();
 
-  const { omr, user } = useSelector((state: RootState) => state);
+  const { omr, user, auth } = useSelector((state: RootState) => state);
   const { codedEmail } = user;
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
@@ -54,17 +55,21 @@ function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
     );
     if (del) {
       try {
-        const response = await OMRApi.note.deleteNote(noteId);
-        if (response.status === 200) {
-          alert('응원 메시지가 삭제되었습니다.');
-          // dispatch로 새로운 omrList를 갱신해주는 코드가 필요할듯?
-          setPass(false);
-          navigate(`/cheer/${codedEmail}`);
-        } else {
-          alert('응원메시지를 삭제할 수 없습니다.');
-        }
+        await OMRApi.note.deleteNote(noteId);
+        const { data } = await OMRApi.omr.getOmr(
+          user.omrList[omr.pageNum],
+          auth.isLoggedIn
+        );
+        dispatch(setUser(data.data.user));
+        dispatch(setOmr(data.data.omr));
+        dispatch(setIsOwner(data.data.isOwner));
+        setPass(false);
+        setShow(false);
+        alert('응원 메시지가 삭제되었습니다.');
+        // dispatch로 새로운 omrList를 갱신해주는 코드가 필요할듯?
       } catch (err) {
         console.log(err);
+        alert('응원메시지를 삭제할 수 없습니다.');
       }
     }
     onEditClick();

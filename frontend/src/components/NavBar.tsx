@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaSignOutAlt } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
@@ -10,7 +10,6 @@ import { RootState } from '../store/store';
 import styles from './NavBar.module.scss';
 
 function NavBar(): JSX.Element {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { auth, user } = useSelector((state: RootState) => state);
@@ -19,7 +18,6 @@ function NavBar(): JSX.Element {
   const logoutRequest = async () => {
     await AuthApi.auth.logout();
     dispatch(logout());
-    navigate('/');
   };
 
   return (
