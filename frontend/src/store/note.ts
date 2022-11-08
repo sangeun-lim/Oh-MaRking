@@ -5,21 +5,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Note {
   nickname: string;
   content: string;
-  show_date: string;
+  showDate: string;
   date: string;
-  problem_num: number;
-  check_num: number;
-  isFavorite: number;
+  problemNum: number;
+  checkNum: number;
+  isFavorite: boolean;
 }
 
 const initialState = {
   nickname: '',
   content: '',
-  show_date: '',
+  showDate: '',
   date: '',
-  problem_num: -1,
-  check_num: -1,
-  isFavorite: -1,
+  problemNum: -1,
+  checkNum: -1,
+  isFavorite: false,
 };
 
 const noteReducer = createSlice({
@@ -27,10 +27,14 @@ const noteReducer = createSlice({
   initialState,
   reducers: {
     setNote(state, action: PayloadAction<Note>) {
-      state = action.payload;
+      return action.payload;
+    },
+    setFavorite(state, action: PayloadAction<boolean>) {
+      // state.isFavorite = !action.payload;
+      state.isFavorite = action.payload;
     },
   },
 });
 
-export const { setNote } = noteReducer.actions;
+export const { setNote, setFavorite } = noteReducer.actions;
 export default noteReducer.reducer;

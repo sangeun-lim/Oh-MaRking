@@ -121,15 +121,6 @@ function CreateMsg({
       setShow(false);
     }
   };
-  // // 취소버튼 눌렀을 때
-  // const onCancelClick = () => {
-  //   // 작성하려던 유저의 페이지로 이동
-  //   navigate(`/cheer/`${codedEmail}`);
-  // };
-
-  useEffect(() => {
-    console.log('뜨지마!');
-  }, []);
 
   return (
     <div>
