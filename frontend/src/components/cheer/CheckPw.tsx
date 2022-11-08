@@ -28,7 +28,6 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
       if (response.status === 200) {
         setFormData(response.data.data);
         setPass(true);
-        alert('비밀번호가 일치합니다.');
       }
     } catch (err) {
       setPass(false);
@@ -43,18 +42,21 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
   const accessPw = async () => {
     await checkPw();
   };
-
+  useEffect(() => {
+    setPass(!show);
+  }, [show]);
   return (
     <div>
       {pass ? (
         <UpdateMsg
+          setShow={setShow}
           pass={pass}
           setPass={setPass}
           noteId={noteId}
           formData={formData}
         />
       ) : (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>비밀번호 확인</Modal.Title>
           </Modal.Header>

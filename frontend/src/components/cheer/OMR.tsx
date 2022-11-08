@@ -169,6 +169,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                     {noteInfoTrue ? (
                       <DetailMsg
                         pass={pass}
+                        setShow={setShow}
                         setPass={setPass}
                         noteId={noteId}
                       />
