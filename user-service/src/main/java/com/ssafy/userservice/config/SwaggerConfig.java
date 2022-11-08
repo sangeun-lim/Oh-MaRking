@@ -24,7 +24,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.ohmarking.api.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.userservice.api.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
@@ -45,7 +45,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Oh!MaRking API")
-                .description("Oh!MaRking API입니다.")
+                .description("Oh!MaRking 인증 서버 API입니다.")
                 .version("1.0")
                 .build();
     }

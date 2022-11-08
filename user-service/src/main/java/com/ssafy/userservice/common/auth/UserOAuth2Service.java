@@ -1,7 +1,5 @@
 package com.ssafy.userservice.common.auth;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.userservice.db.entity.User;
 import com.ssafy.userservice.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
 package com.ssafy.userservice.common.exception.handler;
 
+import com.ssafy.userservice.common.exception.AccessDeniedException;
 import com.ssafy.userservice.common.exception.TokenNotFoundException;
 import com.ssafy.userservice.common.exception.UserNotFoundException;
 import com.ssafy.userservice.common.model.Response;
@@ -19,6 +20,12 @@ public class ExceptionAdvice {
     @ExceptionHandler(TokenNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response<?> tokenNotFoundException(TokenNotFoundException e) {
+        return new Response<>(false, 400, e.getMessage(), null);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response<?> accessDeniedException(AccessDeniedException e) {
         return new Response<>(false, 400, e.getMessage(), null);
     }
 
