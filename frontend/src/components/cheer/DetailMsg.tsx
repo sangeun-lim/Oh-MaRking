@@ -59,6 +59,7 @@ function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
         if (response.status === 200) {
           alert('응원 메시지가 삭제되었습니다.');
           // dispatch로 새로운 omrList를 갱신해주는 코드가 필요할듯?
+          setPass(false);
           navigate(`/cheer/${codedEmail}`);
         } else {
           alert('응원메시지를 삭제할 수 없습니다.');

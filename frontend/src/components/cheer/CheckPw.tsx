@@ -22,30 +22,6 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
     setPw(e.target.value);
   };
 
-  // const checkPw = async () => {
-  //   // catch를 써서 에러스테이터스 해결
-  //   let status = false;
-  //   let data: any;
-  //   await OMRApi.password
-  //     .checkPw(noteId, pw)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         status = true;
-  //         data = res.data.data;
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-
-  //   if (status) {
-  //     setFormData(data);
-  //     setPass(true);
-  //     alert('비밀번호가 일치합니다.');
-  //   } else {
-  //     setPass(false);
-  //     alert('비밀번호가 일치하지 않습니다.');
-  //   }
-  // };
-
   const checkPw = async () => {
     try {
       const response = await OMRApi.password.checkPw(noteId, pw);
