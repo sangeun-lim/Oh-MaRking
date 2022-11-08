@@ -19,7 +19,7 @@ public interface NoteService {
 
     NoteInfoResponseDto getNoteInfo(CheckNoteDto checkNoteDto);
 
-    List<Long> deleteNote(Long noteId);
+    Map<String, Object> deleteNote(Long noteId);
 
     void updateNote(NoteUpdateDto noteUpdateDto);
 

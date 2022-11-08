@@ -41,4 +41,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
     public JsonDto omrCountException(OMRCountException e) {return new JsonDto(false, 412, e.getMessage());}
 
+    @ExceptionHandler(NoteNumberException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public JsonDto noteNumberException(NoteNumberException e) {return new JsonDto(false, 400, e.getMessage());}
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public JsonDto accessDeniedException(AccessDeniedException e) {return new JsonDto(false, 403, e.getMessage());}
+
 }

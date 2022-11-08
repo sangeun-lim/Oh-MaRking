@@ -113,14 +113,14 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Long> deleteNote(Long noteId) {
+    public Map<String, Object> deleteNote(Long noteId) {
         Note note = noteRepository.findById(noteId).orElseThrow(NoteNotFoundException::new);
         Long userId = note.getOmr().getUser().getId();
         Long omrId = note.getOmr().getId();
         int pageNum = note.getOmr().getPageNum();
         noteRepository.deleteById(noteId);
         List<Long> omrList = omrRepository.findOMRIdList(userId);
-        if (noteRepository.getNoteCount(omrId) == 0) {
+        if (noteRepository.getNoteCount(omrId) == 0 && omrList.size() > 1) {
             for (int i = pageNum + 1; i < omrList.size(); i++) {
                 OMR omr = omrRepository.findById(omrList.get(i)).orElseThrow(OMRNotFoundException::new);
                 omr.updatePageNum(omr.getPageNum() - 1);
@@ -128,7 +128,12 @@ public class NoteServiceImpl implements NoteService {
             omrRepository.deleteById(omrId);
             omrList = omrRepository.findOMRIdList(userId);
         }
-        return omrList;
+        List<Long> finalOmrList = omrList;
+        return new HashMap<String, Object>() {
+            {
+                put("omrList", finalOmrList);
+            }
+        };
     }
 
     @Override

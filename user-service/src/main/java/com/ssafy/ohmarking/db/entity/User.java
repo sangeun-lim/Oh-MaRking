@@ -33,7 +33,6 @@ public class User {
     private List<OMR> omrList = new ArrayList<>();
 
     public void updateUser(UserUpdateDto userUpdateDto) {
-        this.name = userUpdateDto.getName();
         this.introduction= userUpdateDto.getIntroduction();
     }
 

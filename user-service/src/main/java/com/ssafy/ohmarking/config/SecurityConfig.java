@@ -59,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/user/info/*",
             "/api/omr/guest/*",
             "/api/omr",
+            "/api/note/del/*",
             "/api/note",
             "/api/note/check",
             "/api/note/search/*"

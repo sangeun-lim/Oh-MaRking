@@ -36,7 +36,7 @@ public class OMRServiceImpl implements OMRService {
     @Override
     public Map<String, Long> registerOMR(OMRRegisterDto omrRegisterDto) {
         User user = userRepository.findById(omrRegisterDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        if (omrRegisterDto.getPageNum() - 1 != omrRepository.getOMRCount(user.getId())) {
+        if (omrRegisterDto.getPageNum() != omrRepository.getOMRCount(user.getId())) {
             throw new OMRCountException();
         }
         int num = noteRepository.getNoteCount(user.getId(), omrRegisterDto.getPageNum() - 1);

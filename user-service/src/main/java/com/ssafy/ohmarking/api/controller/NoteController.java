@@ -2,7 +2,6 @@ package com.ssafy.ohmarking.api.controller;
 
 import com.ssafy.ohmarking.api.request.*;
 import com.ssafy.ohmarking.api.service.NoteService;
-import com.ssafy.ohmarking.common.exception.NoteNotFoundException;
 import com.ssafy.ohmarking.common.model.JsonDto;
 import com.ssafy.ohmarking.common.model.Response;
 import io.swagger.annotations.ApiOperation;
@@ -34,13 +33,10 @@ public class NoteController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping
+    @DeleteMapping("/del/{noteId}")
     @ApiOperation(value = "응원 메시지 삭제", notes = "응원 메시지를 삭제한다.")
-    public Response<?> deleteNote(@RequestBody Map<String, Long> map) {
-        if (map.get("noteId") == null) {
-            throw new NoteNotFoundException("noteId가 잘못된 데이터입니다.");
-        }
-        return new Response<>(true, 200, "응원 메시지 삭제 성공", noteService.deleteNote(map.get("noteId")));
+    public Response<?> deleteNote(@PathVariable Long noteId) {
+        return new Response<>(true, 200, "응원 메시지 삭제 성공", noteService.deleteNote(noteId));
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
