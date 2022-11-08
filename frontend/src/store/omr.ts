@@ -18,7 +18,7 @@ interface Note {
 }
 
 const initialState = {
-  pageNum: -1, // 현재 페이지 인덱스
+  pageNum: 0, // 현재 페이지 인덱스
   color: 0,
   omrInfo: [[-1]],
   noteInfo: [[-1]],
@@ -34,6 +34,7 @@ const omrReducer = createSlice({
   reducers: {
     // omr 정보 저장
     setOmr(state, action: PayloadAction<Omr>) {
+      console.log(state.isLoading);
       return { ...action.payload, isLoading: false };
     },
     // 페이지 이동 시 pageNum 바꿔주기
@@ -53,9 +54,18 @@ const omrReducer = createSlice({
     setIsOwner(state, action: PayloadAction<boolean>) {
       state.isOwner = action.payload;
     },
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { setOmr, setPage, setNoteStatus, setColor, setIsOwner } =
-  omrReducer.actions;
+export const {
+  setOmr,
+  setPage,
+  setNoteStatus,
+  setColor,
+  setIsOwner,
+  setIsLoading,
+} = omrReducer.actions;
 export default omrReducer.reducer;

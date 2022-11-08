@@ -1,8 +1,9 @@
 import { useEffect, useCallback, useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setIsOwner, setOmr } from '../store/omr';
+import { setIsOwner, setOmr, setIsLoading } from '../store/omr';
 import { setUserInfo, setUser } from '../store/user';
 import { randomOmr } from '../utils/utils';
 import OMRApi from '../api/OMRApi';
@@ -16,17 +17,20 @@ function CheerPage(): JSX.Element {
   const { codedEmail } = useParams();
   const { auth, user, omr } = useSelector((state: RootState) => state);
 
-  const linkAccess = async () => {
-    const response = await OMRApi.omr.linkAccess(codedEmail || '');
-    if (response.status === 200) {
-      dispatch(setUserInfo(response.data.data));
-    } else {
+  const linkAccess = useCallback(async () => {
+    try {
+      const { status, data } = await OMRApi.omr.linkAccess(codedEmail || '');
+      if (status === 200) {
+        dispatch(setUserInfo(data.data));
+      }
+    } catch {
       console.error();
     }
-  };
+  }, [dispatch, codedEmail]);
 
   const getOmr = useCallback(
     async (omrId: number) => {
+      console.log('쏨');
       const { status, data } = auth.isLoggedIn
         ? await OMRApi.omr.getUserOmr(omrId)
         : await OMRApi.omr.getNotUserOmr(omrId);
@@ -63,26 +67,38 @@ function CheerPage(): JSX.Element {
 
   // 처음 렌더링 될 때 -> 링크 접속 API 요청
   useEffect(() => {
+    console.log('linkAccess');
     linkAccess();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(setIsLoading(true));
+    // .then(() => {
+    //   getOmr(user.omrList[0]);
+    //   console.log('cherr', omr.isLoading);
+    // });
+  }, [linkAccess, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   // Omr id 받아왔을 때 -> Omr 정보 API 요청
-  const [flag, setFlag] = useState(false);
+
   useEffect(() => {
-    if (!flag && user.omrList[0] !== -1) {
-      if (auth.isLoggedIn) {
-        getUserOmr();
-      } else {
-        getNotUserOmr();
-      }
-      setFlag(true);
+    console.log('isloading', omr.isLoading, omr.pageNum);
+    if (omr.isLoading && user.omrList[omr.pageNum] !== -1) {
+      console.log('통과isloading', user.omrList[omr.pageNum]);
+      getOmr(user.omrList[omr.pageNum]);
     }
-  }, [user.omrList, auth.isLoggedIn, getNotUserOmr, getUserOmr, flag]);
+  }, [omr.isLoading, user.omrList, omr.pageNum, getOmr]);
 
   return (
     <Container className={styles.screen_container}>
-      <OMR />
+      {omr.isLoading ? (
+        <div className={styles.spinner}>
+          <div />
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <OMR />
+      )}
     </Container>
   );
 }

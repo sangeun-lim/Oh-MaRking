@@ -16,7 +16,7 @@ const Url = {
     //   login: () => `${HOST + AUTH}login`,
     getCodedEmail: () => `${HOST + USER}email`,
     logout: () => `${HOST2}`,
-    updateIntroduction: () => `${HOST}introduction`,
+    updateIntroduction: () => `${HOST}user`,
   },
 
   omr: {

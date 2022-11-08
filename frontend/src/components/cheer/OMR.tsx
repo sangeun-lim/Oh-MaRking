@@ -1,6 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addOmr, setUser } from '../../store/user';
+import { BsClipboardCheck, BsBackspace } from 'react-icons/bs';
+import { AiFillEdit } from 'react-icons/ai';
+import AuthApi from '../../api/AuthApi';
+
+import { addOmr, setUser, setIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
 import { setColor, setNoteStatus, setIsOwner, setOmr } from '../../store/omr';
 import Search from './Search';
@@ -83,12 +93,12 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const [globalCoords, setGlobalCoords] = useState<coordsProps>({ x: 0, y: 0 });
   useEffect(() => {
     // 👇️ get global mouse coordinates
-    const handleWindowMouseMove = (event) => {
+    const handleWindowMouseMove = (event: any) => {
       setGlobalCoords({
         x: event.screenX,
         y: event.screenY,
       });
-      console.log(coords);
+      // console.log(coords);
     };
     window.addEventListener('mousemove', handleWindowMouseMove);
 
@@ -97,7 +107,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     };
   }, [coords]);
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event: any) => {
     setCoords({
       x: event.clientX - event.target.offsetLeft,
       y: event.clientY - event.target.offsetTop,
@@ -186,35 +196,68 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
 
 function Info({ title, content }: InfoProps): JSX.Element {
   const { isOwner } = useSelector((state: RootState) => state.omr);
+  const dispatch = useDispatch();
   const [isEdting, setIsEdting] = useState(false);
-  // const switchIsEditing = useCallback(() => {
-  //   console.log('전', isEdting);
-  //   setIsEdting((state) => !state);
-  //   console.log('후', isEdting);
-  // }, [isEdting]);
-  return (
-    <div className={styles.section}>
-      <div className={`${styles.header} ${styles.left}`}>
-        <div>{title}</div>
-      </div>
-      <div className={` ${styles.body} ${styles.right}`}>
-        {content !== '감독확인란' ? (
+  const [text, setText] = useState<string>(content);
+
+  const updateUserProfile = useCallback(async () => {
+    const UserData = { introduction: text };
+    const { status, data } = await AuthApi.auth.updateUserProfile(UserData);
+    if (status === 202) {
+      dispatch(setIntro(text));
+      setIsEdting(false);
+    }
+  }, [text, dispatch]);
+
+  const getContent = () => {
+    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setText(e.target.value);
+    };
+    switch (title.replaceAll(/\s/g, '')) {
+      case '이름':
+        return <div>{content}</div>;
+
+      case '필적확인란':
+        return !isEdting ? (
           <>
             <div>{content}</div>
-            <img
-              role="presentation"
+            <AiFillEdit
+              type="button"
               className={styles.edit}
-              src={updateImgUrl}
-              alt="수정버튼"
+              aria-label="자기소개 수정"
+              onClick={() => setIsEdting(true)}
               style={{
                 display: isOwner ? 'visible' : 'none',
               }}
             />
           </>
         ) : (
-          <img src={stampUrl} alt="감독은 노녕과 아이들" />
-        )}
+          <div className={styles.editing}>
+            <textarea
+              name="introduction"
+              value={text}
+              onChange={onChange}
+              // ref={textRef}
+            />
+            <BsClipboardCheck onClick={updateUserProfile} />
+            <BsBackspace onClick={() => setIsEdting(false)} />
+          </div>
+        );
+
+      case '감독확인란':
+        return <img src={stampUrl} alt="감독은 노녕과 아이들" />;
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className={styles.section}>
+      <div className={`${styles.header} ${styles.left}`}>
+        <div>{title}</div>
       </div>
+      <div className={` ${styles.body} ${styles.right}`}>{getContent()}</div>
     </div>
   );
 }
@@ -312,7 +355,7 @@ function OMR(): JSX.Element {
   );
 
   const createNewPage = useCallback(async () => {
-    const newPage = user.omrList.length + 1;
+    const newPage = user.omrList.length;
     const NewOmr = {
       color: (newPage % 8) - 1,
       pageNum: newPage,
@@ -324,7 +367,7 @@ function OMR(): JSX.Element {
       dispatch(addOmr(data.data.omrId));
     }
   }, [user.userId, user.omrList, dispatch]);
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
@@ -348,7 +391,7 @@ function OMR(): JSX.Element {
           <button
             type="button"
             onClick={() => movePage(-1)}
-            style={{ display: omr.pageNum === 0 ? 'visible' : 'none' }}
+            style={{ visibility: omr.pageNum === 0 ? 'hidden' : 'visible' }}
           >
             &#10094;
           </button>
@@ -394,7 +437,8 @@ function OMR(): JSX.Element {
             type="button"
             onClick={() => movePage(1)}
             style={{
-              display: omr.pageNum === user.omrList.length ? 'none' : 'visible',
+              visibility:
+                omr.pageNum === user.omrList.length ? 'hidden' : 'visible',
             }}
           >
             &#10095;
