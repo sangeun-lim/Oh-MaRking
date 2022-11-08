@@ -253,6 +253,7 @@ $cheer_section_height: 30em;
   .editing {
     width: 80%;
     @include all.flex(column, center, center);
+    border: 1px solid black;
     > textarea {
       resize: none;
       height: 50px;

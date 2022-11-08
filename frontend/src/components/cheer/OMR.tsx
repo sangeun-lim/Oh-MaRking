@@ -215,10 +215,16 @@ function Info({ title, content }: InfoProps): JSX.Element {
     }
   }, [text, dispatch]);
 
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const switchIsEdting = useCallback(() => {
+    setIsEdting((state) => !state);
+    setText(content);
+  }, [content]);
+
   const getContent = () => {
-    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setText(e.target.value);
-    };
     switch (title.replaceAll(/\s/g, '')) {
       case '이름':
         return <div>{content}</div>;
@@ -231,7 +237,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
               type="button"
               className={styles.edit}
               aria-label="자기소개 수정"
-              onClick={() => setIsEdting(true)}
+              onClick={switchIsEdting}
               style={{
                 display: isOwner ? 'visible' : 'none',
               }}
@@ -239,14 +245,9 @@ function Info({ title, content }: InfoProps): JSX.Element {
           </>
         ) : (
           <div className={styles.editing}>
-            <textarea
-              name="introduction"
-              value={text}
-              onChange={onChange}
-              // ref={textRef}
-            />
+            <textarea name="introduction" value={text} onChange={onChange} />
             <BsClipboardCheck onClick={updateUserProfile} />
-            <BsBackspace onClick={() => setIsEdting(false)} />
+            <BsBackspace onClick={switchIsEdting} />
           </div>
         );
 
