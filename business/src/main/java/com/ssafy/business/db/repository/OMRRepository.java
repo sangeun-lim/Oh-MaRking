@@ -9,9 +9,7 @@ import java.util.List;
 
 @Repository
 public interface OMRRepository extends JpaRepository<OMR, Long> {
-//    OMR findById(Long id) throws Exception;
     OMR findAllById(Long id);
-//    @Query(value ="SELECT * FROM OMR WHERE user_id = ?1",nativeQuery = true)
     List<OMR> getAllByUserid(Long user_id);
 
 

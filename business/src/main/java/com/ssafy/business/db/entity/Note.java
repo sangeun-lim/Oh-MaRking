@@ -3,7 +3,6 @@ package com.ssafy.business.db.entity;
 import com.ssafy.business.db.entity.OMR;
 import com.ssafy.business.api.request.NoteUpdateDto;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;

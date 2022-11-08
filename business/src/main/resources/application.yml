@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: user-service
+    name: business-service
 
   mvc:
     pathmatch:
