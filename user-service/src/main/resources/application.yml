@@ -13,10 +13,10 @@ spring:
 #    password: c102akdlsql
     password: 1234
   redis:
-#    host: redis_db
-    host: localhost
+    host: redis_db
+#    host: localhost
     port: 6379
-#    password: c102fpeltm
+    password: c102fpeltm
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
