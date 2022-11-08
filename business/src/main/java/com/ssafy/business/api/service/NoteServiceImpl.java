@@ -3,11 +3,10 @@ package com.ssafy.business.api.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.business.api.request.NoteCheckDto;
+import com.ssafy.business.api.request.NoteFavoriteDto;
 import com.ssafy.business.api.request.NoteInsertDto;
 import com.ssafy.business.api.request.NoteUpdateDto;
-import com.ssafy.business.api.response.NoteCheckResponseDto;
-import com.ssafy.business.api.response.NoteGetResponseDto;
-import com.ssafy.business.api.response.UserOMRInfo;
+import com.ssafy.business.api.response.*;
 import com.ssafy.business.common.exception.*;
 import com.ssafy.business.db.entity.Note;
 import com.ssafy.business.db.entity.OMR;
@@ -25,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +44,7 @@ public class NoteServiceImpl implements NoteService{
             throw new NoteNumberException();
         }
         Optional<Note> temp = noteRepository.findByOMRAndCheckNumAndProblemNum(omr.getId(), noteInsertDto.getCheckNum(),noteInsertDto.getProblemNum() );
-        System.out.println(temp.toString());
+
         if(temp.isPresent()){
             throw new SameNoteException();
         }
@@ -136,7 +136,7 @@ public class NoteServiceImpl implements NoteService{
         int pageNum = note.getOmr().getPageNum();
         noteRepository.deleteById(noteId);
         List<OMR> omrList = omrRepository.getAllByUserid(userId);
-        if(noteRepository.getNoteCount(omrId)==0){
+        if(noteRepository.getNoteCount(omrId)==0 && omrList.size() >1){
             for (int i = pageNum + 1; i < omrList.size(); i++) {
                 OMR omr = omrRepository.findById(omrList.get(i).getId()).orElseThrow(OMRNotFoundException::new);
                 omr.updatePageNum(omr.getPageNum() - 1);
@@ -154,5 +154,49 @@ public class NoteServiceImpl implements NoteService{
 
         UserOMRInfo userOMRInfo=UserOMRInfo.builder().omridList(omridList).build();
         return userOMRInfo;
+    }
+
+    @Override
+    public List<NoteDto> getNoteList(String nickname) {
+        List<NoteDto> notes=noteRepository.findAllByNickname(nickname).stream()
+                .map(note -> NoteDto.builder()
+                        .pageNum(note.getOmr().getPageNum())
+                        .problemNum(note.getProblemNum())
+                        .checkNum(note.getCheckNum())
+                        .showDate(note.getShowDate())
+                        .date(note.getDate())
+                        .noteId(note.getId())
+                        .build()).collect(Collectors.toList());
+        return notes;
+    }
+
+    @Override
+    public void updateFavoriteNote(String authorization,NoteFavoriteDto noteFavoriteDto) throws IOException {
+        Long uid= getUserId(authorization);
+        Note note = noteRepository.findById(noteFavoriteDto.getNoteId()).orElseThrow(NoteNotFoundException::new);
+        if(uid != note.getOmr().getUserid()){
+            throw  new AccessDeniedException();
+        }
+        note.updateIsFavorite(noteFavoriteDto.getIsFavorite());
+
+
+    }
+
+    @Override
+    public List<FavoriteNoteDto> getFavoriteList(String authorization) throws IOException {
+        Long uid= getUserId(authorization);
+        List<FavoriteNoteDto> notes=noteRepository.findFavoritesByUserId(uid)
+                .stream()
+                .map(note -> FavoriteNoteDto.builder()
+                        .noteId(note.getId())
+                        .nickname(note.getNickname())
+                        .content(note.getContent())
+                        .pageNum(note.getOmr().getPageNum())
+                        .problemNum(note.getProblemNum())
+                        .checkNum(note.getCheckNum())
+                        .build())
+                .collect(Collectors.toList());
+        return notes;
+
     }
 }

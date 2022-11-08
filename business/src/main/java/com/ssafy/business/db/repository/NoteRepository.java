@@ -21,5 +21,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findAllByOmr(OMR omr);
     @Query("select id from Note where omr.id=?1 and checkNum =?2 and problemNum=?3")
     Optional<Note> findByOMRAndCheckNumAndProblemNum(Long omr_id,Integer checkNum,Integer problemNum);
+    List<Note> findAllByNickname(String nickname);
+    @Query("select n from Note n where n.omr.userid =?1 and n.isFavorite = true")
+    List<Note> findFavoritesByUserId(Long userId);
 
 }
