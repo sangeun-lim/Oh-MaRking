@@ -3,10 +3,15 @@
 
 // .container {
 //   padding-top: 30px;
-//   // @include all.flex(column, center, center);
+
 // }
 
-
 .screen_container {
-  padding-top:30px;
+  padding-top: 30px;
+}
+
+.spinner {
+  > div:nth-child(1) {
+    height: 400px;
+  }
 }

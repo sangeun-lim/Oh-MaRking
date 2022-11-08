@@ -100,19 +100,19 @@ $cheer_section_height: 30em;
 }
 
 .right {
-  @include witdh_height(290px, 100px);
+  @include witdh_height(310px, 100px);
   border-radius: 0px all.$IF_radius all.$IF_radius 0px;
   @include all.flex(column, center, center);
   font-weight: normal;
 }
 
 .top {
-  @include witdh_height(410px, 60px);
+  @include witdh_height(430px, 60px);
   border-radius: all.$IF_radius all.$IF_radius 0px 0px;
 }
 
 .bottom {
-  @include witdh_height(410px, 300px);
+  @include witdh_height(430px, 300px);
   border-radius: 0px 0px all.$IF_radius all.$IF_radius;
   font-family: all.$OMR_body;
   span:nth-child(1) button {
@@ -207,7 +207,7 @@ $cheer_section_height: 30em;
 // 시험지 좌측 - 정보 구역
 .info {
   // font-size: 20px;
-  @include all.box(32%, 100%);
+  @include all.box(34%, 100%);
   @include all.flex(column, space-between, center);
 
   .section {
@@ -244,8 +244,22 @@ $cheer_section_height: 30em;
 
   // 수정버튼
   .edit {
-    width: 20px;
-    height: 20px;
+    // width: 20px;
+    // height: 20px;
+    // background-image: url('../../img/수정\ 아이콘.png');
+    // background-size: cover;
+  }
+
+  .editing {
+    width: 80%;
+    @include all.flex(column, center, center);
+    > textarea {
+      resize: none;
+      height: 50px;
+      width: 200px;
+      border: none;
+      color: red;
+    }
   }
 
   // 주의사항 제목
@@ -418,24 +432,23 @@ $cheer_section_height: 30em;
   @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }
 
-
 //hover
 .button:hover {
-  position:relative;
+  position: relative;
   color: red;
 }
-  .hover {// 호버시 추가되는 클래스
-    position: absolute;
-  
-    // top: 12%;// 호버시 top 위치를 조금 위로 움직여준다.
-    // left: 12%;
-    z-index: 985;
-    border:5px;
-  
-    animation-duration: 1s;  	// 애니메이션 3초동안 실행 
-    animation-name: fadeout; 	// 애니메이션 효과는 fade-out
-    
-  }
+.hover {
+  // 호버시 추가되는 클래스
+  position: absolute;
+
+  // top: 12%;// 호버시 top 위치를 조금 위로 움직여준다.
+  // left: 12%;
+  z-index: 985;
+  border: 5px;
+
+  animation-duration: 1s; // 애니메이션 3초동안 실행
+  animation-name: fadeout; // 애니메이션 효과는 fade-out
+}
 // .button {
 //   background-color: red;
 // }
@@ -448,14 +461,15 @@ $cheer_section_height: 30em;
 //   z-index: 985;
 //   border:5px;
 
-//   animation-duration: 1s;  	// 애니메이션 3초동안 실행 
+//   animation-duration: 1s;  	// 애니메이션 3초동안 실행
 //   animation-name: fadeout; 	// 애니메이션 효과는 fade-out
-  
+
 // }
 
-@keyframes fadeout { 		// fade-out시 opacity를 흐릿하다가 선명하기 만들자
+@keyframes fadeout {
+  // fade-out시 opacity를 흐릿하다가 선명하기 만들자
   0% {
-    opacity: 0; 
+    opacity: 0;
   }
 
   100% {

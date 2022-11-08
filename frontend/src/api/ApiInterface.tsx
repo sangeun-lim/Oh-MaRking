@@ -4,7 +4,6 @@
 // }
 
 export interface UserData {
-  nickname: string;
   introduction: string;
 }
 
