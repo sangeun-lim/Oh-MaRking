@@ -12,12 +12,13 @@ import AuthApi from '../../api/AuthApi';
 
 import { addOmr, setUser, setIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
-import { setColor, setNoteStatus, setIsOwner, setOmr } from '../../store/omr';
+import { setColor, setIsOwner, setOmr } from '../../store/omr';
 import Search from './Search';
 import { getKey } from '../../utils/utils';
 import CreateMsg from './CreateMsg';
 import CheckPw from './CheckPw';
 import DetailMsg from './DetailMsg';
+import CantReadMsg from './CantReadMsg';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
@@ -46,11 +47,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const [problemNumber, setProblemNumber] = useState<number>(0);
   const [elementNumber, setElementNumber] = useState<number>(0);
   const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [noteStatusInfo, setNoteStatusInfo] = useState<number>(0);
   const [noteInfoTrue, setNoteInfoTrue] = useState<boolean>(false);
 
   const openModal = (problemNum: number, elementNum: number) => {
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
+    setNoteStatusInfo(omr.omrInfo[problemNum][elementNum]);
     if (noteInfoTrue && omr.isOwner) {
       setPass(true);
     }
@@ -71,15 +74,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const noteId = omr.noteInfo[problemNumber][elementNumber];
 
   // note의 상태가 필요
-  const noteInfo = omr.omrInfo[problemNumber][elementNumber];
-
   useEffect(() => {
-    if (noteInfo === 1 || 2) {
-      setNoteInfoTrue(true);
-    } else {
+    if (noteStatusInfo === 3) {
       setNoteInfoTrue(false);
+    } else {
+      setNoteInfoTrue(true);
     }
-  }, [noteInfo]);
+  }, [noteStatusInfo]);
 
   // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
@@ -172,7 +173,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                         noteId={noteId}
                       />
                     ) : (
-                      <div>못읽습니다.</div>
+                      <CantReadMsg pass={pass} setPass={setPass} />
                     )}
                   </div>
                 ) : (
