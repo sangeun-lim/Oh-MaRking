@@ -34,7 +34,6 @@ const omrReducer = createSlice({
   reducers: {
     // omr 정보 저장
     setOmr(state, action: PayloadAction<Omr>) {
-      console.log(state.isLoading);
       return { ...action.payload, isLoading: false };
     },
     // 페이지 이동 시 pageNum 바꿔주기
