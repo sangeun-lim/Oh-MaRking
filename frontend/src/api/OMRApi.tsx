@@ -19,6 +19,14 @@ const OMRApi = {
       return response;
     },
 
+    getOmr: async (omrId: number, isLoggedIn: boolean) => {
+      // console.log('쏨');
+      const response = isLoggedIn
+        ? await OMRApi.omr.getUserOmr(omrId)
+        : await OMRApi.omr.getNotUserOmr(omrId);
+      return response;
+    },
+
     getUserOmr: async (omrId: number) => {
       const response = await axios({
         url: Url.omr.ReadUserOmr(omrId),
