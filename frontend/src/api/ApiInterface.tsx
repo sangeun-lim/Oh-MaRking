@@ -1,8 +1,3 @@
-// export interface LoginData {
-//   id: string;
-//   pw: string;
-// }
-
 export interface UserData {
   introduction: string;
 }
@@ -17,11 +12,6 @@ export interface ChangeColor {
   omrId: number;
   color: number;
 }
-
-// export interface CheckPw {
-//   note_id: number;
-//   pwd: string;
-// }
 
 export interface NewNoteData {
   omrId: number;

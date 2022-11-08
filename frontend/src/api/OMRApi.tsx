@@ -121,13 +121,16 @@ const OMRApi = {
       return response;
     },
 
-    likeNote: async (noteId: number, favorite: number) => {
+    likeNote: async (noteId: number, isFavorite: boolean) => {
       const response = await axios({
         url: Url.note.likeNote(),
         method: 'put',
+        headers: {
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
+        },
         data: {
           noteId,
-          favorite,
+          isFavorite,
         },
       });
       return response;

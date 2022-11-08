@@ -1,9 +1,11 @@
 import React, { Dispatch, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { setIsOwner, setOmr } from '../../store/omr';
+import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
+import { setNote, setFavorite } from '../../store/note';
 import { setUser } from '../../store/user';
 import { EditNote } from '../../utils/Interface';
 import { EditDefaultNote } from '../../utils/DefaultData';
@@ -22,7 +24,7 @@ interface Props {
 function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const dispatch = useDispatch();
 
-  const { omr, user, auth } = useSelector((state: RootState) => state);
+  const { omr, user, auth, note } = useSelector((state: RootState) => state);
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
@@ -31,6 +33,13 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
     const response = await OMRApi.note.readNote(noteId);
     if (response.status === 200) {
       setEditMsg(response.data.data);
+      dispatch(setNote(response.data.data));
+
+      const NoteData = {
+        problemIdx: response.data.data.problemNum,
+        elementIdx: response.data.data.checkNum,
+      };
+      dispatch(setNoteOpen(NoteData));
     } else {
       alert('메시지를 불러오지 못했습니다.');
     }
@@ -76,17 +85,30 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
     onEditClick();
   };
 
-  // const onLikeClick = async (e: any) => {
-  //   e.preventDefault();
+  const onLikeClick = async (e: any) => {
+    e.preventDefault();
 
-  //   const response = await OMRApi.note.likeNote(noteId, favorite);
-  // };
+    await OMRApi.note.likeNote(noteId, !note.isFavorite);
+    const NoteData = {
+      problemIdx: note.problemNum,
+      elementIdx: note.checkNum,
+    };
+    dispatch(setFavorite(!note.isFavorite));
+    dispatch(setNoteLike(NoteData));
+  };
 
   return (
     <div>
       <Modal show={pass} onHide={handleClose} className={styles.test}>
         <Modal.Header closeButton>
-          <Modal.Title>응원글 보기</Modal.Title>
+          <Modal.Title>
+            응원글 보기
+            {note.isFavorite ? (
+              <BsSuitHeartFill color="#fff" onClick={onLikeClick} />
+            ) : (
+              <BsSuitHeart onClick={onLikeClick} />
+            )}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
