@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
+import { setIsOwner, setOmr } from '../../store/omr';
+import { setUser } from '../../store/user';
 import type { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
@@ -24,9 +26,9 @@ function CreateMsg({
   show,
   setShow,
 }: CreateMsgProps): JSX.Element {
-  const { omr } = useSelector((state: RootState) => state);
+  const { omr, auth } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const colorList = [
     'yellow',
     'skyblue',
@@ -110,9 +112,12 @@ function CreateMsg({
       checkNum: elementNum,
     };
     // console.log(formData);
-    const response = await OMRApi.note.createNote(formData);
-    if (response.status === 201) {
-      console.log(response.data);
+    const { status } = await OMRApi.note.createNote(formData);
+    if (status === 201) {
+      const { data } = await OMRApi.omr.getOmr(formData.omrId, auth.isLoggedIn);
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+      dispatch(setIsOwner(data.data.isOwner));
       setShow(false);
     }
   };

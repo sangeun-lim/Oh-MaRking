@@ -27,20 +27,20 @@ function CheerPage(): JSX.Element {
     }
   }, [dispatch, codedEmail]);
 
-  const getOmr = useCallback(
-    async (omrId: number) => {
-      console.log('쏨');
-      const { status, data } = auth.isLoggedIn
-        ? await OMRApi.omr.getUserOmr(omrId)
-        : await OMRApi.omr.getNotUserOmr(omrId);
-      if (status === 200) {
-        dispatch(setUser(data.data.user));
-        dispatch(setOmr(data.data.omr));
-        dispatch(setIsOwner(data.data.isOwner));
-      }
-    },
-    [auth.isLoggedIn, dispatch]
-  );
+  // const getOmr = useCallback(
+  //   async (omrId: number) => {
+  //     console.log('쏨');
+  //     const { status, data } = auth.isLoggedIn
+  //       ? await OMRApi.omr.getUserOmr(omrId)
+  //       : await OMRApi.omr.getNotUserOmr(omrId);
+  //     if (status === 200) {
+  //       dispatch(setUser(data.data.user));
+  //       dispatch(setOmr(data.data.omr));
+  //       dispatch(setIsOwner(data.data.isOwner));
+  //     }
+  //   },
+  //   [auth.isLoggedIn, dispatch]
+  // );
 
   // const getUserOmr = useCallback(async () => {
   //   const { status, data } = await OMRApi.omr.getUserOmr(user.omrList[0]);
@@ -82,18 +82,22 @@ function CheerPage(): JSX.Element {
     console.log('isloading', omr.isLoading, omr.pageNum);
     if (omr.isLoading && user.omrList[omr.pageNum] !== -1) {
       console.log('통과isloading', user.omrList[omr.pageNum]);
-      getOmr(user.omrList[omr.pageNum]);
+      OMRApi.omr
+        .getOmr(user.omrList[omr.pageNum], auth.isLoggedIn)
+        .then(({ data }) => {
+          dispatch(setUser(data.data.user));
+          dispatch(setOmr(data.data.omr));
+          dispatch(setIsOwner(data.data.isOwner));
+        });
     }
-  }, [omr.isLoading, user.omrList, omr.pageNum, getOmr]);
+  }, [omr.isLoading, user.omrList, omr.pageNum, auth.isLoggedIn, dispatch]);
 
   return (
     <Container className={styles.screen_container}>
       {omr.isLoading ? (
         <div className={styles.spinner}>
           <div />
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          <Spinner animation="border" role="status" />
         </div>
       ) : (
         <OMR />
