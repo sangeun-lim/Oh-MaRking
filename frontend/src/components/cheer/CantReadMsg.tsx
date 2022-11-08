@@ -3,11 +3,15 @@ import Modal from 'react-bootstrap/Modal';
 
 interface Props {
   setPass: Dispatch<React.SetStateAction<boolean>>;
+  setShow: Dispatch<React.SetStateAction<boolean>>;
   pass: boolean;
 }
 
-function CantReadMsg({ setPass, pass }: Props): JSX.Element {
-  const handleClose = () => setPass(false);
+function CantReadMsg({ setPass, pass, setShow }: Props): JSX.Element {
+  const handleClose = () => {
+    // setPass(false);
+    setShow(false);
+  };
 
   return (
     <Modal show={pass} onHide={handleClose}>

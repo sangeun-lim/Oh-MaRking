@@ -128,7 +128,7 @@ function CreateMsg({
   // };
 
   useEffect(() => {
-    // console.log(document.querySelector('#ASDF').parentNode?.parentNode);
+    console.log('뜨지마!');
   }, []);
 
   return (
