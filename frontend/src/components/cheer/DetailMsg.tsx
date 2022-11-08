@@ -32,7 +32,6 @@ function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
     if (response.status === 200) {
       console.log(response.data);
       setEditMsg(response.data.data);
-      console.log('디테일열림');
     } else {
       alert('메시지를 불러오지 못했습니다.');
     }
@@ -123,7 +122,7 @@ function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
                             type="date"
                             id="opendate"
                             value={editMsg.showDate}
-                            required
+                            disabled
                           />
                         </div>
                       </Col>
@@ -148,6 +147,7 @@ function DetailMsg({ setPass, pass, noteId }: Props): JSX.Element {
                   cols={30}
                   rows={10}
                   required
+                  readOnly
                 />
                 <ul>
                   <li>
