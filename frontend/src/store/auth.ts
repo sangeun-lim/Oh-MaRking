@@ -4,6 +4,7 @@ import { getSessionStorage, deleteSessionStorage } from '../utils/utils';
 
 const initialState = {
   isLoggedIn: !!getSessionStorage('refreshToken'),
+  myCodedEmail: '',
 };
 
 const authReducer = createSlice({
@@ -18,8 +19,11 @@ const authReducer = createSlice({
       deleteSessionStorage('refreshToken');
       state.isLoggedIn = !!getSessionStorage('refreshToken');
     },
+    setMyCodedEmail(state, action: PayloadAction<string>) {
+      state.myCodedEmail = action.payload;
+    },
   },
 });
 
-export const { login, logout } = authReducer.actions;
+export const { login, logout, setMyCodedEmail } = authReducer.actions;
 export default authReducer.reducer;

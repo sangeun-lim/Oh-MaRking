@@ -16,7 +16,7 @@ function CallBackPage(): JSX.Element {
   const codedEmail = url.get('codedEmail');
 
   useEffect(() => {
-    if (accessToken && refreshToken) {
+    if (accessToken && refreshToken && codedEmail) {
       setSessionStorage('accessToken', accessToken);
       setSessionStorage('refreshToken', refreshToken);
       dispatch(login());
