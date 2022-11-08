@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setIsOwner, setOmr, setIsLoading } from '../store/omr';
 import { setUserInfo, setUser } from '../store/user';
-import { randomOmr } from '../utils/utils';
 import OMRApi from '../api/OMRApi';
 import OMR from '../components/cheer/OMR';
 import { RootState } from '../store/store';

@@ -357,7 +357,7 @@ function OMR(): JSX.Element {
   const createNewPage = useCallback(async () => {
     const newPage = user.omrList.length;
     const NewOmr = {
-      color: (newPage % 8) - 1,
+      color: newPage % 8,
       pageNum: newPage,
       userId: user.userId,
     };
@@ -438,7 +438,7 @@ function OMR(): JSX.Element {
             onClick={() => movePage(1)}
             style={{
               visibility:
-                omr.pageNum === user.omrList.length ? 'hidden' : 'visible',
+                omr.pageNum + 1 === user.omrList.length ? 'hidden' : 'visible',
             }}
           >
             &#10095;
