@@ -23,7 +23,6 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const dispatch = useDispatch();
 
   const { omr, user, auth } = useSelector((state: RootState) => state);
-  const { codedEmail } = user;
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
@@ -31,7 +30,6 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const readMsg = async () => {
     const response = await OMRApi.note.readNote(noteId);
     if (response.status === 200) {
-      console.log(response.data);
       setEditMsg(response.data.data);
     } else {
       alert('메시지를 불러오지 못했습니다.');
@@ -47,7 +45,10 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
     setOnEdit(!onEdit);
   };
 
-  const handleClose = () => setPass(false);
+  const handleClose = () => {
+    setPass(false);
+    setShow(false);
+  };
 
   const onDeleteClick = async () => {
     const del: boolean = window.confirm(

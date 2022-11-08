@@ -77,7 +77,10 @@ function UpdateMsg({
     onEditClick();
   };
 
-  const handleClose = () => setPass(false);
+  const handleClose = () => {
+    setPass(false);
+    setShow(false);
+  };
 
   const onDeleteClick = async () => {
     const del: boolean = window.confirm(

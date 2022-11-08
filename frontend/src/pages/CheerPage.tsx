@@ -66,7 +66,7 @@ function CheerPage(): JSX.Element {
 
   // 처음 렌더링 될 때 -> 링크 접속 API 요청
   useEffect(() => {
-    console.log('linkAccess');
+    // console.log('linkAccess');
     linkAccess();
     dispatch(setIsLoading(true));
     // .then(() => {
@@ -79,9 +79,9 @@ function CheerPage(): JSX.Element {
   // Omr id 받아왔을 때 -> Omr 정보 API 요청
 
   useEffect(() => {
-    console.log('isloading', omr.isLoading, omr.pageNum);
+    // console.log('isloading', omr.isLoading, omr.pageNum);
     if (omr.isLoading && user.omrList[omr.pageNum] !== -1) {
-      console.log('통과isloading', user.omrList[omr.pageNum]);
+      // console.log('통과isloading', user.omrList[omr.pageNum]);
       OMRApi.omr
         .getOmr(user.omrList[omr.pageNum], auth.isLoggedIn)
         .then(({ data }) => {
