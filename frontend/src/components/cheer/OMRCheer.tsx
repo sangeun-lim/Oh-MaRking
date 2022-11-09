@@ -29,7 +29,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     setProblemNumber(problemNum);
     setElementNumber(elementNum);
     setNoteStatusInfo(omr.omrInfo[problemNum][elementNum]);
-    if (noteInfoTrue && omr.isOwner) {
+    if (noteInfoTrue) {
       setPass(true);
     }
     setShow(true);
@@ -125,7 +125,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         ))}
       </div>
       <div>
-        {show ? (
+        {/* {show ? (
           <div>
             {!noteId ? (
               <CreateMsg
@@ -155,6 +155,35 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                   </div>
                 ) : (
                   <CheckPw show={show} setShow={setShow} noteId={noteId} />
+                )}
+              </div>
+            )}
+          </div>
+        ) : null} */}
+        {show ? (
+          <div>
+            {!noteId ? (
+              <CreateMsg
+                problemNum={problemNumber}
+                elementNum={elementNumber}
+                show={show}
+                setShow={setShow}
+              />
+            ) : (
+              <div>
+                {noteInfoTrue ? (
+                  <DetailMsg
+                    pass={pass}
+                    setShow={setShow}
+                    setPass={setPass}
+                    noteId={noteId}
+                  />
+                ) : (
+                  <CantReadMsg
+                    pass={pass}
+                    setPass={setPass}
+                    setShow={setShow}
+                  />
                 )}
               </div>
             )}
