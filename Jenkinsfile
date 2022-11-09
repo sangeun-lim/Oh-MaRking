@@ -72,6 +72,8 @@ pipeline {
       steps {
         echo "deploy start"
         sh 'cd /'
+        sh 'pwd'
+        sh 'ls'
         sh 'docker-compose up -d'
       }
       post {
