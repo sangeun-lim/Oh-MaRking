@@ -1,0 +1,280 @@
+@use 'src/style/all';
+@use 'src/style/color';
+@import url("//fonts.googleapis.com/earlyaccess/nanumgothic.css" );
+
+.container_class{
+  color: red;
+  // width: 100px;
+}
+.modaltitle{
+  display: flex;
+  justify-content: space-between;
+}
+.test:not(button) {
+  // font-weight: bold;
+  font-family: 'hanna_11yrs';
+  // cursor: url('../../img/pen-solid.svg'), pointer;
+}
+
+// .test > * {
+//   // cursor: url('../../img/pen-solid.svg'), pointer;
+// }
+.full_screen {
+  width: 100%
+}
+
+span {
+  margin: none;
+}
+
+
+.cheerHeader {
+  display: flex;
+  height: 100%;
+  // justify-content: space-between;
+  .vertical_lr {
+    // border-right: 0px;
+    // margin-left: auto; 
+    // margin-right: auto;
+    text-align: center;
+    // align-items: center;
+    writing-mode: vertical-lr;
+    // border-right: 3px solid;
+    width: 5%;
+    font-size: 0.75rem;
+  }
+  div {
+    width:95%;
+  }
+  div > textarea{
+    display: block;
+    margin: 15px;
+    width: 95%;
+    resize: none;
+    font-size: 0.9rem;
+    // border: 1px solid #000;
+  }
+  // flex-wrap: wrap;
+}
+
+.group {
+  display:flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height:100%;
+  label {
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  div {
+    width: 100%;
+    input {
+      width: 100%;
+      font-size: 0.5rem;
+      height: 100%;
+      display: block;
+      overflow: hidden;
+      padding: 0 5px 0 0;
+
+    }
+    input[type=password]{
+      font-family:"Nanum Gothic", sans-serif; 
+    }
+    input[type=password]::placeholder {
+      font-family: "hanna_11yrs"; 
+    }        
+  }
+}
+// input[type=password]{
+// 	font-family:"Nanum Gothic", sans-serif !important;
+// }
+// input[type=password]::placeholder {
+// 	font-family: "기존에 사용하는 글꼴"; 
+// }
+.form_label {
+  // display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+  height: 100%;
+  align-items: center;
+}
+.cheer_box {
+  border:3px solid #000;
+}
+
+// 버튼관련 css
+ul {
+  // display: inline;
+  display: flex;
+  margin: 0px;
+  justify-content: flex-end;
+}
+.button-links {
+  list-style: none;
+}
+  :hover,
+  :focus {
+    outline: 0 !important;
+    outline-offset: 0;
+
+  }
+  ::before,
+  ::after {
+    position: absolute;
+    content: "";
+  }
+  .btn_hover_border_3{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0px 25px 0px 15px;
+    min-width: 60px;
+    min-height: 25px;
+    font-size: 0.5rem;
+  }
+
+  .btn_hover_border_3:hover::before,
+  .btn_hover_border_3:hover::after {
+    width: 100%;
+    height: 99%;
+    opacity: 1;
+    transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
+  }
+ 
+  .btn_hover_border_3:hover{
+    color: #000;
+  }
+.btn_hover_border_3::before,
+  .btn_hover_border_3::after {
+    width: 0%;
+    height: 0%;
+    opacity: 0;
+    transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+  }
+  // .btn_hover_border_3::before {
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   border-top: 1px solid rgb(28, 31, 30);
+  //   border-left: 1px solid rgb(28, 31, 30);
+
+  //   border-bottom: 1px solid rgb(28, 31, 30);
+  //   border-right: 1px solid rgb(28, 31, 30);
+  // }
+
+  .btn_hover_border_3 {
+    border: none; 
+    color: #a7aaad;
+  }
+
+
+
+//color
+@mixin fill_stroke($fill, $stroke) {
+  background-color: #{$fill};
+  border: 3px solid #{$stroke};
+}
+
+@mixin header($fill, $stroke) {
+  font-size: all.$OMR_header_font_size;
+  @include fill_stroke(#{$fill}, #{$stroke});
+}
+
+@mixin body($fill, $stroke) {
+  // font-size: all.$OMR_body_font_size;
+  @include fill_stroke(#{$fill}, #{$stroke});
+}
+@mixin color($bg, $line, $basic) {
+  .first_header {
+    @include header(#{$bg}, #{$line});
+  }
+  .header {
+    @include header(#{$bg}, #{$line});
+    // .form_label {
+      border-left-style: hidden;
+    // }
+  }
+
+  .cheer .header {
+    border: none;
+    border-bottom: 3px solid #{$line};
+  }
+  .body {
+    @include body(#{$basic}, #{$line});
+    border-left-style: hidden;
+    // .right {
+    //   border-left-style: hidden;
+    // }
+    // .bottom {
+    //   border-top-style: hidden;
+    // }
+  }
+  .cheer span {
+    background-color: #{$bg};
+    border-right-color: #{$line};
+  }
+  .problem {
+    span {
+      border-right-color: #{$line};
+    }
+  }
+  .problem:nth-child(5) {
+    border-bottom: 3px solid #{$line};
+  }
+}
+
+
+.skyblue {
+  @include color(color.$bg_skyblue, color.$line_skyblue, color.$before_marking);
+}
+
+.yellow {
+  @include color(color.$bg_yellow, color.$line_yellow, color.$before_marking);
+}
+
+.purple {
+  @include color(color.$bg_purple, color.$line_purple, color.$before_marking);
+}
+
+.green {
+  @include color(color.$bg_green, color.$line_green, color.$before_marking);
+}
+
+.dark_yellow {
+  @include color(
+    color.$bg_dark_yellow,
+    color.$line_dark_yellow,
+    color.$before_marking
+  );
+}
+
+.navy {
+  @include color(color.$bg_navy, color.$line_navy, color.$before_marking);
+}
+
+.orange {
+  @include color(color.$bg_orange, color.$line_orange, color.$before_marking);
+}
+
+.pink {
+  @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
+}
+
+
+
+// like button
+.likeButton {
+  background-color: white;
+  border: none;
+  color: red;
+}
+
+.likeHeart {
+  width: 20px;
+}

@@ -7,29 +7,64 @@ function Intro(): JSX.Element {
   return (
     <div className={styles.box_container}>
       <Carousel fade className={styles.board_carousel}>
-        <Carousel.Item>
-          <div className={styles.board_item}>
-            <Notice />
+        <Carousel.Item className={styles.carousel_center}>
+          <div className={styles.carousel_item}>
+            <img
+              className={styles.sm_window}
+              src="src/img/title_900x400.png"
+              alt=""
+            />
+            <img
+              className={styles.sm_window}
+              src="src/img/content_900x400.png"
+              alt="하이요"
+            />
+            <img
+              className={styles.lg_window}
+              src="src/img/title_1200x600.png"
+              alt=""
+            />
+            <img
+              className={styles.lg_window}
+              src="src/img/content_1200x600.png"
+              alt=""
+            />
+            <img
+              className={styles.xl_window}
+              src="src/img/title_1800x800.png"
+              alt=""
+            />
+            <img
+              className={styles.xl_window}
+              src="src/img/content_1800x800.png"
+              alt=""
+            />
           </div>
+          {/* <div className={styles.carousel_item}>
+            <img src="src/img/main.png" alt="" />
+          </div> */}
+          {/* <div className={styles.board_item}>
+            <Notice />
+          </div> */}
           {/* <img
             src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character2.png?alt=media&token=d7f52c96-b8ee-42c1-9eb1-fa5fd74e5e4f"
             alt="마스코트"
             className={styles.character_img}
           /> */}
-          <img
+          {/* <img
             src="src/img/졸라맨.png"
             alt="마스코트"
             className={styles.character_img}
-          />
+          /> */}
           {/* <img
             src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character1.png?alt=media&token=e6eb279b-6fe1-441a-9a81-b065c24c9f4b"
             alt="로고"
             // className={styles.logo}
           /> */}
         </Carousel.Item>
-        <Carousel.Item>
+        {/* <Carousel.Item>
           <ExampleOmr />
-        </Carousel.Item>
+        </Carousel.Item> */}
       </Carousel>
     </div>
     // <div className={styles.user_wrap}>
