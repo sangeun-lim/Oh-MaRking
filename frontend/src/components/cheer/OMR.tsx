@@ -227,12 +227,17 @@ function Info({ title, content }: InfoProps): JSX.Element {
   const getContent = () => {
     switch (title.replaceAll(/\s/g, '')) {
       case '이름':
-        return <div>{content}</div>;
+        return (
+          <div className={styles.name}>
+            <span>{content}</span>
+            <LinkCopy />
+          </div>
+        );
 
       case '필적확인란':
         return !isEdting ? (
-          <>
-            <div>{content}</div>
+          <div className={styles.intro}>
+            <span>{content}</span>
             <AiFillEdit
               type="button"
               className={styles.edit}
@@ -242,12 +247,19 @@ function Info({ title, content }: InfoProps): JSX.Element {
                 display: isOwner ? 'visible' : 'none',
               }}
             />
-          </>
+          </div>
         ) : (
           <div className={styles.editing}>
-            <textarea name="introduction" value={text} onChange={onChange} />
-            <BsClipboardCheck onClick={updateUserProfile} />
-            <BsBackspace onClick={switchIsEdting} />
+            <textarea
+              name="introduction"
+              value={text}
+              onChange={onChange}
+              maxLength={20}
+            />
+            <div>
+              <BsClipboardCheck onClick={updateUserProfile} />
+              <BsBackspace onClick={switchIsEdting} />
+            </div>
           </div>
         );
 
@@ -261,9 +273,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
 
   return (
     <div className={styles.section}>
-      <div className={`${styles.header} ${styles.left}`}>
-        <div>{title}</div>
-      </div>
+      <div className={`${styles.header} ${styles.left}`}>{title}</div>
       <div className={` ${styles.body} ${styles.right}`}>{getContent()}</div>
     </div>
   );
@@ -406,7 +416,6 @@ function OMR(): JSX.Element {
             <div className={`${styles.page}`}>
               <span className={`${styles.body}`}>{omr.pageNum + 1}</span>
               <span>교시 응원영역</span>
-              <LinkCopy />
             </div>
 
             <Info title={'이  름'} content={`${user.name}`} />
