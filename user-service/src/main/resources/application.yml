@@ -76,5 +76,5 @@ logging:
         SQL: debug
 
 api-server:
-  url: http://oh-marking.com:8082
+  url: http://oh-marking.com:8083
 #  url: http://localhost:8080
