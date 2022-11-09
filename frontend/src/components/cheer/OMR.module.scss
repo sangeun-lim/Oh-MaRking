@@ -16,11 +16,12 @@ $cheer_section_height: 30em;
 
 @mixin header($fill, $stroke) {
   font-size: all.$OMR_header_font_size;
+  // font-size: 30px;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
 @mixin body($fill, $stroke) {
-  // font-size: all.$OMR_body_font_size;
+  font-size: all.$OMR_body_font_size;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
@@ -84,9 +85,27 @@ $cheer_section_height: 30em;
   border: 2px solid #{$bt_ln};
 }
 
+// 오른쪽 위 정렬(버튼용)
+// @mixin top_right_btn {
+//   height: 35px;
+//   display: inline-block;
+//   position: absolute;
+//   right: 4px;
+//   top: 6px;
+// }
+
+// // 가운데 정렬
+// @mixin middle {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
 * {
   text-align: center;
   font-weight: normal;
+  font-size: inherit;
 }
 
 // 영역별
@@ -100,19 +119,19 @@ $cheer_section_height: 30em;
 }
 
 .right {
-  @include witdh_height(310px, 100px);
+  @include witdh_height(330px, 100px);
   border-radius: 0px all.$IF_radius all.$IF_radius 0px;
   @include all.flex(column, center, center);
   font-weight: normal;
 }
 
 .top {
-  @include witdh_height(430px, 60px);
+  @include witdh_height(450px, 60px);
   border-radius: all.$IF_radius all.$IF_radius 0px 0px;
 }
 
 .bottom {
-  @include witdh_height(430px, 300px);
+  @include witdh_height(450px, 300px);
   border-radius: 0px 0px all.$IF_radius all.$IF_radius;
   font-family: all.$OMR_body;
   span:nth-child(1) button {
@@ -195,7 +214,6 @@ $cheer_section_height: 30em;
   // 시험지 바디 중 찐한 색
   .omr_body .header {
     font-family: all.$OMR_header;
-    font-weight: bold;
   }
 
   // 시험지 푸터
@@ -206,7 +224,10 @@ $cheer_section_height: 30em;
 
 // 시험지 좌측 - 정보 구역
 .info {
-  // font-size: 20px;
+  svg:hover {
+    cursor: pointer;
+  }
+
   @include all.box(34%, 100%);
   @include all.flex(column, space-between, center);
 
@@ -242,6 +263,34 @@ $cheer_section_height: 30em;
     height: 80px;
   }
 
+  // '이름' 내용
+  .name {
+    width: inherit;
+    @include all.flex(row, center, center);
+    > span {
+      display: inline-block;
+      width: 90%;
+    }
+    > svg {
+      display: inline-block;
+      width: all.$OMR_info_btn;
+    }
+  }
+
+  // '필적 확인란' 내용
+  .intro {
+    width: inherit;
+    @include all.flex(row, center, center);
+    > span {
+      display: inline-block;
+      width: 90%;
+    }
+    > svg {
+      display: inline-block;
+      width: all.$OMR_info_btn;
+    }
+  }
+
   // 수정버튼
   .edit {
     // width: 20px;
@@ -251,14 +300,19 @@ $cheer_section_height: 30em;
   }
 
   .editing {
-    width: 80%;
-    @include all.flex(column, center, center);
+    width: 100%;
+    height: 100%;
+    @include all.flex(row, center, center);
     > textarea {
+      width: 90%;
       resize: none;
-      height: 50px;
-      width: 200px;
       border: none;
-      color: red;
+    }
+    > div {
+      width: 10%;
+    }
+    svg {
+      width: all.$OMR_info_btn;
     }
   }
 
@@ -298,7 +352,7 @@ $cheer_section_height: 30em;
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
   font-family: all.$OMR_body;
-  @include all.box(29%, 100%);
+  @include all.box(30%, 100%);
 
   // 응원한마디 영역
   .section {
