@@ -9,7 +9,7 @@ import { setUser } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
-import styles from './CreateMsg.module.scss';
+import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
 interface Props {
@@ -107,14 +107,30 @@ function UpdateMsg({
     }
     onEditClick();
   };
-
+  const colorList = [
+    'yellow',
+    'skyblue',
+    'purple',
+    'green',
+    'dark_yellow',
+    'navy',
+    'orange',
+    'pink',
+  ];
   return (
     <div>
-      <Modal show={pass} onHide={handleClose} className={styles.test}>
-        <Modal.Header closeButton>
+      <Modal
+        show={pass}
+        onHide={handleClose}
+        className={`${styles[colorList[omr.color]]} ${styles.test}`}
+      >
+        <Modal.Header
+          style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+          closeButton
+        >
           <Modal.Title>응원글 수정</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
           <form onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ width: '100%', padding: '0px' }}>
@@ -122,7 +138,9 @@ function UpdateMsg({
                   <div className={styles.group}>
                     <Col>
                       <Row>
-                        <Col>
+                        <Col
+                          className={`${styles.first_header} ${styles.bottom_header}`}
+                        >
                           <label
                             className={styles.form_label}
                             htmlFor="nickname"
@@ -130,9 +148,12 @@ function UpdateMsg({
                             닉네임
                           </label>
                         </Col>
-                        <Col>
+                        <Col
+                          className={`${styles.header} ${styles.bottom_header}`}
+                        >
                           <div>
                             <input
+                              style={{ backgroundColor: '#FBFFFE' }}
                               name="nickname"
                               id="nickname"
                               type="text"
@@ -147,7 +168,9 @@ function UpdateMsg({
                     </Col>
                     <Col>
                       <Row>
-                        <Col>
+                        <Col
+                          className={`${styles.header} ${styles.bottom_header}`}
+                        >
                           <label
                             className={styles.form_label}
                             htmlFor="opendate"
@@ -155,9 +178,12 @@ function UpdateMsg({
                             공개 날짜
                           </label>
                         </Col>
-                        <Col>
+                        <Col
+                          className={`${styles.header} ${styles.bottom_header}`}
+                        >
                           <div>
                             <input
+                              style={{ backgroundColor: '#FBFFFE' }}
                               id="opendate"
                               name="showDate"
                               type="date"
@@ -174,12 +200,15 @@ function UpdateMsg({
               </div>
             </div>
             <br />
-            <div className={styles.cheer_box}>
-              <div className={styles.cheerHeader}>
-                <label className={styles.vertical_lr} htmlFor="cheer-text">
+            <div>
+              <div className={`${styles.cheerHeader}`}>
+                <label
+                  className={`${styles.vertical_lr} ${styles.first_header}`}
+                  htmlFor="cheer-text"
+                >
                   서술형 응원
                 </label>
-                <div>
+                <div className={styles.body}>
                   <textarea
                     name="content"
                     placeholder="응원글을 작성해주세요."

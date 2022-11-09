@@ -1,5 +1,5 @@
 .box_container {
-  // border: 20px solid rgb(133, 77, 60);
+  border: 20px solid rgb(133, 77, 60);
   border: #A56933 solid 20px;
 	border-top: #854E25 solid 20px;
 	border-left: #A56933 solid 20px;
@@ -12,7 +12,14 @@
   padding-top: 50px;
   margin-top: 50px;
 }
-
+.carousel_item{
+  width: 100%;
+  // background-image: url("src/img/main.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  // background-position: center;
+  // background-attachment: fixed;
+}
 .bg_character {
   display: flex;
   justify-content: flex-end;
