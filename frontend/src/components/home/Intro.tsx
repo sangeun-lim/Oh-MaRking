@@ -7,13 +7,45 @@ function Intro(): JSX.Element {
   return (
     <div className={styles.box_container}>
       <Carousel fade className={styles.board_carousel}>
-        <Carousel.Item>
+        <Carousel.Item className={styles.carousel_center}>
+          <div className={styles.carousel_item}>
+            <img
+              className={styles.sm_window}
+              src="src/img/title_900x400.png"
+              alt=""
+            />
+            <img
+              className={styles.sm_window}
+              src="src/img/content_900x400.png"
+              alt="하이요"
+            />
+            <img
+              className={styles.lg_window}
+              src="src/img/title_1200x600.png"
+              alt=""
+            />
+            <img
+              className={styles.lg_window}
+              src="src/img/content_1200x600.png"
+              alt=""
+            />
+            <img
+              className={styles.xl_window}
+              src="src/img/title_1800x800.png"
+              alt=""
+            />
+            <img
+              className={styles.xl_window}
+              src="src/img/content_1800x800.png"
+              alt=""
+            />
+          </div>
           {/* <div className={styles.carousel_item}>
             <img src="src/img/main.png" alt="" />
           </div> */}
-          <div className={styles.board_item}>
+          {/* <div className={styles.board_item}>
             <Notice />
-          </div>
+          </div> */}
           {/* <img
             src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character2.png?alt=media&token=d7f52c96-b8ee-42c1-9eb1-fa5fd74e5e4f"
             alt="마스코트"
