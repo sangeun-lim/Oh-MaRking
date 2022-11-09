@@ -82,12 +82,28 @@ const OMRApi = {
       return response;
     },
 
-    readNote: async (noteId: number) => {
+    getNote: async (noteId: number, isOwner: boolean) => {
+      // console.log('쏨');
+      const response = isOwner
+        ? await OMRApi.note.readUserNote(noteId)
+        : await OMRApi.note.readNotUserNote(noteId);
+      return response;
+    },
+
+    readUserNote: async (noteId: number) => {
       const response = await axios({
         url: Url.note.readNote(noteId),
         headers: {
           Authorization: `Bearer ${getSessionStorage('accessToken')}`,
         },
+        method: 'get',
+      });
+      return response;
+    },
+
+    readNotUserNote: async (noteId: number) => {
+      const response = await axios({
+        url: Url.note.readNote(noteId),
         method: 'get',
       });
       return response;

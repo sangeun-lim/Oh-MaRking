@@ -42,7 +42,9 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
 
   const readMsg = async () => {
-    const response = await OMRApi.note.readNote(noteId);
+    const response = await OMRApi.note.readUserNote(noteId);
+    // api 추가되면 밑에껄로 변경
+    // const response = await OMRApi.note.getNote(noteId,omr.isOwner);
     if (response.status === 200) {
       setEditMsg(response.data.data);
       dispatch(setNote(response.data.data));
@@ -69,6 +71,13 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const handleClose = () => {
     setPass(false);
     setShow(false);
+  };
+
+  // 수정버튼누르면 비밀번호 입력창 나오게 해야되고
+  // 비밀번호 입력후 버튼누르면 update 모달 뜨게해야됨
+  // 주인일때는 수정버튼 있게 주인이 아닐때는 수정버튼 없게
+  const onUpdateClick = () => {
+    console.log('수정하자');
   };
 
   const onDeleteClick = async () => {
@@ -271,6 +280,15 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
                   readOnly
                 />
                 <ul style={{ margin: '0px' }}>
+                  <li>
+                    <button
+                      className={styles.btn_hover_border_3}
+                      type="button"
+                      onClick={onUpdateClick}
+                    >
+                      수정
+                    </button>
+                  </li>
                   <li>
                     <button
                       className={styles.btn_hover_border_3}
