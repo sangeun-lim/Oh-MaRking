@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
-import styles from './UseNotcie.module.scss';
+import styles from './OMR.module.scss';
 
 interface UseNoticeProps {
   omrBg: string[];
