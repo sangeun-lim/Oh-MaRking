@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Carousel from 'react-bootstrap/Carousel';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
 import Search from './Search';
@@ -7,6 +8,8 @@ import Cheer from './OMRCheer';
 import Info from './OMRInfo';
 import Pallet from './OMRPallet';
 import Code from './OMRCode';
+import LikeList from './LikeList';
+import UseNotice from './UseNotice';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
@@ -74,15 +77,16 @@ function OMR(): JSX.Element {
   }, [user.userId, user.omrList, dispatch]);
 
   // 즐겨찾기 조회하기 위해
-  // useEffect(() => {
-  //   const likeList = async () => {
-  //     const response = await OMRApi.note.likeList();
-  //     if (response.status === 200) {
-  //       setFavoriteList(response.data.data);
-  //     }
-  //   };
-  //   likeList();
-  // }, []);
+  useEffect(() => {
+    const likeList = async () => {
+      const response = await OMRApi.note.likeList();
+      if (response.status === 200) {
+        setFavoriteList(response.data.data);
+        // console.log(favoriteList);
+      }
+    };
+    likeList();
+  }, []);
 
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
@@ -123,26 +127,31 @@ function OMR(): JSX.Element {
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
                 {/* 즐겨찾기 보여주는 부분 */}
-                {/* {favoriteList.map((data) => (
-                  <div key={data.noteId}>
-                    <LikeList
-                      username={user.name}
-                      content={data.content}
-                      nickname={data.nickname}
-                    />
-                  </div>
-                ))} */}
+
+                <Carousel>
+                  {favoriteList.map((data) => (
+                    // <div>
+                    <Carousel.Item key={data.noteId}>
+                      <LikeList
+                        username={user.name}
+                        content={data.content}
+                        nickname={data.nickname}
+                      />
+                    </Carousel.Item>
+                    // </div>
+                  ))}
+                </Carousel>
                 {/* isOwner일때 안내사항 */}
-                <div>
-                  &#8251; 이름 옆의 링크복사를 통해 다른 사람들에게 응원메시지를
+                {/* <UseNotice omrBg={omrBg} isOwner={omr.isOwner} /> */}
+                {/* &#8251; 이름 옆의 링크복사를 통해 다른 사람들에게 응원메시지를
                   요청해보세요!
                   <br />
                   &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, 새로운
                   답안지를 받을 수 있습니다.
                   <br />
                   &#8251; 표기 안내
-                  <br />
-                  {/* <div className={`${styles[omrBg[0]]}`}>
+                  <br /> */}
+                {/* <div className={`${styles[omrBg[0]]}`}>
                     작성 가능한 칸입니다.
                   </div>
                   <br />
@@ -162,9 +171,9 @@ function OMR(): JSX.Element {
                     좋아요한 칸입니다.
                   </div>
                   <br /> */}
-                  {/* isOwner가 아닐때 안내사항부분 */}
-                  {/*  */}
-                  {/* <>
+                {/* isOwner가 아닐때 안내사항부분 */}
+                {/*  */}
+                {/* <>
                   &#8251; 이 수험표는 {user.name}을 위한 응원수험표입니다.
                   <br />
                   &#8251; {user.name}을 위한 응원과 격려의 메시지를 작성해보세요! (폭언 및 욕설은 금지!!)
@@ -181,6 +190,7 @@ function OMR(): JSX.Element {
                   <br />
                   아직 읽을 수 없습니다!
                 </p> */}
+                <div>
                   <div className={styles.pallet}>
                     <Pallet colorList={colorList} />
                   </div>
