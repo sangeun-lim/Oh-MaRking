@@ -55,32 +55,35 @@ stages {
         sh 'docker build -t business-image'
       }
     }
-  }
-  post {
-    always {
+    post {
+      always {
         echo "build stage complete"
-    }
-    failure {
+      }
+      failure {
         echo "build failed"
       }
       success {
-          echo "build success"
+        echo "build success"
       }
+    }
   }
+  
   stage('Deploy') {
-    echo "deploy start"
-    sh 'cd /'
-    sh 'docker-compose up -d'
-  }
-  post {
-    always {
-      echo "deploy stage complete"
+    steps {
+      echo "deploy start"
+      sh 'cd /'
+      sh 'docker-compose up -d'
     }
-    failure {
-      echo "build failed"
-    }
-    success {
-      echo "build success"
+    post {
+      always {
+        echo "deploy stage complete"
+      }
+      failure {
+        echo "build failed"
+      }
+      success {
+        echo "build success"
+      }
     }
   }
 }
