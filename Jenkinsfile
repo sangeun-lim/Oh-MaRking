@@ -2,7 +2,7 @@ pipeline {
     agent any
 
 tools {
-  gradle 'G'
+  gradle 'gradle'
 }
 
 stages {
