@@ -270,7 +270,7 @@ $cheer_section_height: 30em;
   .bottom {
     @include all.flex(column, space-between, center);
     p {
-      font-size: 20px;
+      font-size: 15px;
       margin-top: 10px;
       margin-inline: 5px;
     }

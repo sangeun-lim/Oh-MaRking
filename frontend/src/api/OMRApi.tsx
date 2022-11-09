@@ -135,6 +135,16 @@ const OMRApi = {
       });
       return response;
     },
+    likeList: async () => {
+      const response = await axios({
+        url: Url.note.likeList(),
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
+        },
+      });
+      return response;
+    },
   },
 
   password: {

@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsClipboardCheck, BsBackspace } from 'react-icons/bs';
 import { AiFillEdit } from 'react-icons/ai';
@@ -19,6 +13,7 @@ import CreateMsg from './CreateMsg';
 import CheckPw from './CheckPw';
 import DetailMsg from './DetailMsg';
 import CantReadMsg from './CantReadMsg';
+import LikeList from './LikeList';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
@@ -40,7 +35,7 @@ interface PalletProps {
 }
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
-  const { omr, note } = useSelector((state: RootState) => state);
+  const { omr } = useSelector((state: RootState) => state);
 
   const [show, setShow] = useState<boolean>(false);
   const [pass, setPass] = useState<boolean>(false);
@@ -140,10 +135,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                     handleMouseOver(problemIdx + start, elementIdx)
                   }
                   onMouseLeave={() => handleMouseOut()}
-                  onClick={
-                    // () => test(problemIdx + start, elementIdx)
-                    () => openModal(problemIdx + start, elementIdx)
-                  }
+                  onClick={() => openModal(problemIdx + start, elementIdx)}
                 >
                   {element === 4 ? null : elementIdx + 1}
                 </button>
@@ -208,7 +200,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
 
   const updateUserProfile = useCallback(async () => {
     const UserData = { introduction: text };
-    const { status, data } = await AuthApi.auth.updateUserProfile(UserData);
+    const { status } = await AuthApi.auth.updateUserProfile(UserData);
     if (status === 202) {
       dispatch(setIntro(text));
       setIsEdting(false);
@@ -239,12 +231,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
           </>
         ) : (
           <div className={styles.editing}>
-            <textarea
-              name="introduction"
-              value={text}
-              onChange={onChange}
-              // ref={textRef}
-            />
+            <textarea name="introduction" value={text} onChange={onChange} />
             <BsClipboardCheck onClick={updateUserProfile} />
             <BsBackspace onClick={() => setIsEdting(false)} />
           </div>
@@ -324,7 +311,18 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
   );
 }
 
+interface FavoriteList {
+  noteId: number;
+  checkNum: number;
+  problemNum: number;
+  PageNum: number;
+  nickname: string;
+  content: string;
+}
+
 function OMR(): JSX.Element {
+  const [favoriteList, setFavoriteList] = useState<FavoriteList[]>([]);
+
   const { user, omr, auth } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const colorList = [
@@ -337,6 +335,7 @@ function OMR(): JSX.Element {
     'orange',
     'pink',
   ];
+  const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
 
   const getOmr = useCallback(
     async (omrId: number) => {
@@ -373,7 +372,18 @@ function OMR(): JSX.Element {
       dispatch(addOmr(data.data.omrId));
     }
   }, [user.userId, user.omrList, dispatch]);
-  // useEffect(() => {}, []);
+
+  // 즐겨찾기 조회하기 위해
+  useEffect(() => {
+    const likeList = async () => {
+      const response = await OMRApi.note.likeList();
+      if (response.status === 200) {
+        setFavoriteList(response.data.data);
+      }
+    };
+    likeList();
+  }, []);
+
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
       <div className={`${styles.omr} ${styles.body}`}>
@@ -413,21 +423,69 @@ function OMR(): JSX.Element {
             <div>
               <div className={`${styles.header} ${styles.top}`}>주의사항</div>
               <div className={`${styles.body} ${styles.bottom}`}>
+                {/* 즐겨찾기 보여주는 부분 */}
+                {/* {favoriteList.map((data) => (
+                  <div key={data.noteId}>
+                    <LikeList
+                      username={user.name}
+                      content={data.content}
+                      nickname={data.nickname}
+                    />
+                  </div>
+                ))} */}
+                {/* isOwner일때 안내사항 */}
                 <p>
-                  &#8251; 응원하고 싶은 칸을 골라서 응원메세지를 작성해주세요
+                  &#8251; 이름 옆의 링크복사를 통해 다른 사람들에게 응원메시지를
+                  요청해보세요!
+                  <br />
+                  &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, 새로운
+                  답안지를 받을 수 있습니다.
+                  <br />
+                  &#8251; 표기 안내
+                  <br />
+                  {/* <div className={`${styles[omrBg[0]]}`}>
+                    작성 가능한 칸입니다.
+                  </div>
+                  <br />
+                  <div className={`${styles[omrBg[1]]}`}>
+                    이미 읽은 칸입니다.
+                  </div>
+                  <br />
+                  <div className={`${styles[omrBg[2]]}`}>
+                    아직 안 읽은 칸입니다.
+                  </div>
+                  <br />
+                  <div className={`${styles[omrBg[3]]}`}>
+                    아직 읽을 수 없는 칸입니다.
+                  </div>
+                  <br />
+                  <div className={`${styles[omrBg[4]]}`}>
+                    좋아요한 칸입니다.
+                  </div>
+                  <br /> */}
+                  {/* isOwner가 아닐때 안내사항부분 */}
+                  {/*  */}
+                  {/* <>
+                  &#8251; 이 수험표는 {user.name}을 위한 응원수험표입니다.
+                  <br />
+                  &#8251; {user.name}을 위한 응원과 격려의 메시지를 작성해보세요! (폭언 및 욕설은 금지!!)
+                  <br />
+                  &#8251; 빈 마킹란을 클릭하면 응원 메시지를 작성할 수 있습니다.
+                  <br />
+                  &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, 새로운 답안지를 받을 수 있습니다.
+                  <br />
+                  &#8251; 표기 안내
+                  <br />
+                  응원 메시지를 작성할 수 있습니다!
+                  <br />
+                  지금 읽을 수 있습니다!
+                  <br />
+                  아직 읽을 수 없습니다!
+                </p> */}
+                  <div className={styles.pallet}>
+                    <Pallet colorList={colorList} />
+                  </div>
                 </p>
-                <p>
-                  &#8251; 마지막 페이지에서 마킹이 5개 이상일 때, 새로운
-                  페이지를 생성할 수 있습니다.
-                </p>
-                <p>&#8251; 표시안내</p>
-                {/* <span className={}/> */}
-                {/* <span className={}/> */}
-                {/* <span className={}/> */}
-                {/* <span className={}/> */}
-                <div className={styles.pallet}>
-                  <Pallet colorList={colorList} />
-                </div>
               </div>
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
