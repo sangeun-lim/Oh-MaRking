@@ -1,7 +1,5 @@
-// const HOST = 'https://k7c102.p.ssafy.io/';
 const HOST = 'http://oh-marking.com:8081/api/';
 const HOST2 = 'http://oh-marking.com:8081/logout';
-// const AUTH = 'auth/';
 
 const USER = 'user/';
 const OMR = 'omr/';
@@ -13,7 +11,6 @@ const CHECK = 'check';
 
 const Url = {
   auth: {
-    //   login: () => `${HOST + AUTH}login`,
     getCodedEmail: () => `${HOST + USER}email`,
     logout: () => `${HOST2}`,
     updateIntroduction: () => `${HOST}user`,

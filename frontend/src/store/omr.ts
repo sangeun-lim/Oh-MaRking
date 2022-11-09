@@ -14,7 +14,6 @@ interface Omr {
 interface Note {
   problemIdx: number;
   elementIdx: number;
-  status: number;
 }
 
 const initialState = {
@@ -40,21 +39,30 @@ const omrReducer = createSlice({
     setPage(state, action: PayloadAction<number>) {
       state.pageNum = action.payload;
     },
-    // 노트 상태 바꾸기
-    setNoteStatus(state, action: PayloadAction<Note>) {
-      const { problemIdx, elementIdx, status } = action.payload;
+    // 안 읽은 노트 읽음처리하기
+    setNoteOpen(state, action: PayloadAction<Note>) {
+      const { problemIdx, elementIdx } = action.payload;
+      const status =
+        state.omrInfo[problemIdx][elementIdx] === 2
+          ? 1
+          : state.omrInfo[problemIdx][elementIdx];
       state.omrInfo[problemIdx][elementIdx] = status;
     },
     // 색깔 바꾸기
     setColor(state, action: PayloadAction<number>) {
       state.color = action.payload;
     },
-    //
     setIsOwner(state, action: PayloadAction<boolean>) {
       state.isOwner = action.payload;
     },
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
+    },
+    // 즐겨찾기 처리
+    setNoteLike(state, action: PayloadAction<Note>) {
+      const { problemIdx, elementIdx } = action.payload;
+      const status = state.omrInfo[problemIdx][elementIdx] === 1 ? 4 : 1;
+      state.omrInfo[problemIdx][elementIdx] = status;
     },
   },
 });
@@ -62,9 +70,10 @@ const omrReducer = createSlice({
 export const {
   setOmr,
   setPage,
-  setNoteStatus,
+  setNoteOpen,
   setColor,
   setIsOwner,
   setIsLoading,
+  setNoteLike,
 } = omrReducer.actions;
 export default omrReducer.reducer;
