@@ -34,25 +34,25 @@ pipeline {
           echo "here is discovery-service"
           sh 'docker stop discovery-service || true && docker rm discovery-service || true && docker rmi discovery-image || true'
           sh 'gradle clean build -x test -b build.gradle'
-          sh 'docker build -t discovery-image'
+          sh 'docker build -t discovery-image .'
         }
         dir('./api-gateway'){
           echo "here is api-gateway"
           sh 'docker stop gateway-service || true && docker rm gateway-service || true && docker rmi gateway-image || true'
           sh 'gradle clean build -x test -b build.gradle'
-          sh 'docker build -t gateway-image'
+          sh 'docker build -t gateway-image .'
         }
         dir('./user-service'){
           echo "here is user-service"
           sh 'docker stop user-service || true && docker rm user-service || true && docker rmi user-image || true'
           sh 'gradle clean build -x test -b build.gradle'
-          sh 'docker build -t user-image'
+          sh 'docker build -t user-image .'
         }
         dir('./business'){
           echo "here is business-service"
           sh 'docker stop business-service || true && docker rm business-service || true && docker rmi business-image || true'
           sh 'gradle clean build -x test -b build.gradle'
-          sh 'docker build -t business-image'
+          sh 'docker build -t business-image .'
         }
       }
       post {
