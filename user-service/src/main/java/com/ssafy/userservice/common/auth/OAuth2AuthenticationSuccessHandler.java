@@ -46,8 +46,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String refreshToken = tokenProvider.createRefreshToken(id);
 
         redisService.setValues(id, refreshToken, Duration.ofDays(7));
-
-        String url = makeRedirectUrl(accessToken, refreshToken,email);
+        String url = makeRedirectUrl(accessToken, refreshToken,user.getCodedEmail());
         log.info(url);
         if (response.isCommitted()) {
             log.debug("응답이 이미 커밋된 상태입니다. " + url + "로 리다이렉트하도록 바꿀 수 없습니다.");
