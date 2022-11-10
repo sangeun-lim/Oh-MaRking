@@ -52,6 +52,7 @@ $cheer_section_height: 30em;
   .header {
     @include header(#{$bg}, #{$line});
   }
+
   .cheer .header {
     border: none;
     border-bottom: 3px solid #{$line};
@@ -76,6 +77,27 @@ $cheer_section_height: 30em;
   }
   .problem:nth-child(5) {
     border-bottom: 3px solid #{$line};
+  }
+  .button_left {
+    border-right: 3px solid #{$line};
+    border-radius: 20px 0px 0px 0px;
+    // border-right-color: #{$line};
+  }
+  .button_right {
+    border-radius: 0px 20px 0px 0px;
+    // border-radius: inherit;
+    
+  }
+  .active {
+    // border-radius: all.$IF_radius 0px 0px 0px;
+    background-color: #{$line};
+    // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
+  }
+  .nonactive{
+    // border-radius: 0px all.$IF_radius 0px 0px;
+    // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
+    // border-radius: inherit;
+    // background-color: #{$bg};
   }
 }
 
@@ -321,8 +343,16 @@ $cheer_section_height: 30em;
 
   // 주의사항 제목
   .top {
-    @include all.flex(row, center, center);
+    @include all.flex(row, space-around, center);
+    button {
+      width:50%;
+      height:100%;
+    }
+    // .button_left {
+    //   border-right: 2px solid black
+    // }
   }
+
   // 주의사항 내용
   .bottom {
     @include all.flex(column, space-between, center);
@@ -533,3 +563,11 @@ $cheer_section_height: 30em;
     opacity: 1;
   }
 }
+
+
+
+.buhton_flex {
+  display: flex;
+  justify-content: space-between;
+}
+

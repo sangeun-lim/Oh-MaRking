@@ -25,7 +25,9 @@ interface FavoriteList {
 
 function OMR(): JSX.Element {
   const [favoriteList, setFavoriteList] = useState<FavoriteList[]>([]);
-
+  const [notice, setNotice] = useState<boolean>(true);
+  const [btnActive, setBtnActive] = useState<boolean>(true);
+  // const [like, setLike] = useState<boolean>(false);
   const { user, omr, auth } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const colorList = [
@@ -39,7 +41,16 @@ function OMR(): JSX.Element {
     'pink',
   ];
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
-
+  const handleLike = () => {
+    // setLike(true);
+    setNotice(false);
+    setBtnActive(false);
+  };
+  const handleNotice = () => {
+    setNotice(true);
+    setBtnActive(true);
+    // setLike(false);
+  };
   const getOmr = useCallback(
     async (omrId: number) => {
       const { status, data } = auth.isLoggedIn
@@ -124,31 +135,53 @@ function OMR(): JSX.Element {
             <Info title={'이  름'} content={`${user.name}`} />
             <Info title={'필  적\n확인란'} content={user.introduction} />
             <div>
-              <div className={`${styles.header} ${styles.top}`}>주의사항</div>
+              <div className={`${styles.header} ${styles.top}`}>
+                <button
+                  className={`${styles.button_left} ${
+                    btnActive ? styles.active : styles.nonactive
+                  }`}
+                  type="button"
+                  onClick={handleNotice}
+                >
+                  주의사항
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.button_right} ${
+                    !btnActive ? styles.active : styles.nonactive
+                  }`}
+                  onClick={handleLike}
+                >
+                  Like
+                </button>
+              </div>
               <div className={`${styles.body} ${styles.bottom}`}>
                 {/* 즐겨찾기 보여주는 부분 */}
 
-                {/* <Carousel>
-                  {favoriteList.map((data) => (
-                    // <div>
-                    <Carousel.Item key={data.noteId}>
-                      <LikeList
-                        username={user.name}
-                        content={data.content}
-                        nickname={data.nickname}
-                      />
-                    </Carousel.Item>
-                    // </div>
-                  ))}
-                </Carousel>
-          */}
-                <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
-
-                <div>
-                  <div className={styles.pallet}>
-                    <Pallet colorList={colorList} />
+                {notice ? (
+                  <div>
+                    <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
+                    <div>
+                      <div className={styles.pallet}>
+                        <Pallet colorList={colorList} />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <Carousel>
+                    {favoriteList.map((data) => (
+                      // <div>
+                      <Carousel.Item key={data.noteId}>
+                        <LikeList
+                          username={user.name}
+                          content={data.content}
+                          nickname={data.nickname}
+                        />
+                      </Carousel.Item>
+                      // </div>
+                    ))}
+                  </Carousel>
+                )}
               </div>
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
