@@ -197,10 +197,6 @@ function DetailMsg(): JSX.Element {
             <div className={styles.modaltitle}>
               <Modal.Title>응원글 보기</Modal.Title>
               {note.isFavorite ? (
-                // <BsSuitHeartFill
-                //   className={styles.likeButton}
-                //   onClick={onLikeClick}
-                // />
                 <div style={{ width: '1em', height: '1em' }}>
                   <button
                     style={{ width: '100%', height: '100%' }}
@@ -286,13 +282,6 @@ function DetailMsg(): JSX.Element {
                 >
                   서술형 응원
                 </label>
-                <span
-                  style={{
-                    display: onEdit ? 'visible' : 'none',
-                  }}
-                >
-                  편집중
-                </span>
 
                 <div className={styles.body}>
                   <textarea
@@ -307,65 +296,75 @@ function DetailMsg(): JSX.Element {
                     readOnly
                   />
                   <ul style={{ margin: '0px' }}>
-                    {!omr.isOwner ? (
-                      <div>
-                        {onEdit ? (
-                          <div>
-                            <label
-                              htmlFor="pw"
-                              style={{
-                                // display: onEdit ? 'visible' : 'none',
-                                border: '1px solid black',
-                              }}
-                            >
-                              pw
-                            </label>
-                            <input
-                              id="pw"
-                              type="password"
-                              style={{
-                                // display: onEdit ? 'visible' : 'none',
-                                border: '1px solid black',
-                              }}
-                            />
-                            <button
-                              type="button"
-                              onClick={onUpdateClick}
-                              style={{
-                                // display: onEdit ? 'visible' : 'none',
-                                border: '1px solid black',
-                              }}
-                            >
-                              뒤로
-                            </button>
-                          </div>
-                        ) : null}
-                      </div>
-                    ) : (
-                      <div>
-                        <li>
+                    {onEdit ? (
+                      <li>
+                        <li
+                          style={{
+                            border: '1px solid black',
+                          }}
+                        >
+                          <label
+                            htmlFor="pw"
+                            style={{
+                              border: '1px solid black',
+                            }}
+                          >
+                            pw
+                          </label>
+                          <input
+                            id="pw"
+                            type="password"
+                            style={{
+                              border: '1px solid black',
+                            }}
+                          />
                           <button
-                            className={styles.btn_hover_border_3}
                             type="button"
                             onClick={onUpdateClick}
-                            // style={{
-                            //   display: !omr.isOwner && !onEdit ? 'visible' : 'none',
-                            // }}
+                            style={{
+                              border: '1px solid black',
+                            }}
                           >
-                            수정
+                            뒤로
                           </button>
+                          {/* <button
+                            type="button"
+                            onClick={onUpdateClick}
+                            style={{
+                              border: '1px solid black',
+                            }}
+                          >
+                            확인
+                          </button> */}
+                        </li>
+                      </li>
+                    ) : (
+                      <li>
+                        <li>
+                          {!omr.isOwner && (
+                            <button
+                              className={styles.btn_hover_border_3}
+                              type="button"
+                              onClick={onUpdateClick}
+                              // style={{
+                              //   display: !omr.isOwner && !onEdit ? 'visible' : 'none',
+                              // }}
+                            >
+                              수정
+                            </button>
+                          )}
                         </li>
                         <li>
                           <button
                             className={styles.btn_hover_border_3}
                             type="button"
                             onClick={onDeleteClick}
-                            // style={{ display: onEdit ? 'none' : 'normal' }}
+                            // style={{ display: onEdit ? 'none' : 'visible' }}
                           >
                             삭제
                           </button>
                         </li>
-                      </div>
+                      </li>
                     )}
                   </ul>
                 </div>
