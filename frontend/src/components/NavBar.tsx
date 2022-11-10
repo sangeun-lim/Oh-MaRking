@@ -22,7 +22,12 @@ function NavBar(): JSX.Element {
   };
 
   return (
-    <Navbar className={styles.navList} style={{ padding: '0px' }} expand="xxl">
+    <Navbar
+      sticky="top"
+      className={styles.navList}
+      style={{ padding: '0px' }}
+      expand="xxl"
+    >
       {/* <Container className={styles.box_container}> */}
       <div className={styles.box_container}>
         <Navbar.Brand className={styles.left} href="/">
@@ -51,16 +56,29 @@ function NavBar(): JSX.Element {
               이벤트 보러가기
             </Nav.Link>
             {!isLoggedIn ? (
-              <Nav.Link href="http://oh-marking.com:8081/oauth2/authorization/kakao">
-                <img
+              <Nav.Link
+                className={styles.nav_font}
+                href="http://oh-marking.com:8081/oauth2/authorization/kakao"
+              >
+                로그인
+                {/* <img
                   src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/kakao_login_medium_narrow.png?alt=media&token=83a37f58-dce3-4758-bfcf-1ddd7699349f"
                   alt="카카오로그인"
                   // className={styles.kakao_login}
-                />
+                /> */}
               </Nav.Link>
             ) : (
-              <div>
+              // <Nav.Link
+              //   href="/"
+              //   role="presentation"
+              //   className={styles.nav_font}
+              //   onClick={logoutRequest}
+              // >
+              //   로그아웃
+              // </Nav.Link>
+              <div className={styles.nav_font}>
                 <button type="button" onClick={logoutRequest}>
+                  {/* 로그아웃 */}
                   <FaSignOutAlt size="30" />
                 </button>
               </div>

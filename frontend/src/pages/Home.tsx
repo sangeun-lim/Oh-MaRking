@@ -3,7 +3,7 @@ import Intro from '../components/home/Intro';
 
 function Home(): JSX.Element {
   return (
-    <div>
+    <div className={styles.screen_container}>
       <Intro />
     </div>
   );

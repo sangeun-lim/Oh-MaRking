@@ -3,24 +3,69 @@ import styles from './Notice.module.scss';
 
 function Notice(): JSX.Element {
   return (
-    <div className={styles.user_text}>
-      <div className={styles.blackboard_title}>
-        <span style={{ color: 'rgb(255,153, 204)' }}>O</span>
-        <span className={styles.title_white}>H! </span>
-        <span style={{ color: 'rgb(255,153, 204)' }}>M</span>
-        <span>A</span>
-        <span style={{ color: 'rgb(255,153, 204)' }}>R</span>
-        <span>KING</span>
+    <div>
+      <div className={styles.blackboard_item}>
+        {/* <div className={styles.carousel_item}>
+        <img
+          className={styles.sm_window}
+          src="src/img/title_900x400.png"
+          alt=""
+        />
       </div>
-      <div className={styles.blackboard_content}>
-        <p>
-          응원페이지를 SNS에 공유해보세요! <br />
-          여러분들의 지인에게 응원메세지를 받아보실 수 있습니다. <br />
-          노녕과 아이들은 항상 수험생들을 응원합니다! <br />
-          {/* <br />
-          페이지를 옆으로 넘기면 예시 응원들을 보실 수 있습니다 */}
-        </p>
+      <br />
+      <div className={styles.sm_window_content}>
+        <div style={{ color: 'white' }}>
+          수험생 응원 롤링페이퍼
+          <br />
+          <span style={{ color: 'rgb(248, 254, 99)' }}>응원페이지</span>를 SNS에{' '}
+          <span style={{ color: 'rgb(0,176,240)' }}>공유</span>해보세요!
+        </div>
+      </div> */}
+        {/* <img
+        className={styles.sm_window}
+        src="src/img/content_900x400.png"
+        alt="하이요"
+      /> */}
+        <div className={styles.carousel_item}>
+          <div className={styles.carousel_img}>
+            <img
+              className={styles.lg_window}
+              src="src/img/title_1200x600.png"
+              alt=""
+            />
+          </div>
+          <br />
+          <div className={styles.lg_window_content}>
+            <div style={{ color: 'white' }}>
+              수험생 응원 롤링페이퍼
+              <br />
+              <span style={{ color: 'rgb(248, 254, 99)' }}>응원페이지</span>를
+              SNS에 <span style={{ color: 'rgb(0,176,240)' }}>공유</span>
+              해보세요!
+            </div>
+          </div>
+        </div>
+        <div className={styles.cheerup_img}>
+          <img src="src/img/Cheerup.png" alt="" />
+        </div>
       </div>
+      {/* 
+      <div className={styles.carousel_item}>
+        <img
+          className={styles.xl_window}
+          src="src/img/title_1800x800.png"
+          alt=""
+        />
+      </div>
+      <br />
+      <div className={styles.xl_window_content}>
+        <div style={{ color: 'white' }}>
+          수험생 응원 롤링페이퍼
+          <br />
+          <span style={{ color: 'rgb(248, 254, 99)' }}>응원페이지</span>를 SNS에{' '}
+          <span style={{ color: 'rgb(0,176,240)' }}>공유</span>해보세요!
+        </div>
+      </div> */}
     </div>
   );
 }
