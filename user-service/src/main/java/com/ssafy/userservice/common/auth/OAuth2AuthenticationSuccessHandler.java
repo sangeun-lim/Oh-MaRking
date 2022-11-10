@@ -61,7 +61,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         return UriComponentsBuilder.fromUriString(env.getProperty("front.url"))
                 .queryParam("accessToken", accessToken)
                 .queryParam("refreshToken", refreshToken)
-                .queryParam("codeEmail",email)
+                .queryParam("codedEmail",email)
                 .build().toUriString();
     }
 }
