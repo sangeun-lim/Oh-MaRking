@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/favicon.ico",
             /* custom oauth api */
             "/oauth2/authorization/kakao",
+            "/oauth2/authorization/code/kakao",
             "/error",
             "/logout",
             "/user/token/reissuance/*",
