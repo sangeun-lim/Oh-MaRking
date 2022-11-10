@@ -45,7 +45,6 @@ spring:
         registration:
           kakao:
             client-id: c4d316c33a36588d9c562db38a26831a
-#            redirect-uri: https://oh-marking.com/login/oauth2/code/kakao
             redirect-uri: http://oh-marking.com:8082/login/oauth2/code/kakao
 #            redirect-uri: http://127.0.0.1:8082/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
