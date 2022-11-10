@@ -92,10 +92,10 @@ public class NoteServiceImpl implements NoteService{
     public NoteGetResponseDto readNote(String authorization,Long noteId) throws IOException {
         Note note = noteRepository.findById(noteId).orElseThrow(NoteNotFoundException::new);
         Long uid= getUserId(authorization);
-        if(uid != note.getOmr().getUserid()){
-            throw  new AccessDeniedException();
+        if(uid == note.getOmr().getUserid()){
+            note.updateIsOpened(true);
         }
-        note.updateIsOpened(true);
+
         NoteGetResponseDto noteGetResponseDto=NoteGetResponseDto.builder()
                 .nickname(note.getNickname())
                 .content(note.getContent())
@@ -198,5 +198,18 @@ public class NoteServiceImpl implements NoteService{
                 .collect(Collectors.toList());
         return notes;
 
+    }
+
+    @Override
+    public NoteCheckResponseDto guestNote(Long noteId) {
+        Note note = noteRepository.findById(noteId).orElseThrow(NoteNotFoundException::new);
+        NoteCheckResponseDto noteCheckResponseDto=NoteCheckResponseDto.builder()
+                .nickname(note.getNickname())
+                .content(note.getContent())
+                .showDate(note.getShowDate())
+                .date(note.getDate())
+                .problemNum(note.getProblemNum())
+                .checkNum(note.getCheckNum()).build();
+        return noteCheckResponseDto;
     }
 }

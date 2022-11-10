@@ -25,10 +25,17 @@ public class NoteController {
 
     }
     @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/guest/{noteId}")
+    @ApiOperation(value = "응원 메시지 보기(비로그인)", notes = "메시지 정보를 반환한다.")
+    public Response<?> guestNote(@PathVariable Long noteId){
+        return new Response<>(true,200,"응원 메시지 조회 성공(비로그인)",noteService.guestNote(noteId));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/check")
-    @ApiOperation(value = "응원 메시지 보기(비로그인)", notes = "비밀번호가 일치하면 응원 메시지 정보를 반환한다.")
+    @ApiOperation(value = "노트 비밀번호 체크(비로그인)", notes = "비밀번호가 일치하면 응원 메시지 정보를 반환한다.")
     public Response<?> checkPwd(@RequestBody NoteCheckDto noteCheckDto){
-        return new Response<>(true,200,"응원 메시지 조회 성공(작성자)",noteService.checkPwd(noteCheckDto));
+        return new Response<>(true,200,"응원 메시지 비밀번호 체크 성공(작성자)",noteService.checkPwd(noteCheckDto));
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -42,9 +49,9 @@ public class NoteController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{noteId}")
-    @ApiOperation(value = "응원 메시지 보기(로그인)", notes = "토큰이 있는 사용자가 수험생일 경우 응원 메시지 정보를 반환한다.")
+    @ApiOperation(value = "응원 메시지 보기(로그인)", notes = "로그인 유저 응원 메시지 정보를 반환한다.")
     public Response<?> readNote(@RequestHeader("authorization") String authorization,@PathVariable Long noteId) throws IOException {
-        return new Response<>(true,200,"응원 메시지 조회 성공(수험생)",noteService.readNote(authorization,noteId));
+        return new Response<>(true,200,"응원 메시지 조회 성공(로그인)",noteService.readNote(authorization,noteId));
     }
 
     @ResponseStatus(HttpStatus.OK)

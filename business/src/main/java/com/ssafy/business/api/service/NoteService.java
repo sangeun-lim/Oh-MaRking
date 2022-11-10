@@ -30,4 +30,6 @@ public interface NoteService {
     void updateFavoriteNote(String authorization,NoteFavoriteDto noteFavoriteDto) throws IOException;
 
     List<FavoriteNoteDto> getFavoriteList(String authorization) throws IOException;
+
+    NoteCheckResponseDto guestNote(Long noteId);
 }
