@@ -211,10 +211,16 @@ public class OMRServiceImpl implements  OMRService{
         int[][] omrInfo=new int[20][5];
         long[][] noteInfo=new long[20][5];
         List<Note> noteList = omr.getNoteList();
+        LocalDate today = LocalDate.now();
         for(Note note:noteList){
             int r=note.getProblemNum();
             int c=note.getCheckNum();
-            omrInfo[r][c]=1;
+            LocalDate day = LocalDate.parse(note.getShowDate(), DateTimeFormatter.ISO_DATE);
+            if (day.isAfter(today)){
+                omrInfo[r][c]=3;
+            }else{
+                omrInfo[r][c]=1;
+            }
 
             noteInfo[r][c]=note.getId();
 
