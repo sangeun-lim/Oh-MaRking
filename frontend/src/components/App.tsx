@@ -19,7 +19,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (isLoggedIn) {
-      getCodedEmail();
+      // getCodedEmail();
     }
   }, [isLoggedIn, getCodedEmail]);
   return (

@@ -179,11 +179,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                     noteId={noteId}
                   />
                 ) : (
-                  <CantReadMsg
-                    pass={pass}
-                    setPass={setPass}
-                    setShow={setShow}
-                  />
+                  <CantReadMsg pass={pass} setShow={setShow} />
                 )}
               </div>
             )}
