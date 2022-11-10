@@ -111,7 +111,7 @@ public class NoteServiceImpl implements NoteService{
 
     @Override
     public Long getUserId(String authorization) throws IOException {
-        URL url=new URL(base_url+"/user/info");
+        URL url=new URL(base_url+"/info");
         HttpURLConnection connection=(HttpURLConnection)url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("GET");

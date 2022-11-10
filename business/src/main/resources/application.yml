@@ -45,5 +45,5 @@ logging:
         SQL: debug
 
 token-server:
-  url: http://oh-marking.com:8082
+  url: http://oh-marking.com:8082/user
 #  url: http://localhost:8081
