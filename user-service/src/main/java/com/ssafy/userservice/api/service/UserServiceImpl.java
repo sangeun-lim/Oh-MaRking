@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<Integer> getOMRList(Long user_id) throws IOException {
-        URL url=new URL(base_url+"/api/omr/list/"+user_id);
+        URL url=new URL(base_url+"/omr/list/"+user_id);
         HttpURLConnection connection=(HttpURLConnection)url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("GET");
