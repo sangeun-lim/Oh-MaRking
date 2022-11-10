@@ -3,11 +3,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FormEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
 import { setIsOwner, setOmr } from '../../store/omr';
+import { setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
 import type { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
@@ -17,17 +17,14 @@ interface CreateMsgProps {
   problemNum: number;
   elementNum: number;
   show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CreateMsg({
   problemNum,
   elementNum,
   show,
-  setShow,
 }: CreateMsgProps): JSX.Element {
-  const { omr, auth } = useSelector((state: RootState) => state);
-  const navigate = useNavigate();
+  const { omr, auth, modal } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const colorList = [
     'yellow',
@@ -85,7 +82,9 @@ function CreateMsg({
     });
   };
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    dispatch(setShow(false));
+  };
 
   const onChangePwd = (e: any) => {
     const { name, value } = e.target;
@@ -111,14 +110,16 @@ function CreateMsg({
       problemNum,
       checkNum: elementNum,
     };
-    // console.log(formData);
+
+    console.log(formData);
     const { status } = await OMRApi.note.createNote(formData);
     if (status === 201) {
       const { data } = await OMRApi.omr.getOmr(formData.omrId, auth.isLoggedIn);
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
-      setShow(false);
+      // setShow(false);
+      dispatch(setShow(false));
     }
   };
 

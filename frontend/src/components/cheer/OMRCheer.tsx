@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { getKey } from '../../utils/utils';
+import { setPass, setShow } from '../../store/modal';
 import CreateMsg from './CreateMsg';
-import CheckPw from './CheckPw';
 import DetailMsg from './DetailMsg';
 import CantReadMsg from './CantReadMsg';
 import type { RootState } from '../../store/store';
@@ -15,10 +14,11 @@ interface CheerProps {
 }
 
 function Cheer({ msg, start }: CheerProps): JSX.Element {
-  const { omr } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
-  const [show, setShow] = useState<boolean>(false);
-  const [pass, setPass] = useState<boolean>(false);
+  const { omr, modal } = useSelector((state: RootState) => state);
+  // const [show, setShow] = useState<boolean>(false);
+  // const [pass, setPass] = useState<boolean>(false);
   const [problemNumber, setProblemNumber] = useState<number>(0);
   const [elementNumber, setElementNumber] = useState<number>(0);
   const [isHovering, setIsHovering] = useState<boolean>(false);
@@ -30,9 +30,11 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     setElementNumber(elementNum);
     setNoteStatusInfo(omr.omrInfo[problemNum][elementNum]);
     if (noteInfoTrue) {
-      setPass(true);
+      // setPass(true);
+      dispatch(setPass(true));
     }
-    setShow(true);
+    // setShow(true);
+    dispatch(setShow(true));
   };
 
   const handleMouseOver = (problemNum: number, elementNum: number) => {
@@ -160,30 +162,20 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             )}
           </div>
         ) : null} */}
-        {show ? (
+        {modal.show ? (
           <div>
             {!noteId ? (
               <CreateMsg
                 problemNum={problemNumber}
                 elementNum={elementNumber}
-                show={show}
-                setShow={setShow}
+                show={modal.show}
               />
             ) : (
               <div>
                 {noteInfoTrue ? (
-                  <DetailMsg
-                    pass={pass}
-                    setShow={setShow}
-                    setPass={setPass}
-                    noteId={noteId}
-                  />
+                  <DetailMsg pass={modal.pass} noteId={noteId} />
                 ) : (
-                  <CantReadMsg
-                    pass={pass}
-                    setPass={setPass}
-                    setShow={setShow}
-                  />
+                  <CantReadMsg pass={modal.pass} />
                 )}
               </div>
             )}

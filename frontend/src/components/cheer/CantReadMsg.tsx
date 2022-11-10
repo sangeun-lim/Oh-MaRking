@@ -1,16 +1,17 @@
-import React, { Dispatch } from 'react';
+import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
+import { setShow } from '../../store/modal';
 
 interface Props {
-  setPass: Dispatch<React.SetStateAction<boolean>>;
-  setShow: Dispatch<React.SetStateAction<boolean>>;
   pass: boolean;
 }
 
-function CantReadMsg({ setPass, pass, setShow }: Props): JSX.Element {
+function CantReadMsg({ pass }: Props): JSX.Element {
+  const dispatch = useDispatch();
   const handleClose = () => {
     // setPass(false);
-    setShow(false);
+    // setShow(false);
+    dispatch(setShow(false));
   };
 
   return (

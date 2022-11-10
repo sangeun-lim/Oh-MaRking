@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Swal from 'sweetalert2';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
+import { setPass, setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
 import { EditNote } from '../../utils/Interface';
 import { EditDefaultNote } from '../../utils/DefaultData';
@@ -27,16 +28,16 @@ const swalWithBootstrapButtons = Swal.mixin({
 });
 
 interface Props {
-  setPass: Dispatch<React.SetStateAction<boolean>>;
-  setShow: Dispatch<React.SetStateAction<boolean>>;
   pass: boolean;
   noteId: number;
 }
 
-function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
+function DetailMsg({ pass, noteId }: Props): JSX.Element {
   const dispatch = useDispatch();
 
-  const { omr, user, auth, note } = useSelector((state: RootState) => state);
+  const { omr, user, auth, note, modal } = useSelector(
+    (state: RootState) => state
+  );
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
@@ -69,8 +70,10 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   };
 
   const handleClose = () => {
-    setPass(false);
-    setShow(false);
+    // setPass(false);
+    dispatch(setPass(false));
+    // setShow(false);
+    dispatch(setShow(false));
   };
 
   // 수정버튼누르면 비밀번호 입력창 나오게 해야되고
@@ -101,8 +104,10 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
-      setPass(false);
-      setShow(false);
+      // setPass(false);
+      dispatch(setPass(false));
+      // setShow(false);
+      dispatch(setShow(false));
 
       swalWithBootstrapButtons.fire(
         '삭제완료!',

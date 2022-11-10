@@ -173,6 +173,7 @@ function OMR(): JSX.Element {
                       // <div>
                       <Carousel.Item key={data.noteId}>
                         <LikeList
+                          noteId={data.noteId}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}

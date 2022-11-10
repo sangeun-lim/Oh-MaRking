@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { setIsOwner, setOmr } from '../../store/omr';
+import { setPass, setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
@@ -14,23 +15,14 @@ import '../../style/style.scss';
 
 interface Props {
   pass: boolean;
-  setPass: Dispatch<React.SetStateAction<boolean>>;
-  setShow: Dispatch<React.SetStateAction<boolean>>;
   formData: EditNoteData;
   noteId: number;
 }
 
-function UpdateMsg({
-  pass,
-  setPass,
-  formData,
-  noteId,
-  setShow,
-}: Props): JSX.Element {
+function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
   const dispatch = useDispatch();
 
   const { omr, user, auth } = useSelector((state: RootState) => state);
-  const { codedEmail } = user;
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
@@ -71,15 +63,19 @@ function UpdateMsg({
     dispatch(setUser(data.data.user));
     dispatch(setOmr(data.data.omr));
     dispatch(setIsOwner(data.data.isOwner));
-    setPass(false);
-    setShow(false);
+    // setPass(false);
+    dispatch(setPass(false));
+    // setShow(false);
+    dispatch(setShow(false));
     alert('응원메시지가 수정되었습니다.');
     onEditClick();
   };
 
   const handleClose = () => {
-    setPass(false);
-    setShow(false);
+    // setPass(false);
+    dispatch(setPass(false));
+    // setShow(false);
+    dispatch(setShow(false));
   };
 
   const onDeleteClick = async () => {
@@ -97,8 +93,10 @@ function UpdateMsg({
         dispatch(setOmr(data.data.omr));
         dispatch(setIsOwner(data.data.isOwner));
         // dispatch로 새로운 omrList를 가 필요할듯?
-        setPass(false);
-        setShow(false);
+        // setPass(false);
+        dispatch(setPass(false));
+        // setShow(false);
+        dispatch(setShow(false));
         alert('응원 메시지가 삭제되었습니다.');
       } catch (err) {
         console.log(err);
