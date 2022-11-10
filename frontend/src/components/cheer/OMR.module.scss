@@ -106,6 +106,9 @@ $cheer_section_height: 30em;
   text-align: center;
   font-weight: normal;
   font-size: inherit;
+  :hover {
+    cursor: url(../img/cursorRotate.png), auto;
+  }
 }
 
 // 영역별
@@ -225,7 +228,7 @@ $cheer_section_height: 30em;
 // 시험지 좌측 - 정보 구역
 .info {
   svg:hover {
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   @include all.box(34%, 100%);
