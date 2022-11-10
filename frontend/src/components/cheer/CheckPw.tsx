@@ -18,10 +18,6 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
   const [pass, setPass] = useState<boolean>(false);
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
 
-  const onChange = (e: any) => {
-    setPw(e.target.value);
-  };
-
   const checkPw = async () => {
     try {
       const response = await OMRApi.password.checkPw(noteId, pw);
@@ -35,13 +31,18 @@ function CheckPw({ show, setShow, noteId }: CheckPwProps): JSX.Element {
     }
   };
 
-  // 취소 버튼 눌렀을 때
-  const handleClose = () => setShow(false);
-
   // 확인 버튼 눌렀을 때
   const accessPw = async () => {
     await checkPw();
   };
+
+  const onChange = (e: any) => {
+    setPw(e.target.value);
+  };
+
+  // 취소 버튼 눌렀을 때
+  const handleClose = () => setShow(false);
+
   useEffect(() => {
     setPass(!show);
   }, [show]);

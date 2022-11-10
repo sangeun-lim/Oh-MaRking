@@ -8,8 +8,9 @@ import Swal from 'sweetalert2';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setUser } from '../../store/user';
-import { EditNote } from '../../utils/Interface';
-import { EditDefaultNote } from '../../utils/DefaultData';
+import { EditNote, EditNoteData } from '../../utils/Interface';
+import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
+import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
 import { heartUrl } from '../../utils/imgUrl';
@@ -39,12 +40,19 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   const { omr, user, auth, note } = useSelector((state: RootState) => state);
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
+  const [pwCheck, setPwCheck] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
+  const [pw, setPw] = useState<string>('');
+  const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
+
+  const onChange = (e: any) => {
+    setPw(e.target.value);
+  };
 
   const readMsg = async () => {
-    const response = await OMRApi.note.readUserNote(noteId);
+    // const response = await OMRApi.note.readUserNote(noteId);
     // api 추가되면 밑에껄로 변경
-    // const response = await OMRApi.note.getNote(noteId,omr.isOwner);
+    const response = await OMRApi.note.getNote(noteId, omr.isOwner);
     if (response.status === 200) {
       setEditMsg(response.data.data);
       dispatch(setNote(response.data.data));
@@ -73,11 +81,12 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
     setShow(false);
   };
 
-  // 수정버튼누르면 비밀번호 입력창 나오게 해야되고
-  // 비밀번호 입력후 버튼누르면 update 모달 뜨게해야됨
-  // 주인일때는 수정버튼 있게 주인이 아닐때는 수정버튼 없게
+  const pwCheckClose = () => {
+    setPwCheck(false);
+  };
+
   const onUpdateClick = () => {
-    console.log('수정하자');
+    setPwCheck(true);
   };
 
   const onDeleteClick = async () => {
@@ -148,6 +157,23 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   //   }
   // }
 
+  const checkPw = async () => {
+    try {
+      const response = await OMRApi.password.checkPw(noteId, pw);
+      if (response.status === 200) {
+        setFormData(response.data.data);
+        setPass(true);
+      }
+    } catch (err) {
+      setPass(false);
+      alert('비밀번호가 일치하지 않습니다.');
+    }
+  };
+
+  const accessPw = async () => {
+    await checkPw();
+  };
+
   const onLikeClick = async (e: any) => {
     e.preventDefault();
 
@@ -171,139 +197,178 @@ function DetailMsg({ setPass, pass, noteId, setShow }: Props): JSX.Element {
   ];
   return (
     <div>
-      <Modal
-        show={pass}
-        onHide={handleClose}
-        className={`${styles[colorList[omr.color]]} ${styles.test}`}
-      >
-        <Modal.Header
-          style={{ backgroundColor: '#FBFFFE', border: '0px' }}
-          closeButton
+      {pass && pwCheck ? (
+        <UpdateMsg
+          setShow={setShow}
+          pass={pass}
+          setPass={setPass}
+          noteId={noteId}
+          formData={formData}
+        />
+      ) : (
+        <Modal
+          show={pass}
+          onHide={handleClose}
+          className={`${styles[colorList[omr.color]]} ${styles.test}`}
         >
-          <div className={styles.modaltitle}>
-            <Modal.Title>응원글 보기</Modal.Title>
-            {note.isFavorite ? (
-              // <BsSuitHeartFill
-              //   className={styles.likeButton}
-              //   onClick={onLikeClick}
-              // />
-              <div style={{ width: '1em', height: '1em' }}>
-                <button
-                  style={{ width: '100%', height: '100%' }}
-                  type="button"
-                  onClick={onLikeClick}
-                >
-                  <img
+          <Modal.Header
+            style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+            closeButton
+          >
+            <div className={styles.modaltitle}>
+              <Modal.Title>응원글 보기</Modal.Title>
+              {note.isFavorite ? (
+                <div style={{ width: '1em', height: '1em' }}>
+                  <button
                     style={{ width: '100%', height: '100%' }}
-                    src={heartUrl}
-                    alt=""
-                  />
-                </button>
-              </div>
-            ) : (
-              <BsSuitHeart onClick={onLikeClick} />
-            )}
-          </div>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ width: '100%', padding: '0px' }}>
-              <Row style={{ margin: '0px' }}>
-                <div className={styles.group}>
-                  <Col>
-                    <Row>
-                      <Col className={`${styles.first_header}`}>
-                        <label className={styles.form_label} htmlFor="nickname">
-                          닉네임
-                        </label>
-                      </Col>
-                      <Col className={`${styles.header}`}>
-                        <div>
-                          <input
-                            style={{ backgroundColor: '#FBFFFE' }}
-                            name="nickname"
-                            id="nickname"
-                            type="text"
-                            value={editMsg.nickname}
-                            maxLength={10}
-                            disabled
-                          />
-                        </div>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                    <Row>
-                      <Col className={`${styles.header}`}>
-                        <label className={styles.form_label} htmlFor="opendate">
-                          공개 날짜
-                        </label>
-                      </Col>
-                      <Col className={`${styles.header}`}>
-                        <div>
-                          <input
-                            style={{ backgroundColor: '#FBFFFE' }}
-                            name="showDate"
-                            type="date"
-                            id="opendate"
-                            value={editMsg.showDate}
-                            disabled
-                          />
-                        </div>
-                      </Col>
-                    </Row>
-                  </Col>
+                    type="button"
+                    onClick={onLikeClick}
+                  >
+                    <img
+                      style={{ width: '100%', height: '100%' }}
+                      src={heartUrl}
+                      alt=""
+                    />
+                  </button>
                 </div>
-              </Row>
+              ) : (
+                <BsSuitHeart onClick={onLikeClick} />
+              )}
             </div>
-          </div>
-          <br />
-          <div>
-            <div className={`${styles.cheerHeader}`}>
-              <label
-                className={`${styles.vertical_lr} ${styles.first_header}`}
-                htmlFor="cheer-text"
-              >
-                서술형 응원
-              </label>
-
-              <div className={styles.body}>
-                <textarea
-                  name="content"
-                  placeholder="응원글을 작성해주세요."
-                  id="cheer-text"
-                  value={editMsg.content}
-                  style={{ backgroundColor: '#FBFFFE' }}
-                  cols={30}
-                  rows={5}
-                  required
-                  readOnly
-                />
-                <ul style={{ margin: '0px' }}>
-                  <li>
-                    <button
-                      className={styles.btn_hover_border_3}
-                      type="button"
-                      onClick={onUpdateClick}
-                    >
-                      수정
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className={styles.btn_hover_border_3}
-                      type="button"
-                      onClick={onDeleteClick}
-                    >
-                      삭제
-                    </button>
-                  </li>
-                </ul>
+          </Modal.Header>
+          <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ width: '100%', padding: '0px' }}>
+                <Row style={{ margin: '0px' }}>
+                  <div className={styles.group}>
+                    <Col>
+                      <Row>
+                        <Col className={`${styles.first_header}`}>
+                          <label
+                            className={styles.form_label}
+                            htmlFor="nickname"
+                          >
+                            닉네임
+                          </label>
+                        </Col>
+                        <Col className={`${styles.header}`}>
+                          <div>
+                            <input
+                              style={{ backgroundColor: '#FBFFFE' }}
+                              name="nickname"
+                              id="nickname"
+                              type="text"
+                              value={editMsg.nickname}
+                              maxLength={10}
+                              disabled
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col>
+                      <Row>
+                        <Col className={`${styles.header}`}>
+                          <label
+                            className={styles.form_label}
+                            htmlFor="opendate"
+                          >
+                            공개 날짜
+                          </label>
+                        </Col>
+                        <Col className={`${styles.header}`}>
+                          <div>
+                            <input
+                              style={{ backgroundColor: '#FBFFFE' }}
+                              name="showDate"
+                              type="date"
+                              id="opendate"
+                              value={editMsg.showDate}
+                              disabled
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </div>
+                </Row>
               </div>
             </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+            <br />
+            <div>
+              <div className={`${styles.cheerHeader}`}>
+                <label
+                  className={`${styles.vertical_lr} ${styles.first_header}`}
+                  htmlFor="cheer-text"
+                >
+                  서술형 응원
+                </label>
+
+                <div className={styles.body}>
+                  <textarea
+                    name="content"
+                    placeholder="응원글을 작성해주세요."
+                    id="cheer-text"
+                    value={editMsg.content}
+                    style={{ backgroundColor: '#FBFFFE' }}
+                    cols={30}
+                    rows={5}
+                    required
+                    readOnly
+                  />
+                  <ul style={{ margin: '0px' }}>
+                    {/* 주인이 아닐때만 수정(주인이 로그인안하고 링크로 접속했을 경우는 어쩔수 없음) */}
+                    {!omr.isOwner ? (
+                      <li>
+                        <button
+                          className={styles.btn_hover_border_3}
+                          type="button"
+                          onClick={onUpdateClick}
+                        >
+                          수정
+                        </button>
+                      </li>
+                    ) : null}
+                    <li>
+                      <button
+                        className={styles.btn_hover_border_3}
+                        type="button"
+                        onClick={onDeleteClick}
+                      >
+                        삭제
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                {pwCheck && (
+                  <div>
+                    <label htmlFor="password">비밀번호</label>
+                    <input
+                      id="password"
+                      type="password"
+                      onChange={onChange}
+                      value={pw || ''}
+                      placeholder="비밀번호를 입력해주세요."
+                    />
+                    <ul>
+                      <li>
+                        <button type="button" onClick={pwCheckClose}>
+                          취소
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" onClick={accessPw}>
+                          확인
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 }

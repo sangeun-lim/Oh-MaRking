@@ -51,7 +51,7 @@ function NavBar(): JSX.Element {
               이벤트 보러가기
             </Nav.Link>
             {!isLoggedIn ? (
-              <Nav.Link href="http://oh-marking.com:8081/oauth2/authorization/kakao">
+              <Nav.Link href="http://oh-marking.com:8082/oauth2/authorization/kakao">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/kakao_login_medium_narrow.png?alt=media&token=83a37f58-dce3-4758-bfcf-1ddd7699349f"
                   alt="카카오로그인"

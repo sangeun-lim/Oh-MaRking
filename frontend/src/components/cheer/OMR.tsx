@@ -93,7 +93,6 @@ function OMR(): JSX.Element {
       const response = await OMRApi.note.likeList();
       if (response.status === 200) {
         setFavoriteList(response.data.data);
-        // console.log(favoriteList);
       }
     };
     likeList();
@@ -176,6 +175,7 @@ function OMR(): JSX.Element {
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}
+                          noteId={data.noteId}
                         />
                       </Carousel.Item>
                       // </div>
