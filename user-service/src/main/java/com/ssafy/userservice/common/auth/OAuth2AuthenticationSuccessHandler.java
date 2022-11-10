@@ -47,7 +47,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         redisService.setValues(id, refreshToken, Duration.ofDays(7));
 
-        String url = makeRedirectUrl(accessToken, refreshToken,email);
+        String url = makeRedirectUrl(accessToken, refreshToken,user.getCodedEmail());
         log.info(url);
         log.info(response.isCommitted() ? "Commited" : "Fail");
         if (response.isCommitted()) {
@@ -55,7 +55,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             return;
         }
 
-        getRedirectStrategy().sendRedirect(request, response, user.getCodedEmail());
+        getRedirectStrategy().sendRedirect(request, response, url);
     }
 
     private String makeRedirectUrl(String accessToken, String refreshToken,String email) {
