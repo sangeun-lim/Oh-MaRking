@@ -1,16 +1,12 @@
-package com.ssafy.business.config;
+package com.ssafy.userservice.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 
 @Configuration
-//@ComponentScan
-//@EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
     @Bean
     public BeanNameViewResolver beanNameViewResolver() {
@@ -19,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
         return beanNameViewResolver;
     }
 
-    private static final String[] EXCLUDE_PATHS = {"/omr/**","/note/**","/event/**","/swagger-resources/**","/swagger-ui/**"};
+    private static final String[] EXCLUDE_PATHS = {"/user/**","/omr/**","/note/**","/event/**","/swagger-resources/**","/swagger-ui/**"};
 
 //    private JwtInterceptor jwtInterceptor;
 //    @Autowired
