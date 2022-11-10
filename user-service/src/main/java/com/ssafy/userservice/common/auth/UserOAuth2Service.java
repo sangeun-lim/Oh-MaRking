@@ -62,7 +62,7 @@ public class UserOAuth2Service extends DefaultOAuth2UserService {
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_MEMBER")), attributes, "id");
     }
     public void makeOMR(Long user_id) throws IOException {
-        URL url=new URL(base_url+"/logic/omr/"+user_id);
+        URL url=new URL(base_url+"/api/omr/"+user_id);
         HttpURLConnection connection=(HttpURLConnection)url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
