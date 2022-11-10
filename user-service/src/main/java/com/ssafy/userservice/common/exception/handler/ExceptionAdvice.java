@@ -18,7 +18,7 @@ public class ExceptionAdvice {
         return new Response<>(false, 400, e.getMessage(), null);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(TooLongIntroductionException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response<?> tooLongIntroductionException(TooLongIntroductionException e) {
         return new Response<>(false, 400, e.getMessage(), null);
