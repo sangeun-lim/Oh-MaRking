@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { setIsOwner, setOmr } from '../../store/omr';
-import { setPass, setShow } from '../../store/modal';
+import { setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
@@ -22,7 +22,7 @@ interface Props {
 function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
   const dispatch = useDispatch();
 
-  const { omr, user, auth } = useSelector((state: RootState) => state);
+  const { omr, user, auth, modal } = useSelector((state: RootState) => state);
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
@@ -64,18 +64,18 @@ function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
     dispatch(setOmr(data.data.omr));
     dispatch(setIsOwner(data.data.isOwner));
     // setPass(false);
-    dispatch(setPass(false));
+    // dispatch(setPass(false));
     // setShow(false);
-    dispatch(setShow(false));
+    dispatch(setShow());
     alert('응원메시지가 수정되었습니다.');
     onEditClick();
   };
 
   const handleClose = () => {
     // setPass(false);
-    dispatch(setPass(false));
+    // dispatch(setPass(false));
     // setShow(false);
-    dispatch(setShow(false));
+    // dispatch(setShow(false));
   };
 
   const onDeleteClick = async () => {
@@ -94,9 +94,9 @@ function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
         dispatch(setIsOwner(data.data.isOwner));
         // dispatch로 새로운 omrList를 가 필요할듯?
         // setPass(false);
-        dispatch(setPass(false));
+        // dispatch(setPass(false));
         // setShow(false);
-        dispatch(setShow(false));
+        dispatch(setShow());
         alert('응원 메시지가 삭제되었습니다.');
       } catch (err) {
         console.log(err);
@@ -118,7 +118,7 @@ function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
   return (
     <div>
       <Modal
-        show={pass}
+        show={modal.show}
         onHide={handleClose}
         className={`${styles[colorList[omr.color]]} ${styles.test}`}
       >
@@ -210,7 +210,7 @@ function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
                   <textarea
                     name="content"
                     placeholder="응원글을 작성해주세요."
-                    id="cheer-text"
+                    id="cheer-text-update"
                     onChange={onChange}
                     value={editMsg.content}
                     cols={30}

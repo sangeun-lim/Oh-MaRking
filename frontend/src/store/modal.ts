@@ -1,34 +1,59 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// interface Modal {
-//   pass: boolean;
-//   show: boolean;
-// }
+interface Cheer {
+  problemIdx: number;
+  elementIdx: number;
+}
 
 const initialState = {
-  pass: false,
   show: false,
+  create: false,
+  detail: false,
+  update: false,
+  cantread: false,
+  problemIdx: 0,
+  elementIdx: 0,
 };
 
 const modalReducer = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    setPass(state, action: PayloadAction<boolean>) {
-      state.pass = action.payload;
+    setShow: (state) => {
+      state.show = !state.show;
+      if (!state.show) {
+        state.create = false;
+        state.detail = false;
+        state.update = false;
+        state.cantread = false;
+      }
     },
-    setShow(state, action: PayloadAction<boolean>) {
-      state.show = action.payload;
+    setCreate: (state) => {
+      state.create = !state.create;
     },
-    // setPass(state) {
-    //   state.pass = !state.pass;
-    // },
-    // setShow(state) {
-    //   state.show = !state.show;
-    // },
+    setDetail: (state) => {
+      state.detail = !state.detail;
+    },
+    setUpdate: (state) => {
+      state.update = !state.update;
+    },
+    setCannotRead: (state) => {
+      state.cantread = !state.cantread;
+    },
+    setCheer(state, action: PayloadAction<Cheer>) {
+      state.problemIdx = action.payload.problemIdx;
+      state.elementIdx = action.payload.elementIdx;
+    },
   },
 });
 
-export const { setPass, setShow } = modalReducer.actions;
+export const {
+  setShow,
+  setCheer,
+  setCreate,
+  setDetail,
+  setUpdate,
+  setCannotRead,
+} = modalReducer.actions;
 export default modalReducer.reducer;

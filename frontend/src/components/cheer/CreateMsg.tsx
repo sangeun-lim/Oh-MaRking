@@ -13,19 +13,21 @@ import type { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
 
-interface CreateMsgProps {
-  problemNum: number;
-  elementNum: number;
-  show: boolean;
-}
+// interface CreateMsgProps {
+//   problemNum: number;
+//   elementNum: number;
+//   show: boolean;
+// }
 
-function CreateMsg({
-  problemNum,
-  elementNum,
-  show,
-}: CreateMsgProps): JSX.Element {
-  const { omr, auth, modal } = useSelector((state: RootState) => state);
+// function CreateMsg({
+//   problemNum,
+//   elementNum,
+//   show,
+// }: CreateMsgProps): JSX.Element {
+
+function CreateMsg(): JSX.Element {
   const dispatch = useDispatch();
+  const { omr, auth, modal } = useSelector((state: RootState) => state);
   const colorList = [
     'yellow',
     'skyblue',
@@ -83,7 +85,7 @@ function CreateMsg({
   };
 
   const handleClose = () => {
-    dispatch(setShow(false));
+    dispatch(setShow());
   };
 
   const onChangePwd = (e: any) => {
@@ -107,11 +109,10 @@ function CreateMsg({
       content: newNote.content,
       pwd: pwd.password1,
       showDate: newNote.showDate,
-      problemNum,
-      checkNum: elementNum,
+      problemNum: modal.problemIdx,
+      checkNum: modal.elementIdx,
     };
 
-    console.log(formData);
     const { status } = await OMRApi.note.createNote(formData);
     if (status === 201) {
       const { data } = await OMRApi.omr.getOmr(formData.omrId, auth.isLoggedIn);
@@ -119,201 +120,205 @@ function CreateMsg({
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
       // setShow(false);
-      dispatch(setShow(false));
+      dispatch(setShow());
     }
   };
 
+  console.log('작성 컴포넌트');
   return (
     <div>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        className={`${styles[colorList[omr.color]]} ${styles.test}`}
-      >
-        <Modal.Header
-          style={{ backgroundColor: '#FBFFFE', border: '0px' }}
-          closeButton
+      {modal.show && modal.create ? (
+        // {a.map(() => console.log(modal.
+        <Modal
+          show={modal.show}
+          onHide={handleClose}
+          className={`${styles[colorList[omr.color]]} ${styles.test}`}
         >
-          <Modal.Title>응원글 작성</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
-          <form onSubmit={handleOnSubmit}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: '100%', padding: '0px' }}>
-                <Row style={{ margin: '0px' }}>
-                  {/* <div className={styles.group}> */}
-                  <div className={styles.group}>
-                    <Col>
-                      <Row>
-                        <Col
-                          className={`${styles.first_header} ${styles.bottom_header}`}
-                        >
-                          <label
-                            className={`${styles.form_label}`}
-                            htmlFor="nickname"
+          <Modal.Header
+            style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+            closeButton
+          >
+            <Modal.Title>응원글 작성</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
+            <form onSubmit={handleOnSubmit}>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ width: '100%', padding: '0px' }}>
+                  <Row style={{ margin: '0px' }}>
+                    {/* <div className={styles.group}> */}
+                    <div className={styles.group}>
+                      <Col>
+                        <Row>
+                          <Col
+                            className={`${styles.first_header} ${styles.bottom_header}`}
                           >
-                            닉네임
-                          </label>
-                        </Col>
-                        <Col
-                          className={`${styles.header} ${styles.bottom_header}`}
-                        >
-                          <div>
-                            <input
-                              style={{ backgroundColor: '#FBFFFE' }}
-                              name="nickname"
-                              id="nickname"
-                              type="text"
-                              placeholder="닉네임을 입력해주세요."
-                              onChange={onChangeData}
-                              maxLength={10}
-                              required
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col>
-                      <Row>
-                        <Col
-                          className={`${styles.header} ${styles.bottom_header}`}
-                        >
-                          <label
-                            className={styles.form_label}
-                            htmlFor="showDate"
+                            <label
+                              className={`${styles.form_label}`}
+                              htmlFor="nickname"
+                            >
+                              닉네임
+                            </label>
+                          </Col>
+                          <Col
+                            className={`${styles.header} ${styles.bottom_header}`}
                           >
-                            공개 날짜
-                          </label>
-                        </Col>
-                        <Col
-                          className={`${styles.header} ${styles.bottom_header}`}
-                        >
-                          <div>
-                            <input
-                              style={{ backgroundColor: '#FBFFFE' }}
-                              type="date"
-                              name="showDate"
-                              id="showDate"
-                              // value={newNote.showDate}
-                              onChange={onChangeData}
-                              required
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </div>
-                </Row>
+                            <div>
+                              <input
+                                style={{ backgroundColor: '#FBFFFE' }}
+                                name="nickname"
+                                id="nickname"
+                                type="text"
+                                placeholder="닉네임을 입력해주세요."
+                                onChange={onChangeData}
+                                maxLength={10}
+                                required
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col>
+                        <Row>
+                          <Col
+                            className={`${styles.header} ${styles.bottom_header}`}
+                          >
+                            <label
+                              className={styles.form_label}
+                              htmlFor="showDate"
+                            >
+                              공개 날짜
+                            </label>
+                          </Col>
+                          <Col
+                            className={`${styles.header} ${styles.bottom_header}`}
+                          >
+                            <div>
+                              <input
+                                style={{ backgroundColor: '#FBFFFE' }}
+                                type="date"
+                                name="showDate"
+                                id="showDate"
+                                // value={newNote.showDate}
+                                onChange={onChangeData}
+                                required
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </div>
+                  </Row>
 
-                <Row style={{ margin: '0px' }}>
-                  <div className={styles.group}>
-                    <Col>
-                      <Row>
-                        <Col className={styles.first_header}>
-                          <label
-                            className={styles.form_label}
-                            htmlFor="password"
-                          >
-                            비밀번호
-                          </label>
-                        </Col>
-                        <Col className={styles.header}>
-                          <div>
-                            <input
-                              style={{ backgroundColor: '#FBFFFE' }}
-                              name="password1"
-                              id="password"
-                              type="password"
-                              placeholder="비밀번호를 입력해주세요."
-                              value={pwd.password1}
-                              onChange={onChangePwd}
-                              required
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col>
-                      <Row>
-                        <Col className={styles.header}>
-                          <label
-                            className={styles.form_label}
-                            htmlFor="password-check"
-                          >
-                            비밀번호 확인
-                          </label>
-                        </Col>
-                        <Col className={styles.header}>
-                          <div>
-                            <input
-                              style={{ backgroundColor: '#FBFFFE' }}
-                              name="password2"
-                              id="password-check"
-                              type="password"
-                              placeholder="동일한 비밀번호를 입력하세요."
-                              value={pwd.password2}
-                              onChange={onChangePwd}
-                              required
-                              // value={newNote.password2}
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </div>
-                </Row>
-              </div>
-            </div>
-            {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null}
-
-            <br />
-            {/* <div className={`${styles.cheer_box}`}> */}
-            <div>
-              <div className={`${styles.cheerHeader}`}>
-                <label
-                  className={`${styles.vertical_lr} ${styles.first_header}`}
-                  htmlFor="cheer-text"
-                >
-                  서술형 응원
-                </label>
-                <div className={styles.body}>
-                  <textarea
-                    placeholder="응원글을 작성해주세요."
-                    name="content"
-                    id="cheer-text"
-                    onChange={onChangeData}
-                    style={{ backgroundColor: '#FBFFFE' }}
-                    cols={30}
-                    rows={5}
-                    required
-                  />
-                  <ul style={{ margin: '0px' }}>
-                    <li>
-                      <button
-                        className={styles.btn_hover_border_3}
-                        type="submit"
-                        disabled={disable}
-                        // value="응원하기"
-                      >
-                        응원하기
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className={styles.btn_hover_border_3}
-                        type="button"
-                        onClick={handleClose}
-                      >
-                        응원취소
-                      </button>
-                    </li>
-                  </ul>
+                  <Row style={{ margin: '0px' }}>
+                    <div className={styles.group}>
+                      <Col>
+                        <Row>
+                          <Col className={styles.first_header}>
+                            <label
+                              className={styles.form_label}
+                              htmlFor="password"
+                            >
+                              비밀번호
+                            </label>
+                          </Col>
+                          <Col className={styles.header}>
+                            <div>
+                              <input
+                                style={{ backgroundColor: '#FBFFFE' }}
+                                name="password1"
+                                id="password"
+                                type="password"
+                                placeholder="비밀번호를 입력해주세요."
+                                value={pwd.password1}
+                                onChange={onChangePwd}
+                                required
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col>
+                        <Row>
+                          <Col className={styles.header}>
+                            <label
+                              className={styles.form_label}
+                              htmlFor="password-check"
+                            >
+                              비밀번호 확인
+                            </label>
+                          </Col>
+                          <Col className={styles.header}>
+                            <div>
+                              <input
+                                style={{ backgroundColor: '#FBFFFE' }}
+                                name="password2"
+                                id="password-check"
+                                type="password"
+                                placeholder="동일한 비밀번호를 입력하세요."
+                                value={pwd.password2}
+                                onChange={onChangePwd}
+                                required
+                                // value={newNote.password2}
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </div>
+                  </Row>
                 </div>
               </div>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
+              {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null}
+
+              <br />
+              {/* <div className={`${styles.cheer_box}`}> */}
+              <div>
+                <div className={`${styles.cheerHeader}`}>
+                  <label
+                    className={`${styles.vertical_lr} ${styles.first_header}`}
+                    htmlFor="cheer-text"
+                  >
+                    서술형 응원
+                  </label>
+                  <div className={styles.body}>
+                    <textarea
+                      placeholder="응원글을 작성해주세요."
+                      name="content"
+                      id="cheer-text"
+                      onChange={onChangeData}
+                      style={{ backgroundColor: '#FBFFFE' }}
+                      cols={30}
+                      rows={5}
+                      required
+                    />
+                    <ul style={{ margin: '0px' }}>
+                      <li>
+                        <button
+                          className={styles.btn_hover_border_3}
+                          type="submit"
+                          disabled={disable}
+                          // value="응원하기"
+                        >
+                          응원하기
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className={styles.btn_hover_border_3}
+                          type="button"
+                          onClick={handleClose}
+                        >
+                          응원취소
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </Modal.Body>
+        </Modal>
+      ) : null}
     </div>
   );
 }

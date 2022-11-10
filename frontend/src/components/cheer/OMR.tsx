@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
+import CreateMsg from './CreateMsg';
+import DetailMsg from './DetailMsg';
+import UpdateMsg from './UpdateMsg';
+import CantReadMsg from './CantReadMsg';
 import Search from './Search';
 import Cheer from './OMRCheer';
 import Info from './OMRInfo';
@@ -28,7 +32,7 @@ function OMR(): JSX.Element {
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
   // const [like, setLike] = useState<boolean>(false);
-  const { user, omr, auth } = useSelector((state: RootState) => state);
+  const { user, omr, auth, modal } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const colorList = [
     'yellow',
@@ -173,7 +177,7 @@ function OMR(): JSX.Element {
                       // <div>
                       <Carousel.Item key={data.noteId}>
                         <LikeList
-                          noteId={data.noteId}
+                          // noteId={data.noteId}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}
@@ -207,6 +211,11 @@ function OMR(): JSX.Element {
         </div>
         <div className={styles.omr_footer} />
         <Code />
+      </div>
+      <div>
+        {modal.create && <CreateMsg />}
+        {modal.detail && <DetailMsg />}
+        {modal.cantread && <CantReadMsg />}
       </div>
     </div>
   );

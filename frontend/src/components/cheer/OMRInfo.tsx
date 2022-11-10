@@ -34,9 +34,11 @@ function Info({ title, content }: InfoProps): JSX.Element {
   };
 
   const switchIsEdting = useCallback(() => {
+    console.log('현재상태', isEdting);
     setIsEdting((state) => !state);
+    console.log('후상태', isEdting);
     setText(content);
-  }, [content]);
+  }, [content, isEdting]);
 
   const getContent = () => {
     switch (title.replaceAll(/\s/g, '')) {
