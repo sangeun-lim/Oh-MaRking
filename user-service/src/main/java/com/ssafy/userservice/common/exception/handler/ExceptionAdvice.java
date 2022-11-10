@@ -2,6 +2,7 @@ package com.ssafy.userservice.common.exception.handler;
 
 import com.ssafy.userservice.common.exception.AccessDeniedException;
 import com.ssafy.userservice.common.exception.TokenNotFoundException;
+import com.ssafy.userservice.common.exception.TooLongIntroductionException;
 import com.ssafy.userservice.common.exception.UserNotFoundException;
 import com.ssafy.userservice.common.model.Response;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,12 @@ public class ExceptionAdvice {
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response<?> userNotFoundException(UserNotFoundException e) {
+        return new Response<>(false, 400, e.getMessage(), null);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response<?> tooLongIntroductionException(TooLongIntroductionException e) {
         return new Response<>(false, 400, e.getMessage(), null);
     }
 

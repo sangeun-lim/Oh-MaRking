@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.userservice.api.request.UserUpdateDto;
 import com.ssafy.userservice.api.response.*;
+import com.ssafy.userservice.common.exception.TooLongIntroductionException;
 import com.ssafy.userservice.common.exception.UserNotFoundException;
 import com.ssafy.userservice.common.util.RedisService;
 import com.ssafy.userservice.common.util.TokenProvider;
@@ -37,6 +38,9 @@ public class UserServiceImpl implements UserService {
     public void updateUser(String accessToken, UserUpdateDto userUpdateDto) {
         String uid = tokenProvider.getUserId(accessToken);
         User user = userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
+        if(userUpdateDto.getIntroduction().length() >20){
+            throw new TooLongIntroductionException("자기소개가 너무 길면 사람들이 싫어해요~ 20자 이하로 줄여봐요~");
+        }
 
         user.updateUser(userUpdateDto);
     }
