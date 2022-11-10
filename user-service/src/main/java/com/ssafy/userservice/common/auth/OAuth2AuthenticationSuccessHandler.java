@@ -46,7 +46,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String refreshToken = tokenProvider.createRefreshToken(id);
 
         redisService.setValues(id, refreshToken, Duration.ofDays(7));
-        String url = makeRedirectUrl(accessToken, refreshToken,user.getCodedEmail());
+
+        String url = makeRedirectUrl(accessToken, refreshToken,email);
         log.info(url);
         log.info(response.isCommitted() ? "Commited" : "Fail");
         if (response.isCommitted()) {
