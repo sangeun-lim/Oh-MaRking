@@ -86,14 +86,13 @@ $cheer_section_height: 30em;
   .button_right {
     border-radius: 0px 20px 0px 0px;
     // border-radius: inherit;
-    
   }
   .active {
     // border-radius: all.$IF_radius 0px 0px 0px;
     background-color: #{$line};
     // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
   }
-  .nonactive{
+  .nonactive {
     // border-radius: 0px all.$IF_radius 0px 0px;
     // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
     // border-radius: inherit;
@@ -216,6 +215,7 @@ $cheer_section_height: 30em;
   .omr_head {
     @include all.flex(row, flex-end, center);
     height: 60px;
+    margin-right: 50px;
     .header {
       border-radius: all.$IF_radius;
       font-size: 24px;
@@ -345,8 +345,8 @@ $cheer_section_height: 30em;
   .top {
     @include all.flex(row, space-around, center);
     button {
-      width:50%;
-      height:100%;
+      width: 50%;
+      height: 100%;
     }
     // .button_left {
     //   border-right: 2px solid black
@@ -564,10 +564,7 @@ $cheer_section_height: 30em;
   }
 }
 
-
-
 .buhton_flex {
   display: flex;
   justify-content: space-between;
 }
-

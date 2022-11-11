@@ -116,9 +116,6 @@ function OMR(): JSX.Element {
           >
             답안지 교체
           </button>
-          <div className={styles.header}>
-            <Search />
-          </div>
         </div>
         {/* OMR BODY */}
         <div className={styles.omr_body}>
