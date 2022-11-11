@@ -31,7 +31,7 @@ public class OMRController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/{omrId}")
     @ApiOperation(value = "OMR 조회(로그인 유저)", notes = "로그인 유저가 OMR 카드를 조회했을 때 정보를 반환한다.")
-    public Response<?> getOMR(@RequestHeader("authorization") String authorization,@PathVariable long omrId) throws IOException {
+    public Response<?> getOMR(@RequestHeader("Authorization") String authorization,@PathVariable long omrId) throws IOException {
         return new Response<>(true,200,"링크 주인 OMR 정보 조회 성공",omrService.getOMRByOMRIdAndToken(authorization,omrId));
     }
 
@@ -60,7 +60,7 @@ public class OMRController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/color")
     @ApiOperation(value = "OMR 색상 변경", notes = "OMR 카드의 색상을 변경한다.")
-    public JsonDto changeColor(@RequestHeader("authorization") String authorization, @RequestBody OMRUpdateDto omrUpdateDto) throws IOException {
+    public JsonDto changeColor(@RequestHeader("Authorization") String authorization, @RequestBody OMRUpdateDto omrUpdateDto) throws IOException {
         System.out.println("changeColor");
         omrService.changeColor(authorization, omrUpdateDto);
         return new JsonDto(true, 202, "OMR 색상 변경 성공");

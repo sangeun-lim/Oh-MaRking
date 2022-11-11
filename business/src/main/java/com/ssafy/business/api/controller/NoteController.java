@@ -50,7 +50,7 @@ public class NoteController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{noteId}")
     @ApiOperation(value = "응원 메시지 보기(로그인)", notes = "로그인 유저 응원 메시지 정보를 반환한다.")
-    public Response<?> readNote(@RequestHeader("authorization") String authorization,@PathVariable Long noteId) throws IOException {
+    public Response<?> readNote(@RequestHeader("Authorization") String authorization,@PathVariable Long noteId) throws IOException {
         return new Response<>(true,200,"응원 메시지 조회 성공(로그인)",noteService.readNote(authorization,noteId));
     }
 
@@ -71,7 +71,7 @@ public class NoteController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/favorite")
     @ApiOperation(value = "응원 메시지 즐겨찾기", notes = "응원 메시지를 즐겨찾기 등록/취소한다.")
-    public JsonDto updateFavoriteNote(@RequestHeader("authorization") String authorization,@RequestBody NoteFavoriteDto noteFavoriteDto) throws IOException {
+    public JsonDto updateFavoriteNote(@RequestHeader("Authorization") String authorization,@RequestBody NoteFavoriteDto noteFavoriteDto) throws IOException {
         noteService.updateFavoriteNote(authorization,noteFavoriteDto);
         return new JsonDto(true, 202, "응원 메시지 즐겨찾기 등록/해제 성공");
 
@@ -80,7 +80,7 @@ public class NoteController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/favorites")
     @ApiOperation(value = "즐겨찾기 목록 조회", notes = "즐겨찾기한 응원 메시지들의 리스트를 반환한다.")
-    public Response<?> updateFavoriteNote(@RequestHeader("authorization") String authorization) throws IOException {
+    public Response<?> updateFavoriteNote(@RequestHeader("Authorization") String authorization) throws IOException {
         return new Response<>(true, 200, "즐겨찾기 목록 조회 성공",noteService.getFavoriteList(authorization));
 
     }

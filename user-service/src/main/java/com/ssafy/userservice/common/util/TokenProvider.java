@@ -78,6 +78,7 @@ public class TokenProvider implements InitializingBean {
 
     public String getUserId(String token) {
         try {
+            System.out.println("TokenProvider.getUserId token : "+token);
             if (token == null || token.isEmpty()) {
                 throw new TokenNotFoundException();
             }

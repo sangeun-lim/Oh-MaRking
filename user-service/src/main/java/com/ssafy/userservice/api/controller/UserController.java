@@ -28,14 +28,14 @@ public class UserController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping
     @ApiOperation(value = "수험생 정보 수정", notes = "수험생 자기소개를 수정한다.")
-    public Response<?> updateUser(@RequestHeader("authorization") String authorization, @RequestBody UserUpdateDto userUpdateDto) {
+    public Response<?> updateUser(@RequestHeader("Authorization") String authorization, @RequestBody UserUpdateDto userUpdateDto) {
         userService.updateUser(authorization.replace("Bearer ", ""), userUpdateDto);
         return new Response<>(true, 202, "수험생 정보 수정 성공", null);
     }
     @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/reissuance/{refreshToken}")
     @ApiOperation(value = "토큰 재발급", notes = "만료된 JWT accessToken을 재발급한다.")
-    public ResponseEntity<TokenResponseDto> reIssue(@RequestHeader("authorization") String authorization,
+    public ResponseEntity<TokenResponseDto> reIssue(@RequestHeader("Authorization") String authorization,
                                                     @PathVariable String refreshToken) {
         return new ResponseEntity<>(userService.reIssue(authorization.replace("Bearer ", ""),
                 refreshToken), HttpStatus.CREATED);
@@ -43,14 +43,14 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/info")
     @ApiOperation(value = "토큰으로 유저 아이디 조회", notes = "토큰으로 유저 아이디를 조회한다. (비지니스 서버용)")
-    public Response<?> getUserByToken(@RequestHeader("authorization") String authorization){
+    public Response<?> getUserByToken(@RequestHeader("Authorization") String authorization){
         return new Response<>(true,200,"토큰으로 수험생 id 조회 성공",userService.getUserID(authorization.replace("Bearer ", "")));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/email")
     @ApiOperation(value = "암호화 된 이메일 조회", notes = "토큰으로 암호화 된 이메일 정보를 조회한다.")
-    public Response<?> getUserEmailByToken(@RequestHeader("authorization") String authorization){
+    public Response<?> getUserEmailByToken(@RequestHeader("Authorization") String authorization){
         return new Response<>(true,200,"암호화 된 이메일 조회 성공",userService.getUserEmailByToken(authorization.replace("Bearer ", "")));
     }
     @ResponseStatus(HttpStatus.OK)

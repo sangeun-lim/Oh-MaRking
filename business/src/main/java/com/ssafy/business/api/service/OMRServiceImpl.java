@@ -87,10 +87,12 @@ public class OMRServiceImpl implements  OMRService{
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type","apllication/json; utf-8");
         connection.setRequestProperty("Authorization",authorization);
+        System.out.println("getUserId authorization : "+authorization);
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(br);
         Long login_id=Long.parseLong(root.get("data").get("id").toString());
+        System.out.println("getUserId login_id: "+login_id);
 
 
 
