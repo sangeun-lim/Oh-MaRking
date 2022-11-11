@@ -1,6 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+// import React from 'react';
 // import { BsClipboardCheck, BsBackspace } from 'react-icons/bs';
-import { useSelector, useDispatch } from 'react-redux';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import { useSelector } from 'react-redux';
 import LinkCopy from './LinkCopy';
 import type { RootState } from '../../store/store';
 import styles from './UseNotice.module.scss';
@@ -20,34 +23,58 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
           &#8251; <LinkCopy />
           버튼을 눌러 지인들에게 응원받아보세요.
           <br />
-          &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, 새로운 답안지를 받을
-          수 있습니다.
+          &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, <br />
+          새로운 답안지를 받을 수 있습니다.
+          <br />
           <br />
           &#8251; 표기 안내
           <br />
-          <div className={styles.rules}>
-            <div className={styles.nubi}>
-              <span className={`${styles[omrBg[0]]}`}>{''}</span>
-              <span className={styles.noticetext}>작성 가능한 칸입니다.</span>
+          <Container>
+            <div className={styles.rules}>
+              <Row>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[0]]}`}>{''}</span>
+                    <span className={styles.noticetext}>
+                      {''}작성 가능한 칸
+                    </span>
+                  </div>
+                </Col>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                    <span className={styles.noticetext}>{''}이미 읽은 칸</span>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[2]]}`}>{''}</span>
+                    <span className={styles.noticetext}>
+                      {''}아직 안 읽은 칸
+                    </span>
+                  </div>
+                </Col>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[3]]}`}>{''}</span>
+                    <span className={styles.noticetext}>
+                      {''}공개되지 않은 칸
+                    </span>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[4]]}`}>{''}</span>
+                    <span className={styles.noticetext}>{''}좋아요한 칸</span>
+                  </div>
+                </Col>
+              </Row>
             </div>
-            <div className={styles.nubi}>
-              <span className={`${styles[omrBg[1]]}`}>{''}</span>
-              <span>이미 읽은 칸입니다.</span>
-            </div>
-            <div className={styles.nubi}>
-              <span className={`${styles[omrBg[2]]}`}>{''}</span>
-              <span>아직 안 읽은 칸입니다.</span>
-            </div>
-            <div className={styles.nubi}>
-              <span className={`${styles[omrBg[3]]}`}>{''}</span>
-              <span>아직 읽을 수 없는 칸입니다.</span>
-            </div>
-            <div className={styles.nubi}>
-              <span className={`${styles[omrBg[4]]}`}>{''}</span>
-              <span>좋아요한 칸입니다.</span>
-            </div>
-          </div>
-          <br />
+          </Container>
         </div>
       ) : (
         <div>
