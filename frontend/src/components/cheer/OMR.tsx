@@ -6,7 +6,6 @@ import { setIsOwner, setOmr } from '../../store/omr';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
 import CantReadMsg from './CantReadMsg';
-import Search from './Search';
 import Cheer from './OMRCheer';
 import Info from './OMRInfo';
 import Pallet from './OMRPallet';
@@ -111,9 +110,6 @@ function OMR(): JSX.Element {
           >
             답안지 교체
           </button>
-          <div className={styles.header}>
-            <Search />
-          </div>
         </div>
         {/* OMR BODY */}
         <div className={styles.omr_body}>
