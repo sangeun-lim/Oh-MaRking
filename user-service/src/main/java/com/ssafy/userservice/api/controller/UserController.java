@@ -55,7 +55,7 @@ public class UserController {
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{user_id}")
-    @ApiOperation(value = "유저 정봊 ㅗ회", notes = "user id로 수험생 정보를 조회한다 (예비용)")
+    @ApiOperation(value = "유저 정보 조회", notes = "user id로 수험생 정보를 조회한다 (예비용)")
     public Response<?> getUserById(@PathVariable("user_id") Long user_id){
         return new Response<>(true,200,"수험생 id로 수험생 정보 조회 성공",userService.getUserInfoByUserid(user_id));
     }
