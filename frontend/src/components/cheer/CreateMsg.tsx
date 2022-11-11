@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
@@ -12,18 +12,6 @@ import { setUser } from '../../store/user';
 import type { RootState } from '../../store/store';
 import styles from './CreateMsg.module.scss';
 import '../../style/style.scss';
-
-// interface CreateMsgProps {
-//   problemNum: number;
-//   elementNum: number;
-//   show: boolean;
-// }
-
-// function CreateMsg({
-//   problemNum,
-//   elementNum,
-//   show,
-// }: CreateMsgProps): JSX.Element {
 
 function CreateMsg(): JSX.Element {
   const dispatch = useDispatch();
@@ -119,16 +107,13 @@ function CreateMsg(): JSX.Element {
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
-      // setShow(false);
       dispatch(setShow());
     }
   };
 
-  console.log('작성 컴포넌트');
   return (
     <div>
       {modal.show && modal.create ? (
-        // {a.map(() => console.log(modal.
         <Modal
           show={modal.show}
           onHide={handleClose}
@@ -145,7 +130,6 @@ function CreateMsg(): JSX.Element {
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div style={{ width: '100%', padding: '0px' }}>
                   <Row style={{ margin: '0px' }}>
-                    {/* <div className={styles.group}> */}
                     <div className={styles.group}>
                       <Col>
                         <Row>
@@ -198,6 +182,7 @@ function CreateMsg(): JSX.Element {
                                 type="date"
                                 name="showDate"
                                 id="showDate"
+                                // 오늘날짜 기본으로
                                 // value={newNote.showDate}
                                 onChange={onChangeData}
                                 required
@@ -258,7 +243,6 @@ function CreateMsg(): JSX.Element {
                                 value={pwd.password2}
                                 onChange={onChangePwd}
                                 required
-                                // value={newNote.password2}
                               />
                             </div>
                           </Col>
@@ -271,7 +255,6 @@ function CreateMsg(): JSX.Element {
               {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null}
 
               <br />
-              {/* <div className={`${styles.cheer_box}`}> */}
               <div>
                 <div className={`${styles.cheerHeader}`}>
                   <label
@@ -297,7 +280,6 @@ function CreateMsg(): JSX.Element {
                           className={styles.btn_hover_border_3}
                           type="submit"
                           disabled={disable}
-                          // value="응원하기"
                         >
                           응원하기
                         </button>

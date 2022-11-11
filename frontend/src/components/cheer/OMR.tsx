@@ -5,7 +5,6 @@ import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
-import UpdateMsg from './UpdateMsg';
 import CantReadMsg from './CantReadMsg';
 import Search from './Search';
 import Cheer from './OMRCheer';
@@ -31,7 +30,6 @@ function OMR(): JSX.Element {
   const [favoriteList, setFavoriteList] = useState<FavoriteList[]>([]);
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  // const [like, setLike] = useState<boolean>(false);
   const { user, omr, auth, modal } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const colorList = [
@@ -46,14 +44,12 @@ function OMR(): JSX.Element {
   ];
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
   const handleLike = () => {
-    // setLike(true);
     setNotice(false);
     setBtnActive(false);
   };
   const handleNotice = () => {
     setNotice(true);
     setBtnActive(true);
-    // setLike(false);
   };
   const getOmr = useCallback(
     async (omrId: number) => {
@@ -97,7 +93,6 @@ function OMR(): JSX.Element {
       const response = await OMRApi.note.likeList();
       if (response.status === 200) {
         setFavoriteList(response.data.data);
-        // console.log(favoriteList);
       }
     };
     likeList();
@@ -174,16 +169,14 @@ function OMR(): JSX.Element {
                 ) : (
                   <Carousel>
                     {favoriteList.map((data) => (
-                      // <div>
                       <Carousel.Item key={data.noteId}>
                         <LikeList
-                          // noteId={data.noteId}
+                          noteId={data.noteId}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}
                         />
                       </Carousel.Item>
-                      // </div>
                     ))}
                   </Carousel>
                 )}
@@ -215,7 +208,7 @@ function OMR(): JSX.Element {
       <div>
         {modal.create && <CreateMsg />}
         {modal.detail && <DetailMsg />}
-        {modal.cantread && <CantReadMsg />}
+        {modal.canNotRead && <CantReadMsg />}
       </div>
     </div>
   );

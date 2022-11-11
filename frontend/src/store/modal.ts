@@ -11,7 +11,7 @@ const initialState = {
   create: false,
   detail: false,
   update: false,
-  cantread: false,
+  canNotRead: false,
   problemIdx: 0,
   elementIdx: 0,
 };
@@ -26,7 +26,7 @@ const modalReducer = createSlice({
         state.create = false;
         state.detail = false;
         state.update = false;
-        state.cantread = false;
+        state.canNotRead = false;
       }
     },
     setCreate: (state) => {
@@ -39,7 +39,7 @@ const modalReducer = createSlice({
       state.update = !state.update;
     },
     setCannotRead: (state) => {
-      state.cantread = !state.cantread;
+      state.canNotRead = !state.canNotRead;
     },
     setCheer(state, action: PayloadAction<Cheer>) {
       state.problemIdx = action.payload.problemIdx;

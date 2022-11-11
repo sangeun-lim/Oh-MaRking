@@ -4,7 +4,6 @@ import Home from '../pages/Home';
 import CheerPage from '../pages/CheerPage';
 import EventPage from '../pages/EventPage';
 import Error from '../pages/Error';
-import TotalArticlePage from '../pages/TotalArticlePage';
 import NavBar from './NavBar';
 import CallBack from '../pages/CallBack';
 
@@ -16,7 +15,6 @@ function Router(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path="/cheer/:codedEmail" element={<CheerPage />} />
         <Route path="/event" element={<EventPage />} />
-        <Route path="/article/:codedEmail" element={<TotalArticlePage />} />
         <Route path="/callback" element={<CallBack />} />
         <Route path="*" element={<Error />} />
       </Routes>
