@@ -32,6 +32,7 @@ public class OMRController {
     @GetMapping("/user/{omrId}")
     @ApiOperation(value = "OMR 조회(로그인 유저)", notes = "로그인 유저가 OMR 카드를 조회했을 때 정보를 반환한다.")
     public Response<?> getOMR(@RequestHeader("Authorization") String authorization,@PathVariable long omrId) throws IOException {
+        System.out.println("getOMR , Authorization : "+authorization);
         return new Response<>(true,200,"링크 주인 OMR 정보 조회 성공",omrService.getOMRByOMRIdAndToken(authorization,omrId));
     }
 
