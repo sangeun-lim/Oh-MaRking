@@ -79,10 +79,14 @@ function OMR(): JSX.Element {
       pageNum: newPage,
       userId: user.userId,
     };
-    const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
-    if (status === 201) {
-      alert('새로운 페이지가 추가되었습니다.');
-      dispatch(addOmr(data.data.omrId));
+    try {
+      const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
+      if (status === 201) {
+        alert('새로운 페이지가 추가되었습니다.');
+        dispatch(addOmr(data.data.omrId));
+      }
+    } catch {
+      alert('20개 이상의 문항을 작성해야합니다.');
     }
   }, [user.userId, user.omrList, dispatch]);
 
