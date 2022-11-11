@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
         return beanNameViewResolver;
     }
 
-    private static final String[] EXCLUDE_PATHS = {"/omr/**","/note/**","/event/**","/swagger-resources/**","/swagger-ui/**"};
+    private static final String[] EXCLUDE_PATHS = {"/logic/omr/**","/logic/note/**","/logic/event/**","/swagger-resources/**","/swagger-ui/**"};
 
 //    private JwtInterceptor jwtInterceptor;
 //    @Autowired
