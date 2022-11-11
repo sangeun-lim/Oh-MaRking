@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
-import Search from './Search';
+import CreateMsg from './CreateMsg';
+import DetailMsg from './DetailMsg';
+import CantReadMsg from './CantReadMsg';
 import Cheer from './OMRCheer';
 import Info from './OMRInfo';
 import Pallet from './OMRPallet';
@@ -27,8 +29,7 @@ function OMR(): JSX.Element {
   const [favoriteList, setFavoriteList] = useState<FavoriteList[]>([]);
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  // const [like, setLike] = useState<boolean>(false);
-  const { user, omr, auth } = useSelector((state: RootState) => state);
+  const { user, omr, auth, modal } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const colorList = [
     'yellow',
@@ -42,14 +43,12 @@ function OMR(): JSX.Element {
   ];
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
   const handleLike = () => {
-    // setLike(true);
     setNotice(false);
     setBtnActive(false);
   };
   const handleNotice = () => {
     setNotice(true);
     setBtnActive(true);
-    // setLike(false);
   };
   const getOmr = useCallback(
     async (omrId: number) => {
@@ -93,7 +92,6 @@ function OMR(): JSX.Element {
       const response = await OMRApi.note.likeList();
       if (response.status === 200) {
         setFavoriteList(response.data.data);
-        // console.log(favoriteList);
       }
     };
     likeList();
@@ -112,9 +110,6 @@ function OMR(): JSX.Element {
           >
             답안지 교체
           </button>
-          <div className={styles.header}>
-            <Search />
-          </div>
         </div>
         {/* OMR BODY */}
         <div className={styles.omr_body}>
@@ -170,15 +165,14 @@ function OMR(): JSX.Element {
                 ) : (
                   <Carousel>
                     {favoriteList.map((data) => (
-                      // <div>
                       <Carousel.Item key={data.noteId}>
                         <LikeList
+                          noteId={data.noteId}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}
                         />
                       </Carousel.Item>
-                      // </div>
                     ))}
                   </Carousel>
                 )}
@@ -206,6 +200,11 @@ function OMR(): JSX.Element {
         </div>
         <div className={styles.omr_footer} />
         <Code />
+      </div>
+      <div>
+        {modal.create && <CreateMsg />}
+        {modal.detail && <DetailMsg />}
+        {modal.canNotRead && <CantReadMsg />}
       </div>
     </div>
   );
