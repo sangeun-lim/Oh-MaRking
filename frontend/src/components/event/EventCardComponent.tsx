@@ -20,11 +20,6 @@ function EventCardComponent({
     setOpen(!open);
   };
 
-  //   const modalClick = () => {
-  //     console.log('hi');
-  //     navigate('/');
-  //   };
-
   return (
     <div className={styles.card}>
       <div className={`${styles.img_tape} ${styles.img_tape_1}`}>

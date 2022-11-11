@@ -21,7 +21,7 @@ export const getSessionStorage = (key: string) => {
   return sessionStorage.getItem(key);
 };
 
-export const getlikeItem = (likelist: likeList) => {
+export const getLikeItem = (likelist: likeList) => {
   const { noteId, content, nickname, pageNum, problemNum, checkNum } = likelist;
   const payload = {
     noteId,

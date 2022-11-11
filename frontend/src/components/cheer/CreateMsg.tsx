@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import DYEditor, { getData } from 'dyeditor';
+// import DYEditor, { getData } from 'dyeditor';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -54,7 +54,6 @@ function CreateMsg(): JSX.Element {
     }
   };
 
-  // 비밀 >_0
   document
     .querySelector('#password-check')
     ?.addEventListener('focusout', passwordCheckValid);

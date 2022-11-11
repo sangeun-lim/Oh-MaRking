@@ -17,7 +17,7 @@ import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
 import { heartUrl } from '../../utils/imgUrl';
-import { getlikeItem } from '../../utils/utils';
+import { getLikeItem } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
 
@@ -31,12 +31,6 @@ const swalWithBootstrapButtons = Swal.mixin({
   buttonsStyling: false,
 });
 
-// interface Props {
-//   pass: boolean;
-//   noteId: number;
-// }
-
-// function DetailMsg({ pass, noteId }: Props): JSX.Element {
 function DetailMsg(): JSX.Element {
   const dispatch = useDispatch();
 
@@ -81,10 +75,6 @@ function DetailMsg(): JSX.Element {
     dispatch(setShow());
   };
 
-  // 수정버튼누르면 비밀번호 입력창 나오게 해야되고
-  // 비밀번호 입력후 버튼누르면 update 모달 뜨게해야됨
-  // 주인일때는 수정버튼 있게 주인이 아닐때는 수정버튼 없게
-
   const onUpdateClick = () => {
     setOnEdit((state) => !state);
   };
@@ -95,7 +85,6 @@ function DetailMsg(): JSX.Element {
       if (response.status === 200) {
         setFormData(response.data.data);
         dispatch(setUpdate());
-        // dispatch(setDetail());
       }
     } catch (err) {
       alert('비밀번호가 일치하지 않습니다.');
@@ -183,7 +172,7 @@ function DetailMsg(): JSX.Element {
 
     if (!note.isFavorite) {
       const { content, nickname, problemNum, checkNum } = note;
-      const payload = getlikeItem({
+      const payload = getLikeItem({
         noteId,
         content,
         nickname,
