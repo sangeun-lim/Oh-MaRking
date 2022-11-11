@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
+import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
 import CantReadMsg from './CantReadMsg';
@@ -16,20 +17,12 @@ import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 
-interface FavoriteList {
-  noteId: number;
-  checkNum: number;
-  problemNum: number;
-  PageNum: number;
-  nickname: string;
-  content: string;
-}
-
 function OMR(): JSX.Element {
-  const [favoriteList, setFavoriteList] = useState<FavoriteList[]>([]);
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  const { user, omr, auth, modal } = useSelector((state: RootState) => state);
+  const { user, omr, auth, modal, likeList } = useSelector(
+    (state: RootState) => state
+  );
   const dispatch = useDispatch();
   const colorList = [
     'yellow',
@@ -88,14 +81,14 @@ function OMR(): JSX.Element {
 
   // 즐겨찾기 조회하기 위해
   useEffect(() => {
-    const likeList = async () => {
+    const getLikeList = async () => {
       const response = await OMRApi.note.likeList();
       if (response.status === 200) {
-        setFavoriteList(response.data.data);
+        dispatch(setLikeList(response.data.data));
       }
     };
-    likeList();
-  }, []);
+    getLikeList();
+  }, [dispatch]);
 
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
@@ -164,10 +157,9 @@ function OMR(): JSX.Element {
                   </div>
                 ) : (
                   <Carousel>
-                    {favoriteList.map((data) => (
+                    {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
-                          noteId={data.noteId}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}

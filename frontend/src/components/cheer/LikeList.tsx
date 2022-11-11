@@ -4,15 +4,13 @@ import DetailMsg from './DetailMsg';
 import { RootState } from '../../store/store';
 
 interface Props {
-  noteId: number;
   username: string;
   content: string;
   nickname: string;
 }
 
-function LikeList({ noteId, username, content, nickname }: Props): JSX.Element {
+function LikeList({ username, content, nickname }: Props): JSX.Element {
   const [openDetail, setOpenDetail] = useState<boolean>(false);
-  const { modal } = useSelector((state: RootState) => state);
   const DetailOpen = () => {
     setOpenDetail(true);
   };

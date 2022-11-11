@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setShow, setUpdate, setDetail } from '../../store/modal';
+import { addLikeList, removeLikeItem } from '../../store/likeList';
 import { setUser } from '../../store/user';
 import { EditNote, EditNoteData } from '../../utils/Interface';
 import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
@@ -15,6 +16,7 @@ import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
 import { heartUrl } from '../../utils/imgUrl';
+import { getlikeItem } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
 
@@ -170,15 +172,28 @@ function DetailMsg(): JSX.Element {
   // }
 
   const onLikeClick = async (e: any) => {
-    e.preventDefault();
-
     await OMRApi.note.likeNote(noteId, !note.isFavorite);
     const NoteData = {
       problemIdx: note.problemNum,
       elementIdx: note.checkNum,
     };
-    dispatch(setFavorite(!note.isFavorite));
-    dispatch(setNoteLike(NoteData));
+    dispatch(setNoteLike(NoteData)); // 숫자 -> 4
+    dispatch(setFavorite(!note.isFavorite)); // boolean
+
+    if (!note.isFavorite) {
+      const { content, nickname, problemNum, checkNum } = note;
+      const payload = getlikeItem({
+        noteId,
+        content,
+        nickname,
+        pageNum: omr.pageNum,
+        checkNum,
+        problemNum,
+      });
+      dispatch(addLikeList(payload));
+    } else {
+      dispatch(removeLikeItem(noteId));
+    }
   };
   const colorList = [
     'yellow',

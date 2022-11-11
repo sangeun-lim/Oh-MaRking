@@ -1,3 +1,5 @@
+import { likeList } from './Interface';
+
 // Unique Key 생성 함수
 export const getKey = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -17,4 +19,17 @@ export const deleteSessionStorage = (key: string) => {
 
 export const getSessionStorage = (key: string) => {
   return sessionStorage.getItem(key);
+};
+
+export const getlikeItem = (likelist: likeList) => {
+  const { noteId, content, nickname, pageNum, problemNum, checkNum } = likelist;
+  const payload = {
+    noteId,
+    content,
+    nickname,
+    pageNum,
+    problemNum,
+    checkNum,
+  };
+  return payload;
 };
