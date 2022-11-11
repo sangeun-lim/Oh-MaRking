@@ -1,6 +1,12 @@
 @use 'src/style/all';
 @use 'src/style/color';
 
+.notice_font > * {
+  font-family: 'noto_sans';
+  font-size: 0.7rem;
+}
+
+
 .rules {
     // display: flex;
     // writing-mode: vertical-lr;
@@ -12,7 +18,7 @@
   }
 
 @mixin omr($bg) {
-    @include all.box(29px, 39px);
+    @include all.box(19px, 29px);
     // @include all.flex(row, center, center);
     @include fill-stroke(color.$before_marking, color.$primary);
     display: inline-block;
@@ -65,10 +71,21 @@
   }
   
   .nubi {
+    display: flex;
+    align-items: center;
+    justify-content:center;
     width: 100%;
-    vertical-align: middle;
-    > span {
-        display: inline-block;
-        // padding-top:100px;
+    // height:100%;
+    span {
+      display: inline-block;
+      margin: 0%;
+      padding: 0%;
+      // padding-top:100px;
+    }
+    .noticetext {
+      height:100%;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 0.75rem;
     }
   }
