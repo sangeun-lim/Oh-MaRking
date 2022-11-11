@@ -1,4 +1,4 @@
-package com.ssafy.userservice.config;
+package com.ssafy.apigateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
