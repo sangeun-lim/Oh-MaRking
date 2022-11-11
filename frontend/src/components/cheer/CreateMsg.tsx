@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import DYEditor, { getData } from 'dyeditor';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -94,6 +95,7 @@ function CreateMsg(): JSX.Element {
     const formData = {
       omrId: omrList[pageNum],
       nickname: newNote.nickname,
+      // content: getData(),
       content: newNote.content,
       pwd: pwd.password1,
       showDate: newNote.showDate,
@@ -274,12 +276,14 @@ function CreateMsg(): JSX.Element {
                       rows={5}
                       required
                     />
+                    {/* <DYEditor /> */}
                     <ul style={{ margin: '0px' }}>
                       <li>
                         <button
                           className={styles.btn_hover_border_3}
                           type="submit"
                           disabled={disable}
+                          // onClick={() => getData()}
                         >
                           응원하기
                         </button>
