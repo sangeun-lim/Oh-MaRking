@@ -71,9 +71,10 @@
   }
   
   .nubi {
+    padding-right:12px;
     display: flex;
     align-items: center;
-    justify-content:center;
+    // justify-content:center;
     width: 100%;
     // height:100%;
     span {
@@ -84,7 +85,7 @@
     }
     .noticetext {
       height:100%;
-      text-align: center;
+      // text-align: center;
       vertical-align: middle;
       font-size: 0.75rem;
     }
