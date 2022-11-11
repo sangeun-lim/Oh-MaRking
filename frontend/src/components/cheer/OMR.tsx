@@ -157,9 +157,10 @@ function OMR(): JSX.Element {
                   </div>
                 ) : (
                   <Carousel>
-                    {likeList.likeList.map((data) => (
+                    {likeList.likeList.map((data, idx) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
+                          likeIdx={idx}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}
@@ -174,10 +175,10 @@ function OMR(): JSX.Element {
           </div>
           {/* 그 외: 응원구역 */}
           <div className={`${styles.cheer}`}>
-            <Cheer msg={omr.omrInfo.slice(0, 10)} start={0} />
+            <Cheer msg={omr.omrInfo?.slice(0, 10)} start={0} />
           </div>
           <div className={`${styles.cheer}`}>
-            <Cheer msg={omr.omrInfo.slice(10, 20)} start={10} />
+            <Cheer msg={omr.omrInfo?.slice(10, 20)} start={10} />
           </div>
           <button
             type="button"

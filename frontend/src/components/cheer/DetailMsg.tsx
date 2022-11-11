@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Swal from 'sweetalert2';
-import DYEditor, { getData } from 'dyeditor';
+// import DYEditor, { getData } from 'dyeditor';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setShow, setUpdate, setDetail } from '../../store/modal';
@@ -32,6 +32,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 });
 
 function DetailMsg(): JSX.Element {
+  console.log('디테일 컴포넌트');
   const dispatch = useDispatch();
 
   const { omr, user, auth, note, modal } = useSelector(
@@ -49,6 +50,7 @@ function DetailMsg(): JSX.Element {
   };
 
   const readMsg = async () => {
+    console.log('noteId', noteId, modal.problemIdx, '/', modal.elementIdx);
     const response = await OMRApi.note.readUserNote(noteId);
     // api 추가되면 밑에껄로 변경
     // const response = await OMRApi.note.getNote(noteId,omr.isOwner);

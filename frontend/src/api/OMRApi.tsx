@@ -20,7 +20,7 @@ const OMRApi = {
     },
 
     getOmr: async (omrId: number, isLoggedIn: boolean) => {
-      // console.log('쏨');
+      console.log('getOmr', omrId, isLoggedIn);
       const response = isLoggedIn
         ? await OMRApi.omr.getUserOmr(omrId)
         : await OMRApi.omr.getNotUserOmr(omrId);
