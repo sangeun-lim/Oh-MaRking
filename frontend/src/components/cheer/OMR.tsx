@@ -6,7 +6,6 @@ import { setIsOwner, setOmr } from '../../store/omr';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
 import CantReadMsg from './CantReadMsg';
-import Search from './Search';
 import Cheer from './OMRCheer';
 import Info from './OMRInfo';
 import Pallet from './OMRPallet';
