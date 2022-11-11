@@ -14,12 +14,11 @@ import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
 interface Props {
-  pass: boolean;
   formData: EditNoteData;
   noteId: number;
 }
 
-function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
+function UpdateMsg({ formData, noteId }: Props): JSX.Element {
   const dispatch = useDispatch();
 
   const { omr, user, auth, modal } = useSelector((state: RootState) => state);
@@ -63,19 +62,13 @@ function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
     dispatch(setUser(data.data.user));
     dispatch(setOmr(data.data.omr));
     dispatch(setIsOwner(data.data.isOwner));
-    // setPass(false);
-    // dispatch(setPass(false));
-    // setShow(false);
     dispatch(setShow());
     alert('응원메시지가 수정되었습니다.');
     onEditClick();
   };
 
   const handleClose = () => {
-    // setPass(false);
-    // dispatch(setPass(false));
-    // setShow(false);
-    // dispatch(setShow(false));
+    dispatch(setShow());
   };
 
   const onDeleteClick = async () => {
@@ -93,9 +86,6 @@ function UpdateMsg({ pass, formData, noteId }: Props): JSX.Element {
         dispatch(setOmr(data.data.omr));
         dispatch(setIsOwner(data.data.isOwner));
         // dispatch로 새로운 omrList를 가 필요할듯?
-        // setPass(false);
-        // dispatch(setPass(false));
-        // setShow(false);
         dispatch(setShow());
         alert('응원 메시지가 삭제되었습니다.');
       } catch (err) {

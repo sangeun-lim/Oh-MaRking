@@ -30,7 +30,6 @@ const noteReducer = createSlice({
       return action.payload;
     },
     setFavorite(state, action: PayloadAction<boolean>) {
-      // state.isFavorite = !action.payload;
       state.isFavorite = action.payload;
     },
   },

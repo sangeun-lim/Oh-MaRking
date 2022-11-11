@@ -1,0 +1,74 @@
+@use 'src/style/all';
+@use 'src/style/color';
+
+.rules {
+    // display: flex;
+    // writing-mode: vertical-lr;
+}
+
+@mixin fill_stroke($fill, $stroke) {
+    background-color: #{$fill};
+    border: 3px solid #{$stroke};
+  }
+
+@mixin omr($bg) {
+    @include all.box(29px, 39px);
+    // @include all.flex(row, center, center);
+    @include fill-stroke(color.$before_marking, color.$primary);
+    display: inline-block;
+    border-radius: 50px;
+    color: color.$primary;
+    padding: 5px;
+    margin: 10px;
+    margin-right: 16px;
+    background: #{$bg};
+  }
+  
+.empty {
+    @include omr(color.$before_marking);
+  }
+  
+  // 문항 - 마킹 X
+  .already {
+    @include omr(color.$after_marking);
+  }
+  
+  .notyet {
+    @include omr(color.$notyet_marking);
+  }
+  
+  .cannot {
+    @include omr(color.$after_marking);
+    background: linear-gradient(
+      120deg,
+      color.$before_marking 48%,
+      red 0,
+      red 60%,
+      color.$before_marking 0
+    );
+  }
+  
+  .liked {
+    @include omr(color.$after_marking);
+    // img {
+    // display: absolute;
+    // @include witdh_height(inherit, inherit);
+    background-color: none;
+    background-image: url(all.$heart_url);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px;
+    // font-display: hidd
+    // object-fit: cover;
+    // button {
+    // }
+  }
+  
+  .nubi {
+    width: 100%;
+    vertical-align: middle;
+    > span {
+        display: inline-block;
+        // padding-top:100px;
+    }
+  }

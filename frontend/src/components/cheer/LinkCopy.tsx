@@ -12,14 +12,6 @@ function LinkCopy(): JSX.Element {
   };
 
   return (
-    // <button type="button" >
-    // [링크복사]
-    // </button>
-    // <i
-    //   className="bi bi-link-45deg"
-    //   onClick={() => copyUrl()}
-    //   role="presentation"
-    // />
     <svg
       onClick={() => copyUrl()}
       role="presentation"

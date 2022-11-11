@@ -12,7 +12,7 @@ function CantReadMsg(): JSX.Element {
 
   return (
     <div>
-      {modal.show && modal.cantread ? (
+      {modal.show && modal.canNotRead ? (
         <Modal show={modal.show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>확인 불가</Modal.Title>
