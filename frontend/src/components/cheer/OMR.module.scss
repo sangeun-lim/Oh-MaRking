@@ -27,14 +27,17 @@ $cheer_section_height: 30em;
 
 // OMR 마킹하는 곳
 @mixin omr($bg) {
-  @include all.box(29px, 39px);
+  @include all.box(30px, 40px);
   @include all.flex(column, center, center);
   @include fill-stroke(color.$before_marking, color.$primary);
   display: inline-block;
   border-radius: 50px;
   color: color.$primary;
   padding: 5px;
-  margin: 10px;
+  margin: 12px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-right: 16px;
   background: #{$bg};
 }
@@ -262,7 +265,11 @@ $cheer_section_height: 30em;
 
   // ①교시 응원영역 파트
   .page {
-    width: 370px;
+    width: 100%;
+    margin-left: 30px;
+    height: 70px;
+    // width: 370px;
+
     font-family: all.$OMR_header;
     text-align: start;
     // ①
@@ -280,6 +287,7 @@ $cheer_section_height: 30em;
       display: inline-block;
       margin-left: 3px;
       font-size: 32px;
+      height: 40px;
     }
   }
 
@@ -385,7 +393,7 @@ $cheer_section_height: 30em;
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
   font-family: all.$OMR_body;
-  @include all.box(30%, 100%);
+  @include all.box(29%, 100%);
 
   // 응원한마디 영역
   .section {
@@ -423,7 +431,7 @@ $cheer_section_height: 30em;
   @include all.flex(row, flex-end, center);
   position: relative;
   height: 10%;
-  padding-right: 16.5px;
+  padding-right: 12px;
   > span {
     width: $cheer_front_width;
     height: 100%;
