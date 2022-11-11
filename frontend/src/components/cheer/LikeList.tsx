@@ -20,7 +20,7 @@ function LikeList({ noteId, username, content, nickname }: Props): JSX.Element {
   return (
     <div>
       {openDetail ? (
-        <DetailMsg pass={modal.pass} noteId={noteId} />
+        <DetailMsg />
       ) : (
         <div onClick={DetailOpen} role="presentation">
           <div>To.{username}</div>

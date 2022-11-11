@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
-import styles from './OMR.module.scss';
+import styles from './UseNotice.module.scss';
 
 interface UseNoticeProps {
   omrBg: string[];
@@ -23,17 +23,28 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
           <br />
           &#8251; 표기 안내
           <br />
-          <div className={`${styles[omrBg[0]]}`}>작성 가능한 칸입니다.</div>
-          <br />
-          <div className={`${styles[omrBg[1]]}`}>이미 읽은 칸입니다.</div>
-          <br />
-          <div className={`${styles[omrBg[2]]}`}>아직 안 읽은 칸입니다.</div>
-          <br />
-          <div className={`${styles[omrBg[3]]}`}>
-            아직 읽을 수 없는 칸입니다.
+          <div className={styles.rules}>
+            <div className={styles.nubi}>
+              <span className={`${styles[omrBg[0]]}`}>{''}</span>작성 가능한
+              칸입니다.
+            </div>
+            <div className={styles.nubi}>
+              <span className={`${styles[omrBg[1]]}`}>{''}</span>이미 읽은
+              칸입니다.
+            </div>
+            <div className={styles.nubi}>
+              <span className={`${styles[omrBg[2]]}`}>{''}</span>아직 안 읽은
+              칸입니다.
+            </div>
+            <div className={styles.nubi}>
+              <span className={`${styles[omrBg[3]]}`}>{''}</span>아직 읽을 수
+              없는 칸입니다.
+            </div>
+            <div className={styles.nubi}>
+              <span className={`${styles[omrBg[4]]}`}>{''}</span>좋아요한
+              칸입니다.
+            </div>
           </div>
-          <br />
-          <div className={`${styles[omrBg[4]]}`}>좋아요한 칸입니다.</div>
           <br />
         </div>
       ) : (

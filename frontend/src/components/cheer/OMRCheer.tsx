@@ -6,7 +6,6 @@ import {
   setCheer,
   setCreate,
   setDetail,
-  setUpdate,
   setCannotRead,
 } from '../../store/modal';
 
@@ -21,7 +20,7 @@ interface CheerProps {
 function Cheer({ msg, start }: CheerProps): JSX.Element {
   const s = {
     CREATE: 0,
-    CANNOTREAD: 3,
+    canNotRead: 3,
   };
   const dispatch = useDispatch();
   const { omr, modal } = useSelector((state: RootState) => state);
@@ -36,9 +35,8 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
       case s.CREATE:
         dispatch(setCreate());
         break;
-      case s.CANNOTREAD:
+      case s.canNotRead:
         console.log('status', status, problemNum, elementNum);
-        // console.log('status', omr.info);
         dispatch(setCannotRead());
         break;
       default:
@@ -88,7 +86,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     <div className={`${styles.section} ${styles.body}`}>
       <div className={`${styles.header} ${styles.top}`}>
         <span />
-        {/* <span>gk</span> */}
         <span>응</span>
         <span>원</span>
         <span>한</span>
