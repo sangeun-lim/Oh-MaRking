@@ -242,6 +242,7 @@ $cheer_section_height: 30em;
   // 시험지 바디 중 찐한 색
   .omr_body .header {
     font-family: all.$OMR_header;
+    font-size: all.$OMR_header_font_size;
   }
 
   // 시험지 푸터
@@ -409,9 +410,8 @@ $cheer_section_height: 30em;
       border-radius: all.$OMR_small_radius all.$OMR_small_radius 0px 0px;
       padding-right: 10px;
       > span {
-        padding: 5px;
-        margin: 10px;
-        margin-right: 16px;
+        font-size: all.$OMR_header_font_size;
+        margin: 0px 17px;
       }
     }
     > :nth-child(1) {
