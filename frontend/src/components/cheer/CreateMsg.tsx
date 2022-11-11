@@ -27,7 +27,6 @@ function CreateMsg(): JSX.Element {
     'orange',
     'pink',
   ];
-
   interface PW {
     password1: string;
     password2: string;
@@ -184,7 +183,10 @@ function CreateMsg(): JSX.Element {
                                 name="showDate"
                                 id="showDate"
                                 // 오늘날짜 기본으로
-                                // value={newNote.showDate}
+                                value={new Date()
+                                  .toLocaleDateString()
+                                  .replaceAll('. ', '-')
+                                  .replaceAll('.', '')}
                                 onChange={onChangeData}
                                 required
                               />
