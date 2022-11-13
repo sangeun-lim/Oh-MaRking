@@ -5,7 +5,11 @@
   font-family: 'noto_sans';
   font-size: 0.7rem;
 }
-
+.sort_text{
+  font-family: 'noto_sans';
+  font-size: 0.7rem;
+  text-align: left;
+}
 
 .rules {
     // display: flex;
@@ -71,7 +75,7 @@
   }
   
   .nubi {
-    padding-right:12px;
+    margin-right: 3px;
     display: flex;
     align-items: center;
     // justify-content:center;
@@ -85,7 +89,7 @@
     }
     .noticetext {
       height:100%;
-      // text-align: center;
+      text-align: center;
       vertical-align: middle;
       font-size: 0.75rem;
     }
