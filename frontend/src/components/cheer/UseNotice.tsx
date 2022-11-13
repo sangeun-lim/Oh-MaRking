@@ -20,13 +20,18 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
     <div className={styles.notice_font}>
       {isOwner ? (
         <div>
-          &#8251; <LinkCopy />
-          버튼을 눌러 지인들에게 응원받아보세요.
-          <br />
-          &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, <br />
-          새로운 답안지를 받을 수 있습니다.
-          <br />
-          <br />
+          <div className={styles.sort_text}>
+            &#8251; <LinkCopy />
+            버튼을 눌러 지인들에게 응원받아보세요.
+          </div>
+          <div className={styles.sort_text}>
+            &#8251; 마지막 답안지에서 마킹이 20개 이상일 때,
+          </div>
+          <div style={{ marginLeft: '20px' }} className={styles.sort_text}>
+            새로운 답안지를 받을 수 있습니다.
+            <br />
+            <br />
+          </div>
           &#8251; 표기 안내
           <br />
           <Container>
@@ -78,23 +83,52 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
         </div>
       ) : (
         <div>
-          &#8251; 이 수험표는 {user.name}을 위한 응원수험표입니다.
-          <br />
-          &#8251; {user.name}을 위한 응원과 격려의 메시지를 작성해보세요! (폭언
-          및 욕설은 금지!!)
-          <br />
-          &#8251; 빈 마킹란을 클릭하면 응원 메시지를 작성할 수 있습니다.
-          <br />
-          &#8251; 마지막 답안지에서 마킹이 20개 이상일 때, 새로운 답안지를 받을
-          수 있습니다.
+          <div className={styles.sort_text}>
+            &#8251; 이 수험표는 {user.name}님을 위한 응원수험표입니다.
+          </div>
+          <div className={styles.sort_text}>
+            &#8251; {user.name}님에게 응원과 격려의 메시지를 작성해보세요! (폭언
+            및 욕설은 금지!!)
+          </div>
+          <div className={styles.sort_text}>
+            &#8251; 마지막 답안지에서 마킹이 20개 이상일 때,
+          </div>
+          <div style={{ marginLeft: '20px' }} className={styles.sort_text}>
+            새로운 답안지를 받을 수 있습니다.
+            <br />
+          </div>
           <br />
           &#8251; 표기 안내
-          <br />
-          응원 메시지를 작성할 수 있습니다!
-          <br />
-          지금 읽을 수 있습니다!
-          <br />
-          아직 읽을 수 없습니다!
+          <Container>
+            <div className={styles.rules}>
+              <Row>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[0]]}`}>{''}</span>
+                    <span className={styles.noticetext}>
+                      {''}작성 가능한 칸
+                    </span>
+                  </div>
+                </Col>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                    <span className={styles.noticetext}>{''}이미 읽은 칸</span>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className={styles.nubi}>
+                    <span className={`${styles[omrBg[2]]}`}>{''}</span>
+                    <span className={styles.noticetext}>
+                      {''}아직 안 읽은 칸
+                    </span>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Container>
         </div>
       )}
     </div>
