@@ -95,7 +95,9 @@ public class OMRServiceImpl implements OMRService {
             int r = note.getProblemNum();
             int c = note.getCheckNum();
             LocalDate day = LocalDate.parse(note.getShowDate(), DateTimeFormatter.ISO_DATE);
-            if (day.isAfter(today)) {
+            if(note.getIsFavorite()){
+                omrInfo[r][c] = 4;
+            }else if (day.isAfter(today)) {
                 omrInfo[r][c] = 3;
             } else {
                 omrInfo[r][c] = note.getIsOpened() ? 1 : 2;
@@ -145,7 +147,9 @@ public class OMRServiceImpl implements OMRService {
             int r = note.getProblemNum();
             int c = note.getCheckNum();
             LocalDate day = LocalDate.parse(note.getShowDate(), DateTimeFormatter.ISO_DATE);
-            if (day.isAfter(today)){
+            if(note.getIsFavorite()){
+                omrInfo[r][c] = 4;
+            }else if (day.isAfter(today)){
                 omrInfo[r][c]=3;
             }else{
                 omrInfo[r][c]=1;

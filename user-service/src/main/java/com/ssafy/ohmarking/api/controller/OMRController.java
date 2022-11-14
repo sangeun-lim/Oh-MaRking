@@ -1,5 +1,4 @@
 package com.ssafy.ohmarking.api.controller;
-
 import com.ssafy.ohmarking.api.request.OMRRegisterDto;
 import com.ssafy.ohmarking.api.request.OMRUpdateDto;
 import com.ssafy.ohmarking.api.service.OMRService;
