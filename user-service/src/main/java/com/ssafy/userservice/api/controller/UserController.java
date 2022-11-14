@@ -62,7 +62,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/info/id/{codedEmail}")
-    @ApiOperation(value = "수험생 정보 조회", notes = "수험생 아이디, 닉네임, 자기소개를 반환한다.")
+    @ApiOperation(value = "수험생 정보 조회", notes = "수험생 아이디를 반환한다.")
     public Response<?> getUserId(@PathVariable String codedEmail) {
         return new Response<>(true, 200, "수험생 정보 조회 성공", userService.getUserId(codedEmail));
     }

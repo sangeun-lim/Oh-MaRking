@@ -127,6 +127,22 @@ public class NoteServiceImpl implements NoteService{
         return login_id;
     }
 
+    public Long getUserIdByCodedEmail(String codedEmail) throws IOException {
+        URL url=new URL(base_url+"/info/id/"+codedEmail);
+        HttpURLConnection connection=(HttpURLConnection)url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type","apllication/json; utf-8");
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(br);
+        Long login_id=Long.parseLong(root.get("data").get("id").toString());
+
+
+
+        return login_id;
+    }
+
     @Override
     public UserOMRInfo deleteNote(Long noteId) {
 
@@ -183,8 +199,8 @@ public class NoteServiceImpl implements NoteService{
     }
 
     @Override
-    public List<FavoriteNoteDto> getFavoriteList(String authorization) throws IOException {
-        Long uid= getUserId(authorization);
+    public List<FavoriteNoteDto> getFavoriteList(Long codedEmail) throws IOException {
+        Long uid= getUserIdByCodedEmail(codedEmail);
         List<FavoriteNoteDto> notes=noteRepository.findFavoritesByUserId(uid)
                 .stream()
                 .map(note -> FavoriteNoteDto.builder()
