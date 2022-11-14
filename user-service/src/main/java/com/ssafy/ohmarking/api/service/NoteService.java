@@ -11,7 +11,7 @@ import java.util.Map;
 public interface NoteService {
     String updateFavorite(String accessToken, FavoriteDto favoriteDto);
 
-    List<NoteInfoResponseDto> getFavoriteList(String accessToken);
+    List<NoteInfoResponseDto> getFavoriteList(String codedEmail);
 
     List<NoteInfoResponseDto> searchByNickname(String nickname);
 

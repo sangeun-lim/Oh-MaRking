@@ -47,10 +47,10 @@ public class NoteController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/favorites")
+    @GetMapping("/favorites/{codedEmail}")
     @ApiOperation(value = "즐겨찾기 목록 조회", notes = "즐겨찾기한 응원 메시지들의 리스트를 반환한다.")
-    public Response<?> getFavoriteList(@RequestHeader("authorization") String authorization) {
-        return new Response<>(true, 200, "즐겨찾기 목록 조회 성공", noteService.getFavoriteList(authorization.replace("Bearer ", "")));
+    public Response<?> getFavoriteList(@PathVariable String codedEmail) {
+        return new Response<>(true, 200, "즐겨찾기 목록 조회 성공", noteService.getFavoriteList(codedEmail));
     }
 
     @ResponseStatus(HttpStatus.OK)

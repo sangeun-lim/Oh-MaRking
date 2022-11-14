@@ -6,6 +6,7 @@ import com.ssafy.ohmarking.common.exception.*;
 import com.ssafy.ohmarking.common.util.TokenProvider;
 import com.ssafy.ohmarking.db.entity.Note;
 import com.ssafy.ohmarking.db.entity.OMR;
+import com.ssafy.ohmarking.db.entity.User;
 import com.ssafy.ohmarking.db.repository.NoteRepository;
 import com.ssafy.ohmarking.db.repository.OMRRepository;
 import com.ssafy.ohmarking.db.repository.UserRepository;
@@ -41,10 +42,10 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<NoteInfoResponseDto> getFavoriteList(String accessToken) {
-        String uid = tokenProvider.getUserId(accessToken);
-        userRepository.findById(Long.parseLong(uid)).orElseThrow(UserNotFoundException::new);
-        return noteRepository.findFavoritesByUserId(Long.parseLong(uid))
+    public List<NoteInfoResponseDto> getFavoriteList(String codedEmail) {
+        User user = userRepository.getByCodedEmail(codedEmail).orElseThrow(UserNotFoundException::new);
+        Long uid=user.getId();
+        return noteRepository.findFavoritesByUserId(uid)
                         .stream()
                                 .map(note -> NoteInfoResponseDto.builder()
                                         .noteId(note.getId())
@@ -77,11 +78,10 @@ public class NoteServiceImpl implements NoteService {
     public NoteInfoResponseDto getNoteInfo(String accessToken, Long noteId) {
         String uid = tokenProvider.getUserId(accessToken);
         Note note = noteRepository.findById(noteId).orElseThrow(NoteNotFoundException::new);
-
-        if (Long.parseLong(uid) != note.getOmr().getUser().getId()) {
-            throw new AccessDeniedException();
+        if (Long.parseLong(uid) == note.getOmr().getUser().getId()) {
+            note.updateIsOpened(true);
         }
-        note.updateIsOpened(true);
+
         NoteInfoResponseDto noteInfoResponseDto = NoteInfoResponseDto.builder()
                 .nickname(note.getNickname())
                 .content(note.getContent())

@@ -138,13 +138,18 @@ public class OMRServiceImpl implements OMRService {
         long[][] noteInfo = new long[20][5];
         String[][] nicknameInfo = new String[20][5];
         String[][] showDateInfo = new String[20][5];
-
+        LocalDate today = LocalDate.now();
 
         for (int i = 0; i < list.size(); i++) {
             Note note = list.get(i);
             int r = note.getProblemNum();
             int c = note.getCheckNum();
-            omrInfo[r][c] = 1;
+            LocalDate day = LocalDate.parse(note.getShowDate(), DateTimeFormatter.ISO_DATE);
+            if (day.isAfter(today)){
+                omrInfo[r][c]=3;
+            }else{
+                omrInfo[r][c]=1;
+            }
             noteInfo[r][c] = list.get(i).getId();
             nicknameInfo[r][c] = note.getNickname();
             showDateInfo[r][c] = note.getShowDate();
