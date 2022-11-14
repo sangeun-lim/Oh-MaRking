@@ -31,6 +31,10 @@ public class JwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        // log 출력 debug start
+        String token = httpServletRequest.getHeader("access-token");
+        System.out.println("token: "+token);
+        // log 출력 debug end
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
 //        System.out.println("requestURI : "+requestURI);
