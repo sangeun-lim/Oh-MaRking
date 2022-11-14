@@ -36,8 +36,8 @@ function LikeList({ username, content, nickname }: Props): JSX.Element {
       <div className={styles.letter}>
         <div className={styles.to_name}>To.{username}</div>
         {/* 일정 편지내용 이상이면 ...으로 되게끔 */}
-        <div className={styles.letter_content}>{content}</div>
-        <div>From.{nickname}</div>
+        <div className={styles.txt_post}>{content}</div>
+        <div className={styles.from_name}>From.{nickname}</div>
       </div>
     </div>
   );

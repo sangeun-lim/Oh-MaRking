@@ -135,7 +135,7 @@ function OMR(): JSX.Element {
                   type="button"
                   onClick={handleNotice}
                 >
-                  주의사항
+                  안내사항
                 </button>
                 <button
                   type="button"
@@ -144,7 +144,7 @@ function OMR(): JSX.Element {
                   }`}
                   onClick={handleLike}
                 >
-                  즐겨찾기
+                  검토하기
                 </button>
               </div>
               <div className={`${styles.body} ${styles.bottom}`}>

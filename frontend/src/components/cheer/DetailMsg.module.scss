@@ -46,6 +46,7 @@ span {
     width: 95%;
   }
   div > textarea {
+    font-family: 'letter_content';
     display: block;
     margin: 15px;
     width: 95%;
@@ -75,13 +76,15 @@ span {
       display: block;
       overflow: hidden;
       padding: 0 5px 0 0;
+      font-family: 'letter_content'
     }
     input[type='password'] {
       font-family: 'Nanum Gothic', sans-serif;
     }
-    input[type='password']::placeholder {
-      font-family: 'hanna_11yrs';
-    }
+    input[type=password]::placeholder {
+      font-family: 'letter_content'
+ 
+    }        
   }
 }
 // input[type=password]{
