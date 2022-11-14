@@ -16,6 +16,7 @@ import UseNotice from './UseNotice';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
+import '../../style/style.scss';
 
 function OMR(): JSX.Element {
   const [notice, setNotice] = useState<boolean>(true);

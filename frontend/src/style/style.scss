@@ -50,3 +50,18 @@ span > .form-label {
 .MuiTooltip-popperInteractive {
   color: red !important;
 }
+
+
+.carousel-control-next {
+  pointer-events : none;
+  span {
+    display: none;
+  }
+}
+
+.carousel-control-prev {
+  pointer-events : none;
+  span {
+    display: none;
+  }
+}
