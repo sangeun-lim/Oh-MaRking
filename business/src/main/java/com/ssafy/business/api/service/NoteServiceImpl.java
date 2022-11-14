@@ -199,7 +199,7 @@ public class NoteServiceImpl implements NoteService{
     }
 
     @Override
-    public List<FavoriteNoteDto> getFavoriteList(Long codedEmail) throws IOException {
+    public List<FavoriteNoteDto> getFavoriteList(String codedEmail) throws IOException {
         Long uid= getUserIdByCodedEmail(codedEmail);
         List<FavoriteNoteDto> notes=noteRepository.findFavoritesByUserId(uid)
                 .stream()
