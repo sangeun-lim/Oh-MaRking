@@ -89,7 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다는 의미
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll() // 해당 코드 추가
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
