@@ -95,7 +95,7 @@ function OMR(): JSX.Element {
   }, [dispatch, user.codedEmail]);
 
   return (
-    <div className={`${styles[colorList[omr.color]]}`}>
+    <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
