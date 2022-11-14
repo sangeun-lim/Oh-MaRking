@@ -1,6 +1,8 @@
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { BsCheckCircle } from 'react-icons/bs';
+import { RiErrorWarningLine } from 'react-icons/ri';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import DYEditor, { getData } from 'dyeditor';
@@ -42,24 +44,28 @@ function CreateMsg(): JSX.Element {
   const [disable, setDisable] = useState<boolean>(true);
   // 비밀번호 일치 체크
   const [pass, setPass] = useState<boolean>(true);
-
+  // const [passStyle, setPassStyle] = useState<string>(styles.form_control_error);
   const passwordCheckValid = () => {
     if (pwd.password1 === pwd.password2) {
+      // setPassStyle(styles.form_control_success);
       setPass(true);
       setDisable(false);
     } else {
+      // setPassStyle(styles.form_control_error);
       setPass(false);
       setDisable(true);
     }
   };
+
+  // const password = document.querySelector('#password-check');
+  // const password2 = document.querySelector('#password-check');
 
   document
     .querySelector('#password-check')
     ?.addEventListener('focusout', passwordCheckValid);
   document
     .querySelector('#password-check')
-    ?.addEventListener('focusin', () => setPass(true));
-
+    ?.addEventListener('focusin', passwordCheckValid);
   // // 노트에 쓰는 모든 값들이 작성하면서 바뀔때마다 값 바꿔주는 함수
   const onChangeData = (e: any) => {
     const { name, value } = e.target;
@@ -245,6 +251,23 @@ function CreateMsg(): JSX.Element {
                                 required
                               />
                             </div>
+                            {pass ? (
+                              <BsCheckCircle
+                                style={{
+                                  height: '100%',
+                                  backgroundColor: '#FBFFFE',
+                                  fill: '#2ecc71',
+                                }}
+                              />
+                            ) : (
+                              <RiErrorWarningLine
+                                style={{
+                                  height: '100%',
+                                  backgroundColor: '#FBFFFE',
+                                  fill: '#e74c3c',
+                                }}
+                              />
+                            )}
                           </Col>
                         </Row>
                       </Col>
@@ -252,7 +275,7 @@ function CreateMsg(): JSX.Element {
                   </Row>
                 </div>
               </div>
-              {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null}
+              {/* {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null} */}
 
               <br />
               <div>
