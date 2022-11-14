@@ -3,7 +3,6 @@ import Url from './Url';
 import {
   NewOmr,
   ChangeColor,
-  // CheckPw,
   NewNoteData,
   UpdateNoteData,
 } from './ApiInterface';
@@ -20,7 +19,6 @@ const OMRApi = {
     },
 
     getOmr: async (omrId: number, isLoggedIn: boolean) => {
-      // console.log('쏨');
       const response = isLoggedIn
         ? await OMRApi.omr.getUserOmr(omrId)
         : await OMRApi.omr.getNotUserOmr(omrId);
@@ -91,7 +89,7 @@ const OMRApi = {
 
     readUserNote: async (noteId: number) => {
       const response = await axios({
-        url: Url.note.readNote(noteId),
+        url: Url.note.readUserNote(noteId),
         headers: {
           Authorization: `Bearer ${getSessionStorage('accessToken')}`,
         },
@@ -102,7 +100,7 @@ const OMRApi = {
 
     readNotUserNote: async (noteId: number) => {
       const response = await axios({
-        url: Url.note.readNote(noteId),
+        url: Url.note.readGuestNote(noteId),
         method: 'get',
       });
       return response;
@@ -170,16 +168,6 @@ const OMRApi = {
         },
       });
       return response;
-      //   return axios({
-      //     url: Url.password.checkPW(),
-      //     method: 'post',
-      //     data: {
-      //       noteId,
-      //       pwd,
-      //     },
-      //   })
-      //     .then((res) => res)
-      //     .catch((err) => err);
     },
   },
 };
