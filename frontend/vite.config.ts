@@ -7,6 +7,7 @@ import eslint from 'vite-plugin-eslint';
 // https://vitejs.dev/config/
 // /** @type {import('vite').UserConfig} */
 export default defineConfig({
+  base: '/dist/',
   plugins: [
     react(),
     legacy({
@@ -20,5 +21,7 @@ export default defineConfig({
   // 기본 포트 5173 => 3000 설정
   server: {
     port: 3000,
+    proxy: {
+     '/': { target: 'https://oh-marking.com' },
   },
 });
