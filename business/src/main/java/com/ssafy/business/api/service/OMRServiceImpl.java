@@ -181,6 +181,8 @@ public class OMRServiceImpl implements  OMRService{
         OMR omr=omrRepository.findAllById(omr_id);
         int[][] omrInfo=new int[20][5];
         long[][] noteInfo=new long[20][5];
+        String[][] nicknameInfo = new String[20][5];
+        String[][] showDateInfo = new String[20][5];
         List<Note> noteList = omr.getNoteList();
         LocalDate today = LocalDate.now();
         for(Note note:noteList){
@@ -197,11 +199,15 @@ public class OMRServiceImpl implements  OMRService{
                 omrInfo[r][c]=2;
             }
             noteInfo[r][c]=note.getId();
+            nicknameInfo[r][c] = note.getNickname();
+            showDateInfo[r][c] = note.getShowDate();
 
         }
         OMRResponseDto omrResponseDto=OMRResponseDto.builder()
                 .color(omr.getColor())
                 .pageNum(omr.getPageNum()).omrInfo(omrInfo).noteInfo(noteInfo)
+                .nicknameInfo(nicknameInfo)
+                .showDateInfo(showDateInfo)
                 .build();
 
         return omrResponseDto;
@@ -212,6 +218,8 @@ public class OMRServiceImpl implements  OMRService{
         OMR omr=omrRepository.findAllById(omr_id);
         int[][] omrInfo=new int[20][5];
         long[][] noteInfo=new long[20][5];
+        String[][] nicknameInfo = new String[20][5];
+        String[][] showDateInfo = new String[20][5];
         List<Note> noteList = omr.getNoteList();
         LocalDate today = LocalDate.now();
         for(Note note:noteList){
@@ -225,11 +233,15 @@ public class OMRServiceImpl implements  OMRService{
             }
 
             noteInfo[r][c]=note.getId();
+            nicknameInfo[r][c] = note.getNickname();
+            showDateInfo[r][c] = note.getShowDate();
 
         }
         OMRResponseDto omrResponseDto=OMRResponseDto.builder()
                 .color(omr.getColor())
                 .pageNum(omr.getPageNum()).omrInfo(omrInfo).noteInfo(noteInfo)
+                .nicknameInfo(nicknameInfo)
+                .showDateInfo(showDateInfo)
                 .build();
 
         return omrResponseDto;

@@ -16,6 +16,7 @@ public class OMRResponseDto {
 
     private int[][] omrInfo = new int[20][5];
     private long[][] noteInfo = new long[20][5]; // 배열 인덱스와 번호 순서 맞추지 말래 (프론트피셜)
-
+    private String[][] nicknameInfo = new String[20][5];
+    private String[][] showDateInfo = new String[20][5];
 
 }
