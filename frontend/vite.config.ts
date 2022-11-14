@@ -22,6 +22,7 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-     '/': { target: 'https://oh-marking.com' },
+      '/': { target: 'https://oh-marking.com/' },
+    },
   },
 });
