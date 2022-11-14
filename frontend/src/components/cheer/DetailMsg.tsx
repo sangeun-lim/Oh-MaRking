@@ -16,7 +16,7 @@ import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
-import { heartUrl } from '../../utils/imgUrl';
+import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
 import { getLikeItem } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
@@ -225,7 +225,7 @@ function DetailMsg(): JSX.Element {
                         <img
                           style={{ width: '100%', height: '100%' }}
                           // src={heartUrl}
-                          src="src/img/heart_fill.png"
+                          src={heartFillUrl}
                           alt=""
                         />
                       </button>
@@ -240,7 +240,7 @@ function DetailMsg(): JSX.Element {
                       >
                         <img
                           style={{ width: '100%', height: '100%' }}
-                          src="src/img/heart.png"
+                          src={heartUrl}
                           alt="바보"
                         />
                       </button>
