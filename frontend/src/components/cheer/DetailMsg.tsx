@@ -48,9 +48,9 @@ function DetailMsg(): JSX.Element {
   };
 
   const readMsg = async () => {
-    const response = await OMRApi.note.readUserNote(noteId);
+    // const response = await OMRApi.note.readUserNote(noteId);
     // api 추가되면 밑에껄로 변경
-    // const response = await OMRApi.note.getNote(noteId,omr.isOwner);
+    const response = await OMRApi.note.getNote(noteId, omr.isOwner);
     if (response.status === 200) {
       setEditMsg(response.data.data);
       dispatch(setNote(response.data.data));
