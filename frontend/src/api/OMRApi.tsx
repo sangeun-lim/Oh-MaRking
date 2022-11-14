@@ -89,10 +89,6 @@ const OMRApi = {
 
     readUserNote: async (noteId: number) => {
       const response = await axios({
-<<<<<<< HEAD
-        // url: Url.note.readNote(noteId),
-=======
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
         url: Url.note.readUserNote(noteId),
         headers: {
           Authorization: `Bearer ${getSessionStorage('accessToken')}`,
@@ -104,10 +100,6 @@ const OMRApi = {
 
     readNotUserNote: async (noteId: number) => {
       const response = await axios({
-<<<<<<< HEAD
-        // url: Url.note.readNote(noteId),
-=======
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
         url: Url.note.readGuestNote(noteId),
         method: 'get',
       });

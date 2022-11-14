@@ -57,7 +57,6 @@ function NavBar(): JSX.Element {
               이벤트 보러가기
             </Nav.Link> */}
             {!isLoggedIn ? (
-<<<<<<< HEAD
               // <Nav.Link href="http://oh-marking.com:8081/oauth2/authorization/kakao">
               <Nav.Link href="http://oh-marking.com:8082/oauth2/authorization/kakao">
                 <img
@@ -65,13 +64,6 @@ function NavBar(): JSX.Element {
                   alt="카카오로그인"
                   // className={styles.kakao_login}
                 />
-=======
-              <Nav.Link
-                className={`${styles.nav_font} ${styles.custom_cursor}`}
-                href="http://oh-marking.com:8081/oauth2/authorization/kakao"
-              >
-                카카오 로그인
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
               </Nav.Link>
             ) : (
               <div className={styles.nav_font}>

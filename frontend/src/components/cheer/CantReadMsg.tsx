@@ -3,18 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import { setShow } from '../../store/modal';
 import { RootState } from '../../store/store';
 
-<<<<<<< HEAD
-interface Props {
-  setShow: Dispatch<React.SetStateAction<boolean>>;
-  pass: boolean;
-}
-
-function CantReadMsg({ pass, setShow }: Props): JSX.Element {
-=======
 function CantReadMsg(): JSX.Element {
   const dispatch = useDispatch();
   const { modal } = useSelector((state: RootState) => state);
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
   const handleClose = () => {
     dispatch(setShow());
   };

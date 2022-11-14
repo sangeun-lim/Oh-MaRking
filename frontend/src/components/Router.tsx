@@ -15,13 +15,7 @@ function Router(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path="/cheer/:codedEmail" element={<CheerPage />} />
         <Route path="/event" element={<EventPage />} />
-<<<<<<< HEAD
-        <Route path="/article/:codedEmail" element={<TotalArticlePage />} />
-        {/* <Route path="/callback" element={<CallBack />} /> */}
-        <Route path="/oauth/callback" element={<CallBack />} />
-=======
         <Route path="/callback" element={<CallBack />} />
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

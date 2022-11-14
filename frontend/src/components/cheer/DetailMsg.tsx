@@ -13,10 +13,6 @@ import { setUser } from '../../store/user';
 import { EditNote, EditNoteData } from '../../utils/Interface';
 import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
-<<<<<<< HEAD
-
-=======
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
 import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
@@ -45,13 +41,9 @@ function DetailMsg(): JSX.Element {
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [pwCheck, setPwCheck] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
-<<<<<<< HEAD
-  const [pw, setPw] = useState<string>('');
-  const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
-=======
+
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
 
   const onChange = (e: any) => {
     setPw(e.target.value);
@@ -81,21 +73,8 @@ function DetailMsg(): JSX.Element {
     dispatch(setShow());
   };
 
-<<<<<<< HEAD
-  const pwCheckClose = () => {
-    setPwCheck(false);
-  };
-
-  // 수정버튼누르면 비밀번호 입력창 나오게 해야되고
-  // 비밀번호 입력후 버튼누르면 update 모달 뜨게해야됨
-  // 주인일때는 수정버튼 있게 주인이 아닐때는 수정버튼 없게
-  const onUpdateClick = () => {
-    console.log('수정하자');
-    setPwCheck(true);
-=======
   const onUpdateClick = () => {
     setOnEdit((state) => !state);
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
   };
 
   const checkPw = async () => {
@@ -103,16 +82,10 @@ function DetailMsg(): JSX.Element {
       const response = await OMRApi.password.checkPw(noteId, pw);
       if (response.status === 200) {
         setFormData(response.data.data);
-<<<<<<< HEAD
-        setPass(true);
-      }
-    } catch (err) {
-      setPass(false);
-=======
+
         dispatch(setUpdate());
       }
     } catch (err) {
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
       alert('비밀번호가 일치하지 않습니다.');
     }
   };
@@ -237,183 +210,6 @@ function DetailMsg(): JSX.Element {
 
   return (
     <div>
-<<<<<<< HEAD
-      {/* 이 부분 수정해야됨 */}
-      {pass && pwCheck ? (
-        <UpdateMsg
-          setShow={setShow}
-          pass={pass}
-          setPass={setPass}
-          noteId={noteId}
-          formData={formData}
-        />
-      ) : (
-        <Modal
-          show={pass}
-          onHide={handleClose}
-          className={`${styles[colorList[omr.color]]} ${styles.test}`}
-        >
-          <Modal.Header
-            style={{ backgroundColor: '#FBFFFE', border: '0px' }}
-            closeButton
-          >
-            <div className={styles.modaltitle}>
-              <Modal.Title>응원글 보기</Modal.Title>
-              {note.isFavorite ? (
-                // <BsSuitHeartFill
-                //   className={styles.likeButton}
-                //   onClick={onLikeClick}
-                // />
-                <div style={{ width: '1em', height: '1em' }}>
-                  <button
-                    style={{ width: '100%', height: '100%' }}
-                    type="button"
-                    onClick={onLikeClick}
-                  >
-                    <img
-                      style={{ width: '100%', height: '100%' }}
-                      src={heartUrl}
-                      alt=""
-                    />
-                  </button>
-                </div>
-              ) : (
-                <BsSuitHeart onClick={onLikeClick} />
-              )}
-            </div>
-          </Modal.Header>
-          <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: '100%', padding: '0px' }}>
-                <Row style={{ margin: '0px' }}>
-                  <div className={styles.group}>
-                    <Col>
-                      <Row>
-                        <Col className={`${styles.first_header}`}>
-                          <label
-                            className={styles.form_label}
-                            htmlFor="nickname"
-                          >
-                            닉네임
-                          </label>
-                        </Col>
-                        <Col className={`${styles.header}`}>
-                          <div>
-                            <input
-                              style={{ backgroundColor: '#FBFFFE' }}
-                              name="nickname"
-                              id="nickname"
-                              type="text"
-                              value={editMsg.nickname}
-                              maxLength={10}
-                              disabled
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col>
-                      <Row>
-                        <Col className={`${styles.header}`}>
-                          <label
-                            className={styles.form_label}
-                            htmlFor="opendate"
-                          >
-                            공개 날짜
-                          </label>
-                        </Col>
-                        <Col className={`${styles.header}`}>
-                          <div>
-                            <input
-                              style={{ backgroundColor: '#FBFFFE' }}
-                              name="showDate"
-                              type="date"
-                              id="opendate"
-                              value={editMsg.showDate}
-                              disabled
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </div>
-                </Row>
-              </div>
-            </div>
-            <br />
-            <div>
-              <div className={`${styles.cheerHeader}`}>
-                <label
-                  className={`${styles.vertical_lr} ${styles.first_header}`}
-                  htmlFor="cheer-text"
-                >
-                  서술형 응원
-                </label>
-
-                <div className={styles.body}>
-                  <textarea
-                    name="content"
-                    placeholder="응원글을 작성해주세요."
-                    id="cheer-text"
-                    value={editMsg.content}
-                    style={{ backgroundColor: '#FBFFFE' }}
-                    cols={30}
-                    rows={5}
-                    required
-                    readOnly
-                  />
-                  <ul style={{ margin: '0px' }}>
-                    {!omr.isOwner ? (
-                      <li>
-                        <button
-                          className={styles.btn_hover_border_3}
-                          type="button"
-                          onClick={onUpdateClick}
-                        >
-                          수정
-                        </button>
-                      </li>
-                    ) : null}
-                    <li>
-                      <button
-                        className={styles.btn_hover_border_3}
-                        type="button"
-                        onClick={onDeleteClick}
-                      >
-                        삭제
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                {pwCheck && (
-                  <div>
-                    <label htmlFor="password">비밀번호</label>
-                    <input
-                      id="password"
-                      type="password"
-                      onChange={onChange}
-                      value={pw || ''}
-                      placeholder="비밀번호를 입력해주세요."
-                    />
-                    <ul>
-                      <li>
-                        <button type="button" onClick={pwCheckClose}>
-                          취소
-                        </button>
-                      </li>
-                      <li>
-                        <button type="button" onClick={accessPw}>
-                          확인
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
-=======
       {modal.update ? (
         <UpdateMsg formData={formData} noteId={noteId} />
       ) : (
@@ -617,7 +413,6 @@ function DetailMsg(): JSX.Element {
             </Modal>
           )}
         </div>
->>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
       )}
     </div>
   );
