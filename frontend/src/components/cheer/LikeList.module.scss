@@ -1,5 +1,27 @@
 @use 'src/style/all';
 .letter {
-   font-family : 'notice_body';
+   font-family : 'letter_content';
     font-size: 15px;
 }
+
+.to_name {
+    text-align: left;
+}
+
+.from_name {
+    text-align: right;
+}
+
+
+.txt_post {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7; /* 라인수 */
+    -webkit-box-orient: vertical;
+    width: 350px;
+    word-wrap:break-word; 
+    line-height: 1.2em;
+    height: 8.4em; /* line-height 가 1.2em 이고 5라인을 자르기 때문에 height는 1.2em * 5 = 6.0em */
+  }

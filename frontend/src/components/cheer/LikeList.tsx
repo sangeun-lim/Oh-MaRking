@@ -39,8 +39,8 @@ function LikeList({
           To.{username} ({pageNum + 1}교시-{problemNum + 1}번 문항-
           {checkNum + 1})
         </div>
-        <div className={styles.letter_content}>{content}</div>
-        <div>From.{nickname}</div>
+        <div className={styles.txt_post}>{content}</div>
+        <div className={styles.from_name}>From.{nickname}</div>
       </div>
     </div>
   );
