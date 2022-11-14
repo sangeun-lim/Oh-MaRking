@@ -91,63 +91,19 @@ function DetailMsg(): JSX.Element {
     await checkPw();
   };
 
-  const onDeleteClick = async () => {
-    const result = await swalWithBootstrapButtons.fire({
-      // title: '작성된 응원메시지를 삭제하시겠습니까?',
-      text: '작성된 응원메시지를 삭제하시겠습니까?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: '삭제할게요',
-      cancelButtonText: '뒤로갈게요',
-      reverseButtons: true,
-    });
-    // result.is
-    // .then((result) => {
-    if (result.isConfirmed) {
-      await OMRApi.note.deleteNote(noteId);
-      const { data } = await OMRApi.omr.getOmr(
-        user.omrList[omr.pageNum],
-        auth.isLoggedIn
-      );
-      dispatch(setUser(data.data.user));
-      dispatch(setOmr(data.data.omr));
-      dispatch(setIsOwner(data.data.isOwner));
-      dispatch(setShow());
-      if (!note.isFavorite) {
-        const { content, nickname, problemNum, checkNum } = note;
-        const payload = getLikeItem({
-          noteId,
-          content,
-          nickname,
-          pageNum: omr.pageNum,
-          checkNum,
-          problemNum,
-        });
-        dispatch(addLikeList(payload));
-      } else {
-        dispatch(removeLikeItem(noteId));
-      }
-      swalWithBootstrapButtons.fire(
-        '삭제완료!',
-        '응원메시지가 삭제되었습니다.',
-        'success'
-      );
-    } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      swalWithBootstrapButtons.fire(
-        '삭제 취소',
-        '응원페이지로 돌아갑니다 :)',
-        'error'
-      );
-    }
-  };
-  // const del: boolean = window.confirm(
-  //   '작성된 응원메시지를 삭제하시겠습니까?'
-  // );
-  // if (del) {
-  //   try {
+  // const onDeleteClick = async () => {
+  //   const result = await swalWithBootstrapButtons.fire({
+  //     // title: '작성된 응원메시지를 삭제하시겠습니까?',
+  //     text: '작성된 응원메시지를 삭제하시겠습니까?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: '삭제할게요',
+  //     cancelButtonText: '뒤로갈게요',
+  //     reverseButtons: true,
+  //   });
+  //   // result.is
+  //   // .then((result) => {
+  //   if (result.isConfirmed) {
   //     await OMRApi.note.deleteNote(noteId);
   //     const { data } = await OMRApi.omr.getOmr(
   //       user.omrList[omr.pageNum],
@@ -156,19 +112,74 @@ function DetailMsg(): JSX.Element {
   //     dispatch(setUser(data.data.user));
   //     dispatch(setOmr(data.data.omr));
   //     dispatch(setIsOwner(data.data.isOwner));
-  //     setPass(false);
-  //     setShow(false);
-  //     // alert('응원 메시지가 삭제되었습니다.');
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: '응원 메시지가 삭제되었습니다.',
-  //     });
-  //     // dispatch로 새로운 omrList를 갱신해주는 코드가 필요할듯?
-  //   } catch (err) {
-  //     console.log(err);
-  //     alert('응원메시지를 삭제할 수 없습니다.');
+  //     dispatch(setShow());
+  //     if (!note.isFavorite) {
+  //       const { content, nickname, problemNum, checkNum } = note;
+  //       const payload = getLikeItem({
+  //         noteId,
+  //         content,
+  //         nickname,
+  //         pageNum: omr.pageNum,
+  //         checkNum,
+  //         problemNum,
+  //       });
+  //       dispatch(addLikeList(payload));
+  //     } else {
+  //       dispatch(removeLikeItem(noteId));
+  //     }
+  //     swalWithBootstrapButtons.fire(
+  //       '삭제완료!',
+  //       '응원메시지가 삭제되었습니다.',
+  //       'success'
+  //     );
+  //   } else if (
+  //     /* Read more about handling dismissals below */
+  //     result.dismiss === Swal.DismissReason.cancel
+  //   ) {
+  //     swalWithBootstrapButtons.fire(
+  //       '삭제 취소',
+  //       '응원페이지로 돌아갑니다 :)',
+  //       'error'
+  //     );
   //   }
-  // }
+  // };
+  const onDeleteClick = async () => {
+    const del: boolean = window.confirm(
+      '작성된 응원메시지를 삭제하시겠습니까?'
+    );
+    if (del) {
+      try {
+        await OMRApi.note.deleteNote(noteId);
+        const { data } = await OMRApi.omr.getOmr(
+          user.omrList[omr.pageNum],
+          auth.isLoggedIn
+        );
+        dispatch(setUser(data.data.user));
+        dispatch(setOmr(data.data.omr));
+        dispatch(setIsOwner(data.data.isOwner));
+        // dispatch로 새로운 omrList를 가 필요할듯?
+        dispatch(setShow());
+        if (!note.isFavorite) {
+          const { content, nickname, problemNum, checkNum } = note;
+          const payload = getLikeItem({
+            noteId,
+            content,
+            nickname,
+            pageNum: omr.pageNum,
+            checkNum,
+            problemNum,
+          });
+          dispatch(addLikeList(payload));
+        } else {
+          dispatch(removeLikeItem(noteId));
+        }
+        alert('응원 메시지가 삭제되었습니다.');
+      } catch (err) {
+        console.log(err);
+        alert('응원메시지를 삭제할 수 없습니다.');
+      }
+    }
+  };
 
   const onLikeClick = async (e: any) => {
     await OMRApi.note.likeNote(noteId, !note.isFavorite);
@@ -223,37 +234,41 @@ function DetailMsg(): JSX.Element {
               >
                 <div className={styles.modalTitle}>
                   <Modal.Title>응원글 보기</Modal.Title>
-                  {note.isFavorite ? (
-                    <div style={{ width: '1em', height: '1em' }}>
-                      <button
-                        style={{ width: '100%', height: '100%' }}
-                        type="button"
-                        onClick={onLikeClick}
-                      >
-                        <img
-                          style={{ width: '100%', height: '100%' }}
-                          // src={heartUrl}
-                          src={heartFillUrl}
-                          alt=""
-                        />
-                      </button>
+                  {omr.isOwner ? (
+                    <div>
+                      {note.isFavorite ? (
+                        <div style={{ width: '1em', height: '1em' }}>
+                          <button
+                            style={{ width: '100%', height: '100%' }}
+                            type="button"
+                            onClick={onLikeClick}
+                          >
+                            <img
+                              style={{ width: '100%', height: '100%' }}
+                              // src={heartUrl}
+                              src={heartFillUrl}
+                              alt=""
+                            />
+                          </button>
+                        </div>
+                      ) : (
+                        // <BsSuitHeart onClick={onLikeClick} />
+                        <div style={{ width: '1em', height: '1em' }}>
+                          <button
+                            style={{ width: '100%', height: '100%' }}
+                            type="button"
+                            onClick={onLikeClick}
+                          >
+                            <img
+                              style={{ width: '100%', height: '100%' }}
+                              src={heartUrl}
+                              alt="바보"
+                            />
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    // <BsSuitHeart onClick={onLikeClick} />
-                    <div style={{ width: '1em', height: '1em' }}>
-                      <button
-                        style={{ width: '100%', height: '100%' }}
-                        type="button"
-                        onClick={onLikeClick}
-                      >
-                        <img
-                          style={{ width: '100%', height: '100%' }}
-                          src={heartUrl}
-                          alt="바보"
-                        />
-                      </button>
-                    </div>
-                  )}
+                  ) : null}
                 </div>
               </Modal.Header>
               <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
@@ -339,44 +354,26 @@ function DetailMsg(): JSX.Element {
                       {/* <DYEditor data={editMsg.content} readOnly /> */}
                       <ul style={{ margin: '0px' }}>
                         {onEdit ? (
-                          <li
-                            style={{
-                              border: '1px solid black',
-                            }}
-                          >
-                            <label
-                              htmlFor="pw"
-                              style={{
-                                border: '1px solid black',
-                              }}
-                            >
-                              pw
-                            </label>
+                          <li>
                             <input
+                              className={styles.on_edit_input}
                               id="pw"
                               type="password"
                               onChange={onChange}
                               value={pw || ''}
                               placeholder="비밀번호를 입력해주세요."
-                              style={{
-                                border: '1px solid black',
-                              }}
                             />
                             <button
                               type="button"
                               onClick={onUpdateClick}
-                              style={{
-                                border: '1px solid black',
-                              }}
+                              className={styles.btn_hover_border_3}
                             >
                               뒤로
                             </button>
                             <button
                               type="button"
                               onClick={accessPw}
-                              style={{
-                                border: '1px solid black',
-                              }}
+                              className={styles.btn_hover_border_3}
                             >
                               확인
                             </button>

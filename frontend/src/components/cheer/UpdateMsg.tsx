@@ -9,7 +9,10 @@ import { setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
+import { getLikeItem } from '../../utils/utils';
 import { RootState } from '../../store/store';
+import { addLikeList, removeLikeItem } from '../../store/likeList';
+
 import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -21,7 +24,9 @@ interface Props {
 function UpdateMsg({ formData, noteId }: Props): JSX.Element {
   const dispatch = useDispatch();
 
-  const { omr, user, auth, modal } = useSelector((state: RootState) => state);
+  const { omr, user, auth, modal, note } = useSelector(
+    (state: RootState) => state
+  );
 
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
@@ -87,6 +92,20 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
         dispatch(setIsOwner(data.data.isOwner));
         // dispatch로 새로운 omrList를 가 필요할듯?
         dispatch(setShow());
+        if (!note.isFavorite) {
+          const { content, nickname, problemNum, checkNum } = note;
+          const payload = getLikeItem({
+            noteId,
+            content,
+            nickname,
+            pageNum: omr.pageNum,
+            checkNum,
+            problemNum,
+          });
+          dispatch(addLikeList(payload));
+        } else {
+          dispatch(removeLikeItem(noteId));
+        }
         alert('응원 메시지가 삭제되었습니다.');
       } catch (err) {
         console.log(err);
