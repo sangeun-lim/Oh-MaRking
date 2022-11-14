@@ -22,7 +22,7 @@ pipeline {
           sh 'docker stop frontend || true && docker rm frontend || true'
           sh 'docker rmi frontend-image || true'
           sh 'docker build -t frontend-image .'
-          sh 'docker run -d --name frontend -p 3000:80 frontend-image'
+          sh 'docker run -d --name frontend -p 3000:3000 frontend-image'
         }
       }
       post {
