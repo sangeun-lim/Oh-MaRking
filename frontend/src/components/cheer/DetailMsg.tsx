@@ -48,13 +48,10 @@ function DetailMsg(): JSX.Element {
   };
 
   const readMsg = async () => {
-    // const response = await OMRApi.note.readUserNote(noteId);
-    // api 추가되면 밑에껄로 변경
     const response = await OMRApi.note.getNote(noteId, omr.isOwner);
     if (response.status === 200) {
       setEditMsg(response.data.data);
       dispatch(setNote(response.data.data));
-
       const NoteData = {
         problemIdx: response.data.data.problemNum,
         elementIdx: response.data.data.checkNum,
@@ -207,7 +204,6 @@ function DetailMsg(): JSX.Element {
     'orange',
     'pink',
   ];
-  console.log('조회 컴포넌트');
 
   return (
     <div>
@@ -343,72 +339,67 @@ function DetailMsg(): JSX.Element {
                       {/* <DYEditor data={editMsg.content} readOnly /> */}
                       <ul style={{ margin: '0px' }}>
                         {onEdit ? (
-                          <li>
-                            <li
+                          <li
+                            style={{
+                              border: '1px solid black',
+                            }}
+                          >
+                            <label
+                              htmlFor="pw"
                               style={{
                                 border: '1px solid black',
                               }}
                             >
-                              <label
-                                htmlFor="pw"
-                                style={{
-                                  border: '1px solid black',
-                                }}
-                              >
-                                pw
-                              </label>
-                              <input
-                                id="pw"
-                                type="password"
-                                onChange={onChange}
-                                value={pw || ''}
-                                placeholder="비밀번호를 입력해주세요."
-                                style={{
-                                  border: '1px solid black',
-                                }}
-                              />
-                              <button
-                                type="button"
-                                onClick={onUpdateClick}
-                                style={{
-                                  border: '1px solid black',
-                                }}
-                              >
-                                뒤로
-                              </button>
-                              <button
-                                type="button"
-                                onClick={accessPw}
-                                style={{
-                                  border: '1px solid black',
-                                }}
-                              >
-                                확인
-                              </button>
-                            </li>
+                              pw
+                            </label>
+                            <input
+                              id="pw"
+                              type="password"
+                              onChange={onChange}
+                              value={pw || ''}
+                              placeholder="비밀번호를 입력해주세요."
+                              style={{
+                                border: '1px solid black',
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={onUpdateClick}
+                              style={{
+                                border: '1px solid black',
+                              }}
+                            >
+                              뒤로
+                            </button>
+                            <button
+                              type="button"
+                              onClick={accessPw}
+                              style={{
+                                border: '1px solid black',
+                              }}
+                            >
+                              확인
+                            </button>
                           </li>
                         ) : (
                           <li>
-                            <li>
-                              {!omr.isOwner && (
-                                <button
-                                  className={styles.btn_hover_border_3}
-                                  type="button"
-                                  onClick={onUpdateClick}
-                                >
-                                  수정
-                                </button>
-                              )}
-                            </li>
-                            <li>
+                            {!omr.isOwner && (
                               <button
                                 className={styles.btn_hover_border_3}
                                 type="button"
-                                onClick={onDeleteClick}
+                                onClick={onUpdateClick}
                               >
-                                삭제
+                                수정
                               </button>
-                            </li>
+                            )}
+
+                            <button
+                              className={styles.btn_hover_border_3}
+                              type="button"
+                              onClick={onDeleteClick}
+                            >
+                              삭제
+                            </button>
                           </li>
                         )}
                       </ul>

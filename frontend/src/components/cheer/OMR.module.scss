@@ -585,3 +585,7 @@ $cheer_section_height: 30em;
 .MuiTooltip_popper {
   // color: red !important;
 }
+
+.custom_cursor:hover {
+  cursor: url(../img/cursorRotate.png), pointer;
+}

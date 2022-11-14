@@ -28,7 +28,8 @@ const Url = {
   note: {
     createOrUpdateNote: () => `${HOST + NOTE2}`,
     DeleteNote: (noteId: number) => `${HOST + NOTE}del/${noteId}`,
-    readNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
+    readUserNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
+    readGuestNote: (noteId: number) => `${HOST + NOTE}guest/${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
     likeNote: () => `${HOST + NOTE}favorite`,
     likeList: (codedEmail: string) => `${HOST + NOTE}favorites/${codedEmail}`,

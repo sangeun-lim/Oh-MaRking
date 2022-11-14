@@ -89,7 +89,6 @@ function OMR(): JSX.Element {
       const response = await OMRApi.note.likeList(user.codedEmail);
       if (response.status === 200) {
         dispatch(setLikeList(response.data.data));
-        console.log('즐겨찾기 조회 성공');
       }
     };
     getLikeList();
@@ -150,7 +149,6 @@ function OMR(): JSX.Element {
               </div>
               <div className={`${styles.body} ${styles.bottom}`}>
                 {/* 즐겨찾기 보여주는 부분 */}
-
                 {notice ? (
                   <div>
                     <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />

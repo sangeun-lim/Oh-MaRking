@@ -1,10 +1,6 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setShow, setDetail, setCheer } from '../../store/modal';
-import { setNoteOpen } from '../../store/omr';
-import { setNote } from '../../store/note';
-import OMRApi from '../../api/OMRApi';
-import { RootState } from '../../store/store';
+
 import styles from './LikeList.module.scss';
 
 interface Props {
@@ -35,10 +31,7 @@ function LikeList({
   return (
     <div onClick={DetailOpen} role="presentation">
       <div className={styles.letter}>
-        <div className={styles.to_name}>
-          To.{username} ({pageNum + 1}교시-{problemNum + 1}번 문항-
-          {checkNum + 1})
-        </div>
+        <div className={styles.to_name}>To.{username}</div>
         <div className={styles.txt_post}>{content}</div>
         <div className={styles.from_name}>From.{nickname}</div>
       </div>
