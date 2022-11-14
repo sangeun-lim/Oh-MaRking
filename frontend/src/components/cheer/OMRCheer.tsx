@@ -36,7 +36,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         dispatch(setCreate());
         break;
       case s.canNotRead:
-        console.log('status', status, problemNum, elementNum);
+        // console.log('status', status, problemNum, elementNum);
         dispatch(setCannotRead());
         break;
       default:

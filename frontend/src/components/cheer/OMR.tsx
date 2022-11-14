@@ -144,7 +144,7 @@ function OMR(): JSX.Element {
                   }`}
                   onClick={handleLike}
                 >
-                  Like
+                  즐겨찾기
                 </button>
               </div>
               <div className={`${styles.body} ${styles.bottom}`}>

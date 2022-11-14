@@ -20,7 +20,10 @@ export const NewNoteDefaultData = {
   nickname: '',
   content: '',
   pwd: '',
-  showDate: '',
+  showDate: new Date()
+    .toLocaleDateString()
+    .replaceAll('. ', '-')
+    .replaceAll('.', ''),
   problemNum: 0,
   checkNum: 0,
 };

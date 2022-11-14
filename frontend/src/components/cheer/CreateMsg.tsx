@@ -60,7 +60,7 @@ function CreateMsg(): JSX.Element {
     .querySelector('#password-check')
     ?.addEventListener('focusin', () => setPass(true));
 
-  // // 노트에 쓰는 모든 값들이 입력하면서 바뀔때마다 값 바꿔주는 함수
+  // // 노트에 쓰는 모든 값들이 작성하면서 바뀔때마다 값 바꿔주는 함수
   const onChangeData = (e: any) => {
     const { name, value } = e.target;
     setNewNote((prev) => {
@@ -123,7 +123,7 @@ function CreateMsg(): JSX.Element {
             style={{ backgroundColor: '#FBFFFE', border: '0px' }}
             closeButton
           >
-            <Modal.Title>응원글 작성</Modal.Title>
+            <Modal.Title>응원 답안</Modal.Title>
           </Modal.Header>
           <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
             <form onSubmit={handleOnSubmit}>
@@ -140,7 +140,7 @@ function CreateMsg(): JSX.Element {
                               className={`${styles.form_label}`}
                               htmlFor="nickname"
                             >
-                              닉네임
+                              이름
                             </label>
                           </Col>
                           <Col
@@ -152,7 +152,7 @@ function CreateMsg(): JSX.Element {
                                 name="nickname"
                                 id="nickname"
                                 type="text"
-                                placeholder="닉네임을 입력해주세요."
+                                placeholder="닉네임을 작성해주세요."
                                 onChange={onChangeData}
                                 maxLength={10}
                                 required
@@ -183,10 +183,7 @@ function CreateMsg(): JSX.Element {
                                 name="showDate"
                                 id="showDate"
                                 // 오늘날짜 기본으로
-                                value={new Date()
-                                  .toLocaleDateString()
-                                  .replaceAll('. ', '-')
-                                  .replaceAll('.', '')}
+                                value={newNote.showDate}
                                 onChange={onChangeData}
                                 required
                               />
@@ -216,7 +213,7 @@ function CreateMsg(): JSX.Element {
                                 name="password1"
                                 id="password"
                                 type="password"
-                                placeholder="비밀번호를 입력해주세요."
+                                placeholder="비밀번호를 작성해주세요."
                                 value={pwd.password1}
                                 onChange={onChangePwd}
                                 required
@@ -242,7 +239,7 @@ function CreateMsg(): JSX.Element {
                                 name="password2"
                                 id="password-check"
                                 type="password"
-                                placeholder="동일한 비밀번호를 입력하세요."
+                                placeholder="동일한 비밀번호를 작성하세요."
                                 value={pwd.password2}
                                 onChange={onChangePwd}
                                 required
@@ -286,7 +283,7 @@ function CreateMsg(): JSX.Element {
                           disabled={disable}
                           // onClick={() => getData()}
                         >
-                          응원하기
+                          제출하기
                         </button>
                       </li>
                       <li>
@@ -295,7 +292,7 @@ function CreateMsg(): JSX.Element {
                           type="button"
                           onClick={handleClose}
                         >
-                          응원취소
+                          제출취소
                         </button>
                       </li>
                     </ul>

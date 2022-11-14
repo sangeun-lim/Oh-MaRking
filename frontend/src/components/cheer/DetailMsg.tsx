@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Swal from 'sweetalert2';
-import DYEditor, { getData } from 'dyeditor';
+// import DYEditor, { getData } from 'dyeditor';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setShow, setUpdate, setDetail } from '../../store/modal';
@@ -16,7 +16,7 @@ import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
-import { heartUrl } from '../../utils/imgUrl';
+import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
 import { getLikeItem } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
@@ -224,13 +224,27 @@ function DetailMsg(): JSX.Element {
                       >
                         <img
                           style={{ width: '100%', height: '100%' }}
-                          src={heartUrl}
+                          // src={heartUrl}
+                          src={heartFillUrl}
                           alt=""
                         />
                       </button>
                     </div>
                   ) : (
-                    <BsSuitHeart onClick={onLikeClick} />
+                    // <BsSuitHeart onClick={onLikeClick} />
+                    <div style={{ width: '1em', height: '1em' }}>
+                      <button
+                        style={{ width: '100%', height: '100%' }}
+                        type="button"
+                        onClick={onLikeClick}
+                      >
+                        <img
+                          style={{ width: '100%', height: '100%' }}
+                          src={heartUrl}
+                          alt="바보"
+                        />
+                      </button>
+                    </div>
                   )}
                 </div>
               </Modal.Header>
