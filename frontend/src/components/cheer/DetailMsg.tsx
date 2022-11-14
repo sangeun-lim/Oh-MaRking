@@ -1,6 +1,5 @@
-import React, { Dispatch, useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,7 +7,7 @@ import Swal from 'sweetalert2';
 // import DYEditor, { getData } from 'dyeditor';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
-import { setShow, setUpdate, setDetail } from '../../store/modal';
+import { setShow, setUpdate } from '../../store/modal';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
 import { setUser } from '../../store/user';
 import { EditNote, EditNoteData } from '../../utils/Interface';
@@ -117,7 +116,20 @@ function DetailMsg(): JSX.Element {
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
       dispatch(setShow());
-
+      if (!note.isFavorite) {
+        const { content, nickname, problemNum, checkNum } = note;
+        const payload = getLikeItem({
+          noteId,
+          content,
+          nickname,
+          pageNum: omr.pageNum,
+          checkNum,
+          problemNum,
+        });
+        dispatch(addLikeList(payload));
+      } else {
+        dispatch(removeLikeItem(noteId));
+      }
       swalWithBootstrapButtons.fire(
         '삭제완료!',
         '응원메시지가 삭제되었습니다.',
