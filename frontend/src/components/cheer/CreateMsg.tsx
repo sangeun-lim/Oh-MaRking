@@ -183,10 +183,7 @@ function CreateMsg(): JSX.Element {
                                 name="showDate"
                                 id="showDate"
                                 // 오늘날짜 기본으로
-                                value={new Date()
-                                  .toLocaleDateString()
-                                  .replaceAll('. ', '-')
-                                  .replaceAll('.', '')}
+                                value={newNote.showDate}
                                 onChange={onChangeData}
                                 required
                               />
