@@ -39,23 +39,26 @@ function NavBar(): JSX.Element {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end align-items-center flex-grow-1 pe-3">
-            <Nav.Link className={styles.nav_font} href="/event">
+            <Nav.Link
+              className={`${styles.nav_font} ${styles.custom_cursor}`}
+              href="/event"
+            >
               설문조사
             </Nav.Link>
             {isLoggedIn && (
               <Nav.Link
-                className={styles.nav_font}
+                className={`${styles.nav_font} ${styles.custom_cursor}`}
                 href={`/cheer/${myCodedEmail}`}
               >
                 내 응원가기
               </Nav.Link>
             )}
-            <Nav.Link className={styles.nav_font} href="/event">
+            {/* <Nav.Link className={`${styles.nav_font} ${styles.custom_cursor}`} href="/event">
               이벤트 보러가기
-            </Nav.Link>
+            </Nav.Link> */}
             {!isLoggedIn ? (
               <Nav.Link
-                className={styles.nav_font}
+                className={`${styles.nav_font} ${styles.custom_cursor}`}
                 href="http://oh-marking.com:8081/oauth2/authorization/kakao"
               >
                 카카오 로그인

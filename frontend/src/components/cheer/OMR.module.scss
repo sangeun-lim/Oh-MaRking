@@ -576,3 +576,6 @@ $cheer_section_height: 30em;
   display: flex;
   justify-content: space-between;
 }
+.custom_cursor:hover {
+  cursor: url(../img/cursorRotate.png), pointer;
+}

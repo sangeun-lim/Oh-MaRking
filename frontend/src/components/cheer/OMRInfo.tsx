@@ -54,7 +54,8 @@ function Info({ title, content }: InfoProps): JSX.Element {
             <span>{content}</span>
             <AiFillEdit
               type="button"
-              className={styles.edit}
+              // className={styles.custom_cursor}
+              // className={styles.edit}
               aria-label="자기소개 수정"
               onClick={switchIsEdting}
               style={{

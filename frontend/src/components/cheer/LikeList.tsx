@@ -1,10 +1,6 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setShow, setDetail, setCheer } from '../../store/modal';
-import { setNoteOpen } from '../../store/omr';
-import { setNote } from '../../store/note';
-import OMRApi from '../../api/OMRApi';
-import { RootState } from '../../store/store';
+
 import styles from './LikeList.module.scss';
 
 interface Props {
