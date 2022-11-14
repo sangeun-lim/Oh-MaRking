@@ -65,8 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().configurationSource(request -> {
             CorsConfiguration cors = new CorsConfiguration();
-            // cors.setAllowedOrigins(Collections.singletonList("*"));
-            cors.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000","http://localhost:3000", "https://k7c102.p.ssafy.io", "http://k7c102.p.ssafy.io:8082", "http://k7c102.p.ssafy.io:8083"));
+            cors.setAllowedOrigins(Collections.singletonList("*"));
+            // cors.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000","http://localhost:3000", "https://k7c102.p.ssafy.io", "http://k7c102.p.ssafy.io:8082", "http://k7c102.p.ssafy.io:8083"));
             cors.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
             cors.setAllowedHeaders(Collections.singletonList("*"));
             return cors;
