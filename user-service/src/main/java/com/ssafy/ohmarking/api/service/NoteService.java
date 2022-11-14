@@ -24,4 +24,6 @@ public interface NoteService {
     void updateNote(NoteUpdateDto noteUpdateDto);
 
     Map<String, Long> writeNote(NoteRegisterDto noteRegisterDto);
+
+    NoteInfoResponseDto getNoteInfoByNoteId(Long noteId);
 }

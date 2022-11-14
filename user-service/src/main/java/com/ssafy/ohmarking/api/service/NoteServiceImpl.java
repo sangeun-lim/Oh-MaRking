@@ -171,4 +171,20 @@ public class NoteServiceImpl implements NoteService {
             }
         };
     }
+
+    @Override
+    public NoteInfoResponseDto getNoteInfoByNoteId(Long noteId) {
+        Note note = noteRepository.findById(noteId).orElseThrow(NoteNotFoundException::new);
+
+        NoteInfoResponseDto noteInfoResponseDto = NoteInfoResponseDto.builder()
+                .nickname(note.getNickname())
+                .content(note.getContent())
+                .showDate(note.getShowDate())
+                .date(note.getDate())
+                .problemNum(note.getProblemNum())
+                .checkNum(note.getCheckNum())
+                .isFavorite(note.getIsFavorite())
+                .build();
+        return noteInfoResponseDto;
+    }
 }
