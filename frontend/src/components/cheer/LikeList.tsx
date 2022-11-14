@@ -1,16 +1,40 @@
+import { useDispatch } from 'react-redux';
+import { setShow, setDetail, setCheer } from '../../store/modal';
+
+import styles from './LikeList.module.scss';
+
 interface Props {
   username: string;
   content: string;
   nickname: string;
+  pageNum: number;
+  problemNum: number;
+  checkNum: number;
 }
 
-function LikeList({ username, content, nickname }: Props): JSX.Element {
+function LikeList({
+  username,
+  content,
+  nickname,
+  pageNum,
+  problemNum,
+  checkNum,
+}: Props): JSX.Element {
+  const dispatch = useDispatch();
+
+  const DetailOpen = async () => {
+    dispatch(setCheer({ problemIdx: problemNum, elementIdx: checkNum }));
+    dispatch(setShow());
+    dispatch(setDetail());
+  };
+
   return (
-    <div>
-      <div>To.{username}</div>
-      {/* 일정 편지내용 이상이면 ...으로 되게끔 */}
-      <div>{content}</div>
-      <div>From.{nickname}</div>
+    <div onClick={DetailOpen} role="presentation">
+      <div className={styles.letter}>
+        <div className={styles.to_name}>To.{username}</div>
+        <div className={styles.txt_post}>{content}</div>
+        <div className={styles.from_name}>From.{nickname}</div>
+      </div>
     </div>
   );
 }

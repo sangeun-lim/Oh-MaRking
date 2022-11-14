@@ -68,3 +68,12 @@ export interface OmrData {
   user: User;
   omr: Omr;
 }
+
+export interface likeList {
+  noteId: number;
+  content: string;
+  nickname: string;
+  pageNum: number;
+  problemNum: number;
+  checkNum: number;
+}

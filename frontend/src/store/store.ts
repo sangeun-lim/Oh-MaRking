@@ -4,6 +4,8 @@ import userReducer from './user';
 import noteReducer from './note';
 import omrReducer from './omr';
 import authReducer from './auth';
+import modalReducer from './modal';
+import likeListReducer from './likeList';
 
 // 만든 reducer 추가해주기
 export const store = configureStore({
@@ -12,6 +14,8 @@ export const store = configureStore({
     note: noteReducer,
     omr: omrReducer,
     auth: authReducer,
+    modal: modalReducer,
+    likeList: likeListReducer,
   },
 });
 

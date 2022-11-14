@@ -34,12 +34,13 @@ span {
     writing-mode: vertical-lr;
     // border-right: 3px solid;
     width: 5%;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   div {
     width:95%;
   }
   div > textarea{
+    font-family: 'letter_content';
     display: block;
     margin: 15px;
     width: 95%;
@@ -58,24 +59,26 @@ span {
   label {
     width: 100%;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   div {
     width: 100%;
     input {
       width: 100%;
-      font-size: 0.5rem;
+      font-size: 0.7rem;
       height: 100%;
       display: block;
       overflow: hidden;
       padding: 0 5px 0 0;
+      font-family: 'letter_content'
 
     }
     input[type=password]{
       font-family:"Nanum Gothic", sans-serif; 
     }
     input[type=password]::placeholder {
-      font-family: "hanna_11yrs"; 
+      font-family: 'letter_content'
+ 
     }        
   }
 }
@@ -128,7 +131,7 @@ ul {
     margin: 0px 25px 0px 15px;
     min-width: 60px;
     min-height: 25px;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
   }
 
   .btn_hover_border_3:hover::before,
@@ -261,3 +264,23 @@ ul {
   @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }
 
+
+// .form_control {
+// 	position: relative;
+// }
+// .fa_check_circle {
+//   // visibility: hidden;
+//   position: absolute;
+//   top: 40px;
+//   right: 10px;
+//   color: #2ecc71;
+//   visibility: visible;
+// }
+// .fa_check_exclamation-circle {
+//   position: absolute;
+//   top: 40px;
+//   right: 10px;
+
+//   color: #e74c3c;
+//   visibility: visible;
+// }

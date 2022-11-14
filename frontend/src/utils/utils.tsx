@@ -1,3 +1,5 @@
+import { likeList } from './Interface';
+
 // Unique Key 생성 함수
 export const getKey = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -5,17 +7,6 @@ export const getKey = () => {
     const v = c === 'x' ? r : (r && 0x3) || 0x8;
     return v.toString(16);
   });
-};
-
-// 페이지네이션 테스트용 OMR
-export const randomOmr = (max: number) => {
-  const omr: number[][] = Array.from(Array(20), () => new Array(5));
-  for (let problem = 0; problem < 20; problem += 1) {
-    for (let element = 0; element < 5; element += 1) {
-      omr[problem][element] = Math.floor(Math.random() * max);
-    }
-  }
-  return omr;
 };
 
 export const setSessionStorage = (key: string, value: string) => {
@@ -28,4 +19,17 @@ export const deleteSessionStorage = (key: string) => {
 
 export const getSessionStorage = (key: string) => {
   return sessionStorage.getItem(key);
+};
+
+export const getLikeItem = (likelist: likeList) => {
+  const { noteId, content, nickname, pageNum, problemNum, checkNum } = likelist;
+  const payload = {
+    noteId,
+    content,
+    nickname,
+    pageNum,
+    problemNum,
+    checkNum,
+  };
+  return payload;
 };

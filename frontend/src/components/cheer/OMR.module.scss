@@ -27,14 +27,17 @@ $cheer_section_height: 30em;
 
 // OMR 마킹하는 곳
 @mixin omr($bg) {
-  @include all.box(29px, 39px);
+  @include all.box(30px, 40px);
   @include all.flex(column, center, center);
   @include fill-stroke(color.$before_marking, color.$primary);
   display: inline-block;
   border-radius: 50px;
   color: color.$primary;
   padding: 5px;
-  margin: 10px;
+  margin: 12px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-right: 16px;
   background: #{$bg};
 }
@@ -86,14 +89,13 @@ $cheer_section_height: 30em;
   .button_right {
     border-radius: 0px 20px 0px 0px;
     // border-radius: inherit;
-    
   }
   .active {
     // border-radius: all.$IF_radius 0px 0px 0px;
     background-color: #{$line};
     // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
   }
-  .nonactive{
+  .nonactive {
     // border-radius: 0px all.$IF_radius 0px 0px;
     // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
     // border-radius: inherit;
@@ -216,6 +218,7 @@ $cheer_section_height: 30em;
   .omr_head {
     @include all.flex(row, flex-end, center);
     height: 60px;
+    margin-right: 50px;
     .header {
       border-radius: all.$IF_radius;
       font-size: 24px;
@@ -239,6 +242,7 @@ $cheer_section_height: 30em;
   // 시험지 바디 중 찐한 색
   .omr_body .header {
     font-family: all.$OMR_header;
+    font-size: all.$OMR_header_font_size;
   }
 
   // 시험지 푸터
@@ -262,7 +266,11 @@ $cheer_section_height: 30em;
 
   // ①교시 응원영역 파트
   .page {
-    width: 370px;
+    width: 100%;
+    margin-left: 30px;
+    height: 70px;
+    // width: 370px;
+
     font-family: all.$OMR_header;
     text-align: start;
     // ①
@@ -280,6 +288,7 @@ $cheer_section_height: 30em;
       display: inline-block;
       margin-left: 3px;
       font-size: 32px;
+      height: 40px;
     }
   }
 
@@ -345,8 +354,8 @@ $cheer_section_height: 30em;
   .top {
     @include all.flex(row, space-around, center);
     button {
-      width:50%;
-      height:100%;
+      width: 50%;
+      height: 100%;
     }
     // .button_left {
     //   border-right: 2px solid black
@@ -385,7 +394,7 @@ $cheer_section_height: 30em;
 // 시험지 가운데, 우측 - 응원한마디 구역
 .cheer {
   font-family: all.$OMR_body;
-  @include all.box(30%, 100%);
+  @include all.box(29%, 100%);
 
   // 응원한마디 영역
   .section {
@@ -401,9 +410,8 @@ $cheer_section_height: 30em;
       border-radius: all.$OMR_small_radius all.$OMR_small_radius 0px 0px;
       padding-right: 10px;
       > span {
-        padding: 5px;
-        margin: 10px;
-        margin-right: 16px;
+        font-size: all.$OMR_header_font_size;
+        margin: 0px 17px;
       }
     }
     > :nth-child(1) {
@@ -423,7 +431,7 @@ $cheer_section_height: 30em;
   @include all.flex(row, flex-end, center);
   position: relative;
   height: 10%;
-  padding-right: 16.5px;
+  padding-right: 12px;
   > span {
     width: $cheer_front_width;
     height: 100%;
@@ -564,10 +572,20 @@ $cheer_section_height: 30em;
   }
 }
 
-
-
 .buhton_flex {
   display: flex;
   justify-content: space-between;
 }
 
+.test {
+  // opacity: 0;
+  // transform: translateX(-100%);
+}
+
+.MuiTooltip_popper {
+  // color: red !important;
+}
+
+.custom_cursor:hover {
+  cursor: url(../img/cursorRotate.png), pointer;
+}

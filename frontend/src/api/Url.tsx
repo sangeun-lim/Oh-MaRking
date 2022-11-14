@@ -42,6 +42,7 @@ const Url = {
   },
 
   note: {
+<<<<<<< HEAD
     // createOrUpdateNote: () => `${HOST + NOTE2}`,
     // DeleteNote: (noteId: number) => `${HOST + NOTE}del/${noteId}`,
     // readNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
@@ -55,6 +56,15 @@ const Url = {
     searchNote: (nickname: string) => `${HOST + NOTE}/search/${nickname}`,
     likeNote: () => `${HOST + NOTE}/favorite`,
     likeList: () => `${HOST + NOTE}/favorites`,
+=======
+    createOrUpdateNote: () => `${HOST + NOTE2}`,
+    DeleteNote: (noteId: number) => `${HOST + NOTE}del/${noteId}`,
+    readUserNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
+    readGuestNote: (noteId: number) => `${HOST + NOTE}guest/${noteId}`,
+    searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
+    likeNote: () => `${HOST + NOTE}favorite`,
+    likeList: (codedEmail: string) => `${HOST + NOTE}favorites/${codedEmail}`,
+>>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
   },
   password: {
     checkPW: () => `${HOST + NOTE + CHECK}`,

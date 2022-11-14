@@ -5,6 +5,7 @@
 // e4cca6
 
 .navList {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/bg1.jpg?alt=media&token=f4890c6e-341c-4d18-93f5-9c25a31d7536');
   display: flex;
   flex-direction: row;
   padding: 0px;
@@ -30,13 +31,21 @@
   font-family: 'hanna_11yrs';
   font-size: 20px;
   // width: 200px;
+  > button {
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color: var(--bs-nav-link-color);
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out;
+    font-size: 25px;
+  }
+  > button:hover {
+    color: rgba(0, 0, 0, 0.7);
+  }
 }
-
-.kakao_login {
-  // width: 50%;
-  // height: 50%;
-}
-
 
 .navList > .box_container {
   display: flex;
@@ -46,8 +55,12 @@
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * .5);
-  padding-left: calc(var(--bs-gutter-x) * .5);
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+}
+
+.custom_cursor:hover {
+  cursor: url(../img/cursorRotate.png), pointer;
 }

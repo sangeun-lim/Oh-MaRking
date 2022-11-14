@@ -22,8 +22,12 @@ function NavBar(): JSX.Element {
   };
 
   return (
-    <Navbar className={styles.navList} style={{ padding: '0px' }} expand="xxl">
-      {/* <Container className={styles.box_container}> */}
+    <Navbar
+      sticky="top"
+      className={styles.navList}
+      style={{ padding: '0px' }}
+      expand="xxl"
+    >
       <div className={styles.box_container}>
         <Navbar.Brand className={styles.left} href="/">
           <img
@@ -35,22 +39,25 @@ function NavBar(): JSX.Element {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end align-items-center flex-grow-1 pe-3">
-            <Nav.Link className={styles.nav_font} href="/event">
+            <Nav.Link
+              className={`${styles.nav_font} ${styles.custom_cursor}`}
+              href="/event"
+            >
               설문조사
             </Nav.Link>
-            {/* <Nav.Link className={styles.nav_font} href="/cheer/wfaw"> */}
             {isLoggedIn && (
               <Nav.Link
-                className={styles.nav_font}
+                className={`${styles.nav_font} ${styles.custom_cursor}`}
                 href={`/cheer/${myCodedEmail}`}
               >
                 내 응원가기
               </Nav.Link>
             )}
-            <Nav.Link className={styles.nav_font} href="/event">
+            {/* <Nav.Link className={`${styles.nav_font} ${styles.custom_cursor}`} href="/event">
               이벤트 보러가기
-            </Nav.Link>
+            </Nav.Link> */}
             {!isLoggedIn ? (
+<<<<<<< HEAD
               // <Nav.Link href="http://oh-marking.com:8081/oauth2/authorization/kakao">
               <Nav.Link href="http://oh-marking.com:8082/oauth2/authorization/kakao">
                 <img
@@ -58,19 +65,24 @@ function NavBar(): JSX.Element {
                   alt="카카오로그인"
                   // className={styles.kakao_login}
                 />
+=======
+              <Nav.Link
+                className={`${styles.nav_font} ${styles.custom_cursor}`}
+                href="http://oh-marking.com:8081/oauth2/authorization/kakao"
+              >
+                카카오 로그인
+>>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
               </Nav.Link>
             ) : (
-              <div>
+              <div className={styles.nav_font}>
                 <button type="button" onClick={logoutRequest}>
-                  <FaSignOutAlt size="30" />
+                  로그아웃
                 </button>
               </div>
             )}
           </Nav>
         </Navbar.Collapse>
       </div>
-
-      {/* </Container> */}
     </Navbar>
   );
 }

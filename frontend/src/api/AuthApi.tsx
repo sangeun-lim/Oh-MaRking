@@ -5,7 +5,6 @@ import { getSessionStorage } from '../utils/utils';
 
 const AuthApi = {
   auth: {
-    // 로그인 로그아웃 을 만들어야되나?
     logout: async () => {
       const response = await axios({
         url: Url.auth.logout(),

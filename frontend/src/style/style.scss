@@ -6,7 +6,9 @@ div > .modal-dialog {
   --bs-modal-width: 1200px;
   /* // width:70%; */
 }
-
+.modal-body {
+  border-radius: inherit;
+}
 span > .form-label {
   margin-bottom: 0px;
   margin-right: 5px;
@@ -36,4 +38,15 @@ span > .form-label {
   // > col {
   //     padding: 0px;
   // }
+}
+
+.custom_cursor {
+}
+
+.MuiTooltip-popper {
+  color: red !important;
+}
+
+.MuiTooltip-popperInteractive {
+  color: red !important;
 }

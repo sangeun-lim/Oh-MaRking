@@ -3,7 +3,6 @@ import Url from './Url';
 import {
   NewOmr,
   ChangeColor,
-  // CheckPw,
   NewNoteData,
   UpdateNoteData,
 } from './ApiInterface';
@@ -20,7 +19,6 @@ const OMRApi = {
     },
 
     getOmr: async (omrId: number, isLoggedIn: boolean) => {
-      // console.log('쏨');
       const response = isLoggedIn
         ? await OMRApi.omr.getUserOmr(omrId)
         : await OMRApi.omr.getNotUserOmr(omrId);
@@ -83,7 +81,6 @@ const OMRApi = {
     },
 
     getNote: async (noteId: number, isOwner: boolean) => {
-      // console.log('쏨');
       const response = isOwner
         ? await OMRApi.note.readUserNote(noteId)
         : await OMRApi.note.readNotUserNote(noteId);
@@ -92,7 +89,10 @@ const OMRApi = {
 
     readUserNote: async (noteId: number) => {
       const response = await axios({
+<<<<<<< HEAD
         // url: Url.note.readNote(noteId),
+=======
+>>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
         url: Url.note.readUserNote(noteId),
         headers: {
           Authorization: `Bearer ${getSessionStorage('accessToken')}`,
@@ -104,7 +104,10 @@ const OMRApi = {
 
     readNotUserNote: async (noteId: number) => {
       const response = await axios({
+<<<<<<< HEAD
         // url: Url.note.readNote(noteId),
+=======
+>>>>>>> e2cb8b553137eadb999aacb831b39ca850b4cc61
         url: Url.note.readGuestNote(noteId),
         method: 'get',
       });
@@ -153,13 +156,10 @@ const OMRApi = {
       });
       return response;
     },
-    likeList: async () => {
+    likeList: async (codedEmail: string) => {
       const response = await axios({
-        url: Url.note.likeList(),
+        url: Url.note.likeList(codedEmail),
         method: 'get',
-        headers: {
-          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
-        },
       });
       return response;
     },
@@ -176,16 +176,6 @@ const OMRApi = {
         },
       });
       return response;
-      //   return axios({
-      //     url: Url.password.checkPW(),
-      //     method: 'post',
-      //     data: {
-      //       noteId,
-      //       pwd,
-      //     },
-      //   })
-      //     .then((res) => res)
-      //     .catch((err) => err);
     },
   },
 };

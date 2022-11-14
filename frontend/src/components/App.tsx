@@ -23,7 +23,7 @@ function App(): JSX.Element {
     }
   }, [isLoggedIn, getCodedEmail]);
   return (
-    <div className={styles.image}>
+    <div className={`${styles.image} ${styles.custom_cursor}`}>
       <Router />
     </div>
   );

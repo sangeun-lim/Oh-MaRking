@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
-import Search from './Search';
+import { setLikeList } from '../../store/likeList';
+import CreateMsg from './CreateMsg';
+import DetailMsg from './DetailMsg';
+import CantReadMsg from './CantReadMsg';
 import Cheer from './OMRCheer';
 import Info from './OMRInfo';
 import Pallet from './OMRPallet';
@@ -14,21 +17,12 @@ import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 
-interface FavoriteList {
-  noteId: number;
-  checkNum: number;
-  problemNum: number;
-  PageNum: number;
-  nickname: string;
-  content: string;
-}
-
 function OMR(): JSX.Element {
-  const [favoriteList, setFavoriteList] = useState<FavoriteList[]>([]);
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  // const [like, setLike] = useState<boolean>(false);
-  const { user, omr, auth } = useSelector((state: RootState) => state);
+  const { user, omr, auth, modal, likeList } = useSelector(
+    (state: RootState) => state
+  );
   const dispatch = useDispatch();
   const colorList = [
     'yellow',
@@ -42,14 +36,12 @@ function OMR(): JSX.Element {
   ];
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
   const handleLike = () => {
-    // setLike(true);
     setNotice(false);
     setBtnActive(false);
   };
   const handleNotice = () => {
     setNotice(true);
     setBtnActive(true);
-    // setLike(false);
   };
   const getOmr = useCallback(
     async (omrId: number) => {
@@ -80,27 +72,30 @@ function OMR(): JSX.Element {
       pageNum: newPage,
       userId: user.userId,
     };
-    const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
-    if (status === 201) {
-      alert('새로운 페이지가 추가되었습니다.');
-      dispatch(addOmr(data.data.omrId));
+    try {
+      const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
+      if (status === 201) {
+        alert('새로운 페이지가 추가되었습니다.');
+        dispatch(addOmr(data.data.omrId));
+      }
+    } catch {
+      alert('20개 이상의 문항을 작성해야합니다.');
     }
   }, [user.userId, user.omrList, dispatch]);
 
   // 즐겨찾기 조회하기 위해
   useEffect(() => {
-    const likeList = async () => {
-      const response = await OMRApi.note.likeList();
+    const getLikeList = async () => {
+      const response = await OMRApi.note.likeList(user.codedEmail);
       if (response.status === 200) {
-        setFavoriteList(response.data.data);
-        // console.log(favoriteList);
+        dispatch(setLikeList(response.data.data));
       }
     };
-    likeList();
-  }, []);
+    getLikeList();
+  }, [dispatch, user.codedEmail]);
 
   return (
-    <div className={`${styles[colorList[omr.color]]}`}>
+    <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
@@ -112,9 +107,6 @@ function OMR(): JSX.Element {
           >
             답안지 교체
           </button>
-          <div className={styles.header}>
-            <Search />
-          </div>
         </div>
         {/* OMR BODY */}
         <div className={styles.omr_body}>
@@ -143,7 +135,7 @@ function OMR(): JSX.Element {
                   type="button"
                   onClick={handleNotice}
                 >
-                  주의사항
+                  안내사항
                 </button>
                 <button
                   type="button"
@@ -152,12 +144,11 @@ function OMR(): JSX.Element {
                   }`}
                   onClick={handleLike}
                 >
-                  Like
+                  검토하기
                 </button>
               </div>
               <div className={`${styles.body} ${styles.bottom}`}>
                 {/* 즐겨찾기 보여주는 부분 */}
-
                 {notice ? (
                   <div>
                     <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
@@ -169,16 +160,17 @@ function OMR(): JSX.Element {
                   </div>
                 ) : (
                   <Carousel>
-                    {favoriteList.map((data) => (
-                      // <div>
+                    {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
+                          pageNum={data.pageNum}
+                          problemNum={data.problemNum}
+                          checkNum={data.checkNum}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}
                         />
                       </Carousel.Item>
-                      // </div>
                     ))}
                   </Carousel>
                 )}
@@ -206,6 +198,11 @@ function OMR(): JSX.Element {
         </div>
         <div className={styles.omr_footer} />
         <Code />
+      </div>
+      <div>
+        {modal.create && <CreateMsg />}
+        {modal.detail && <DetailMsg />}
+        {modal.canNotRead && <CantReadMsg />}
       </div>
     </div>
   );

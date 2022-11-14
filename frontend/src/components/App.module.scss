@@ -5,3 +5,25 @@ body {
   background-position: center;
   background-attachment: fixed;
 }
+
+.custom_cursor {
+  // text-align: center;
+  /* cursor관련 추가 */
+  // z-index: 1;
+  // width: 100%;
+  // height: 100%;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // button > * {
+  //   all: unset;
+  // }
+  cursor: url(../img/cursorRotate.png), auto;
+
+  svg,
+  img,
+  button:hover {
+    cursor: url(../img/cursorRotate.png), pointer;
+    // cursor: url(../img/mark.png) inherit;
+  }
+}
