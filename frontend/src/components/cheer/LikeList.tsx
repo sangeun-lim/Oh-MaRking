@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setShow, setDetail, setCheer } from '../../store/modal';
+import { setNoteOpen } from '../../store/omr';
+import { setNote } from '../../store/note';
+import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
 import styles from './LikeList.module.scss';
 
@@ -8,25 +11,23 @@ interface Props {
   username: string;
   content: string;
   nickname: string;
+  pageNum: number;
+  problemNum: number;
+  checkNum: number;
 }
 
-// interface textLengthProps {
-//   txt: string;
-//   len: number;
-//   lastTxt: string;
-// }
-
-// function textLength({ txt, len, lastTxt }: textLengthProps): JSX.Element {
-//   if (txt.length > len) {
-//     txt = txt.substr(0, len) + lastTxt;
-//   }
-//   return txt;
-// }
-
-function LikeList({ username, content, nickname }: Props): JSX.Element {
+function LikeList({
+  username,
+  content,
+  nickname,
+  pageNum,
+  problemNum,
+  checkNum,
+}: Props): JSX.Element {
   const dispatch = useDispatch();
 
-  const DetailOpen = () => {
+  const DetailOpen = async () => {
+    dispatch(setCheer({ problemIdx: problemNum, elementIdx: checkNum }));
     dispatch(setShow());
     dispatch(setDetail());
   };
@@ -34,10 +35,12 @@ function LikeList({ username, content, nickname }: Props): JSX.Element {
   return (
     <div onClick={DetailOpen} role="presentation">
       <div className={styles.letter}>
-        <div className={styles.to_name}>To.{username}</div>
-        {/* 일정 편지내용 이상이면 ...으로 되게끔 */}
-        <div className={styles.letter_content}>{content}</div>
-        <div>From.{nickname}</div>
+        <div className={styles.to_name}>
+          To.{username} ({pageNum + 1}교시-{problemNum + 1}번 문항-
+          {checkNum + 1})
+        </div>
+        <div className={styles.txt_post}>{content}</div>
+        <div className={styles.from_name}>From.{nickname}</div>
       </div>
     </div>
   );

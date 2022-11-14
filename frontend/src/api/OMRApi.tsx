@@ -83,7 +83,6 @@ const OMRApi = {
     },
 
     getNote: async (noteId: number, isOwner: boolean) => {
-      // console.log('쏨');
       const response = isOwner
         ? await OMRApi.note.readUserNote(noteId)
         : await OMRApi.note.readNotUserNote(noteId);
@@ -151,13 +150,10 @@ const OMRApi = {
       });
       return response;
     },
-    likeList: async () => {
+    likeList: async (codedEmail: string) => {
       const response = await axios({
-        url: Url.note.likeList(),
+        url: Url.note.likeList(codedEmail),
         method: 'get',
-        headers: {
-          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
-        },
       });
       return response;
     },

@@ -86,13 +86,14 @@ function OMR(): JSX.Element {
   // 즐겨찾기 조회하기 위해
   useEffect(() => {
     const getLikeList = async () => {
-      const response = await OMRApi.note.likeList();
+      const response = await OMRApi.note.likeList(user.codedEmail);
       if (response.status === 200) {
         dispatch(setLikeList(response.data.data));
+        console.log('즐겨찾기 조회 성공');
       }
     };
     getLikeList();
-  }, [dispatch]);
+  }, [dispatch, user.codedEmail]);
 
   return (
     <div className={`${styles[colorList[omr.color]]}`}>
@@ -135,7 +136,7 @@ function OMR(): JSX.Element {
                   type="button"
                   onClick={handleNotice}
                 >
-                  주의사항
+                  안내사항
                 </button>
                 <button
                   type="button"
@@ -144,7 +145,7 @@ function OMR(): JSX.Element {
                   }`}
                   onClick={handleLike}
                 >
-                  즐겨찾기
+                  검토하기
                 </button>
               </div>
               <div className={`${styles.body} ${styles.bottom}`}>
@@ -164,6 +165,9 @@ function OMR(): JSX.Element {
                     {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
+                          pageNum={data.pageNum}
+                          problemNum={data.problemNum}
+                          checkNum={data.checkNum}
                           username={user.name}
                           content={data.content}
                           nickname={data.nickname}

@@ -40,6 +40,7 @@ span {
     width:95%;
   }
   div > textarea{
+    font-family: 'letter_content';
     display: block;
     margin: 15px;
     width: 95%;
@@ -69,13 +70,15 @@ span {
       display: block;
       overflow: hidden;
       padding: 0 5px 0 0;
+      font-family: 'letter_content'
 
     }
     input[type=password]{
       font-family:"Nanum Gothic", sans-serif; 
     }
     input[type=password]::placeholder {
-      font-family: "hanna_11yrs"; 
+      font-family: 'letter_content'
+ 
     }        
   }
 }
@@ -261,3 +264,23 @@ ul {
   @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }
 
+
+// .form_control {
+// 	position: relative;
+// }
+// .fa_check_circle {
+//   // visibility: hidden;
+//   position: absolute;
+//   top: 40px;
+//   right: 10px;
+//   color: #2ecc71;
+//   visibility: visible;
+// }
+// .fa_check_exclamation-circle {
+//   position: absolute;
+//   top: 40px;
+//   right: 10px;
+
+//   color: #e74c3c;
+//   visibility: visible;
+// }

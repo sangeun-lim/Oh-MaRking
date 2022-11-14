@@ -31,7 +31,7 @@ const Url = {
     readNote: (noteId: number) => `${HOST + NOTE}${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
     likeNote: () => `${HOST + NOTE}favorite`,
-    likeList: () => `${HOST + NOTE}favorites`,
+    likeList: (codedEmail: string) => `${HOST + NOTE}favorites/${codedEmail}`,
   },
   password: {
     checkPW: () => `${HOST + NOTE + CHECK}`,
