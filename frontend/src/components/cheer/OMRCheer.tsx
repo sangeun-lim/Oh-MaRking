@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Tooltip } from '@mui/material';
 import { getKey } from '../../utils/utils';
 import {
   setShow,
@@ -36,7 +37,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         dispatch(setCreate());
         break;
       case s.canNotRead:
-        // console.log('status', status, problemNum, elementNum);
         dispatch(setCannotRead());
         break;
       default:
@@ -81,7 +81,14 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   //     y: event.clientY - event.target.offsetTop,
   //   });
   // };
-
+  const getContent = (problemIdx: number, elementIdx: number) => {
+    const nickName = omr.nicknameInfo[problemIdx][elementIdx];
+    const showDate = omr.showDateInfo[problemIdx][elementIdx];
+    if (showDate === null) {
+      return 'plz..💬';
+    }
+    return `${nickName} ${showDate}`;
+  };
   return (
     <div className={`${styles.section} ${styles.body}`}>
       <div className={`${styles.header} ${styles.top}`}>
@@ -96,11 +103,16 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         {msg.map((problem, problemIdx) => (
           <div className={styles.problem} key={getKey()}>
             <span>{problemIdx + start + 1}</span>
-            <div>
-              {problem.map((element, elementIdx) => (
+            {/* <div> */}
+            {problem.map((element, elementIdx) => (
+              <Tooltip
+                title={getContent(problemIdx + start, elementIdx)}
+                key={getKey()}
+                arrow
+                classes={{ popper: `${styles.MuiTooltip_popper}` }}
+              >
                 <button
                   className={`${styles[omrBg[element]]}`}
-                  key={getKey()}
                   type="button"
                   onMouseEnter={() =>
                     handleMouseOver(problemIdx + start, elementIdx)
@@ -110,19 +122,11 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                 >
                   {element === 4 ? null : elementIdx + 1}
                 </button>
-              ))}
-            </div>
+              </Tooltip>
+            ))}
+            {/* </div> */}
           </div>
         ))}
-      </div>
-      <div>
-        {isHovering && (
-          <div>
-            {' '}
-            {omr.nicknameInfo[modal.problemIdx][modal.elementIdx]}{' '}
-            {omr.showDateInfo[modal.problemIdx][modal.elementIdx]}
-          </div>
-        )}
       </div>
     </div>
   );

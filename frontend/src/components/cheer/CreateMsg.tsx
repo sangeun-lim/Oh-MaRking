@@ -277,7 +277,7 @@ function CreateMsg(): JSX.Element {
               </div>
               {/* {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null} */}
 
-              <br />
+              {/* <br /> */}
               <div>
                 <div className={`${styles.cheerHeader}`}>
                   <label
