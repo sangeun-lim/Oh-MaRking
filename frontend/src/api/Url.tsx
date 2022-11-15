@@ -20,7 +20,7 @@ const Url = {
     ReadGuestOmr: (omrId: number) => `${HOST + LOGIC + OMR}/guest/${omrId}`,
     newOMR: () => `${HOST + LOGIC + OMR}`,
     changeColor: () => `${HOST + LOGIC + OMR}/color`,
-    createOrUpdateOrDeleteNote: (noteId: number) => `${HOST + OMR}${noteId}`,
+    createOrUpdateOrDeleteNote: (noteId: number) => `${HOST + LOGIC + OMR}${noteId}`,
   },
 
   note: {
@@ -28,9 +28,9 @@ const Url = {
     DeleteNote: (noteId: number) => `${HOST + LOGIC + NOTE}/del/${noteId}`,
     readUserNote: (noteId: number) => `${HOST + LOGIC + NOTE}/${noteId}`,
     readGuestNote: (noteId: number) => `${HOST + LOGIC + NOTE}/guest/${noteId}`,
-    searchNote: (nickname: string) => `${HOST + NOTE}/search/${nickname}`,
-    likeNote: () => `${HOST + NOTE}/favorite`,
-    likeList: (codedEmail: string) => `${HOST + NOTE}/favorites/${codedEmail}`,
+    searchNote: (nickname: string) => `${HOST + LOGIC + NOTE}/search/${nickname}`,
+    likeNote: () => `${HOST + LOGIC + NOTE}/favorite`,
+    likeList: (codedEmail: string) => `${HOST + LOGIC + NOTE}/favorites/${codedEmail}`,
   },
   password: {
     checkPW: () => `${HOST + NOTE + CHECK}`,
