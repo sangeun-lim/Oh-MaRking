@@ -161,7 +161,7 @@ function OMR(): JSX.Element {
                     </div>
                   </div>
                 ) : (
-                  <Carousel variant="dark">
+                  <Carousel>
                     {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
