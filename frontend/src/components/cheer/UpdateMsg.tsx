@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch, ReactSVG, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
@@ -17,7 +17,7 @@ import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
 interface Props {
-  // formData: Dispatch<React.SetStateAction<EditNoteData>>;
+  // setFormData: Dispatch<React.SetStateAction<EditNoteData>>;
   formData: EditNoteData;
   noteId: number;
 }
@@ -28,13 +28,16 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
   const { omr, user, auth, modal, note } = useSelector(
     (state: RootState) => state
   );
-
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>({
     nickname: formData.nickname,
     content: formData.content,
     showDate: formData.showDate,
   });
+
+  useEffect(() => {
+    setEditMsg(formData);
+  }, [formData]);
 
   const onChange = (e: any) => {
     const { name, value } = e.target;
@@ -59,6 +62,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
       content: editMsg.content,
       showDate: editMsg.showDate,
     };
+    console.log(changeFormData);
 
     await OMRApi.note.updateNote(noteId, changeFormData);
     const { data } = await OMRApi.omr.getOmr(
@@ -195,7 +199,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                               id="opendate"
                               name="showDate"
                               type="date"
-                              value={editMsg.showDate || formData.showDate}
+                              value={formData.showDate || editMsg.showDate}
                               onChange={onChange}
                               required
                             />
@@ -222,7 +226,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                     id="cheer-text"
                     onChange={onChange}
                     // placeholder={formData.content}
-                    value={editMsg.content || formData.content}
+                    value={formData.content || editMsg.content}
                     cols={30}
                     rows={10}
                     required
