@@ -5,6 +5,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { logout } from '../store/auth';
+import { setIsLoading } from '../store/omr';
 import AuthApi from '../api/AuthApi';
 import { RootState } from '../store/store';
 import styles from './NavBar.module.scss';
@@ -19,6 +20,7 @@ function NavBar(): JSX.Element {
   const logoutRequest = async () => {
     await AuthApi.auth.logout();
     dispatch(logout());
+    dispatch(setIsLoading(true));
   };
 
   return (

@@ -34,7 +34,7 @@ function CantReadMsg(): JSX.Element {
   ];
   const [pw, setPw] = useState<string>('');
   const [onEdit, setOnEdit] = useState<boolean>(false);
-  const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
+  const [onDelete, setOnDelete] = useState<boolean>(false);
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
 
@@ -45,10 +45,11 @@ function CantReadMsg(): JSX.Element {
     setOnEdit((state) => !state);
   };
 
-  const checkPw = async () => {
+  const checkPwUpdate = async () => {
     try {
       const response = await OMRApi.password.checkPw(noteId, pw);
       if (response.status === 200) {
+        console.log(response.data.data);
         setFormData(response.data.data);
         dispatch(setUpdate());
       }
@@ -57,32 +58,60 @@ function CantReadMsg(): JSX.Element {
     }
   };
 
+  const accessPwUpdate = async () => {
+    await checkPwUpdate();
+  };
+
   const onDeleteClick = async () => {
-    const del: boolean = window.confirm(
-      '작성된 응원메시지를 삭제하시겠습니까?'
-    );
-    if (del) {
-      try {
-        await OMRApi.note.deleteNote(noteId);
-        const { data } = await OMRApi.omr.getOmr(
-          user.omrList[omr.pageNum],
-          auth.isLoggedIn
-        );
-        dispatch(setUser(data.data.user));
-        dispatch(setOmr(data.data.omr));
-        dispatch(setIsOwner(data.data.isOwner));
-        // dispatch로 새로운 omrList를 가 필요할듯?
-        dispatch(setShow());
-        alert('응원 메시지가 삭제되었습니다.');
-      } catch (err) {
-        console.log(err);
-        alert('응원메시지를 삭제할 수 없습니다.');
+    if (omr.isOwner) {
+      const del: boolean = window.confirm(
+        '작성된 응원메시지를 삭제하시겠습니까?'
+      );
+      if (del) {
+        try {
+          await OMRApi.note.deleteNote(noteId);
+          const { data } = await OMRApi.omr.getOmr(
+            user.omrList[omr.pageNum],
+            auth.isLoggedIn
+          );
+          dispatch(setUser(data.data.user));
+          dispatch(setOmr(data.data.omr));
+          dispatch(setIsOwner(data.data.isOwner));
+          // dispatch로 새로운 omrList를 가 필요할듯?
+          dispatch(setShow());
+          alert('응원 메시지가 삭제되었습니다.');
+        } catch (err) {
+          console.log(err);
+          alert('응원메시지를 삭제할 수 없습니다.');
+        }
       }
+    } else {
+      setOnEdit((state) => state);
+      setOnDelete((state) => !state);
     }
   };
 
-  const accessPw = async () => {
-    await checkPw();
+  const checkPwDelete = async () => {
+    try {
+      await OMRApi.note.deleteNote(noteId);
+      const { data } = await OMRApi.omr.getOmr(
+        user.omrList[omr.pageNum],
+        auth.isLoggedIn
+      );
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+      dispatch(setIsOwner(data.data.isOwner));
+      // dispatch로 새로운 omrList를 가 필요할듯?
+      dispatch(setShow());
+      alert('응원 메시지가 삭제되었습니다.');
+    } catch (err) {
+      console.log(err);
+      alert('응원메시지를 삭제할 수 없습니다.');
+    }
+  };
+
+  const accessPwDelete = async () => {
+    await checkPwDelete();
   };
 
   return (
@@ -227,7 +256,7 @@ function CantReadMsg(): JSX.Element {
                                 </button>
                                 <button
                                   type="button"
-                                  onClick={accessPw}
+                                  onClick={accessPwUpdate}
                                   className={styles.btn_hover_border_3}
                                 >
                                   확인
@@ -235,7 +264,7 @@ function CantReadMsg(): JSX.Element {
                               </li>
                             ) : (
                               <li>
-                                {!omr.isOwner && (
+                                {!omr.isOwner && !onDelete && (
                                   <button
                                     className={styles.btn_hover_border_3}
                                     type="button"
@@ -244,7 +273,7 @@ function CantReadMsg(): JSX.Element {
                                     수정
                                   </button>
                                 )}
-                                {omr.isOwner && (
+                                {!onDelete && (
                                   <button
                                     className={styles.btn_hover_border_3}
                                     type="button"
@@ -253,6 +282,32 @@ function CantReadMsg(): JSX.Element {
                                     삭제
                                   </button>
                                 )}
+                              </li>
+                            )}
+                            {onDelete && (
+                              <li>
+                                <input
+                                  className={styles.on_edit_input}
+                                  id="pw"
+                                  type="password"
+                                  onChange={onChange}
+                                  value={pw || ''}
+                                  placeholder="비밀번호를 입력해주세요."
+                                />
+                                <button
+                                  type="button"
+                                  onClick={onDeleteClick}
+                                  className={styles.btn_hover_border_3}
+                                >
+                                  뒤로
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={accessPwDelete}
+                                  className={styles.btn_hover_border_3}
+                                >
+                                  확인
+                                </button>
                               </li>
                             )}
                           </ul>
