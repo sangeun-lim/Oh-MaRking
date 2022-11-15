@@ -19,13 +19,23 @@
 // .test > * {
 //   // cursor: url('../../img/pen-solid.svg'), pointer;
 // }
+.test:not(button) {
+  // font-weight: bold;
+  font-family: 'hanna_11yrs';
+  // cursor: url('../../img/pen-solid.svg'), pointer;
+}
+
+// .test > * {
+//   // cursor: url('../../img/pen-solid.svg'), pointer;
+// }
 .full_screen {
-  width: 100%;
+  width: 100%
 }
 
 span {
   margin: none;
 }
+
 
 .cheerHeader {
   display: flex;
@@ -33,19 +43,19 @@ span {
   // justify-content: space-between;
   .vertical_lr {
     // border-right: 0px;
-    // margin-left: auto;
+    // margin-left: auto; 
     // margin-right: auto;
     text-align: center;
     // align-items: center;
     writing-mode: vertical-lr;
     // border-right: 3px solid;
     width: 5%;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   div {
-    width: 95%;
+    width:95%;
   }
-  div > textarea {
+  div > textarea{
     font-family: 'letter_content';
     display: block;
     margin: 15px;
@@ -58,28 +68,29 @@ span {
 }
 
 .group {
-  display: flex;
+  display:flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  height: 100%;
+  height:100%;
   label {
     width: 100%;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   div {
     width: 100%;
     input {
       width: 100%;
-      font-size: 0.5rem;
+      font-size: 0.7rem;
       height: 100%;
       display: block;
       overflow: hidden;
       padding: 0 5px 0 0;
       font-family: 'letter_content'
+
     }
-    input[type='password'] {
-      font-family: 'Nanum Gothic', sans-serif;
+    input[type=password]{
+      font-family:"Nanum Gothic", sans-serif; 
     }
     input[type=password]::placeholder {
       font-family: 'letter_content'
@@ -91,7 +102,7 @@ span {
 // 	font-family:"Nanum Gothic", sans-serif !important;
 // }
 // input[type=password]::placeholder {
-// 	font-family: "기존에 사용하는 글꼴";
+// 	font-family: "기존에 사용하는 글꼴"; 
 // }
 .form_label {
   // display: inline-block;
@@ -101,7 +112,7 @@ span {
   align-items: center;
 }
 .cheer_box {
-  border: 3px solid #000;
+  border:3px solid #000;
 }
 
 // 버튼관련 css
@@ -114,64 +125,67 @@ ul {
 .button-links {
   list-style: none;
 }
-:hover,
-:focus {
-  outline: 0 !important;
-  outline-offset: 0;
-}
-::before,
-::after {
-  position: absolute;
-  content: '';
-}
-.btn_hover_border_3 {
-  position: relative;
-  display: inline-block;
-  width: auto;
-  height: auto;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  margin: 0px 25px 0px 15px;
-  min-width: 60px;
-  min-height: 25px;
-  font-size: 0.5rem;
-}
+  :hover,
+  :focus {
+    outline: 0 !important;
+    outline-offset: 0;
 
-.btn_hover_border_3:hover::before,
-.btn_hover_border_3:hover::after {
-  width: 100%;
-  height: 99%;
-  opacity: 1;
-  transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
-}
+  }
+  ::before,
+  ::after {
+    position: absolute;
+    content: "";
+  }
+  .btn_hover_border_3{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0px 25px 0px 15px;
+    min-width: 60px;
+    min-height: 25px;
+    font-size: 0.7rem;
+  }
 
-.btn_hover_border_3:hover {
-  color: #000;
-}
+  .btn_hover_border_3:hover::before,
+  .btn_hover_border_3:hover::after {
+    width: 100%;
+    height: 99%;
+    opacity: 1;
+    transition: width 0.2s linear, height 0.15s 0.2s linear, opacity 0s;
+  }
+ 
+  .btn_hover_border_3:hover{
+    color: #000;
+  }
 .btn_hover_border_3::before,
-.btn_hover_border_3::after {
-  width: 0%;
-  height: 0%;
-  opacity: 0;
-  transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
-}
-// .btn_hover_border_3::before {
-//   top: 0;
-//   right: 0;
-//   bottom: 0;
-//   left: 0;
-//   border-top: 1px solid rgb(28, 31, 30);
-//   border-left: 1px solid rgb(28, 31, 30);
+  .btn_hover_border_3::after {
+    width: 0%;
+    height: 0%;
+    opacity: 0;
+    transition: width 0.2s 0.15s linear, height 0.15s linear, opacity 0s 0.35s;
+  }
+  // .btn_hover_border_3::before {
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   border-top: 1px solid rgb(28, 31, 30);
+  //   border-left: 1px solid rgb(28, 31, 30);
 
-//   border-bottom: 1px solid rgb(28, 31, 30);
-//   border-right: 1px solid rgb(28, 31, 30);
-// }
+  //   border-bottom: 1px solid rgb(28, 31, 30);
+  //   border-right: 1px solid rgb(28, 31, 30);
+  // }
 
-.btn_hover_border_3 {
-  border: none;
-  color: #a7aaad;
-}
+  .btn_hover_border_3 {
+    border: none; 
+    color: #a7aaad;
+  }
+
+
 
 //color
 @mixin fill_stroke($fill, $stroke) {
@@ -195,10 +209,12 @@ ul {
   .header {
     @include header(#{$bg}, #{$line});
     // .form_label {
-    border-left-style: hidden;
+      border-left-style: hidden;
     // }
   }
-
+  .bottom_header{
+    border-bottom-style: hidden;
+  }
   .cheer .header {
     border: none;
     border-bottom: 3px solid #{$line};
@@ -225,10 +241,8 @@ ul {
   .problem:nth-child(5) {
     border-bottom: 3px solid #{$line};
   }
-  .on_edit_input:focus {
-    border-color: #{$line};
-  }
 }
+
 
 .skyblue {
   @include color(color.$bg_skyblue, color.$line_skyblue, color.$before_marking);
@@ -265,6 +279,7 @@ ul {
 .pink {
   @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }
+
 
 // like button
 .likeButton {

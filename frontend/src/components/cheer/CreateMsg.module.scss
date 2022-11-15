@@ -48,6 +48,9 @@ span {
     font-size: 0.9rem;
     // border: 1px solid #000;
   }
+  div > textarea::placeholder {
+    color: #E2E2E2 ;
+  }
   // flex-wrap: wrap;
 }
 
@@ -73,12 +76,15 @@ span {
       font-family: 'letter_content'
 
     }
+    input::placeholder {
+      color: #E2E2E2 ;
+    }
     input[type=password]{
       font-family:"Nanum Gothic", sans-serif; 
     }
     input[type=password]::placeholder {
-      font-family: 'letter_content'
- 
+      font-family: 'letter_content';
+      color: #E2E2E2 ;
     }        
   }
 }

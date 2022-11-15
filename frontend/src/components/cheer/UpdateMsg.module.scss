@@ -3,6 +3,7 @@
 @import url("//fonts.googleapis.com/earlyaccess/nanumgothic.css" );
 
 
+
 .test:not(button) {
   // font-weight: bold;
   font-family: 'hanna_11yrs';
@@ -34,7 +35,7 @@ span {
     writing-mode: vertical-lr;
     // border-right: 3px solid;
     width: 5%;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   div {
     width:95%;
@@ -48,6 +49,9 @@ span {
     font-size: 0.9rem;
     // border: 1px solid #000;
   }
+  div > textarea::placeholder {
+    color: #E2E2E2 ;
+  }
   // flex-wrap: wrap;
 }
 
@@ -59,26 +63,29 @@ span {
   label {
     width: 100%;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
   div {
     width: 100%;
     input {
       width: 100%;
-      font-size: 0.5rem;
+      font-size: 0.7rem;
       height: 100%;
       display: block;
       overflow: hidden;
       padding: 0 5px 0 0;
-      font-family: 'letter_content';
+      font-family: 'letter_content'
 
+    }
+    input::placeholder {
+      color: #E2E2E2 ;
     }
     input[type=password]{
       font-family:"Nanum Gothic", sans-serif; 
     }
     input[type=password]::placeholder {
-      // font-family: "hanna_11yrs"; 
       font-family: 'letter_content';
+      color: #E2E2E2 ;
     }        
   }
 }
@@ -131,7 +138,7 @@ ul {
     margin: 0px 25px 0px 15px;
     min-width: 60px;
     min-height: 25px;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
   }
 
   .btn_hover_border_3:hover::before,
@@ -196,7 +203,9 @@ ul {
       border-left-style: hidden;
     // }
   }
-
+  .bottom_header{
+    // border-bottom-style: hidden;
+  }
   .cheer .header {
     border: none;
     border-bottom: 3px solid #{$line};
@@ -262,3 +271,27 @@ ul {
   @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
 }
 
+
+// like button
+.likeButton {
+  background-color: white;
+  border: none;
+  color: red;
+}
+
+.likeHeart {
+  width: 20px;
+}
+
+.on_edit_input {
+
+  min-height: 25px;
+  height: auto;
+  border: 2px solid transparent;
+  font-family: 'Nanum Gothic', sans-serif;
+  // border-color: transparent;
+}
+.on_edit_input::placeholder {
+  font-family: 'letter_content'
+
+}
