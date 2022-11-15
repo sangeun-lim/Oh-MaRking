@@ -39,6 +39,7 @@ function DetailMsg(): JSX.Element {
 
   const [pw, setPw] = useState<string>('');
   const [onEdit, setOnEdit] = useState<boolean>(false);
+  const [onDelete, setOnDelete] = useState<boolean>(false);
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
@@ -75,7 +76,7 @@ function DetailMsg(): JSX.Element {
     setOnEdit((state) => !state);
   };
 
-  const checkPw = async () => {
+  const checkPwUpdate = async () => {
     try {
       const response = await OMRApi.password.checkPw(noteId, pw);
       if (response.status === 200) {
@@ -87,98 +88,49 @@ function DetailMsg(): JSX.Element {
     }
   };
 
-  const accessPw = async () => {
-    await checkPw();
+  const accessPwUpdate = async () => {
+    await checkPwUpdate();
   };
 
-  // const onDeleteClick = async () => {
-  //   const result = await swalWithBootstrapButtons.fire({
-  //     // title: '작성된 응원메시지를 삭제하시겠습니까?',
-  //     text: '작성된 응원메시지를 삭제하시겠습니까?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: '삭제할게요',
-  //     cancelButtonText: '뒤로갈게요',
-  //     reverseButtons: true,
-  //   });
-  //   // result.is
-  //   // .then((result) => {
-  //   if (result.isConfirmed) {
-  //     await OMRApi.note.deleteNote(noteId);
-  //     const { data } = await OMRApi.omr.getOmr(
-  //       user.omrList[omr.pageNum],
-  //       auth.isLoggedIn
-  //     );
-  //     dispatch(setUser(data.data.user));
-  //     dispatch(setOmr(data.data.omr));
-  //     dispatch(setIsOwner(data.data.isOwner));
-  //     dispatch(setShow());
-  //     if (!note.isFavorite) {
-  //       const { content, nickname, problemNum, checkNum } = note;
-  //       const payload = getLikeItem({
-  //         noteId,
-  //         content,
-  //         nickname,
-  //         pageNum: omr.pageNum,
-  //         checkNum,
-  //         problemNum,
-  //       });
-  //       dispatch(addLikeList(payload));
-  //     } else {
-  //       dispatch(removeLikeItem(noteId));
-  //     }
-  //     swalWithBootstrapButtons.fire(
-  //       '삭제완료!',
-  //       '응원메시지가 삭제되었습니다.',
-  //       'success'
-  //     );
-  //   } else if (
-  //     /* Read more about handling dismissals below */
-  //     result.dismiss === Swal.DismissReason.cancel
-  //   ) {
-  //     swalWithBootstrapButtons.fire(
-  //       '삭제 취소',
-  //       '응원페이지로 돌아갑니다 :)',
-  //       'error'
-  //     );
-  //   }
-  // };
-  const onDeleteClick = async () => {
-    const del: boolean = window.confirm(
-      '작성된 응원메시지를 삭제하시겠습니까?'
-    );
-    if (del) {
-      try {
-        await OMRApi.note.deleteNote(noteId);
-        const { data } = await OMRApi.omr.getOmr(
-          user.omrList[omr.pageNum],
-          auth.isLoggedIn
-        );
-        dispatch(setUser(data.data.user));
-        dispatch(setOmr(data.data.omr));
-        dispatch(setIsOwner(data.data.isOwner));
-        // dispatch로 새로운 omrList를 가 필요할듯?
-        dispatch(setShow());
-        if (!note.isFavorite) {
-          const { content, nickname, problemNum, checkNum } = note;
-          const payload = getLikeItem({
-            noteId,
-            content,
-            nickname,
-            pageNum: omr.pageNum,
-            checkNum,
-            problemNum,
-          });
-          dispatch(addLikeList(payload));
-        } else {
-          dispatch(removeLikeItem(noteId));
-        }
-        alert('응원 메시지가 삭제되었습니다.');
-      } catch (err) {
-        console.log(err);
-        alert('응원메시지를 삭제할 수 없습니다.');
+  const onDeleteClick = () => {
+    setOnDelete((state) => !state);
+  };
+
+  const checkPwDelete = async () => {
+    try {
+      await OMRApi.note.deleteNote(noteId);
+      const { data } = await OMRApi.omr.getOmr(
+        user.omrList[omr.pageNum],
+        auth.isLoggedIn
+      );
+      dispatch(setUser(data.data.user));
+      dispatch(setOmr(data.data.omr));
+      dispatch(setIsOwner(data.data.isOwner));
+      // dispatch로 새로운 omrList를 가 필요할듯?
+      dispatch(setShow());
+      if (!note.isFavorite) {
+        const { content, nickname, problemNum, checkNum } = note;
+        const payload = getLikeItem({
+          noteId,
+          content,
+          nickname,
+          pageNum: omr.pageNum,
+          checkNum,
+          problemNum,
+        });
+        dispatch(addLikeList(payload));
+      } else {
+        dispatch(removeLikeItem(noteId));
       }
+      alert('응원 메시지가 삭제되었습니다.');
+    } catch (err) {
+      console.log(err);
+      alert('응원메시지를 삭제할 수 없습니다.');
     }
+  };
+
+  const accessPwDelete = async () => {
+    await checkPwDelete();
   };
 
   const onLikeClick = async (e: any) => {
@@ -353,7 +305,7 @@ function DetailMsg(): JSX.Element {
                       />
                       {/* <DYEditor data={editMsg.content} readOnly /> */}
                       <ul style={{ margin: '0px' }}>
-                        {onEdit ? (
+                        {onEdit && !onDelete ? (
                           <li>
                             <input
                               className={styles.on_edit_input}
@@ -372,7 +324,7 @@ function DetailMsg(): JSX.Element {
                             </button>
                             <button
                               type="button"
-                              onClick={accessPw}
+                              onClick={accessPwUpdate}
                               className={styles.btn_hover_border_3}
                             >
                               확인
@@ -389,15 +341,39 @@ function DetailMsg(): JSX.Element {
                                 수정
                               </button>
                             )}
-                            {omr.isOwner && (
-                              <button
-                                className={styles.btn_hover_border_3}
-                                type="button"
-                                onClick={onDeleteClick}
-                              >
-                                삭제
-                              </button>
-                            )}
+                            <button
+                              className={styles.btn_hover_border_3}
+                              type="button"
+                              onClick={onDeleteClick}
+                            >
+                              삭제
+                            </button>
+                          </li>
+                        )}
+                        {onDelete && (
+                          <li>
+                            <input
+                              className={styles.on_edit_input}
+                              id="pw"
+                              type="password"
+                              onChange={onChange}
+                              value={pw || ''}
+                              placeholder="비밀번호를 입력해주세요."
+                            />
+                            <button
+                              type="button"
+                              onClick={onDeleteClick}
+                              className={styles.btn_hover_border_3}
+                            >
+                              뒤로
+                            </button>
+                            <button
+                              type="button"
+                              onClick={accessPwDelete}
+                              className={styles.btn_hover_border_3}
+                            >
+                              확인
+                            </button>
                           </li>
                         )}
                       </ul>
