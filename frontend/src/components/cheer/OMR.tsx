@@ -165,7 +165,6 @@ function OMR(): JSX.Element {
                     {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
-                          pageNum={data.pageNum}
                           problemNum={data.problemNum}
                           checkNum={data.checkNum}
                           username={user.name}
