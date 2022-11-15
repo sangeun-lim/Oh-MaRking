@@ -25,7 +25,7 @@ public class NoteController {
 
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/guest/{noteId}")
+    @GetMapping("/guest/{noteId}")
     @ApiOperation(value = "응원 메시지 보기(비로그인)", notes = "메시지 정보를 반환한다.")
     public Response<?> guestNote(@PathVariable Long noteId){
         return new Response<>(true,200,"응원 메시지 조회 성공(비로그인)",noteService.guestNote(noteId));
