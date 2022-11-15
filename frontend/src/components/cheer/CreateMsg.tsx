@@ -6,6 +6,7 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import DYEditor, { getData } from 'dyeditor';
+import { Toast } from '../common/Toast';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -114,6 +115,7 @@ function CreateMsg(): JSX.Element {
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
       dispatch(setShow());
+      Toast('작성이 완료되었습니다.', 'createNoteSuccess');
     }
   };
 

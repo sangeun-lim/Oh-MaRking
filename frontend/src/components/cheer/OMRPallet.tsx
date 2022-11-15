@@ -24,7 +24,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
     };
     const { status } = await OMRApi.omr.changeOmrColor(ChangeColor);
     if (status === 202) {
-      Toast('색상이 변경되었습니다', 'pallet');
+      Toast('색상이 변경되었습니다', 'changeColorSuccess');
     }
   }, []);
 

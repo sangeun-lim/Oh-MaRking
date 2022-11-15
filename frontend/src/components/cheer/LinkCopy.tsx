@@ -11,7 +11,6 @@ function LinkCopy(): JSX.Element {
     document.execCommand('copy');
     document.body.removeChild(textarea);
     Toast('링크가 복사되었습니다.', 'copy');
-    // alert('링크가 복사되었습니다');
   };
 
   return (
