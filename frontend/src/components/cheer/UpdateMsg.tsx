@@ -19,7 +19,6 @@ import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
 interface Props {
-  // setFormData: Dispatch<React.SetStateAction<EditNoteData>>;
   formData: EditNoteData;
   noteId: number;
 }

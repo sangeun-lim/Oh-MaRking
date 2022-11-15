@@ -70,10 +70,6 @@ const OMRApi = {
     createNote: async (formData: NewNoteData) => {
       const response = await axios({
         url: Url.note.createOrUpdateNote(),
-        // 삭제예정
-        headers: {
-          Authorization: `Bearer ${getSessionStorage('accessToken')}`,
-        },
         method: 'post',
         data: formData,
       });
