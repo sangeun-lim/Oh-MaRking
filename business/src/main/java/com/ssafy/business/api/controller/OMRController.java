@@ -18,6 +18,13 @@ import java.io.IOException;
 public class OMRController {
 
     private final OMRService omrService;
+    
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/favorites/{omrId}")
+    @ApiOperation(value = "OMR ID로 좋아요 리스트 조회",notes = "해당 OMR ID에 있는 좋아요 note리스트 반환")
+    public Response<?> getFavoriteNote(@PathVariable Long omrId){
+        return new Response<>(true,200,"OMR ID로 즐겨찾기 조회 성공",omrService.getFavorites(omrId));
+    }
 
 
     @ResponseStatus(HttpStatus.CREATED)

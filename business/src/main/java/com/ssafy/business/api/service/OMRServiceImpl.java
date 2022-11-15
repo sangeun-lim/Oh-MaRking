@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.business.api.request.OMRInsertDto;
 import com.ssafy.business.api.request.OMRUpdateDto;
-import com.ssafy.business.api.response.OMRDto;
-import com.ssafy.business.api.response.OMRResponseDto;
-import com.ssafy.business.api.response.UserInfoDto;
-import com.ssafy.business.api.response.UserOMRInfo;
+import com.ssafy.business.api.response.*;
 import com.ssafy.business.common.exception.AccessDeniedException;
 import com.ssafy.business.common.exception.NoteCountException;
 import com.ssafy.business.common.exception.OMRCountException;
@@ -29,6 +26,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -150,6 +148,23 @@ public class OMRServiceImpl implements  OMRService{
         }
         omr.updateColor(omrUpdateDto.getColor());
 
+    }
+
+    @Override
+    public List<FavoriteNoteDto> getFavorites(Long omrId) {
+
+        List<FavoriteNoteDto> notes=noteRepository.findFavoritesByOMRId(omrId)
+                .stream()
+                .map(note -> FavoriteNoteDto.builder()
+                        .noteId(note.getId())
+                        .nickname(note.getNickname())
+                        .content(note.getContent())
+                        .pageNum(note.getOmr().getPageNum())
+                        .problemNum(note.getProblemNum())
+                        .checkNum(note.getCheckNum())
+                        .build())
+                .collect(Collectors.toList());
+        return notes;
     }
 
     public UserInfoDto getUserInfo(Long user_id) throws IOException {
