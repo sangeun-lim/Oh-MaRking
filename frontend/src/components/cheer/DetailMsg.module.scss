@@ -225,6 +225,9 @@ ul {
   .problem:nth-child(5) {
     border-bottom: 3px solid #{$line};
   }
+  .on_edit_input:focus {
+    border-color: #{$line};
+  }
 }
 
 .skyblue {
@@ -273,3 +276,17 @@ ul {
 .likeHeart {
   width: 20px;
 }
+
+.on_edit_input {
+
+  min-height: 25px;
+  height: auto;
+  border: 2px solid transparent;
+  font-family: 'Nanum Gothic', sans-serif;
+  // border-color: transparent;
+}
+.on_edit_input::placeholder {
+  font-family: 'letter_content'
+
+}
+
