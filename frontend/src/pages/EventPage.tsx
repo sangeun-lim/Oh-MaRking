@@ -1,7 +1,8 @@
 import react, { useEffect, useState } from 'react';
-// import { EventList } from 'utils/Interface';
-// import EventApi from 'api/EventApi';
 import Container from 'react-bootstrap/Container';
+// import EventApi from 'api/EventApi';
+// import { EventList } from 'utils/Interface';
+// import { Toast } from '../common/Toast';
 import EventCardComponent from '../components/event/EventCardComponent';
 import styles from './EventPage.module.scss';
 
@@ -13,7 +14,8 @@ function EventPage(): JSX.Element {
   //   if (response.status === 200) {
   //     setEventList(response.data);
   //   } else {
-  //     alert('이벤트 정보를 불러오지 못했습니다.');
+  // Toast('오류가 발생했습니다.', 'callEventFail');
+
   //   }
   // };
 

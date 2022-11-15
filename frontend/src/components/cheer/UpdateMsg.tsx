@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr } from '../../store/omr';
 import { setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
@@ -73,7 +74,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     dispatch(setOmr(data.data.omr));
     dispatch(setIsOwner(data.data.isOwner));
     dispatch(setShow());
-    alert('응원메시지가 수정되었습니다.');
+    Toast('수정이 완료되었습니다.', 'updateSuccess');
     onEditClick();
   };
 
@@ -111,10 +112,10 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
         } else {
           dispatch(removeLikeItem(noteId));
         }
-        alert('응원 메시지가 삭제되었습니다.');
+        Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
       } catch (err) {
         console.log(err);
-        alert('응원메시지를 삭제할 수 없습니다.');
+        Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');
       }
     }
     onEditClick();
