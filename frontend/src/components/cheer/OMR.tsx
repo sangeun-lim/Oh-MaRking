@@ -88,7 +88,7 @@ function OMR(): JSX.Element {
   // 즐겨찾기 조회하기 위해
   useEffect(() => {
     const getLikeList = async () => {
-      const response = await OMRApi.note.likeList(user.omrList[omr.pageNum]);
+      const response = await OMRApi.note.likeList(user.codedEmail);
       if (response.status === 200) {
         dispatch(setLikeList(response.data.data));
       }
