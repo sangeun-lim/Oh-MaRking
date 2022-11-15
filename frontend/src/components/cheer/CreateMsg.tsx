@@ -33,6 +33,7 @@ function CreateMsg(): JSX.Element {
     password1: string;
     password2: string;
   }
+
   const PWData = {
     password1: '',
     password2: '',
@@ -277,7 +278,7 @@ function CreateMsg(): JSX.Element {
               </div>
               {/* {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null} */}
 
-              {/* <br /> */}
+              <br />
               <div>
                 <div className={`${styles.cheerHeader}`}>
                   <label
@@ -294,7 +295,7 @@ function CreateMsg(): JSX.Element {
                       onChange={onChangeData}
                       style={{ backgroundColor: '#FBFFFE' }}
                       cols={30}
-                      rows={5}
+                      rows={10}
                       required
                     />
                     {/* <DYEditor /> */}

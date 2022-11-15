@@ -343,7 +343,7 @@ function DetailMsg(): JSX.Element {
                         value={editMsg.content}
                         style={{ backgroundColor: '#FBFFFE' }}
                         cols={30}
-                        rows={5}
+                        rows={10}
                         required
                         readOnly
                       />
