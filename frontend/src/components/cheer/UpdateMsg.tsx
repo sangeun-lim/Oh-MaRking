@@ -228,7 +228,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                     // placeholder={formData.content}
                     value={formData.content || editMsg.content}
                     cols={30}
-                    rows={10}
+                    rows={5}
                     required
                   />
                   <ul>
