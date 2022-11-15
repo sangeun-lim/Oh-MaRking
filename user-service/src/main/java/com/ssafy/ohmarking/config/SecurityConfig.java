@@ -64,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/note/check",
             "/api/note/search/*",
             "/api/note/favorites/*",
-            "/api/note/guest/*"
+            "/api/note/guest/*",
+            "/api/omr/favorites/*"
     };
 
     @Override
