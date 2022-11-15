@@ -17,6 +17,7 @@ import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
 interface Props {
+  // formData: Dispatch<React.SetStateAction<EditNoteData>>;
   formData: EditNoteData;
   noteId: number;
 }
@@ -194,7 +195,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                               id="opendate"
                               name="showDate"
                               type="date"
-                              value={editMsg.showDate}
+                              value={editMsg.showDate || formData.showDate}
                               onChange={onChange}
                               required
                             />
@@ -218,10 +219,10 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                 <div className={styles.body}>
                   <textarea
                     name="content"
-                    placeholder="응원글을 작성해주세요."
-                    id="cheer-text-update"
+                    id="cheer-text"
                     onChange={onChange}
-                    value={editMsg.content}
+                    // placeholder={formData.content}
+                    value={editMsg.content || formData.content}
                     cols={30}
                     rows={10}
                     required
