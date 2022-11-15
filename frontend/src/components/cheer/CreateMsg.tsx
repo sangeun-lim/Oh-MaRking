@@ -6,6 +6,7 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import DYEditor, { getData } from 'dyeditor';
+import { getKey } from '../../utils/utils';
 import { Toast } from '../common/Toast';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
@@ -29,6 +30,23 @@ function CreateMsg(): JSX.Element {
     'navy',
     'orange',
     'pink',
+  ];
+  const cheerTag = [
+    '너의 꿈을 응원해!',
+    '넌 할 수 있어!',
+    '힘내!',
+    '응원할게!',
+    '항상!',
+    '파이팅!',
+    '수고했어!',
+    '고생했어!',
+    '넌 최고야!',
+    '끝나고 🍻 한 잔?',
+    // '니 성적에 잠이 와?',
+    '❤',
+    '👍',
+    '👊',
+    '🎈',
   ];
   interface PW {
     password1: string;
@@ -118,6 +136,14 @@ function CreateMsg(): JSX.Element {
       dispatch(setShow());
       Toast('작성이 완료되었습니다.', 'createNoteSuccess');
     }
+  };
+  const handleTag = (data: string) => {
+    setNewNote((prev) => {
+      return {
+        ...prev,
+        content: prev.content + data,
+      };
+    });
   };
 
   return (
@@ -280,7 +306,19 @@ function CreateMsg(): JSX.Element {
               </div>
               {/* {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null} */}
 
-              <br />
+              {/* <br /> */}
+              <div>
+                {cheerTag.map((data) => (
+                  <button
+                    className={styles.btn_hover_border_3}
+                    onClick={() => handleTag(data)}
+                    type="button"
+                    key={getKey()}
+                  >
+                    #{data}
+                  </button>
+                ))}
+              </div>
               <div>
                 <div className={`${styles.cheerHeader}`}>
                   <label
@@ -294,6 +332,7 @@ function CreateMsg(): JSX.Element {
                       placeholder="응원글을 작성해주세요."
                       name="content"
                       id="cheer-text"
+                      value={newNote.content}
                       onChange={onChangeData}
                       style={{ backgroundColor: '#FBFFFE' }}
                       cols={30}

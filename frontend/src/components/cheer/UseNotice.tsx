@@ -124,7 +124,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                   <div className={styles.nubi}>
                     <span className={`${styles[omrBg[3]]}`}>{''}</span>
                     <span className={styles.noticetext}>
-                      {''}아직 안 읽은 칸
+                      {''}공개되지 않은 칸
                     </span>
                   </div>
                 </Col>

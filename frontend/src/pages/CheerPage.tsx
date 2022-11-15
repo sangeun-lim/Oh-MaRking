@@ -58,7 +58,11 @@ function CheerPage(): JSX.Element {
       ) : (
         <>
           <OMR />
-          <ToastContainer />
+          <ToastContainer
+            style={{
+              width: 'fit-content',
+            }}
+          />
         </>
       )}
     </Container>

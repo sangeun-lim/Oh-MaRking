@@ -25,6 +25,7 @@ const Url = {
   },
 
   note: {
+
     createOrUpdateNote: () => `${HOST + LOGIC + NOTE}`,
     DeleteNote: (noteId: number) => `${HOST + LOGIC + NOTE}/${noteId}`,
     readUserNote: (noteId: number) => `${HOST + LOGIC + NOTE}/${noteId}`,
