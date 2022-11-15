@@ -21,6 +21,13 @@ public class OMRController {
     public Response<?> registerOMR(@RequestBody OMRRegisterDto omrRegisterDto) {
         return new Response<>(true, 201, "OMR 등록 성공", omrService.registerOMR(omrRegisterDto));
     }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/favorites/{omrId}")
+    @ApiOperation(value = "OMR ID로 즐겨찾기 note 조회", notes = "OMR ID로 즐겨찾기 note 조회")
+    public Response<?> getFavoritesByOMRId(@PathVariable Long omrId) {
+        return new Response<>(true, 200, "OMR ID로 favorites 리스트 조회 성공", omrService.getFavorites(omrId));
+    }
+
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/color")

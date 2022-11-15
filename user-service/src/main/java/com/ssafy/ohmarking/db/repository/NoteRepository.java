@@ -1,6 +1,7 @@
 package com.ssafy.ohmarking.db.repository;
 
 import com.ssafy.ohmarking.db.entity.Note;
+import io.lettuce.core.ScanIterator;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     @Query("select count(n.id) from Note n where n.omr.id =:omrId")
     int getNoteCount(Long omrId);
+    @Query("select n from Note n where n.omr.id =:omrId and n.isFavorite = true")
+    List<Note> findAllByOmrId(Long omrId);
 }

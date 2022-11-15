@@ -3,6 +3,7 @@ package com.ssafy.ohmarking.api.service;
 import com.ssafy.ohmarking.api.request.OMRRegisterDto;
 import com.ssafy.ohmarking.api.request.OMRUpdateDto;
 import com.ssafy.ohmarking.api.response.CardInfoResponseDto;
+import com.ssafy.ohmarking.api.response.NoteInfoResponseDto;
 import com.ssafy.ohmarking.api.response.OMRInfoResponseDto;
 import com.ssafy.ohmarking.api.response.UserInfoResponseDto;
 import com.ssafy.ohmarking.common.exception.*;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -66,6 +68,22 @@ public class OMRServiceImpl implements OMRService {
             throw new AccessDeniedException();
         }
         omr.updateColor(omrUpdateDto.getColor());
+    }
+
+    @Override
+    public List<NoteInfoResponseDto> getFavorites(Long omrId) {
+        List<NoteInfoResponseDto> list=noteRepository.findAllByOmrId(omrId)
+                .stream()
+                .map(note -> NoteInfoResponseDto.builder()
+                        .pageNum(note.getOmr().getPageNum())
+                        .problemNum(note.getProblemNum())
+                        .checkNum(note.getCheckNum())
+                        .showDate(note.getShowDate())
+                        .date(note.getDate())
+                        .noteId(note.getId())
+                        .build())
+                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
