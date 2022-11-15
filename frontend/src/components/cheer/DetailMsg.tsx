@@ -92,8 +92,42 @@ function DetailMsg(): JSX.Element {
     await checkPwUpdate();
   };
 
-  const onDeleteClick = () => {
-    setOnDelete((state) => !state);
+  const onDeleteClick = async () => {
+    if (omr.isOwner) {
+      try {
+        await OMRApi.note.deleteNote(noteId);
+        const { data } = await OMRApi.omr.getOmr(
+          user.omrList[omr.pageNum],
+          auth.isLoggedIn
+        );
+        dispatch(setUser(data.data.user));
+        dispatch(setOmr(data.data.omr));
+        dispatch(setIsOwner(data.data.isOwner));
+        // dispatch로 새로운 omrList를 가 필요할듯?
+        dispatch(setShow());
+        if (!note.isFavorite) {
+          const { content, nickname, problemNum, checkNum } = note;
+          const payload = getLikeItem({
+            noteId,
+            content,
+            nickname,
+            pageNum: omr.pageNum,
+            checkNum,
+            problemNum,
+          });
+          dispatch(addLikeList(payload));
+        } else {
+          dispatch(removeLikeItem(noteId));
+        }
+        alert('응원 메시지가 삭제되었습니다.');
+      } catch (err) {
+        console.log(err);
+        alert('응원메시지를 삭제할 수 없습니다.');
+      }
+    } else {
+      setOnEdit((state) => state);
+      setOnDelete((state) => !state);
+    }
   };
 
   const checkPwDelete = async () => {
@@ -305,7 +339,7 @@ function DetailMsg(): JSX.Element {
                       />
                       {/* <DYEditor data={editMsg.content} readOnly /> */}
                       <ul style={{ margin: '0px' }}>
-                        {onEdit && !onDelete ? (
+                        {onEdit ? (
                           <li>
                             <input
                               className={styles.on_edit_input}
@@ -332,7 +366,7 @@ function DetailMsg(): JSX.Element {
                           </li>
                         ) : (
                           <li>
-                            {!omr.isOwner && (
+                            {!omr.isOwner && !onDelete && (
                               <button
                                 className={styles.btn_hover_border_3}
                                 type="button"
@@ -341,13 +375,15 @@ function DetailMsg(): JSX.Element {
                                 수정
                               </button>
                             )}
-                            <button
-                              className={styles.btn_hover_border_3}
-                              type="button"
-                              onClick={onDeleteClick}
-                            >
-                              삭제
-                            </button>
+                            {!onDelete && (
+                              <button
+                                className={styles.btn_hover_border_3}
+                                type="button"
+                                onClick={onDeleteClick}
+                              >
+                                삭제
+                              </button>
+                            )}
                           </li>
                         )}
                         {onDelete && (
