@@ -63,6 +63,7 @@ function DetailMsg(): JSX.Element {
         elementIdx: response.data.data.checkNum,
       };
       dispatch(setNoteOpen(NoteData));
+      console.log(response.data.data);
     } else {
       alert('메시지를 불러오지 못했습니다.');
     }
@@ -185,7 +186,6 @@ function DetailMsg(): JSX.Element {
     };
     dispatch(setNoteLike(NoteData)); // 숫자 -> 4
     dispatch(setFavorite(!note.isFavorite)); // boolean
-
     if (!note.isFavorite) {
       const { content, nickname, problemNum, checkNum } = note;
       const payload = getLikeItem({
