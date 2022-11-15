@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { setIsOwner, setOmr, setIsLoading } from '../store/omr';
 import { setUserInfo, setUser } from '../store/user';
 import OMRApi from '../api/OMRApi';
@@ -47,7 +47,6 @@ function CheerPage(): JSX.Element {
         });
     }
   }, [omr.isLoading, user.omrList, omr.pageNum, auth.isLoggedIn, dispatch]);
-  const notify = () => toast('버튼 눌림');
 
   return (
     <Container className={styles.screen_container}>
@@ -59,9 +58,6 @@ function CheerPage(): JSX.Element {
       ) : (
         <>
           <OMR />
-          <button type="button" onClick={notify}>
-            버튼
-          </button>
           <ToastContainer />
         </>
       )}
