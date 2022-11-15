@@ -51,17 +51,25 @@ span > .form-label {
   color: red !important;
 }
 
-
 .carousel-control-next {
-  pointer-events : none;
+  pointer-events: none;
   span {
     display: none;
   }
 }
 
 .carousel-control-prev {
-  pointer-events : none;
+  pointer-events: none;
   span {
     display: none;
   }
 }
+
+// .Tostify {
+//   color: red inherit;
+// }
+
+// .Tostify__toast-container {
+//   font-family: Arial, Helvetica, sans-serif;
+//   color: red inherit;
+// }

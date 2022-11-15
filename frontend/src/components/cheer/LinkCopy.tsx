@@ -1,3 +1,5 @@
+import { Toast } from '../common/Toast';
+
 function LinkCopy(): JSX.Element {
   const copyUrl = () => {
     let url = '';
@@ -8,7 +10,8 @@ function LinkCopy(): JSX.Element {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    alert('링크가 복사되었습니다');
+    Toast('링크가 복사되었습니다.', 'copy');
+    // alert('링크가 복사되었습니다');
   };
 
   return (
