@@ -44,6 +44,11 @@ function DetailMsg(): JSX.Element {
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
 
+  // function asdf(nickname: string, content: string, showData: string) {
+  //   const _editMsg = { ...editMsg, nickname, content, showData };
+  //   setEditMsg(_editMsg);
+  // }
+
   const onChange = (e: any) => {
     setPw(e.target.value);
   };
@@ -94,35 +99,40 @@ function DetailMsg(): JSX.Element {
 
   const onDeleteClick = async () => {
     if (omr.isOwner) {
-      try {
-        await OMRApi.note.deleteNote(noteId);
-        const { data } = await OMRApi.omr.getOmr(
-          user.omrList[omr.pageNum],
-          auth.isLoggedIn
-        );
-        dispatch(setUser(data.data.user));
-        dispatch(setOmr(data.data.omr));
-        dispatch(setIsOwner(data.data.isOwner));
-        // dispatch로 새로운 omrList를 가 필요할듯?
-        dispatch(setShow());
-        if (!note.isFavorite) {
-          const { content, nickname, problemNum, checkNum } = note;
-          const payload = getLikeItem({
-            noteId,
-            content,
-            nickname,
-            pageNum: omr.pageNum,
-            checkNum,
-            problemNum,
-          });
-          dispatch(addLikeList(payload));
-        } else {
-          dispatch(removeLikeItem(noteId));
+      const del: boolean = window.confirm(
+        '작성된 응원메시지를 삭제하시겠습니까?'
+      );
+      if (del) {
+        try {
+          await OMRApi.note.deleteNote(noteId);
+          const { data } = await OMRApi.omr.getOmr(
+            user.omrList[omr.pageNum],
+            auth.isLoggedIn
+          );
+          dispatch(setUser(data.data.user));
+          dispatch(setOmr(data.data.omr));
+          dispatch(setIsOwner(data.data.isOwner));
+          // dispatch로 새로운 omrList를 가 필요할듯?
+          dispatch(setShow());
+          if (!note.isFavorite) {
+            const { content, nickname, problemNum, checkNum } = note;
+            const payload = getLikeItem({
+              noteId,
+              content,
+              nickname,
+              pageNum: omr.pageNum,
+              checkNum,
+              problemNum,
+            });
+            dispatch(addLikeList(payload));
+          } else {
+            dispatch(removeLikeItem(noteId));
+          }
+          alert('응원 메시지가 삭제되었습니다.');
+        } catch (err) {
+          console.log(err);
+          alert('응원메시지를 삭제할 수 없습니다.');
         }
-        alert('응원 메시지가 삭제되었습니다.');
-      } catch (err) {
-        console.log(err);
-        alert('응원메시지를 삭제할 수 없습니다.');
       }
     } else {
       setOnEdit((state) => state);
