@@ -75,6 +75,7 @@ public class OMRServiceImpl implements OMRService {
         List<NoteInfoResponseDto> list=noteRepository.findAllByOmrId(omrId)
                 .stream()
                 .map(note -> NoteInfoResponseDto.builder()
+                        .content(note.getContent())
                         .pageNum(note.getOmr().getPageNum())
                         .problemNum(note.getProblemNum())
                         .checkNum(note.getCheckNum())
