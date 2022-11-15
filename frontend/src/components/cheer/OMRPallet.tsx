@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Toast } from '../common/Toast';
 import { setColor } from '../../store/omr';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
@@ -23,7 +24,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
     };
     const { status } = await OMRApi.omr.changeOmrColor(ChangeColor);
     if (status === 202) {
-      alert('색상이 변경되었습니다.');
+      Toast('색상이 변경되었습니다', 'changeColorSuccess');
     }
   }, []);
 

@@ -5,27 +5,6 @@ function Notice(): JSX.Element {
   return (
     <div>
       <div className={styles.blackboard_item}>
-        {/* <div className={styles.carousel_item}>
-        <img
-          className={styles.sm_window}
-          src="src/img/title_900x400.png"
-          alt=""
-        />
-      </div>
-      <br />
-      <div className={styles.sm_window_content}>
-        <div style={{ color: 'white' }}>
-          수험생 응원 롤링페이퍼
-          <br />
-          <span style={{ color: 'rgb(248, 254, 99)' }}>응원페이지</span>를 SNS에{' '}
-          <span style={{ color: 'rgb(0,176,240)' }}>공유</span>해보세요!
-        </div>
-      </div> */}
-        {/* <img
-        className={styles.sm_window}
-        src="src/img/content_900x400.png"
-        alt="하이요"
-      /> */}
         <div className={styles.carousel_item}>
           <div className={styles.carousel_img}>
             <img

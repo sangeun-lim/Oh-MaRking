@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsClipboardCheck, BsBackspace } from 'react-icons/bs';
 import { AiFillEdit } from 'react-icons/ai';
+import { Toast } from '../common/Toast';
 import AuthApi from '../../api/AuthApi';
 import { setIntro } from '../../store/user';
 import { stampUrl } from '../../utils/imgUrl';
@@ -25,6 +26,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
     const { status } = await AuthApi.auth.updateUserProfile(UserData);
     if (status === 202) {
       dispatch(setIntro(text));
+      Toast('수정이 완료되었습니다.', 'updateUserProfileSuccess');
       setIsEdting(false);
     }
   }, [text, dispatch]);

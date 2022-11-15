@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
+import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
 import { setLikeList } from '../../store/likeList';
@@ -76,11 +77,11 @@ function OMR(): JSX.Element {
     try {
       const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
       if (status === 201) {
-        alert('새로운 페이지가 추가되었습니다.');
+        Toast('새로운 페이지가 추가되었습니다.', 'newPageSuccess');
         dispatch(addOmr(data.data.omrId));
       }
     } catch {
-      alert('20개 이상의 문항을 작성해야합니다.');
+      Toast('20개 이상의 문항을 작성해야합니다.', 'newPageFail');
     }
   }, [user.userId, user.omrList, dispatch]);
 
@@ -164,7 +165,6 @@ function OMR(): JSX.Element {
                     {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList
-                          pageNum={data.pageNum}
                           problemNum={data.problemNum}
                           checkNum={data.checkNum}
                           username={user.name}

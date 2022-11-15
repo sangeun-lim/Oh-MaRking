@@ -6,6 +6,7 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import DYEditor, { getData } from 'dyeditor';
+import { Toast } from '../common/Toast';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -33,6 +34,7 @@ function CreateMsg(): JSX.Element {
     password1: string;
     password2: string;
   }
+
   const PWData = {
     password1: '',
     password2: '',
@@ -114,6 +116,7 @@ function CreateMsg(): JSX.Element {
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
       dispatch(setShow());
+      Toast('작성이 완료되었습니다.', 'createNoteSuccess');
     }
   };
 
@@ -277,7 +280,7 @@ function CreateMsg(): JSX.Element {
               </div>
               {/* {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null} */}
 
-              {/* <br /> */}
+              <br />
               <div>
                 <div className={`${styles.cheerHeader}`}>
                   <label
@@ -294,7 +297,7 @@ function CreateMsg(): JSX.Element {
                       onChange={onChangeData}
                       style={{ backgroundColor: '#FBFFFE' }}
                       cols={30}
-                      rows={5}
+                      rows={10}
                       required
                     />
                     {/* <DYEditor /> */}

@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Swal from 'sweetalert2';
 // import DYEditor, { getData } from 'dyeditor';
+import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setShow, setUpdate } from '../../store/modal';
@@ -65,7 +66,7 @@ function DetailMsg(): JSX.Element {
       dispatch(setNoteOpen(NoteData));
       console.log(response.data.data);
     } else {
-      alert('메시지를 불러오지 못했습니다.');
+      Toast('메시지를 불러오지 못했습니다.', 'readMsgFail');
     }
   };
 
@@ -90,7 +91,7 @@ function DetailMsg(): JSX.Element {
         dispatch(setUpdate());
       }
     } catch (err) {
-      alert('비밀번호가 일치하지 않습니다.');
+      Toast('비밀번호가 일치하지 않습니다.', 'checkPwFail');
     }
   };
 
@@ -129,10 +130,10 @@ function DetailMsg(): JSX.Element {
           } else {
             dispatch(removeLikeItem(noteId));
           }
-          alert('응원 메시지가 삭제되었습니다.');
+          Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
         } catch (err) {
           console.log(err);
-          alert('응원메시지를 삭제할 수 없습니다.');
+          Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');
         }
       }
     } else {
@@ -167,10 +168,10 @@ function DetailMsg(): JSX.Element {
       } else {
         dispatch(removeLikeItem(noteId));
       }
-      alert('응원 메시지가 삭제되었습니다.');
+      Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
     } catch (err) {
       console.log(err);
-      alert('응원메시지를 삭제할 수 없습니다.');
+      Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');
     }
   };
 
@@ -229,7 +230,7 @@ function DetailMsg(): JSX.Element {
                 closeButton
               >
                 <div className={styles.modalTitle}>
-                  <Modal.Title>응원글 보기</Modal.Title>
+                  <Modal.Title>응원 보기</Modal.Title>
                   {omr.isOwner ? (
                     <div>
                       {note.isFavorite ? (
@@ -343,7 +344,7 @@ function DetailMsg(): JSX.Element {
                         value={editMsg.content}
                         style={{ backgroundColor: '#FBFFFE' }}
                         cols={30}
-                        rows={5}
+                        rows={10}
                         required
                         readOnly
                       />
@@ -427,6 +428,17 @@ function DetailMsg(): JSX.Element {
                   </div>
                 </div>
               </Modal.Body>
+              {/* {omr.isOwner ? (
+                <Modal.Footer>
+                  <button
+                    // className={styles.btn_hover_border_3}
+                    type="button"
+                    onClick={onDeleteClick}
+                  >
+                    삭제
+                  </button>
+                </Modal.Footer>
+              ) : null} */}
             </Modal>
           )}
         </div>
