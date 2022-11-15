@@ -32,8 +32,8 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
             <br />
             <br />
           </div>
-          &#8251; 표기 안내
-          <br />
+          <div className={styles.sort_text}>&#8251; 표기 안내</div>
+
           <Container>
             <div className={styles.rules}>
               <Row>
@@ -89,7 +89,9 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
           <div className={styles.sort_text}>
             &#8251; {user.name}님에게 응원과 격려의 메시지를 작성해보세요!
           </div>
-          <div className={styles.sort_text}>(폭언, 욕설 금지!!!)</div>
+          <div className={styles.sort_text} style={{ marginLeft: '20px' }}>
+            (폭언, 욕설 금지!!!)
+          </div>
           <div className={styles.sort_text}>
             &#8251; 마지막 답안지에서 마킹이 20개 이상일 때,
           </div>
@@ -98,7 +100,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
             <br />
           </div>
           <br />
-          &#8251; 표기 안내
+          <div className={styles.sort_text}>&#8251; 표기 안내</div>
           <Container>
             <div className={styles.rules}>
               <Row>

@@ -219,7 +219,7 @@ function DetailMsg(): JSX.Element {
                 closeButton
               >
                 <div className={styles.modalTitle}>
-                  <Modal.Title>응원글 보기</Modal.Title>
+                  <Modal.Title>응원 보기</Modal.Title>
                   {omr.isOwner ? (
                     <div>
                       {note.isFavorite ? (
@@ -417,6 +417,17 @@ function DetailMsg(): JSX.Element {
                   </div>
                 </div>
               </Modal.Body>
+              {/* {omr.isOwner ? (
+                <Modal.Footer>
+                  <button
+                    // className={styles.btn_hover_border_3}
+                    type="button"
+                    onClick={onDeleteClick}
+                  >
+                    삭제
+                  </button>
+                </Modal.Footer>
+              ) : null} */}
             </Modal>
           )}
         </div>
