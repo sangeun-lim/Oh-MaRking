@@ -314,6 +314,7 @@ $cheer_section_height: 30em;
   // '필적 확인란' 내용
   .intro {
     width: inherit;
+
     @include all.flex(row, center, center);
     > span {
       display: inline-block;
@@ -588,4 +589,9 @@ $cheer_section_height: 30em;
 
 .custom_cursor:hover {
   cursor: url(../img/cursorRotate.png), pointer;
+}
+
+.test > .omr,
+.body {
+  background-color: color.$paper;
 }
