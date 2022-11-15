@@ -199,7 +199,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                               id="opendate"
                               name="showDate"
                               type="date"
-                              value={formData.showDate || editMsg.showDate}
+                              value={editMsg.showDate || formData.showDate}
                               onChange={onChange}
                               required
                             />
@@ -226,7 +226,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                     id="cheer-text"
                     onChange={onChange}
                     // placeholder={formData.content}
-                    value={formData.content || editMsg.content}
+                    value={editMsg.content || formData.content}
                     cols={30}
                     rows={10}
                     required

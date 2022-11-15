@@ -7,7 +7,6 @@ interface Props {
   username: string;
   content: string;
   nickname: string;
-  pageNum: number;
   problemNum: number;
   checkNum: number;
 }
@@ -16,7 +15,6 @@ function LikeList({
   username,
   content,
   nickname,
-  pageNum,
   problemNum,
   checkNum,
 }: Props): JSX.Element {
