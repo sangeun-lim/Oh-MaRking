@@ -8,39 +8,19 @@ function Intro(): JSX.Element {
     <div className={styles.box_container}>
       <Carousel fade className={styles.board_carousel}>
         <Carousel.Item className={styles.carousel_center}>
-          {/* <div className={styles.carousel_item}>
-            <img src="src/img/main.png" alt="" />
-          </div> */}
-          {/* <div className={styles.board_item}>
-            <Notice />
-          </div> */}
-          {/* <img
-            src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character2.png?alt=media&token=d7f52c96-b8ee-42c1-9eb1-fa5fd74e5e4f"
-            alt="마스코트"
-            className={styles.character_img}
-          /> */}
-          {/* <img
-            src="src/img/졸라맨.png"
-            alt="마스코트"
-            className={styles.character_img}
-          /> */}
-          {/* <img
-            src="https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/character1.png?alt=media&token=e6eb279b-6fe1-441a-9a81-b065c24c9f4b"
-            alt="로고"
-            // className={styles.logo}
-          /> */}
           <Notice />
         </Carousel.Item>
-        {/* <Carousel.Item>
+        <Carousel.Item>
           <ExampleOmr />
-        </Carousel.Item> */}
+        </Carousel.Item>
       </Carousel>
       <div>
         <div className={styles.pen}>{''}</div>
         <div className={styles.blue_pen}>{''}</div>
         <div className={styles.red_pen}>{''}</div>
         <div className={styles.eraser}>
-          <div className={styles.eraser_bg}>{''}</div>
+          BOARD ERASER
+          <div className={styles.eraser_bg}>청소당번</div>
         </div>
       </div>
       <div className={styles.hand_img}>
