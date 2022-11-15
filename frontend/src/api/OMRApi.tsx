@@ -144,9 +144,16 @@ const OMRApi = {
       });
       return response;
     },
-    likeList: async (codedEmail: string) => {
+    // likeList: async (codedEmail: string) => {
+    //   const response = await axios({
+    //     url: Url.note.likeList(codedEmail),
+    //     method: 'get',
+    //   });
+    //   return response;
+    // },
+    likeList: async (omrId: number) => {
       const response = await axios({
-        url: Url.note.likeList(codedEmail),
+        url: Url.note.likeList(omrId),
         method: 'get',
       });
       return response;
