@@ -389,14 +389,15 @@ function DetailMsg(): JSX.Element {
                                 수정
                               </button>
                             )}
-
-                            <button
-                              className={styles.btn_hover_border_3}
-                              type="button"
-                              onClick={onDeleteClick}
-                            >
-                              삭제
-                            </button>
+                            {omr.isOwner && (
+                              <button
+                                className={styles.btn_hover_border_3}
+                                type="button"
+                                onClick={onDeleteClick}
+                              >
+                                삭제
+                              </button>
+                            )}
                           </li>
                         )}
                       </ul>
