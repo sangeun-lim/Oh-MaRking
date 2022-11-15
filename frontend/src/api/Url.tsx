@@ -36,7 +36,7 @@ const Url = {
     checkPW: () => `${HOST + NOTE + CHECK}`,
   },
   event: {
-    readEvent: () => HOST + EVENT,
+    readEvent: () => HOST + LOGIC + EVENT,
   },
 };
 
