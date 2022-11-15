@@ -1,7 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { FaSignOutAlt } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { logout } from '../store/auth';
