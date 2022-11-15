@@ -22,7 +22,8 @@ $cheer_section_height: 30em;
 
 @mixin body($fill, $stroke) {
   font-size: all.$OMR_body_font_size;
-  @include fill_stroke(#{$fill}, #{$stroke});
+  // @include fill_stroke(#{$fill}, #{$stroke});
+  @include fill_stroke(#{color.$paper_light}, #{$stroke});
 }
 
 // OMR 마킹하는 곳
