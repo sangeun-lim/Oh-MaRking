@@ -32,9 +32,9 @@ const Url = {
     searchNote: (nickname: string) =>
       `${HOST + LOGIC + NOTE}/search/${nickname}`,
     likeNote: () => `${HOST + LOGIC + NOTE}/favorite`,
-    likeList: (codedEmail: string) =>
-      `${HOST + LOGIC + NOTE}/favorites/${codedEmail}`,
-    // likeList: (omrId: number) => `${HOST + LOGIC + NOTE}/favorites/${omrId}`,
+    // likeList: (codedEmail: string) =>
+    // `${HOST + LOGIC + NOTE}/favorites/${codedEmail}`,
+    likeList: (omrId: number) => `${HOST + LOGIC + NOTE}/favorites/${omrId}`,
   },
   password: {
     checkPW: () => `${HOST + LOGIC + NOTE + CHECK}`,

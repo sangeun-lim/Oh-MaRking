@@ -86,15 +86,24 @@ function OMR(): JSX.Element {
   }, [user.userId, user.omrList, dispatch]);
 
   // 즐겨찾기 조회하기 위해
+  // useEffect(() => {
+  //   const getLikeList = async () => {
+  //     const response = await OMRApi.note.likeList(user.codedEmail);
+  //     if (response.status === 200) {
+  //       dispatch(setLikeList(response.data.data));
+  //     }
+  //   };
+  //   getLikeList();
+  // }, [dispatch, user.codedEmail]);
   useEffect(() => {
     const getLikeList = async () => {
-      const response = await OMRApi.note.likeList(user.codedEmail);
+      const response = await OMRApi.note.likeList(user.omrList[omr.pageNum]);
       if (response.status === 200) {
         dispatch(setLikeList(response.data.data));
       }
     };
     getLikeList();
-  }, [dispatch, user.codedEmail]);
+  }, [dispatch, user.omrList, omr.pageNum]);
 
   return (
     <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
