@@ -36,7 +36,7 @@ const Url = {
       `${HOST + LOGIC + NOTE}/favorites/${codedEmail}`,
   },
   password: {
-    checkPW: () => `${HOST + NOTE + CHECK}`,
+    checkPW: () => `${HOST + LOGIC + NOTE + CHECK}`,
   },
   event: {
     readEvent: () => HOST + LOGIC + EVENT,
