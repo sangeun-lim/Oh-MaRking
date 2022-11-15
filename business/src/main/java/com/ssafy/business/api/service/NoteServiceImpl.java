@@ -103,7 +103,8 @@ public class NoteServiceImpl implements NoteService{
                 .date(note.getDate())
                 .problemNum(note.getProblemNum())
                 .checkNum(note.getCheckNum())
-                .isFavarite(note.getIsFavorite()).build();
+                .isFavorite(note.getIsFavorite()).build();
+
 
 
         return noteGetResponseDto;

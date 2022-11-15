@@ -16,6 +16,6 @@ public class NoteGetResponseDto {
     private String date;
     private Integer problemNum;
     private Integer checkNum;
-    private Boolean isFavarite;
+    private Boolean isFavorite;
 }
 
