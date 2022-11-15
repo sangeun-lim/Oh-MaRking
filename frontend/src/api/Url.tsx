@@ -25,12 +25,12 @@ const Url = {
 
   note: {
     createOrUpdateNote: () => `${HOST + LOGIC + NOTE}`,
-    DeleteNote: (noteId: number) => `${HOST + LOGIC + NOTE}del/${noteId}`,
+    DeleteNote: (noteId: number) => `${HOST + LOGIC + NOTE}/del/${noteId}`,
     readUserNote: (noteId: number) => `${HOST + LOGIC + NOTE}/${noteId}`,
     readGuestNote: (noteId: number) => `${HOST + LOGIC + NOTE}/guest/${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}/search/${nickname}`,
     likeNote: () => `${HOST + NOTE}/favorite`,
-    likeList: (codedEmail: string) => `${HOST + NOTE}favorites/${codedEmail}`,
+    likeList: (codedEmail: string) => `${HOST + NOTE}/favorites/${codedEmail}`,
   },
   password: {
     checkPW: () => `${HOST + NOTE + CHECK}`,
