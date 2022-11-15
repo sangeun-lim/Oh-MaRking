@@ -87,9 +87,9 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
             &#8251; 이 수험표는 {user.name}님을 위한 응원수험표입니다.
           </div>
           <div className={styles.sort_text}>
-            &#8251; {user.name}님에게 응원과 격려의 메시지를 작성해보세요! (폭언
-            및 욕설은 금지!!)
+            &#8251; {user.name}님에게 응원과 격려의 메시지를 작성해보세요!
           </div>
+          <div className={styles.sort_text}>(폭언, 욕설 금지!!!)</div>
           <div className={styles.sort_text}>
             &#8251; 마지막 답안지에서 마킹이 20개 이상일 때,
           </div>
@@ -120,13 +120,14 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
               <Row>
                 <Col>
                   <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[2]]}`}>{''}</span>
+                    <span className={`${styles[omrBg[3]]}`}>{''}</span>
                     <span className={styles.noticetext}>
                       {''}아직 안 읽은 칸
                     </span>
                   </div>
                 </Col>
               </Row>
+              {/* <br /> */}
             </div>
           </Container>
         </div>
