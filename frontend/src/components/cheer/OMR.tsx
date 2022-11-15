@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
+import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
 import { setIsOwner, setOmr } from '../../store/omr';
 import { setLikeList } from '../../store/likeList';
@@ -160,7 +161,7 @@ function OMR(): JSX.Element {
                     </div>
                   </div>
                 ) : (
-                  <Carousel>
+                  <Carousel variant="dark">
                     {likeList.likeList.map((data) => (
                       <Carousel.Item key={data.noteId}>
                         <LikeList

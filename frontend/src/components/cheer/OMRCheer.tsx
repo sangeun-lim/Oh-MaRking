@@ -26,8 +26,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
   const dispatch = useDispatch();
   const { omr, modal } = useSelector((state: RootState) => state);
 
-  const [isHovering, setIsHovering] = useState<boolean>(false);
-
   const openModal = (problemNum: number, elementNum: number) => {
     dispatch(setShow());
     dispatch(setCheer({ problemIdx: problemNum, elementIdx: elementNum }));
@@ -44,12 +42,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     }
   };
 
-  const handleMouseOver = (problemNum: number, elementNum: number) => {
-    setIsHovering(true);
-  };
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
   // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
 
@@ -75,7 +67,6 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         {msg.map((problem, problemIdx) => (
           <div className={styles.problem} key={getKey()}>
             <span>{problemIdx + start + 1}</span>
-            {/* <div> */}
             {problem.map((element, elementIdx) => (
               <Tooltip
                 title={getContent(problemIdx + start, elementIdx)}
@@ -87,17 +78,12 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                 <button
                   className={`${styles[omrBg[element]]}`}
                   type="button"
-                  onMouseEnter={() =>
-                    handleMouseOver(problemIdx + start, elementIdx)
-                  }
-                  onMouseLeave={() => handleMouseOut()}
                   onClick={() => openModal(problemIdx + start, elementIdx)}
                 >
                   {element === 4 ? null : elementIdx + 1}
                 </button>
               </Tooltip>
             ))}
-            {/* </div> */}
           </div>
         ))}
       </div>
