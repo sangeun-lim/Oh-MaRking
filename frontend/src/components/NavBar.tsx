@@ -58,7 +58,7 @@ function NavBar(): JSX.Element {
             {!isLoggedIn ? (
               <Nav.Link
                 className={`${styles.nav_font} ${styles.custom_cursor}`}
-                href="http://oh-marking.com:8082/oauth2/authorization/kakao"
+                href="http://oh-marking.com:8081/oauth2/authorization/kakao"
               >
                 카카오 로그인
               </Nav.Link>
