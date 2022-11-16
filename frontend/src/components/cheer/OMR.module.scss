@@ -53,6 +53,9 @@ $cheer_section_height: 30em;
 
 // OMR 색깔
 @mixin color($bg, $line, $basic) {
+  strong {
+    @include all.underline($line);
+  }
   .header {
     @include header(#{$bg}, #{$line});
   }
@@ -96,18 +99,12 @@ $cheer_section_height: 30em;
     background-color: #{$line};
     // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
   }
-  .nonactive {
-    // border-radius: 0px all.$IF_radius 0px 0px;
-    // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
-    // border-radius: inherit;
-    // background-color: #{$bg};
-  }
 }
 
 // 팔레트 버튼 색깔
 @mixin btn_color($bt_bg, $bt_ln) {
   background-color: #{$bt_bg};
-  border: 2px solid #{$bt_ln};
+  border: 2.7px solid #{$bt_ln};
 }
 
 // 오른쪽 위 정렬(버튼용)
@@ -138,7 +135,7 @@ $cheer_section_height: 30em;
 
 // 영역별
 .left {
-  @include witdh_height(120px, 100px);
+  @include witdh_height(all.$OMR_left, 90px);
   border-radius: all.$IF_radius 0px 0px all.$IF_radius;
   line-height: normal;
   @include all.flex(column, center, center);
@@ -147,7 +144,7 @@ $cheer_section_height: 30em;
 }
 
 .right {
-  @include witdh_height(330px, 100px);
+  @include witdh_height(all.$OMR_right, 90px);
   border-radius: 0px all.$IF_radius all.$IF_radius 0px;
   @include all.flex(column, center, center);
   font-weight: normal;
@@ -162,30 +159,6 @@ $cheer_section_height: 30em;
   @include witdh_height(450px, 300px);
   border-radius: 0px 0px all.$IF_radius all.$IF_radius;
   font-family: all.$OMR_body;
-  span:nth-child(1) button {
-    @include btn_color(color.$bg_yellow, color.$line_yellow);
-  }
-  span:nth-child(2) button {
-    @include btn_color(color.$bg_skyblue, color.$line_skyblue);
-  }
-  span:nth-child(3) button {
-    @include btn_color(color.$bg_purple, color.$line_purple);
-  }
-  span:nth-child(4) button {
-    @include btn_color(color.$bg_green, color.$line_green);
-  }
-  span:nth-child(5) button {
-    @include btn_color(color.$bg_dark_yellow, color.$line_dark_yellow);
-  }
-  span:nth-child(6) button {
-    @include btn_color(color.$bg_navy, color.$line_navy);
-  }
-  span:nth-child(7) button {
-    @include btn_color(color.$bg_orange, color.$line_orange);
-  }
-  span:nth-child(8) button {
-    @include btn_color(color.$bg_pink, color.$line_pink);
-  }
 }
 
 // 시험지
@@ -295,7 +268,13 @@ $cheer_section_height: 30em;
 
   // 이름 제목
   > div:nth-child(2) > div {
-    height: 80px;
+    height: 60px;
+  }
+  > div:nth-child(2) > .left {
+    border-radius: all.$IF_small_radius 0px 0px all.$IF_small_radius;
+  }
+  > div:nth-child(2) > .right {
+    border-radius: 0px all.$IF_small_radius all.$IF_small_radius 0px;
   }
 
   // '이름' 내용
@@ -315,7 +294,6 @@ $cheer_section_height: 30em;
   // '필적 확인란' 내용
   .intro {
     width: inherit;
-
     @include all.flex(row, center, center);
     > span {
       display: inline-block;
@@ -343,6 +321,7 @@ $cheer_section_height: 30em;
       width: 90%;
       resize: none;
       border: none;
+      background-color: inherit;
     }
     > div {
       width: 10%;
@@ -372,24 +351,12 @@ $cheer_section_height: 30em;
       margin-top: 10px;
       margin-inline: 5px;
     }
-    span {
-      button {
-        @include witdh_height(30px, 30px);
-        border-radius: 50%;
-        margin-left: 12px;
-        // margin-right: 3px;
-      }
-    }
-
-    .pallet {
-      margin-bottom: 10px;
-    }
   }
 
   // 감독 확인란 내용 파트
   img {
     @include witdh_height(80%, inherit);
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 
@@ -408,7 +375,6 @@ $cheer_section_height: 30em;
     > .header {
       @include all.flex(row, flex-end, center);
       width: 100%;
-      // height: 55px;
       border-radius: all.$OMR_small_radius all.$OMR_small_radius 0px 0px;
       padding-right: 10px;
       > span {
@@ -595,4 +561,44 @@ $cheer_section_height: 30em;
 .test > .omr,
 .body {
   background-color: color.$paper;
+}
+
+.pallet {
+  width: calc(all.$OMR_left + all.$OMR_right);
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: all.$IF_small_radius;
+  margin-bottom: 0px;
+  span:nth-child(1) button {
+    @include btn_color(color.$bg_yellow, color.$line_yellow);
+  }
+  span:nth-child(2) button {
+    @include btn_color(color.$bg_skyblue, color.$line_skyblue);
+  }
+  span:nth-child(3) button {
+    @include btn_color(color.$bg_purple, color.$line_purple);
+  }
+  span:nth-child(4) button {
+    @include btn_color(color.$bg_green, color.$line_green);
+  }
+  span:nth-child(5) button {
+    @include btn_color(color.$bg_dark_yellow, color.$line_dark_yellow);
+  }
+  span:nth-child(6) button {
+    @include btn_color(color.$bg_navy, color.$line_navy);
+  }
+  span:nth-child(7) button {
+    @include btn_color(color.$bg_orange, color.$line_orange);
+  }
+  span:nth-child(8) button {
+    @include btn_color(color.$bg_pink, color.$line_pink);
+  }
+  span {
+    button {
+      @include witdh_height(30px, 30px);
+      border-radius: 50%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
 }

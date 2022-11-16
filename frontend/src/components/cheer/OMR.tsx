@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
-import { setIsOwner, setOmr } from '../../store/omr';
+import { setIsLoading, setIsOwner, setOmr } from '../../store/omr';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
@@ -45,6 +45,7 @@ function OMR(): JSX.Element {
     setNotice(true);
     setBtnActive(true);
   };
+
   const getOmr = useCallback(
     async (omrId: number) => {
       const { status, data } = auth.isLoggedIn
@@ -163,11 +164,9 @@ function OMR(): JSX.Element {
                 {notice ? (
                   <div>
                     <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
-                    <div>
-                      <div className={styles.pallet}>
-                        <Pallet colorList={colorList} />
-                      </div>
-                    </div>
+                    {/* <div className={styles.pallet}>
+                      <Pallet colorList={colorList} />
+                    </div> */}
                   </div>
                 ) : (
                   <Carousel>
@@ -185,6 +184,9 @@ function OMR(): JSX.Element {
                   </Carousel>
                 )}
               </div>
+            </div>
+            <div className={`${styles.body}  ${styles.pallet}`}>
+              <Pallet colorList={colorList} />
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
           </div>

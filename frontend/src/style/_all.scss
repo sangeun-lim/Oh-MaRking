@@ -1,7 +1,8 @@
 // OMR 둥글게 관련 변수
-$OMR_radius: 45px;
-$OMR_small_radius: 42px;
-$IF_radius: 30px;
+$OMR_radius: 42px;
+$OMR_small_radius: 40px;
+$IF_radius: 25px;
+$IF_small_radius: 21px;
 
 // OMR 글씨체
 $OMR_header: 'hanna_11yrs';
@@ -17,6 +18,10 @@ $heart_url: 'https://firebasestorage.googleapis.com/v0/b/stately-century-349715.
 // 링크복사, 필적 확인란 버튼 사이즈
 $OMR_info_btn: 35px;
 
+// OMR 관련 너비
+$OMR_left: 120px;
+$OMR_right: 330px;
+
 @mixin box($width, $height) {
   display: block;
   width: #{$width};
@@ -28,4 +33,26 @@ $OMR_info_btn: 35px;
   flex-direction: #{$direction};
   justify-content: #{$justify};
   align-items: #{$align};
+}
+
+@mixin box_container {
+  border: 20px solid rgb(133, 77, 60);
+  border: #a56933 solid 20px;
+  border-top: #854e25 solid 20px;
+  border-left: #a56933 solid 20px;
+  border-bottom: #854e25 solid 20px;
+  width: 100%;
+  height: 800px;
+  background-color: #3d493f;
+  box-shadow: rgba(0, 0, 0, 0.3) 10px 16px 10px;
+  // color: white;
+  padding-top: 50px;
+  margin-top: 50px;
+  position: relative;
+}
+
+@mixin underline($color) {
+  text-decoration: underline;
+  text-decoration-color: $color;
+  text-decoration-thickness: 3px;
 }
