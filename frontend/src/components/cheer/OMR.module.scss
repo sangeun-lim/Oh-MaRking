@@ -22,7 +22,8 @@ $cheer_section_height: 30em;
 
 @mixin body($fill, $stroke) {
   font-size: all.$OMR_body_font_size;
-  @include fill_stroke(#{$fill}, #{$stroke});
+  // @include fill_stroke(#{$fill}, #{$stroke});
+  @include fill_stroke(#{color.$paper_light}, #{$stroke});
 }
 
 // OMR 마킹하는 곳
@@ -314,6 +315,7 @@ $cheer_section_height: 30em;
   // '필적 확인란' 내용
   .intro {
     width: inherit;
+
     @include all.flex(row, center, center);
     > span {
       display: inline-block;
@@ -588,4 +590,9 @@ $cheer_section_height: 30em;
 
 .custom_cursor:hover {
   cursor: url(../img/cursorRotate.png), pointer;
+}
+
+.test > .omr,
+.body {
+  background-color: color.$paper;
 }
