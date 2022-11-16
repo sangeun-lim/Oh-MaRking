@@ -155,12 +155,12 @@ function CreateMsg(): JSX.Element {
           className={`${styles[colorList[omr.color]]} ${styles.test}`}
         >
           <Modal.Header
-            style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+            style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
             closeButton
           >
             <Modal.Title>응원 답안</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
+          <Modal.Body style={{ backgroundColor: 'rgb(253 253 229)' }}>
             <form onSubmit={handleOnSubmit}>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div style={{ width: '100%', padding: '0px' }}>
@@ -183,7 +183,9 @@ function CreateMsg(): JSX.Element {
                           >
                             <div>
                               <input
-                                style={{ backgroundColor: '#FBFFFE' }}
+                                style={{
+                                  backgroundColor: 'rgb(250, 250, 242)',
+                                }}
                                 name="nickname"
                                 id="nickname"
                                 type="text"
@@ -213,7 +215,9 @@ function CreateMsg(): JSX.Element {
                           >
                             <div>
                               <input
-                                style={{ backgroundColor: '#FBFFFE' }}
+                                style={{
+                                  backgroundColor: 'rgb(250, 250, 242)',
+                                }}
                                 type="date"
                                 name="showDate"
                                 id="showDate"
@@ -244,7 +248,9 @@ function CreateMsg(): JSX.Element {
                           <Col className={styles.header}>
                             <div>
                               <input
-                                style={{ backgroundColor: '#FBFFFE' }}
+                                style={{
+                                  backgroundColor: 'rgb(250, 250, 242)',
+                                }}
                                 name="password1"
                                 id="password"
                                 type="password"
@@ -270,7 +276,9 @@ function CreateMsg(): JSX.Element {
                           <Col className={styles.header}>
                             <div>
                               <input
-                                style={{ backgroundColor: '#FBFFFE' }}
+                                style={{
+                                  backgroundColor: 'rgb(250, 250, 242)',
+                                }}
                                 name="password2"
                                 id="password-check"
                                 type="password"
@@ -284,7 +292,7 @@ function CreateMsg(): JSX.Element {
                               <BsCheckCircle
                                 style={{
                                   height: '100%',
-                                  backgroundColor: '#FBFFFE',
+                                  backgroundColor: 'rgb(250, 250, 242)',
                                   fill: '#2ecc71',
                                 }}
                               />
@@ -292,7 +300,7 @@ function CreateMsg(): JSX.Element {
                               <RiErrorWarningLine
                                 style={{
                                   height: '100%',
-                                  backgroundColor: '#FBFFFE',
+                                  backgroundColor: 'rgb(250, 250, 242)',
                                   fill: '#e74c3c',
                                 }}
                               />
@@ -312,6 +320,12 @@ function CreateMsg(): JSX.Element {
                   <button
                     className={styles.btn_hover_border_3}
                     onClick={() => handleTag(data)}
+                    style={{
+                      fontSize: '20px',
+                      border: '1px solid white',
+                      borderRadius: '20px',
+                      // backgroundColor: 'white',
+                    }}
                     type="button"
                     key={getKey()}
                   >
@@ -327,14 +341,17 @@ function CreateMsg(): JSX.Element {
                   >
                     서술형 응원
                   </label>
-                  <div className={styles.body}>
+                  <div
+                    className={styles.body}
+                    style={{ backgroundColor: 'rgb(250, 250, 242)' }}
+                  >
                     <textarea
                       placeholder="응원글을 작성해주세요."
                       name="content"
                       id="cheer-text"
                       value={newNote.content}
                       onChange={onChangeData}
-                      style={{ backgroundColor: '#FBFFFE' }}
+                      style={{ backgroundColor: 'rgb(250, 250, 242)' }}
                       cols={30}
                       rows={10}
                       required
