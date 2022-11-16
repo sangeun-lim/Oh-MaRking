@@ -230,42 +230,7 @@ function DetailMsg(): JSX.Element {
                 closeButton
               >
                 <div className={styles.modalTitle}>
-                  <Modal.Title>응원 보기</Modal.Title>
-                  {omr.isOwner ? (
-                    <div>
-                      {note.isFavorite ? (
-                        <div style={{ width: '1em', height: '1em' }}>
-                          <button
-                            style={{ width: '100%', height: '100%' }}
-                            type="button"
-                            onClick={onLikeClick}
-                          >
-                            <img
-                              style={{ width: '100%', height: '100%' }}
-                              // src={heartUrl}
-                              src={heartFillUrl}
-                              alt=""
-                            />
-                          </button>
-                        </div>
-                      ) : (
-                        // <BsSuitHeart onClick={onLikeClick} />
-                        <div style={{ width: '1em', height: '1em' }}>
-                          <button
-                            style={{ width: '100%', height: '100%' }}
-                            type="button"
-                            onClick={onLikeClick}
-                          >
-                            <img
-                              style={{ width: '100%', height: '100%' }}
-                              src={heartUrl}
-                              alt="바보"
-                            />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
+                  <Modal.Title>응원 답안</Modal.Title>
                 </div>
               </Modal.Header>
               <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
@@ -322,6 +287,45 @@ function DetailMsg(): JSX.Element {
                             </Col>
                           </Row>
                         </Col>
+                        {!omr.isOwner ? (
+                          <Col>
+                            <Row>
+                              <Col className={`${styles.header}`}>
+                                <label
+                                  className={styles.form_label}
+                                  htmlFor="like"
+                                >
+                                  검토여부
+                                </label>
+                              </Col>
+                              <Col className={`${styles.header}`}>
+                                <div>
+                                  {note.isFavorite ? (
+                                    <input
+                                      style={{
+                                        fontWeight: 'bold',
+                                        backgroundColor: '#FBFFFE',
+                                      }}
+                                      type="button"
+                                      value="X"
+                                      onClick={onLikeClick}
+                                    />
+                                  ) : (
+                                    <input
+                                      style={{
+                                        fontWeight: 'bold',
+                                        backgroundColor: '#FBFFFE',
+                                      }}
+                                      type="button"
+                                      value="O"
+                                      onClick={onLikeClick}
+                                    />
+                                  )}
+                                </div>
+                              </Col>
+                            </Row>
+                          </Col>
+                        ) : null}
                       </div>
                     </Row>
                   </div>

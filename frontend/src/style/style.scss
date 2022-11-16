@@ -64,3 +64,11 @@ span > .form-label {
     display: none;
   }
 }
+
+#carousel_my {
+  .carousel-indicators {
+    button {
+      display: none;
+    }
+  }
+}

@@ -596,3 +596,11 @@ $cheer_section_height: 30em;
 .body {
   background-color: color.$paper;
 }
+
+#carousel_my {
+  .carousel-indicators {
+    button {
+      display: none;
+    }
+  }
+}
