@@ -32,7 +32,7 @@ const Url = {
     readGuestNote: (noteId: number) => `${HOST + NOTE}guest/${noteId}`,
     searchNote: (nickname: string) => `${HOST + NOTE}search/${nickname}`,
     likeNote: () => `${HOST + NOTE}favorite`,
-    likeList: (omrId: number) => `${HOST + NOTE}favorites/${omrId}`,
+    likeList: (omrId: number) => `${HOST + OMR}favorites/${omrId}`,
   },
   password: {
     checkPW: () => `${HOST + NOTE + CHECK}`,

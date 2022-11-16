@@ -5,7 +5,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Toast } from '../common/Toast';
 import { setShow, setUpdate } from '../../store/modal';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
+import {
+  setIsOwner,
+  setOmr,
+  setNoteOpen,
+  setNoteLike,
+  setIsLoading,
+} from '../../store/omr';
 import { RootState } from '../../store/store';
 import { EditNote, EditNoteData } from '../../utils/Interface';
 import UpdateMsg from './UpdateMsg';
@@ -13,7 +20,6 @@ import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 
 function CantReadMsg(): JSX.Element {
   const dispatch = useDispatch();
@@ -71,6 +77,8 @@ function CantReadMsg(): JSX.Element {
       if (del) {
         try {
           await OMRApi.note.deleteNote(noteId);
+          // const response = await OMRApi.note.deleteNote(noteId);
+          // dispatch(setOmrList(response.data.data.omrList));
           const { data } = await OMRApi.omr.getOmr(
             user.omrList[omr.pageNum],
             auth.isLoggedIn
@@ -81,6 +89,10 @@ function CantReadMsg(): JSX.Element {
           // dispatch로 새로운 omrList를 가 필요할듯?
           dispatch(setShow());
           Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
+          // if (user.omrList[omr.pageNum] in user.omrList) {
+          //   dispatch(setIsLoading(true));
+          //   console.log('동작');
+          // }
         } catch (err) {
           console.log(err);
           Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');
@@ -95,6 +107,8 @@ function CantReadMsg(): JSX.Element {
   const checkPwDelete = async () => {
     try {
       await OMRApi.note.deleteNote(noteId);
+      // const response = await OMRApi.note.deleteNote(noteId);
+      // dispatch(setOmrList(response.data.data.omrList));
       const { data } = await OMRApi.omr.getOmr(
         user.omrList[omr.pageNum],
         auth.isLoggedIn
@@ -105,6 +119,10 @@ function CantReadMsg(): JSX.Element {
       // dispatch로 새로운 omrList를 가 필요할듯?
       dispatch(setShow());
       Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
+      // if (user.omrList[omr.pageNum] in user.omrList) {
+      //   dispatch(setIsLoading(true));
+      //   console.log('동작');
+      // }
     } catch (err) {
       console.log(err);
       Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');

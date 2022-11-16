@@ -6,11 +6,17 @@ import Col from 'react-bootstrap/Col';
 import Swal from 'sweetalert2';
 // import DYEditor, { getData } from 'dyeditor';
 import { Toast } from '../common/Toast';
-import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
+import {
+  setIsOwner,
+  setOmr,
+  setNoteOpen,
+  setNoteLike,
+  setIsLoading,
+} from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setShow, setUpdate } from '../../store/modal';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
 import { EditNote, EditNoteData } from '../../utils/Interface';
 import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
@@ -64,7 +70,6 @@ function DetailMsg(): JSX.Element {
         elementIdx: response.data.data.checkNum,
       };
       dispatch(setNoteOpen(NoteData));
-      console.log(response.data.data);
     } else {
       Toast('메시지를 불러오지 못했습니다.', 'readMsgFail');
     }
@@ -107,6 +112,8 @@ function DetailMsg(): JSX.Element {
       if (del) {
         try {
           await OMRApi.note.deleteNote(noteId);
+          // const response = await OMRApi.note.deleteNote(noteId);
+          // dispatch(setOmrList(response.data.data.omrList));
           const { data } = await OMRApi.omr.getOmr(
             user.omrList[omr.pageNum],
             auth.isLoggedIn
@@ -131,6 +138,10 @@ function DetailMsg(): JSX.Element {
             dispatch(removeLikeItem(noteId));
           }
           Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
+          // if (user.omrList[omr.pageNum] ) {
+          //   dispatch(setIsLoading(true));
+          //   console.log('동작');
+          // }
         } catch (err) {
           console.log(err);
           Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');
@@ -145,6 +156,8 @@ function DetailMsg(): JSX.Element {
   const checkPwDelete = async () => {
     try {
       await OMRApi.note.deleteNote(noteId);
+      // const response = await OMRApi.note.deleteNote(noteId);
+      // dispatch(setOmrList(response.data.data.omrList));
       const { data } = await OMRApi.omr.getOmr(
         user.omrList[omr.pageNum],
         auth.isLoggedIn
@@ -153,6 +166,7 @@ function DetailMsg(): JSX.Element {
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
       // dispatch로 새로운 omrList를 가 필요할듯?
+      // 현재 omrId가 갱신된 omrList 안에 없으면 새로고침 처리 how?
       dispatch(setShow());
       if (!note.isFavorite) {
         const { content, nickname, problemNum, checkNum } = note;
@@ -169,6 +183,10 @@ function DetailMsg(): JSX.Element {
         dispatch(removeLikeItem(noteId));
       }
       Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
+      // if (user.omrList[omr.pageNum] in user.omrList) {
+      //   dispatch(setIsLoading(true));
+      //   console.log('동작');
+      // }
     } catch (err) {
       console.log(err);
       Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');

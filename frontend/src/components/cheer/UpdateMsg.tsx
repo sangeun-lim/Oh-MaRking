@@ -5,9 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Toast } from '../common/Toast';
-import { setIsOwner, setOmr } from '../../store/omr';
+import { setIsOwner, setOmr, setIsLoading } from '../../store/omr';
 import { setShow } from '../../store/modal';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
 import { getLikeItem } from '../../utils/utils';
@@ -88,6 +88,8 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     if (del) {
       try {
         await OMRApi.note.deleteNote(noteId);
+        // const response = await OMRApi.note.deleteNote(noteId);
+        // dispatch(setOmrList(response.data.data.omrList));
         const { data } = await OMRApi.omr.getOmr(
           user.omrList[omr.pageNum],
           auth.isLoggedIn
@@ -112,6 +114,10 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
           dispatch(removeLikeItem(noteId));
         }
         Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
+        // if (user.omrList[omr.pageNum] in user.omrList) {
+        //   dispatch(setIsLoading(true));
+        //   console.log('동작');
+        // }
       } catch (err) {
         console.log(err);
         Toast('응원 삭제에 실패했습니다.', 'deleteNoteFail');
