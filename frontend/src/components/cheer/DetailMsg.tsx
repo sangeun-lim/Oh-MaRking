@@ -287,7 +287,7 @@ function DetailMsg(): JSX.Element {
                             </Col>
                           </Row>
                         </Col>
-                        {!omr.isOwner ? (
+                        {omr.isOwner ? (
                           <Col>
                             <Row>
                               <Col className={`${styles.header}`}>
