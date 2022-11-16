@@ -226,49 +226,14 @@ function DetailMsg(): JSX.Element {
               className={`${styles[colorList[omr.color]]} ${styles.test}`}
             >
               <Modal.Header
-                style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+                style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
                 closeButton
               >
                 <div className={styles.modalTitle}>
-                  <Modal.Title>응원 보기</Modal.Title>
-                  {omr.isOwner ? (
-                    <div>
-                      {note.isFavorite ? (
-                        <div style={{ width: '1em', height: '1em' }}>
-                          <button
-                            style={{ width: '100%', height: '100%' }}
-                            type="button"
-                            onClick={onLikeClick}
-                          >
-                            <img
-                              style={{ width: '100%', height: '100%' }}
-                              // src={heartUrl}
-                              src={heartFillUrl}
-                              alt=""
-                            />
-                          </button>
-                        </div>
-                      ) : (
-                        // <BsSuitHeart onClick={onLikeClick} />
-                        <div style={{ width: '1em', height: '1em' }}>
-                          <button
-                            style={{ width: '100%', height: '100%' }}
-                            type="button"
-                            onClick={onLikeClick}
-                          >
-                            <img
-                              style={{ width: '100%', height: '100%' }}
-                              src={heartUrl}
-                              alt="바보"
-                            />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
+                  <Modal.Title>응원 답안</Modal.Title>
                 </div>
               </Modal.Header>
-              <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
+              <Modal.Body style={{ backgroundColor: 'rgb(253 253 229)' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <div style={{ width: '100%', padding: '0px' }}>
                     <Row style={{ margin: '0px' }}>
@@ -286,7 +251,9 @@ function DetailMsg(): JSX.Element {
                             <Col className={`${styles.header}`}>
                               <div>
                                 <input
-                                  style={{ backgroundColor: '#FBFFFE' }}
+                                  style={{
+                                    backgroundColor: 'rgb(250, 250, 242)',
+                                  }}
                                   name="nickname"
                                   id="nickname"
                                   type="text"
@@ -311,7 +278,9 @@ function DetailMsg(): JSX.Element {
                             <Col className={`${styles.header}`}>
                               <div>
                                 <input
-                                  style={{ backgroundColor: '#FBFFFE' }}
+                                  style={{
+                                    backgroundColor: 'rgb(250, 250, 242)',
+                                  }}
                                   name="showDate"
                                   type="date"
                                   id="opendate"
@@ -322,6 +291,47 @@ function DetailMsg(): JSX.Element {
                             </Col>
                           </Row>
                         </Col>
+                        {omr.isOwner ? (
+                          <Col>
+                            <Row>
+                              <Col className={`${styles.header}`}>
+                                <label
+                                  className={styles.form_label}
+                                  htmlFor="like"
+                                >
+                                  검토여부
+                                </label>
+                              </Col>
+                              <Col className={`${styles.header}`}>
+                                <div>
+                                  {note.isFavorite ? (
+                                    <input
+                                      style={{
+                                        fontWeight: '900',
+                                        color: '#2ecc71',
+                                        backgroundColor: 'rgb(250, 250, 242)',
+                                      }}
+                                      type="button"
+                                      value="O"
+                                      onClick={onLikeClick}
+                                    />
+                                  ) : (
+                                    <input
+                                      style={{
+                                        fontWeight: 'bold',
+                                        color: 'red',
+                                        backgroundColor: 'rgb(250, 250, 242)',
+                                      }}
+                                      type="button"
+                                      value="X"
+                                      onClick={onLikeClick}
+                                    />
+                                  )}
+                                </div>
+                              </Col>
+                            </Row>
+                          </Col>
+                        ) : null}
                       </div>
                     </Row>
                   </div>
@@ -336,13 +346,16 @@ function DetailMsg(): JSX.Element {
                       서술형 응원
                     </label>
 
-                    <div className={styles.body}>
+                    <div
+                      className={styles.body}
+                      style={{ backgroundColor: 'rgb(250, 250, 242)' }}
+                    >
                       <textarea
                         name="content"
                         placeholder="응원글을 작성해주세요."
                         id="cheer-text-detail"
                         value={editMsg.content}
-                        style={{ backgroundColor: '#FBFFFE' }}
+                        style={{ backgroundColor: 'rgb(250, 250, 242)' }}
                         cols={30}
                         rows={10}
                         required

@@ -35,6 +35,8 @@ $OMR_right: 330px;
   align-items: #{$align};
 }
 
+$moal_font_size: 20px;
+
 @mixin box_container {
   border: 20px solid rgb(133, 77, 60);
   border: #a56933 solid 20px;

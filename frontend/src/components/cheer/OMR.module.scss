@@ -563,6 +563,20 @@ $cheer_section_height: 30em;
   background-color: color.$paper;
 }
 
+#carousel_my {
+  .carousel-indicators {
+    button {
+      display: none;
+    }
+  }
+}
+
+.no_like {
+  font-family: 'hanna_11yrs';
+  font-weight: bold;
+  padding-top: 125px;
+}
+
 .pallet {
   width: calc(all.$OMR_left + all.$OMR_right);
   height: 50px;

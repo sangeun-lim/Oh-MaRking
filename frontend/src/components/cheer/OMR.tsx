@@ -169,19 +169,27 @@ function OMR(): JSX.Element {
                     </div> */}
                   </div>
                 ) : (
-                  <Carousel>
-                    {likeList.likeList.map((data) => (
-                      <Carousel.Item key={data.noteId}>
-                        <LikeList
-                          problemNum={data.problemNum}
-                          checkNum={data.checkNum}
-                          username={user.name}
-                          content={data.content}
-                          nickname={data.nickname}
-                        />
-                      </Carousel.Item>
-                    ))}
-                  </Carousel>
+                  <div>
+                    {likeList.likeList.length ? (
+                      <Carousel id="carousel_my">
+                        {likeList.likeList.map((data) => (
+                          <Carousel.Item key={data.noteId}>
+                            <LikeList
+                              problemNum={data.problemNum}
+                              checkNum={data.checkNum}
+                              username={user.name}
+                              content={data.content}
+                              nickname={data.nickname}
+                            />
+                          </Carousel.Item>
+                        ))}
+                      </Carousel>
+                    ) : (
+                      <div className={styles.no_like}>
+                        아직 검토한 내용이 없습니다
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             </div>

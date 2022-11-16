@@ -14,6 +14,7 @@ import styles from './CheerPage.module.scss';
 // import imgUrl from './img.png'
 import omrGifUrl from '../img/omr.gif';
 import 'react-toastify/dist/ReactToastify.css';
+import '../style/toast.scss';
 
 function CheerPage(): JSX.Element {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function CheerPage(): JSX.Element {
             style={{
               width: 'fit-content',
             }}
+            limit={5}
           />
         </>
       )}
