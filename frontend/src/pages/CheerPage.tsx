@@ -7,10 +7,14 @@ import { ToastContainer } from 'react-toastify';
 import { setIsOwner, setOmr, setIsLoading } from '../store/omr';
 import { setUserInfo, setUser } from '../store/user';
 import OMRApi from '../api/OMRApi';
+import ExampleOmr from '../components/carousel/ExampleOmr';
 import OMR from '../components/cheer/OMR';
 import { RootState } from '../store/store';
 import styles from './CheerPage.module.scss';
+// import imgUrl from './img.png'
+import omrGifUrl from '../img/omr.gif';
 import 'react-toastify/dist/ReactToastify.css';
+import '../style/toast.scss';
 
 function CheerPage(): JSX.Element {
   const dispatch = useDispatch();
@@ -42,6 +46,7 @@ function CheerPage(): JSX.Element {
         .getOmr(user.omrList[omr.pageNum], auth.isLoggedIn)
         .then(({ data }) => {
           dispatch(setUser(data.data.user));
+          // setTimeout(() => dispatch(setOmr(data.data.omr)), 3000);
           dispatch(setOmr(data.data.omr));
           dispatch(setIsOwner(data.data.isOwner));
         });
@@ -51,14 +56,18 @@ function CheerPage(): JSX.Element {
   return (
     <Container className={styles.screen_container}>
       {omr.isLoading ? (
-        <div className={styles.spinner}>
-          <div />
-          <Spinner animation="border" role="status" />
+        <div className={styles.box_container}>
+          <img src={omrGifUrl} alt="" width="1000px" />
         </div>
       ) : (
         <>
           <OMR />
-          <ToastContainer />
+          <ToastContainer
+            style={{
+              width: 'fit-content',
+            }}
+            limit={5}
+          />
         </>
       )}
     </Container>

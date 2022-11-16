@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
-import { setIsOwner, setOmr } from '../../store/omr';
+import { setIsLoading, setIsOwner, setOmr } from '../../store/omr';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
@@ -45,6 +45,7 @@ function OMR(): JSX.Element {
     setNotice(true);
     setBtnActive(true);
   };
+
   const getOmr = useCallback(
     async (omrId: number) => {
       const { status, data } = auth.isLoggedIn
@@ -153,28 +154,37 @@ function OMR(): JSX.Element {
                 {notice ? (
                   <div>
                     <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
-                    <div>
-                      <div className={styles.pallet}>
-                        <Pallet colorList={colorList} />
-                      </div>
-                    </div>
+                    {/* <div className={styles.pallet}>
+                      <Pallet colorList={colorList} />
+                    </div> */}
                   </div>
                 ) : (
-                  <Carousel id="carousel_my">
-                    {likeList.likeList.map((data) => (
-                      <Carousel.Item key={data.noteId}>
-                        <LikeList
-                          problemNum={data.problemNum}
-                          checkNum={data.checkNum}
-                          username={user.name}
-                          content={data.content}
-                          nickname={data.nickname}
-                        />
-                      </Carousel.Item>
-                    ))}
-                  </Carousel>
+                  <div>
+                    {likeList.likeList.length ? (
+                      <Carousel id="carousel_my">
+                        {likeList.likeList.map((data) => (
+                          <Carousel.Item key={data.noteId}>
+                            <LikeList
+                              problemNum={data.problemNum}
+                              checkNum={data.checkNum}
+                              username={user.name}
+                              content={data.content}
+                              nickname={data.nickname}
+                            />
+                          </Carousel.Item>
+                        ))}
+                      </Carousel>
+                    ) : (
+                      <div className={styles.no_like}>
+                        아직 검토한 내용이 없습니다
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
+            </div>
+            <div className={`${styles.body}  ${styles.pallet}`}>
+              <Pallet colorList={colorList} />
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
           </div>

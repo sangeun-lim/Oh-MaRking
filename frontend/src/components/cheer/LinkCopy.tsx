@@ -10,7 +10,7 @@ function LinkCopy(): JSX.Element {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    Toast('링크가 복사되었습니다.', 'copy');
+    Toast('링크가 복사되었습니다.', 'copysuccess');
   };
 
   return (
@@ -18,8 +18,6 @@ function LinkCopy(): JSX.Element {
       onClick={() => copyUrl()}
       role="presentation"
       xmlns="http://www.w3.org/2000/svg"
-      width="50"
-      height="50"
       fill="currentColor"
       className="bi bi-link-45deg"
       viewBox="0 0 16 16"

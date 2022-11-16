@@ -44,7 +44,7 @@ function Info({ title, content }: InfoProps): JSX.Element {
     switch (title.replaceAll(/\s/g, '')) {
       case '이름':
         return (
-          <div className={styles.name}>
+          <div className={`${styles.name} `}>
             <span>{content}</span>
             <LinkCopy />
           </div>
@@ -90,8 +90,8 @@ function Info({ title, content }: InfoProps): JSX.Element {
 
   return (
     <div className={styles.section}>
-      <div className={`${styles.header} ${styles.left}`}>{title}</div>
-      <div className={` ${styles.body} ${styles.right}`}>{getContent()}</div>
+      <div className={` ${styles.left} ${styles.header}`}>{title}</div>
+      <div className={`${styles.right}  ${styles.body} `}>{getContent()}</div>
     </div>
   );
 }

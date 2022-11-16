@@ -32,8 +32,6 @@ const Url = {
     searchNote: (nickname: string) =>
       `${HOST + LOGIC + NOTE}/search/${nickname}`,
     likeNote: () => `${HOST + LOGIC + NOTE}/favorite`,
-    // likeList: (codedEmail: string) =>
-    // `${HOST + LOGIC + NOTE}/favorites/${codedEmail}`,
     likeList: (omrId: number) => `${HOST + LOGIC + OMR}/favorites/${omrId}`,
   },
   password: {

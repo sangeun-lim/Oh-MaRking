@@ -10,8 +10,7 @@ import { setShow } from '../../store/modal';
 import { setUser } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
-import { getLikeItem, getKey } from '../../utils/utils';
-// import { getKey } from '../../utils/utils';
+import { getLikeItem } from '../../utils/utils';
 import { RootState } from '../../store/store';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
 
@@ -130,31 +129,6 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     'orange',
     'pink',
   ];
-  const cheerTag = [
-    '너의 꿈을 응원해!',
-    '넌 할 수 있어!',
-    '힘내!',
-    '응원할게!',
-    '항상!',
-    '파이팅!',
-    '수고했어!',
-    '고생했어!',
-    '넌 최고야!',
-    '끝나고 🍻 한 잔?',
-    // '니 성적에 잠이 와?',
-    '❤',
-    '👍',
-    '👊',
-    '🎈',
-  ];
-  const handleTag = (data: string) => {
-    setEditMsg((prev) => {
-      return {
-        ...prev,
-        content: prev.content + data,
-      };
-    });
-  };
   return (
     <div>
       <Modal
@@ -163,12 +137,12 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
         className={`${styles[colorList[omr.color]]} ${styles.test}`}
       >
         <Modal.Header
-          style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+          style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
           closeButton
         >
           <Modal.Title>응원글 수정</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
+        <Modal.Body style={{ backgroundColor: 'rgb(253 253 229)' }}>
           <form onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ width: '100%', padding: '0px' }}>
@@ -191,7 +165,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                         >
                           <div>
                             <input
-                              style={{ backgroundColor: '#FBFFFE' }}
+                              style={{ backgroundColor: 'rgb(250, 250, 242)' }}
                               name="nickname"
                               id="nickname"
                               type="text"
@@ -221,7 +195,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                         >
                           <div>
                             <input
-                              style={{ backgroundColor: '#FBFFFE' }}
+                              style={{ backgroundColor: 'rgb(250, 250, 242)' }}
                               id="opendate"
                               name="showDate"
                               type="date"
@@ -237,19 +211,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                 </Row>
               </div>
             </div>
-            <div>
-              {cheerTag.map((data) => (
-                <button
-                  className={styles.btn_hover_border_3}
-                  onClick={() => handleTag(data)}
-                  type="button"
-                  key={getKey()}
-                >
-                  #{data}
-                </button>
-              ))}
-            </div>
-
+            <br />
             <div>
               <div className={`${styles.cheerHeader}`}>
                 <label
@@ -258,10 +220,14 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                 >
                   서술형 응원
                 </label>
-                <div className={styles.body}>
+                <div
+                  className={styles.body}
+                  style={{ backgroundColor: 'rgb(250, 250, 242)' }}
+                >
                   <textarea
                     name="content"
                     id="cheer-text"
+                    style={{ backgroundColor: 'rgb(250, 250, 242)' }}
                     onChange={onChange}
                     // placeholder={formData.content}
                     value={editMsg.content || formData.content}

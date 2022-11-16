@@ -9,7 +9,7 @@ import {
   setDetail,
   setCannotRead,
 } from '../../store/modal';
-
+import { Toast } from '../common/Toast';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 
@@ -35,7 +35,11 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         dispatch(setCreate());
         break;
       case s.canNotRead:
-        dispatch(setCannotRead());
+        if (omr.isOwner) {
+          Toast('아직 확인할 수 없는 메시지입니다.', 'fail');
+        } else {
+          dispatch(setCannotRead());
+        }
         break;
       default:
         dispatch(setDetail());
@@ -51,7 +55,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     if (showDate === null) {
       return 'plz..💬';
     }
-    return `닉네임: ${nickName} \n 공개날짜:${showDate}`;
+    return `닉네임: ${nickName} 공개날짜:${showDate}`;
   };
   return (
     <div className={`${styles.section} ${styles.body}`}>
@@ -72,7 +76,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
                 title={getContent(problemIdx + start, elementIdx)}
                 key={getKey()}
                 arrow
-                style={{ whiteSpace: 'pre-line' }}
+                style={{ whiteSpace: 'pre' }}
                 placement="top"
                 classes={{ popper: `${styles.MuiTooltip_popper}` }}
               >

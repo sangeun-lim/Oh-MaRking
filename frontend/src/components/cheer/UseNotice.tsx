@@ -21,117 +21,129 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
       {isOwner ? (
         <div>
           <div className={styles.sort_text}>
-            &#8251; <LinkCopy />
-            버튼을 눌러 지인들에게 응원받아보세요.
+            &#8251; <LinkCopy />를 눌러, 내 <strong>OMR 카드</strong>를
+            공유해보세요.
           </div>
           <div className={styles.sort_text}>
-            &#8251; 마지막 답안지에서 마킹이 20개 이상일 때,
+            &#8251; 소중한 메시지는 <strong>검토</strong>해보세요.
           </div>
-          <div style={{ marginLeft: '20px' }} className={styles.sort_text}>
-            새로운 답안지를 받을 수 있습니다.
-            <br />
+          <div
+            // style={{ marginLeft: '20px' }}
+            className={styles.sort_text}
+          >
+            &#8251; <strong>OMR</strong> 사용법은 시험 감독관을 통해 확인
+            바랍니다.
             <br />
           </div>
-          <div className={styles.sort_text}>&#8251; 표기 안내</div>
-
-          <Container>
-            <div className={styles.rules}>
-              <Row>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[0]]}`}>{''}</span>
-                    <span className={styles.noticetext}>
-                      {''}작성 가능한 칸
-                    </span>
-                  </div>
-                </Col>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[1]]}`}>{''}</span>
-                    <span className={styles.noticetext}>{''}이미 읽은 칸</span>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[2]]}`}>{''}</span>
-                    <span className={styles.noticetext}>
-                      {''}아직 안 읽은 칸
-                    </span>
-                  </div>
-                </Col>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[3]]}`}>{''}</span>
-                    <span className={styles.noticetext}>
-                      {''}공개되지 않은 칸
-                    </span>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[4]]}`}>{''}</span>
-                    <span className={styles.noticetext}>{''}좋아요한 칸</span>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          </Container>
+          <div className={styles.sort_text}>
+            &#8251; <strong>표기 안내</strong>
+          </div>
+          <div className={styles.container}>
+            <Container>
+              <div className={styles.rules}>
+                <Row>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[0]]}`}>{''}</span>
+                      <span className={styles.noticetext}>{''}빈 답안</span>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                      <span className={styles.noticetext}>{''}읽은 답안</span>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[2]]}`}>{''}</span>
+                      <span className={styles.noticetext}>
+                        {''}읽지 않은 답안
+                      </span>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[4]]}`}>{''}</span>
+                      <span className={styles.noticetext}>{''}검토할 답안</span>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[3]]}`}>{''}</span>
+                      <span className={styles.noticetext}>
+                        {''}아직 공개되지 않은 답안
+                      </span>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Container>
+          </div>
         </div>
       ) : (
         <div>
           <div className={styles.sort_text}>
-            &#8251; 이 수험표는 {user.name}님을 위한 응원수험표입니다.
+            &#8251; 여기는 {user.name}님의 응원 <strong>OMR 카드</strong>입니다.
           </div>
           <div className={styles.sort_text}>
-            &#8251; {user.name}님에게 응원과 격려의 메시지를 작성해보세요!
+            &#8251; 수험생에게
+            <strong> 평소 전하지 못한 말</strong>이 있다면,
+            {/* 이 곳에 메시지를 */}
+            {/* 작성해보세요! */}
           </div>
           <div className={styles.sort_text} style={{ marginLeft: '20px' }}>
-            (폭언, 욕설 금지!!!)
+            <strong>OMR에 답안</strong>을 작성해보세요.
           </div>
           <div className={styles.sort_text}>
-            &#8251; 마지막 답안지에서 마킹이 20개 이상일 때,
+            &#8251; 메시지 작성법은 시험 감독관을 통해 확인바랍니다.
           </div>
-          <div style={{ marginLeft: '20px' }} className={styles.sort_text}>
+          {/* <div style={{ marginLeft: '20px' }} className={styles.sort_text}>
             새로운 답안지를 받을 수 있습니다.
             <br />
+          </div> */}
+          <div className={styles.sort_text}>
+            &#8251; <strong>표기 안내</strong>
           </div>
-          <br />
-          <div className={styles.sort_text}>&#8251; 표기 안내</div>
-          <Container>
-            <div className={styles.rules}>
-              <Row>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[0]]}`}>{''}</span>
-                    <span className={styles.noticetext}>
-                      {''}작성 가능한 칸
-                    </span>
-                  </div>
-                </Col>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[1]]}`}>{''}</span>
-                    <span className={styles.noticetext}>{''}이미 읽은 칸</span>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className={styles.nubi}>
-                    <span className={`${styles[omrBg[3]]}`}>{''}</span>
-                    <span className={styles.noticetext}>
-                      {''}아직 안 읽은 칸
-                    </span>
-                  </div>
-                </Col>
-              </Row>
-              {/* <br /> */}
-            </div>
-          </Container>
+          <div className={styles.container}>
+            <Container>
+              <div className={styles.rules}>
+                <Row>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[0]]}`}>{''}</span>
+                      <span className={styles.noticetext}>
+                        {''}작성 가능한 칸
+                      </span>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                      <span className={styles.noticetext}>
+                        {''}이미 읽은 칸
+                      </span>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[3]]}`}>{''}</span>
+                      <span className={styles.noticetext}>
+                        {''}공개되지 않은 칸
+                      </span>
+                    </div>
+                  </Col>
+                </Row>
+                {/* <br /> */}
+              </div>
+            </Container>
+          </div>
         </div>
       )}
     </div>
