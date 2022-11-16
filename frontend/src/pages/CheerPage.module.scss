@@ -15,3 +15,7 @@
     height: 400px;
   }
 }
+
+.box_container {
+  @include all.box_container;
+}
