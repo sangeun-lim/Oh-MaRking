@@ -10,7 +10,7 @@ function LinkCopy(): JSX.Element {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    Toast('링크가 복사되었습니다.', 'copy');
+    Toast('링크가 복사되었습니다.', 'copysuccess');
   };
 
   return (

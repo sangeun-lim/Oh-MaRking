@@ -1,3 +1,6 @@
+.modal-content {
+  min-width: 1100px;
+}
 div > .modal-dialog {
   --bs-modal-width: 1200px;
   /* // width:70%; */
@@ -72,3 +75,4 @@ span > .form-label {
     }
   }
 }
+

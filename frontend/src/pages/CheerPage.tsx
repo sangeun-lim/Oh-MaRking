@@ -11,6 +11,7 @@ import OMR from '../components/cheer/OMR';
 import { RootState } from '../store/store';
 import styles from './CheerPage.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import '../style/toast.scss';
 
 function CheerPage(): JSX.Element {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function CheerPage(): JSX.Element {
             style={{
               width: 'fit-content',
             }}
+            limit={5}
           />
         </>
       )}
