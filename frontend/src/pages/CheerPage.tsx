@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -76,7 +76,7 @@ function CheerPage(): JSX.Element {
           </div>
         </div>
       ) : (
-        <>
+        <div>
           <OMR />
           <ToastContainer
             style={{
@@ -84,7 +84,7 @@ function CheerPage(): JSX.Element {
             }}
             limit={5}
           />
-        </>
+        </div>
       )}
     </Container>
   );

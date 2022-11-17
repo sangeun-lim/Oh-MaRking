@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
