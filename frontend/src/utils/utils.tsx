@@ -48,3 +48,6 @@ export const COLOR_LIST = [
   'orange',
   'pink',
 ];
+
+// [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
+export const OMR_BG = ['empty', 'already', 'notyet', 'cannot', 'liked'];

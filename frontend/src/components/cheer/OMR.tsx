@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
-import { addOmr, setUser } from '../../store/user';
-import { setIsLoading, setIsOwner, setOmr, setPage } from '../../store/omr';
+import { addOmr } from '../../store/user';
+import { setPage } from '../../store/omr';
 import { COLOR_LIST } from '../../utils/utils';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
@@ -24,12 +24,11 @@ import '../../style/style.scss';
 function OMR(): JSX.Element {
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  const { user, omr, auth, modal, likeList } = useSelector(
+  const { user, omr, modal, likeList } = useSelector(
     (state: RootState) => state
   );
   const dispatch = useDispatch();
 
-  const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
   const handleLike = () => {
     setNotice(false);
     setBtnActive(false);
@@ -136,7 +135,7 @@ function OMR(): JSX.Element {
                 {/* 즐겨찾기 보여주는 부분 */}
                 {notice ? (
                   <div>
-                    <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
+                    <UseNotice isOwner={omr.isOwner} />
                   </div>
                 ) : (
                   <div>

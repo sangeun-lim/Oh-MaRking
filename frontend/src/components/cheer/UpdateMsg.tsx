@@ -12,7 +12,6 @@ import OMRApi from '../../api/OMRApi';
 import { getLikeItem, isDeletedPage, COLOR_LIST } from '../../utils/utils';
 import { RootState } from '../../store/store';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
-
 import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
