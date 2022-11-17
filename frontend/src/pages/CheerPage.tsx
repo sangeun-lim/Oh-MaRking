@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
