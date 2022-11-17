@@ -18,7 +18,7 @@ import UseNotice from './UseNotice';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
-import pageFlipAudio from '../../audio/pageFlipAudio.mp3';
+// import pageFlipAudio from '../../audio/pageFlipAudio.mp3';
 import '../../style/style.scss';
 
 function OMR(): JSX.Element {
@@ -42,9 +42,9 @@ function OMR(): JSX.Element {
     async (move: number) => {
       const leftOrRight = omr.pageNum + move;
       dispatch(setPage(leftOrRight));
-      const audio = new Audio(pageFlipAudio);
-      audio.currentTime = 0.3;
-      audio.play();
+      // const audio = new Audio(pageFlipAudio);
+      // audio.currentTime = 0.3;
+      // audio.play();
     },
     [omr.pageNum, dispatch]
   );
