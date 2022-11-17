@@ -8,7 +8,7 @@ import { setShow, setUpdate } from '../../store/modal';
 import { setUser, setOmrList } from '../../store/user';
 import { RootState } from '../../store/store';
 import { EditNoteData } from '../../utils/Interface';
-import { isDeletedPage } from '../../utils/utils';
+import { isDeletedPage, COLOR_LIST } from '../../utils/utils';
 import UpdateMsg from './UpdateMsg';
 import { EditNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -22,16 +22,7 @@ function CantReadMsg(): JSX.Element {
   const handleClose = () => {
     dispatch(setShow());
   };
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   const [pw, setPw] = useState<string>('');
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [onDelete, setOnDelete] = useState<boolean>(false);
@@ -138,7 +129,7 @@ function CantReadMsg(): JSX.Element {
                 <Modal
                   show={modal.show}
                   onHide={handleClose}
-                  className={`${styles[colorList[omr.color]]} ${styles.test}`}
+                  className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
                 >
                   <Modal.Header
                     style={{

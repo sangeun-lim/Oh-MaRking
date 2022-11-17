@@ -37,3 +37,14 @@ export const getLikeItem = (likelist: likeList) => {
 export const isDeletedPage = (origin: number[], response: number[]) => {
   return origin !== response;
 };
+
+export const COLOR_LIST = [
+  'yellow',
+  'skyblue',
+  'purple',
+  'green',
+  'dark_yellow',
+  'navy',
+  'orange',
+  'pink',
+];

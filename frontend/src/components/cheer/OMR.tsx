@@ -4,6 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
 import { setIsLoading, setIsOwner, setOmr, setPage } from '../../store/omr';
+import { COLOR_LIST } from '../../utils/utils';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
@@ -27,16 +28,7 @@ function OMR(): JSX.Element {
     (state: RootState) => state
   );
   const dispatch = useDispatch();
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
   const handleLike = () => {
     setNotice(false);
@@ -88,7 +80,7 @@ function OMR(): JSX.Element {
     }
   }, [dispatch, user.omrList, omr.pageNum]);
   return (
-    <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
+    <div className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
@@ -172,7 +164,7 @@ function OMR(): JSX.Element {
               </div>
             </div>
             <div className={`${styles.body}  ${styles.pallet}`}>
-              <Pallet colorList={colorList} />
+              <Pallet />
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
           </div>
