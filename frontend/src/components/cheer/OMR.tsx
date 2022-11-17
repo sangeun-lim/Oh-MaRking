@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
-import { addOmr, setUser } from '../../store/user';
-import { setIsLoading, setIsOwner, setOmr, setPage } from '../../store/omr';
+import { addOmr } from '../../store/user';
+import { setPage } from '../../store/omr';
+import { COLOR_LIST } from '../../utils/utils';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
@@ -23,21 +24,11 @@ import '../../style/style.scss';
 function OMR(): JSX.Element {
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  const { user, omr, auth, modal, likeList } = useSelector(
+  const { user, omr, modal, likeList } = useSelector(
     (state: RootState) => state
   );
   const dispatch = useDispatch();
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
-  const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
+
   const handleLike = () => {
     setNotice(false);
     setBtnActive(false);
@@ -88,7 +79,7 @@ function OMR(): JSX.Element {
     }
   }, [dispatch, user.omrList, omr.pageNum]);
   return (
-    <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
+    <div className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
@@ -144,7 +135,7 @@ function OMR(): JSX.Element {
                 {/* 즐겨찾기 보여주는 부분 */}
                 {notice ? (
                   <div>
-                    <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
+                    <UseNotice isOwner={omr.isOwner} />
                   </div>
                 ) : (
                   <div>
@@ -172,7 +163,7 @@ function OMR(): JSX.Element {
               </div>
             </div>
             <div className={`${styles.body}  ${styles.pallet}`}>
-              <Pallet colorList={colorList} />
+              <Pallet />
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
           </div>

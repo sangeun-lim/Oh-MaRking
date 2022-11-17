@@ -9,10 +9,9 @@ import { setShow } from '../../store/modal';
 import { setUser, setOmrList } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
-import { getLikeItem, isDeletedPage } from '../../utils/utils';
+import { getLikeItem, isDeletedPage, COLOR_LIST } from '../../utils/utils';
 import { RootState } from '../../store/store';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
-
 import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -121,22 +120,13 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     }
     onEditClick();
   };
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   return (
     <div>
       <Modal
         show={modal.show}
         onHide={handleClose}
-        className={`${styles[colorList[omr.color]]} ${styles.test}`}
+        className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
       >
         <Modal.Header
           style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}

@@ -2,16 +2,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { useSelector } from 'react-redux';
+import { OMR_BG } from '../../utils/utils';
 import LinkCopy from './LinkCopy';
 import type { RootState } from '../../store/store';
 import styles from './UseNotice.module.scss';
 
 interface UseNoticeProps {
-  omrBg: string[];
   isOwner: boolean;
 }
 
-function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
+function UseNotice({ isOwner }: UseNoticeProps): JSX.Element {
   const { user } = useSelector((state: RootState) => state);
 
   return (
@@ -39,7 +39,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                 <Row>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[3]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[3]]}`}>{''}</span>
                       <span className={styles.noticetext}>
                         {''}아직 못보는 답안
                       </span>
@@ -47,7 +47,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                   </Col>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[2]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[2]]}`}>{''}</span>
                       <span className={styles.noticetext}>
                         {''}읽지 않은 답안
                       </span>
@@ -57,13 +57,13 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                 <Row>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[4]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[4]]}`}>{''}</span>
                       <span className={styles.noticetext}>{''}검토할 답안</span>
                     </div>
                   </Col>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[1]]}`}>{''}</span>
                       <span className={styles.noticetext}>{''}읽은 답안</span>
                     </div>
                   </Col>
@@ -97,7 +97,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                 <Row>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[0]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[0]]}`}>{''}</span>
                       <span className={styles.noticetext}>
                         {''}작성 가능한 답안
                       </span>
@@ -105,7 +105,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                   </Col>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[1]]}`}>{''}</span>
                       <span className={styles.noticetext}>
                         {''}작성 완료된 답안
                       </span>
@@ -115,7 +115,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                 <Row>
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[3]]}`}>{''}</span>
+                      <span className={`${styles[OMR_BG[3]]}`}>{''}</span>
                       <span className={styles.noticetext}>
                         {''}공개되지 않은 답안
                       </span>

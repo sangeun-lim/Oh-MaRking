@@ -2,15 +2,12 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Toast } from '../common/Toast';
 import { setColor } from '../../store/omr';
+import { COLOR_LIST } from '../../utils/utils';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
 
-interface PalletProps {
-  colorList: string[];
-}
-
-function Pallet({ colorList }: PalletProps): JSX.Element {
+function Pallet(): JSX.Element {
   const { omrList } = useSelector((state: RootState) => state.user);
   const { isOwner, pageNum, color } = useSelector(
     (state: RootState) => state.omr
@@ -40,7 +37,7 @@ function Pallet({ colorList }: PalletProps): JSX.Element {
   return (
     <>
       {colors.map((newColor: number) => (
-        <span key={newColor} className={`${styles[colorList[newColor]]}`}>
+        <span key={newColor} className={`${styles[COLOR_LIST[newColor]]}`}>
           <button
             className={styles.body}
             type="button"

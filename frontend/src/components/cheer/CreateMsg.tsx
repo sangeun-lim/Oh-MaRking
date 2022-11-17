@@ -5,7 +5,7 @@ import { BsCheckCircle } from 'react-icons/bs';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getKey } from '../../utils/utils';
+import { getKey, COLOR_LIST } from '../../utils/utils';
 import { Toast } from '../common/Toast';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
@@ -20,16 +20,7 @@ import '../../style/style.scss';
 function CreateMsg(): JSX.Element {
   const dispatch = useDispatch();
   const { omr, auth, modal } = useSelector((state: RootState) => state);
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   const cheerTag = [
     '너의 꿈을 응원해!',
     '넌 할 수 있어!',
@@ -78,7 +69,7 @@ function CreateMsg(): JSX.Element {
   document
     .querySelector('#password-check')
     ?.addEventListener('focusin', passwordCheckValid);
-  // 노트에 쓰는 모든 값들이 작성하면서 바뀔때마다 값 바꿔주는 함수
+  // // 노트에 쓰는 모든 값들이 작성하면서 바뀔때마다 값 바꿔주는 함수
   const onChangeData = (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -147,7 +138,7 @@ function CreateMsg(): JSX.Element {
         <Modal
           show={modal.show}
           onHide={handleClose}
-          className={`${styles[colorList[omr.color]]} ${styles.test}`}
+          className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
         >
           <Modal.Header
             style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
