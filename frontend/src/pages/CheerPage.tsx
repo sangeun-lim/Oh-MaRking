@@ -40,7 +40,7 @@ function CheerPage(): JSX.Element {
 
   // Omr id 받아왔을 때 -> Omr 정보 API 요청
   useEffect(() => {
-    if (user.omrList[omr.pageNum] !== -1) {
+    if (omr.isLoading && user.omrList[omr.pageNum] !== -1) {
       OMRApi.omr
         .getOmr(user.omrList[omr.pageNum], auth.isLoggedIn)
         .then(({ data }) => {
