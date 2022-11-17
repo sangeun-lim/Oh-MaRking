@@ -11,7 +11,6 @@ import { RootState } from '../store/store';
 import styles from './CheerPage.module.scss';
 import omrCharater from '../img/omrCharacter.gif';
 import loading from '../img/loading.gif';
-import omrGifUrl from '../img/omr.gif';
 import 'react-toastify/dist/ReactToastify.css';
 import '../style/toast.scss';
 
