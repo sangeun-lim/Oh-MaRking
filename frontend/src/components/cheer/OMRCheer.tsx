@@ -36,6 +36,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
         break;
       case s.canNotRead:
         if (omr.isOwner) {
+          dispatch(setShow());
           Toast('아직 확인할 수 없는 메시지입니다.', 'fail');
         } else {
           dispatch(setCannotRead());
