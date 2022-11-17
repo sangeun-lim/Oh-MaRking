@@ -14,12 +14,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  // flex-wrap: wrap;
-  // background-image: url("src/img/main.png");
-  // background-size: cover;
-  // background-repeat: no-repeat;
-  // background-position: center;
-  // background-attachment: fixed;
 }
 .bg_character {
   display: flex;
@@ -45,7 +39,6 @@
   left: 75%;
   width: 25%;
   height: 50%;
-  // position: relative;
   z-index: 2;
 }
 
@@ -84,8 +77,6 @@
   height: 70px;
   border: 2px solid #000;
   border-radius: 15px;
-  // display: flex;
-  // justify-content: center;
   position: absolute;
   bottom: 0;
   left: 70%;
@@ -108,15 +99,12 @@
   top: 12px;
   left: -2px;
   border: 2px solid #000;
-
-  // border-radius: 0px 0px 10px 10px;
 }
 
 .hand_img {
   position: absolute;
   bottom: 0;
   right: 0;
-  // z-index: 5;
 }
 
 @media (max-width: 1900px) {

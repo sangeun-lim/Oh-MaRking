@@ -26,8 +26,8 @@ function CheerPage(): JSX.Element {
       if (status === 200) {
         dispatch(setUserInfo(data.data));
       }
-    } catch (err) {
-      console.log(err);
+    } catch {
+      console.error();
     }
   }, [dispatch, codedEmail]);
 
