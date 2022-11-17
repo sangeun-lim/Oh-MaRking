@@ -37,7 +37,7 @@ function CantReadMsg(): JSX.Element {
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
   };
   const onUpdateClick = () => {
