@@ -33,8 +33,9 @@ function CheerPage(): JSX.Element {
 
   // 처음 렌더링 될 때 -> 링크 접속 API 요청
   useEffect(() => {
+    linkAccess();
     dispatch(setIsLoading(true));
-    setTimeout(() => linkAccess(), 2000);
+    // setTimeout(() => linkAccess(), 2000);
   }, [linkAccess, dispatch]);
 
   // Omr id 받아왔을 때 -> Omr 정보 API 요청
