@@ -16,13 +16,11 @@ $cheer_section_height: 30em;
 
 @mixin header($fill, $stroke) {
   font-size: all.$OMR_header_font_size;
-  // font-size: 30px;
   @include fill_stroke(#{$fill}, #{$stroke});
 }
 
 @mixin body($fill, $stroke) {
   font-size: all.$OMR_body_font_size;
-  // @include fill_stroke(#{$fill}, #{$stroke});
   @include fill_stroke(#{color.$paper_light}, #{$stroke});
 }
 
@@ -88,16 +86,12 @@ $cheer_section_height: 30em;
   .button_left {
     border-right: 3px solid #{$line};
     border-radius: 20px 0px 0px 0px;
-    // border-right-color: #{$line};
   }
   .button_right {
     border-radius: 0px 20px 0px 0px;
-    // border-radius: inherit;
   }
   .active {
-    // border-radius: all.$IF_radius 0px 0px 0px;
     background-color: #{$line};
-    // background: linear-gradient(90deg, #{$line} 50%, #{$bg} 50%);
   }
 }
 
@@ -106,23 +100,6 @@ $cheer_section_height: 30em;
   background-color: #{$bt_bg};
   border: 2.7px solid #{$bt_ln};
 }
-
-// 오른쪽 위 정렬(버튼용)
-// @mixin top_right_btn {
-//   height: 35px;
-//   display: inline-block;
-//   position: absolute;
-//   right: 4px;
-//   top: 6px;
-// }
-
-// // 가운데 정렬
-// @mixin middle {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }
 
 * {
   text-align: center;
@@ -228,7 +205,6 @@ $cheer_section_height: 30em;
 // 시험지 좌측 - 정보 구역
 .info {
   svg:hover {
-    // cursor: pointer;
   }
 
   @include all.box(34%, 100%);
@@ -243,7 +219,6 @@ $cheer_section_height: 30em;
     width: 100%;
     margin-left: 30px;
     height: 70px;
-    // width: 370px;
 
     font-family: all.$OMR_header;
     text-align: start;
@@ -305,14 +280,6 @@ $cheer_section_height: 30em;
     }
   }
 
-  // 수정버튼
-  .edit {
-    // width: 20px;
-    // height: 20px;
-    // background-image: url('../../img/수정\ 아이콘.png');
-    // background-size: cover;
-  }
-
   .editing {
     width: 100%;
     height: 100%;
@@ -338,9 +305,6 @@ $cheer_section_height: 30em;
       width: 50%;
       height: 100%;
     }
-    // .button_left {
-    //   border-right: 2px solid black
-    // }
   }
 
   // 주의사항 내용
@@ -443,20 +407,12 @@ $cheer_section_height: 30em;
 
 .liked {
   @include omr(color.$after_marking);
-  // img {
-  // display: absolute;
-  // @include witdh_height(inherit, inherit);
   background-color: none;
   background-image: url(all.$heart_url);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 20px;
-  // font-display: hidd
-  // object-fit: cover;
-  // button {
-  // }
 }
-// background-color: none;
 
 // 색깔
 .skyblue {
@@ -504,30 +460,12 @@ $cheer_section_height: 30em;
   // 호버시 추가되는 클래스
   position: absolute;
 
-  // top: 12%;// 호버시 top 위치를 조금 위로 움직여준다.
-  // left: 12%;
   z-index: 985;
   border: 5px;
 
   animation-duration: 1s; // 애니메이션 3초동안 실행
   animation-name: fadeout; // 애니메이션 효과는 fade-out
 }
-// .button {
-//   background-color: red;
-// }
-
-// .hover {// 호버시 추가되는 클래스
-//   position: absolute;
-
-//   top: 12%;// 호버시 top 위치를 조금 위로 움직여준다.
-//   left: 12%;
-//   z-index: 985;
-//   border:5px;
-
-//   animation-duration: 1s;  	// 애니메이션 3초동안 실행
-//   animation-name: fadeout; 	// 애니메이션 효과는 fade-out
-
-// }
 
 @keyframes fadeout {
   // fade-out시 opacity를 흐릿하다가 선명하기 만들자
@@ -543,15 +481,6 @@ $cheer_section_height: 30em;
 .buhton_flex {
   display: flex;
   justify-content: space-between;
-}
-
-.test {
-  // opacity: 0;
-  // transform: translateX(-100%);
-}
-
-.MuiTooltip_popper {
-  // color: red !important;
 }
 
 .custom_cursor:hover {

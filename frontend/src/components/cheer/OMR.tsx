@@ -145,9 +145,6 @@ function OMR(): JSX.Element {
                 {notice ? (
                   <div>
                     <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
-                    {/* <div className={styles.pallet}>
-                      <Pallet colorList={colorList} />
-                    </div> */}
                   </div>
                 ) : (
                   <div>

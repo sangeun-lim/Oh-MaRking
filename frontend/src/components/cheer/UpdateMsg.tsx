@@ -38,7 +38,11 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     setEditMsg(formData);
   }, [formData]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     setEditMsg((prev) => {
@@ -52,9 +56,8 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
   const onEditClick = () => {
     setOnEdit(!onEdit);
   };
-
   // 수정버튼눌렀을때 동작
-  const onSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const changeFormData = {

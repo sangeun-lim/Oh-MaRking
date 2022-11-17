@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-// import DYEditor, { getData } from 'dyeditor';
 import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
@@ -14,9 +13,8 @@ import { EditNote, EditNoteData } from '../../utils/Interface';
 import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
-import { RootState } from '../../store/store';
-import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
 import { getLikeItem, isDeletedPage } from '../../utils/utils';
+import { RootState } from '../../store/store';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
 
@@ -33,11 +31,6 @@ function DetailMsg(): JSX.Element {
   const [editMsg, setEditMsg] = useState<EditNote>(EditDefaultNote);
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
-
-  // function asdf(nickname: string, content: string, showData: string) {
-  //   const _editMsg = { ...editMsg, nickname, content, showData };
-  //   setEditMsg(_editMsg);
-  // }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
@@ -431,17 +424,6 @@ function DetailMsg(): JSX.Element {
                   </div>
                 </div>
               </Modal.Body>
-              {/* {omr.isOwner ? (
-                <Modal.Footer>
-                  <button
-                    // className={styles.btn_hover_border_3}
-                    type="button"
-                    onClick={onDeleteClick}
-                  >
-                    삭제
-                  </button>
-                </Modal.Footer>
-              ) : null} */}
             </Modal>
           )}
         </div>

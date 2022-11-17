@@ -1,5 +1,3 @@
-// import React from 'react';
-// import { BsClipboardCheck, BsBackspace } from 'react-icons/bs';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -27,10 +25,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
           <div className={styles.sort_text}>
             &#8251; 소중한 메시지는 <strong>검토</strong>해보세요.
           </div>
-          <div
-            // style={{ marginLeft: '20px' }}
-            className={styles.sort_text}
-          >
+          <div className={styles.sort_text}>
             &#8251; <strong>OMR</strong> 사용법은 시험 감독관을 통해 확인
             바랍니다.
             <br />
@@ -42,12 +37,6 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
             <Container>
               <div className={styles.rules}>
                 <Row>
-                  {/* <Col>
-                    <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[0]]}`}>{''}</span>
-                      <span className={styles.noticetext}>{''}빈 답안</span>
-                    </div>
-                  </Col> */}
                   <Col>
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[3]]}`}>{''}</span>
@@ -78,22 +67,6 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                       <span className={styles.noticetext}>{''}읽은 답안</span>
                     </div>
                   </Col>
-                  {/* <Col>
-                    <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[4]]}`}>{''}</span>
-                      <span className={styles.noticetext}>{''}검토할 답안</span>
-                    </div>
-                  </Col> */}
-                </Row>
-                <Row>
-                  {/* <Col>
-                    <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[3]]}`}>{''}</span>
-                      <span className={styles.noticetext}>
-                        {''}아직 공개되지 않은 답안
-                      </span>
-                    </div>
-                  </Col> */}
                 </Row>
               </div>
             </Container>
@@ -107,8 +80,6 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
           <div className={styles.sort_text}>
             &#8251; 수험생에게
             <strong> 평소 전하지 못한 말</strong>이 있다면,
-            {/* 이 곳에 메시지를 */}
-            {/* 작성해보세요! */}
           </div>
           <div className={styles.sort_text} style={{ marginLeft: '20px' }}>
             <strong>OMR에 답안</strong>을 작성해보세요.
@@ -116,10 +87,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
           <div className={styles.sort_text}>
             &#8251; 메시지 작성법은 시험 감독관을 통해 확인바랍니다.
           </div>
-          {/* <div style={{ marginLeft: '20px' }} className={styles.sort_text}>
-            새로운 답안지를 받을 수 있습니다.
-            <br />
-          </div> */}
+
           <div className={styles.sort_text}>
             &#8251; <strong>표기 안내</strong>
           </div>
@@ -154,7 +122,6 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                     </div>
                   </Col>
                 </Row>
-                {/* <br /> */}
               </div>
             </Container>
           </div>

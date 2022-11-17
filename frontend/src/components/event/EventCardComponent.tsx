@@ -1,5 +1,3 @@
-// import react, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import EventModal from './EventModal';
 import styles from './EventCardComponent.module.scss';
 import './Card.scss';
