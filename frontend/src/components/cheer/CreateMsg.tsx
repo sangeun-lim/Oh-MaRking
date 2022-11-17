@@ -87,7 +87,7 @@ function CreateMsg(): JSX.Element {
     .querySelector('#password-check')
     ?.addEventListener('focusin', passwordCheckValid);
   // // 노트에 쓰는 모든 값들이 작성하면서 바뀔때마다 값 바꿔주는 함수
-  const onChangeData = (e: any) => {
+  const onChangeData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewNote((prev) => {
       return {
@@ -101,7 +101,7 @@ function CreateMsg(): JSX.Element {
     dispatch(setShow());
   };
 
-  const onChangePwd = (e: any) => {
+  const onChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPwd((prev) => {
       return {

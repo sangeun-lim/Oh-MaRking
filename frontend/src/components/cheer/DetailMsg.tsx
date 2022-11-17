@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Swal from 'sweetalert2';
 // import DYEditor, { getData } from 'dyeditor';
 import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
@@ -20,16 +19,6 @@ import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
 import { getLikeItem, isDeletedPage } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-
-const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    container: `${styles.container_class}`,
-    confirmButton: 'green',
-    cancelButton: 'red',
-    // width: 300,
-  },
-  buttonsStyling: false,
-});
 
 function DetailMsg(): JSX.Element {
   const dispatch = useDispatch();
@@ -50,7 +39,7 @@ function DetailMsg(): JSX.Element {
   //   setEditMsg(_editMsg);
   // }
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
   };
 
@@ -180,7 +169,7 @@ function DetailMsg(): JSX.Element {
     await checkPwDelete();
   };
 
-  const onLikeClick = async (e: any) => {
+  const onLikeClick = async () => {
     await OMRApi.note.likeNote(noteId, !note.isFavorite);
     const NoteData = {
       problemIdx: note.problemNum,

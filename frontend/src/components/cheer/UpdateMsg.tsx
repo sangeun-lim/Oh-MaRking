@@ -1,5 +1,4 @@
-import React, { Dispatch, ReactSVG, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -39,7 +38,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     setEditMsg(formData);
   }, [formData]);
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setEditMsg((prev) => {
@@ -55,7 +54,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
   };
 
   // 수정버튼눌렀을때 동작
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const changeFormData = {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -10,17 +10,15 @@ import { RootState } from '../../store/store';
 import { EditNote, EditNoteData } from '../../utils/Interface';
 import { isDeletedPage } from '../../utils/utils';
 import UpdateMsg from './UpdateMsg';
-import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
+import { EditNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
+import { setIsOwner, setOmr } from '../../store/omr';
 
 function CantReadMsg(): JSX.Element {
   const dispatch = useDispatch();
-  const { modal, omr, note, user, auth } = useSelector(
-    (state: RootState) => state
-  );
+  const { modal, omr, user, auth } = useSelector((state: RootState) => state);
   const handleClose = () => {
     dispatch(setShow());
   };
@@ -40,7 +38,7 @@ function CantReadMsg(): JSX.Element {
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
   };
   const onUpdateClick = () => {

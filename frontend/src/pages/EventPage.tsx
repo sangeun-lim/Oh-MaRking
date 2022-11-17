@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 // import EventApi from 'api/EventApi';
 // import { EventList } from 'utils/Interface';
