@@ -27,7 +27,7 @@ function CheerPage(): JSX.Element {
         dispatch(setUserInfo(data.data));
       }
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }, [dispatch, codedEmail]);
 
