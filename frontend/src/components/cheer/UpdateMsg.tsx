@@ -1,5 +1,4 @@
-import React, { Dispatch, ReactSVG, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -7,13 +6,12 @@ import Col from 'react-bootstrap/Col';
 import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr } from '../../store/omr';
 import { setShow } from '../../store/modal';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
-import { getLikeItem } from '../../utils/utils';
+import { getLikeItem, isDeletedPage, COLOR_LIST } from '../../utils/utils';
 import { RootState } from '../../store/store';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
-
 import styles from './UpdateMsg.module.scss';
 import '../../style/style.scss';
 
@@ -39,7 +37,11 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     setEditMsg(formData);
   }, [formData]);
 
-  const onChange = (e: any) => {
+  const onChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     setEditMsg((prev) => {
@@ -53,9 +55,8 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
   const onEditClick = () => {
     setOnEdit(!onEdit);
   };
-
   // 수정버튼눌렀을때 동작
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const changeFormData = {
@@ -86,15 +87,16 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     );
     if (del) {
       try {
-        await OMRApi.note.deleteNote(noteId);
-        const { data } = await OMRApi.omr.getOmr(
-          user.omrList[omr.pageNum],
-          auth.isLoggedIn
-        );
+        let omrId = user.omrList[omr.pageNum];
+        const response = await OMRApi.note.deleteNote(noteId);
+        if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+          [omrId] = response.data.data.omrList;
+          dispatch(setOmrList(response.data.data.omrList));
+        }
+        const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
         dispatch(setUser(data.data.user));
         dispatch(setOmr(data.data.omr));
         dispatch(setIsOwner(data.data.isOwner));
-        // dispatch로 새로운 omrList를 가 필요할듯?
         dispatch(setShow());
         if (!note.isFavorite) {
           const { content, nickname, problemNum, checkNum } = note;
@@ -118,22 +120,13 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     }
     onEditClick();
   };
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   return (
     <div>
       <Modal
         show={modal.show}
         onHide={handleClose}
-        className={`${styles[colorList[omr.color]]} ${styles.test}`}
+        className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
       >
         <Modal.Header
           style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
@@ -156,7 +149,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                             className={styles.form_label}
                             htmlFor="nickname"
                           >
-                            닉네임
+                            이름
                           </label>
                         </Col>
                         <Col
@@ -168,7 +161,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                               name="nickname"
                               id="nickname"
                               type="text"
-                              placeholder="닉네임을 입력해주세요."
+                              placeholder="이름을 입력해주세요."
                               value={formData.nickname}
                               maxLength={10}
                               disabled

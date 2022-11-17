@@ -1,63 +1,54 @@
+.img_tape {
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  margin: 15px auto 10px;
 
-  .img_tape {
-    position: relative;
-    text-align: center;
-    display: inline-block;
-    margin: 15px auto 10px;
-    // transform: rotate(-30deg);
-    // margin-left: -25px;
-    &:before,
-    &:after {
-      background: rgba(255,255,235,.6);
-      box-shadow: 0 1px 3px rgba(0,0,0,.4);
-      content: "";
-      display: block;
-      height: 30px;
-      position: absolute;
-      // left:107px;
-      // margin: auto;
-      width: 55px;
-    } 
-    &:before {
-      transform: rotate(-40deg);
-    }
-    }
-  
-  
-  .img_tape_1 {
-    &:before {
-      left: 50%;
-      margin-left: -25px;
-      top: -10px;
-    }
-  
-    &:after {
-      display: none;
-    }
+  &:before,
+  &:after {
+    background: rgba(255, 255, 235, 0.6);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    content: '';
+    display: block;
+    height: 30px;
+    position: absolute;
+
+    width: 55px;
   }
-  
-    :after {
-      display: none;
-    }
-  .card {
-    // display: inline-block;
-    position: relative;
-    width: 25%;
-    height: 100%;
-    margin-bottom: 4%;
-    margin-right: 125px;
+  &:before {
+    transform: rotate(-40deg);
   }
-  // .card_shadow{
-    
-  // }
-  
-  .card_img {
-    max-width: 95%;
-    max-height: 100%;
-    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.img_tape_1 {
+  &:before {
+    left: 50%;
+    margin-left: -25px;
+    top: -10px;
   }
-  
-  .modalimg {
-    width: 100%;
+
+  &:after {
+    display: none;
   }
-  
+}
+
+:after {
+  display: none;
+}
+.card {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  margin-bottom: 4%;
+  margin-right: 125px;
+}
+
+.card_img {
+  max-width: 95%;
+  max-height: 100%;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.modalimg {
+  width: 100%;
+}

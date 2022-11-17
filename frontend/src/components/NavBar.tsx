@@ -40,7 +40,7 @@ function NavBar(): JSX.Element {
           <Nav className="justify-content-end align-items-center flex-grow-1 pe-3">
             <Nav.Link
               className={`${styles.nav_font} ${styles.custom_cursor}`}
-              href="/event"
+              href="https://forms.gle/uUqS36dJDdvo9iQp9"
             >
               설문조사
             </Nav.Link>
@@ -52,13 +52,10 @@ function NavBar(): JSX.Element {
                 내 응원가기
               </Nav.Link>
             )}
-            {/* <Nav.Link className={`${styles.nav_font} ${styles.custom_cursor}`} href="/event">
-              이벤트 보러가기
-            </Nav.Link> */}
             {!isLoggedIn ? (
               <Nav.Link
                 className={`${styles.nav_font} ${styles.custom_cursor}`}
-                href="http://oh-marking.com:8081/oauth2/authorization/kakao"
+                href="http://oh-marking.com:8082/oauth2/authorization/kakao"
               >
                 카카오 로그인
               </Nav.Link>

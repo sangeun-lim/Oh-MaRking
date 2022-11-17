@@ -1,45 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Toast } from '../common/Toast';
-import { setShow, setUpdate } from '../../store/modal';
-import { setUser } from '../../store/user';
 import { RootState } from '../../store/store';
-import { EditNote, EditNoteData } from '../../utils/Interface';
+import { setShow, setUpdate } from '../../store/modal';
+import { setUser, setOmrList } from '../../store/user';
+import { setIsOwner, setOmr } from '../../store/omr';
+import { isDeletedPage, COLOR_LIST } from '../../utils/utils';
+import { EditNoteData } from '../../utils/Interface';
+import { EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
-import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 
 function CantReadMsg(): JSX.Element {
   const dispatch = useDispatch();
-  const { modal, omr, note, user, auth } = useSelector(
-    (state: RootState) => state
-  );
+  const { modal, omr, user, auth } = useSelector((state: RootState) => state);
   const handleClose = () => {
     dispatch(setShow());
   };
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   const [pw, setPw] = useState<string>('');
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [onDelete, setOnDelete] = useState<boolean>(false);
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
   };
   const onUpdateClick = () => {
@@ -69,15 +59,16 @@ function CantReadMsg(): JSX.Element {
       );
       if (del) {
         try {
-          await OMRApi.note.deleteNote(noteId);
-          const { data } = await OMRApi.omr.getOmr(
-            user.omrList[omr.pageNum],
-            auth.isLoggedIn
-          );
+          let omrId = user.omrList[omr.pageNum];
+          const response = await OMRApi.note.deleteNote(noteId);
+          if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+            [omrId] = response.data.data.omrList;
+            dispatch(setOmrList(response.data.data.omrList));
+          }
+          const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
           dispatch(setUser(data.data.user));
           dispatch(setOmr(data.data.omr));
           dispatch(setIsOwner(data.data.isOwner));
-          // dispatch로 새로운 omrList를 가 필요할듯?
           dispatch(setShow());
           Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
         } catch (err) {
@@ -93,15 +84,16 @@ function CantReadMsg(): JSX.Element {
 
   const checkPwDelete = async () => {
     try {
-      await OMRApi.note.deleteNote(noteId);
-      const { data } = await OMRApi.omr.getOmr(
-        user.omrList[omr.pageNum],
-        auth.isLoggedIn
-      );
+      let omrId = user.omrList[omr.pageNum];
+      const response = await OMRApi.note.deleteNote(noteId);
+      if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+        [omrId] = response.data.data.omrList;
+        dispatch(setOmrList(response.data.data.omrList));
+      }
+      const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
-      // dispatch로 새로운 omrList를 가 필요할듯?
       dispatch(setShow());
       Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
     } catch (err) {
@@ -137,7 +129,7 @@ function CantReadMsg(): JSX.Element {
                 <Modal
                   show={modal.show}
                   onHide={handleClose}
-                  className={`${styles[colorList[omr.color]]} ${styles.test}`}
+                  className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
                 >
                   <Modal.Header
                     style={{
@@ -162,7 +154,7 @@ function CantReadMsg(): JSX.Element {
                                     className={styles.form_label}
                                     htmlFor="nickname"
                                   >
-                                    닉네임
+                                    이름
                                   </label>
                                 </Col>
                                 <Col className={`${styles.header}`}>
@@ -245,7 +237,6 @@ function CantReadMsg(): JSX.Element {
                             required
                             readOnly
                           />
-                          {/* <DYEditor data={editMsg.content} readOnly /> */}
                           <ul style={{ margin: '0px' }}>
                             {onEdit ? (
                               <li>

@@ -33,3 +33,21 @@ export const getLikeItem = (likelist: likeList) => {
   };
   return payload;
 };
+
+export const isDeletedPage = (origin: number[], response: number[]) => {
+  return origin !== response;
+};
+
+export const COLOR_LIST = [
+  'yellow',
+  'skyblue',
+  'purple',
+  'green',
+  'dark_yellow',
+  'navy',
+  'orange',
+  'pink',
+];
+
+// [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
+export const OMR_BG = ['empty', 'already', 'notyet', 'cannot', 'liked'];

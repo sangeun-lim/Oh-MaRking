@@ -1,7 +1,6 @@
-import { forwardRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Tooltip } from '@mui/material';
-import { getKey } from '../../utils/utils';
+import { getKey, OMR_BG } from '../../utils/utils';
 import {
   setShow,
   setCheer,
@@ -24,7 +23,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     canNotRead: 3,
   };
   const dispatch = useDispatch();
-  const { omr, modal } = useSelector((state: RootState) => state);
+  const { omr } = useSelector((state: RootState) => state);
 
   const openModal = (problemNum: number, elementNum: number) => {
     dispatch(setShow());
@@ -47,16 +46,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     }
   };
 
-  // [작성가능 / 이미 읽은 거 / 아직 안읽은 거 / 못 읽는 거 / 즐겨찾기]
-  const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
-
   const getContent = (problemIdx: number, elementIdx: number) => {
     const nickName = omr.nicknameInfo[problemIdx][elementIdx];
     const showDate = omr.showDateInfo[problemIdx][elementIdx];
     if (showDate === null) {
       return 'plz..💬';
     }
-    return `닉네임: ${nickName} 공개날짜:${showDate}`;
+    return `이름: ${nickName} \n 공개날짜: ${showDate}`;
   };
   return (
     <div className={`${styles.section} ${styles.body}`}>
@@ -74,15 +70,18 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             <span>{problemIdx + start + 1}</span>
             {problem.map((element, elementIdx) => (
               <Tooltip
-                title={getContent(problemIdx + start, elementIdx)}
+                title={
+                  <span className={styles.pre}>
+                    {getContent(problemIdx + start, elementIdx)}
+                  </span>
+                }
                 key={getKey()}
                 arrow
-                style={{ whiteSpace: 'pre' }}
                 placement="top"
                 classes={{ popper: `${styles.MuiTooltip_popper}` }}
               >
                 <button
-                  className={`${styles[omrBg[element]]}`}
+                  className={`${styles[OMR_BG[element]]}`}
                   type="button"
                   onClick={() => openModal(problemIdx + start, elementIdx)}
                 >
