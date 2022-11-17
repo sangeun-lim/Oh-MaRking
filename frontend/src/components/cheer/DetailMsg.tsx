@@ -3,33 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Swal from 'sweetalert2';
-// import DYEditor, { getData } from 'dyeditor';
 import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
 import { setNote, setFavorite } from '../../store/note';
 import { setShow, setUpdate } from '../../store/modal';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
 import { EditNote, EditNoteData } from '../../utils/Interface';
 import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
+import { getLikeItem, isDeletedPage, COLOR_LIST } from '../../utils/utils';
 import { RootState } from '../../store/store';
-import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
-import { getLikeItem } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-
-const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    container: `${styles.container_class}`,
-    confirmButton: 'green',
-    cancelButton: 'red',
-    // width: 300,
-  },
-  buttonsStyling: false,
-});
 
 function DetailMsg(): JSX.Element {
   const dispatch = useDispatch();
@@ -45,12 +32,7 @@ function DetailMsg(): JSX.Element {
   const [formData, setFormData] = useState<EditNoteData>(EditNoteDefaultData);
   const noteId = omr.noteInfo[modal.problemIdx][modal.elementIdx];
 
-  // function asdf(nickname: string, content: string, showData: string) {
-  //   const _editMsg = { ...editMsg, nickname, content, showData };
-  //   setEditMsg(_editMsg);
-  // }
-
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPw(e.target.value);
   };
 
@@ -64,7 +46,6 @@ function DetailMsg(): JSX.Element {
         elementIdx: response.data.data.checkNum,
       };
       dispatch(setNoteOpen(NoteData));
-      console.log(response.data.data);
     } else {
       Toast('메시지를 불러오지 못했습니다.', 'readMsgFail');
     }
@@ -106,15 +87,16 @@ function DetailMsg(): JSX.Element {
       );
       if (del) {
         try {
-          await OMRApi.note.deleteNote(noteId);
-          const { data } = await OMRApi.omr.getOmr(
-            user.omrList[omr.pageNum],
-            auth.isLoggedIn
-          );
+          let omrId = user.omrList[omr.pageNum];
+          const response = await OMRApi.note.deleteNote(noteId);
+          if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+            [omrId] = response.data.data.omrList;
+            dispatch(setOmrList(response.data.data.omrList));
+          }
+          const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
           dispatch(setUser(data.data.user));
           dispatch(setOmr(data.data.omr));
           dispatch(setIsOwner(data.data.isOwner));
-          // dispatch로 새로운 omrList를 가 필요할듯?
           dispatch(setShow());
           if (!note.isFavorite) {
             const { content, nickname, problemNum, checkNum } = note;
@@ -144,15 +126,16 @@ function DetailMsg(): JSX.Element {
 
   const checkPwDelete = async () => {
     try {
-      await OMRApi.note.deleteNote(noteId);
-      const { data } = await OMRApi.omr.getOmr(
-        user.omrList[omr.pageNum],
-        auth.isLoggedIn
-      );
+      let omrId = user.omrList[omr.pageNum];
+      const response = await OMRApi.note.deleteNote(noteId);
+      if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+        [omrId] = response.data.data.omrList;
+        dispatch(setOmrList(response.data.data.omrList));
+      }
+      const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
-      // dispatch로 새로운 omrList를 가 필요할듯?
       dispatch(setShow());
       if (!note.isFavorite) {
         const { content, nickname, problemNum, checkNum } = note;
@@ -179,7 +162,7 @@ function DetailMsg(): JSX.Element {
     await checkPwDelete();
   };
 
-  const onLikeClick = async (e: any) => {
+  const onLikeClick = async () => {
     await OMRApi.note.likeNote(noteId, !note.isFavorite);
     const NoteData = {
       problemIdx: note.problemNum,
@@ -202,16 +185,6 @@ function DetailMsg(): JSX.Element {
       dispatch(removeLikeItem(noteId));
     }
   };
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
 
   return (
     <div>
@@ -223,7 +196,7 @@ function DetailMsg(): JSX.Element {
             <Modal
               show={modal.show}
               onHide={handleClose}
-              className={`${styles[colorList[omr.color]]} ${styles.test}`}
+              className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
             >
               <Modal.Header
                 style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
@@ -245,7 +218,7 @@ function DetailMsg(): JSX.Element {
                                 className={styles.form_label}
                                 htmlFor="nickname"
                               >
-                                닉네임
+                                이름
                               </label>
                             </Col>
                             <Col className={`${styles.header}`}>
@@ -441,17 +414,6 @@ function DetailMsg(): JSX.Element {
                   </div>
                 </div>
               </Modal.Body>
-              {/* {omr.isOwner ? (
-                <Modal.Footer>
-                  <button
-                    // className={styles.btn_hover_border_3}
-                    type="button"
-                    onClick={onDeleteClick}
-                  >
-                    삭제
-                  </button>
-                </Modal.Footer>
-              ) : null} */}
             </Modal>
           )}
         </div>

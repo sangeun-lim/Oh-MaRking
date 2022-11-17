@@ -23,11 +23,6 @@
   margin-top: 5px;
 }
 
-.rules {
-  // display: flex;
-  // writing-mode: vertical-lr;
-}
-
 @mixin fill_stroke($fill, $stroke) {
   background-color: #{$fill};
   border: 3px solid #{$stroke};
@@ -35,7 +30,6 @@
 
 @mixin omr($bg) {
   @include all.box(23px, 30px);
-  // @include all.flex(row, center, center);
   @include fill-stroke(color.$before_marking, color.$primary);
   display: inline-block;
   border-radius: 50px;
@@ -72,35 +66,26 @@
 
 .liked {
   @include omr(color.$after_marking);
-  // img {
-  // display: absolute;
-  // @include witdh_height(inherit, inherit);
+
   background-color: none;
   background-image: url(all.$heart_url);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 20px;
-  // font-display: hidd
-  // object-fit: cover;
-  // button {
-  // }
 }
 
 .nubi {
   margin-right: 3px;
   display: flex;
   align-items: center;
-  // justify-content:center;
   width: 100%;
 
-  // height: 100%;
   span {
     display: inline-block;
     margin: 0%;
     padding: 0%;
     margin-right: 3px;
     margin-bottom: 3px;
-    // padding-top:100px;
   }
   .noticetext {
     height: 100%;

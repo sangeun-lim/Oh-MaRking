@@ -1,11 +1,6 @@
 @use 'src/style/all';
 @use 'src/style/color';
 
-// .container {
-//   padding-top: 30px;
-
-// }
-
 .screen_container {
   padding-top: 30px;
 }
@@ -18,4 +13,41 @@
 
 .box_container {
   @include all.box_container;
+  position: relative;
+  width: 100%;
+  .charater {
+    width: 15%;
+    height: 15%;
+    padding: 10px;
+  }
+  .omr {
+    width: 40%;
+  }
+}
+.loading {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.animation {
+  z-index: 1;
+  transform-origin: left center;
+  transition-duration: 1s;
+  transition-timing-function: ease-in;
+}
+
+.top_img {
+  position: absolute;
+  top: 0;
+}
+
+.bottom_img {
+  position: absolute;
+  bottom: 0;
+}
+
+.charater_container {
+  @include all.flex(row, space-around, center);
 }

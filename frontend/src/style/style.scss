@@ -3,11 +3,9 @@
 }
 div > .modal-dialog {
   --bs-modal-width: 1200px;
-  /* // width:70%; */
 }
 div > .modal-dialog {
   --bs-modal-width: 1200px;
-  /* // width:70%; */
 }
 .modal-body {
   border-radius: inherit;
@@ -20,27 +18,15 @@ span > .form-label {
 .form-control {
   font-size: 100px;
 }
-// .cheer-header {
-//     display: flex;
-// }
 
 .row {
   > .col {
     display: flex;
     justify-content: center;
     padding: 0px;
-    // border: 1px solid #000;
   }
-  label {
-    // margin: 0px;
-  }
+
   max-width: 100%;
-  // padding-left: 0px;
-  // margin-left: 0px;
-  // margin-top: 0px;
-  // > col {
-  //     padding: 0px;
-  // }
 }
 
 .custom_cursor {
@@ -75,4 +61,3 @@ span > .form-label {
     }
   }
 }
-

@@ -81,7 +81,11 @@ function Info({ title, content }: InfoProps): JSX.Element {
         );
 
       case '감독확인란':
-        return <img src={stampUrl} alt="감독은 노녕과 아이들" />;
+        return (
+          <a href="https://calico-grin-924.notion.site/398ce3918ce9454f9858ee4fc18efdeb">
+            <img src={stampUrl} alt="감독은 노녕과 아이들" />
+          </a>
+        );
 
       default:
         return null;
