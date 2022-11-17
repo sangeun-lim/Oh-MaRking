@@ -52,9 +52,6 @@ function NavBar(): JSX.Element {
                 내 응원가기
               </Nav.Link>
             )}
-            {/* <Nav.Link className={`${styles.nav_font} ${styles.custom_cursor}`} href="/event">
-              이벤트 보러가기
-            </Nav.Link> */}
             {!isLoggedIn ? (
               <Nav.Link
                 className={`${styles.nav_font} ${styles.custom_cursor}`}

@@ -7,7 +7,7 @@ import { Toast } from '../common/Toast';
 import { setShow, setUpdate } from '../../store/modal';
 import { setUser, setOmrList } from '../../store/user';
 import { RootState } from '../../store/store';
-import { EditNote, EditNoteData } from '../../utils/Interface';
+import { EditNoteData } from '../../utils/Interface';
 import { isDeletedPage } from '../../utils/utils';
 import UpdateMsg from './UpdateMsg';
 import { EditNoteDefaultData } from '../../utils/DefaultData';
@@ -246,7 +246,6 @@ function CantReadMsg(): JSX.Element {
                             required
                             readOnly
                           />
-                          {/* <DYEditor data={editMsg.content} readOnly /> */}
                           <ul style={{ margin: '0px' }}>
                             {onEdit ? (
                               <li>

@@ -61,7 +61,6 @@ function CheerPage(): JSX.Element {
             <img className={styles.charater} src={omrCharater} alt="" />
             <img className={styles.charater} src={omrCharater} alt="" />
           </div>
-          {/* <img className={styles.omr} src={omrGifUrl} alt="" /> */}
           <div>
             <img
               className={styles.loading}
