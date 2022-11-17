@@ -26,8 +26,8 @@ function CheerPage(): JSX.Element {
       if (status === 200) {
         dispatch(setUserInfo(data.data));
       }
-    } catch {
-      console.error();
+    } catch (err) {
+      console.error(err);
     }
   }, [dispatch, codedEmail]);
 
@@ -76,7 +76,7 @@ function CheerPage(): JSX.Element {
           </div>
         </div>
       ) : (
-        <div>
+        <>
           <OMR />
           <ToastContainer
             style={{
@@ -84,7 +84,7 @@ function CheerPage(): JSX.Element {
             }}
             limit={5}
           />
-        </div>
+        </>
       )}
     </Container>
   );
