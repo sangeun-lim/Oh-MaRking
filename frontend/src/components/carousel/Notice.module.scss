@@ -3,8 +3,8 @@
 }
 .lg_window_content {
   position: absolute;
-  left:50%; 
-  transform:translateX(-50%); 
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
 }
 .cheerup_img {
@@ -12,21 +12,13 @@
   top: 0;
 }
 
-
-// .carousel_img {
-
-// }
-
-
 .lg_window_content {
   * {
     font-size: 2.5rem;
   }
 }
 
-
-
-@media(max-width: 1900px) {
+@media (max-width: 1900px) {
   .cheerup_img {
     img {
       width: 300px;
@@ -34,10 +26,10 @@
   }
 }
 
-@media(min-width: 1901px) {
+@media (min-width: 1901px) {
   .cheerup_img {
     img {
       width: 400px;
-    } 
+    }
   }
 }

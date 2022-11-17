@@ -2,14 +2,12 @@
   width: 80px;
   height: 60px;
 }
-// e4cca6
 
 .navList {
   background-image: url('https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/bg1.jpg?alt=media&token=f4890c6e-341c-4d18-93f5-9c25a31d7536');
   display: flex;
   flex-direction: row;
   padding: 0px;
-  // flex-wrap:nowrap;
   align-items: center;
   box-shadow: #000000 0px 0px 27px 0px, rgba(0, 0, 0, 0.3) 0px 0px 16px 0px;
 }
@@ -30,7 +28,6 @@
 .nav_font {
   font-family: 'hanna_11yrs';
   font-size: 20px;
-  // width: 200px;
   > button {
     display: block;
     padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);

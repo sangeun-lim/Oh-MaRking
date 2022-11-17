@@ -5,7 +5,6 @@ import { RootState } from '../store/store';
 import { setMyCodedEmail } from '../store/auth';
 import Router from './Router';
 import styles from './App.module.scss';
-// import '../style/style.scss';
 import '../style/style.scss';
 
 function App(): JSX.Element {

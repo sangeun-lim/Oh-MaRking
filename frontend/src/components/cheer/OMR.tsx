@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
-import { addOmr, setUser } from '../../store/user';
-import { setIsLoading, setIsOwner, setOmr } from '../../store/omr';
+import { addOmr } from '../../store/user';
+import { setPage } from '../../store/omr';
+import { COLOR_LIST } from '../../utils/utils';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
@@ -17,26 +18,17 @@ import UseNotice from './UseNotice';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
+import pageFlipAudio from '../../audio/pageFlipAudio.mp3';
 import '../../style/style.scss';
 
 function OMR(): JSX.Element {
   const [notice, setNotice] = useState<boolean>(true);
   const [btnActive, setBtnActive] = useState<boolean>(true);
-  const { user, omr, auth, modal, likeList } = useSelector(
+  const { user, omr, modal, likeList } = useSelector(
     (state: RootState) => state
   );
   const dispatch = useDispatch();
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
-  const omrBg = ['empty', 'already', 'notyet', 'cannot', 'liked'];
+
   const handleLike = () => {
     setNotice(false);
     setBtnActive(false);
@@ -46,26 +38,15 @@ function OMR(): JSX.Element {
     setBtnActive(true);
   };
 
-  const getOmr = useCallback(
-    async (omrId: number) => {
-      const { status, data } = auth.isLoggedIn
-        ? await OMRApi.omr.getUserOmr(omrId)
-        : await OMRApi.omr.getNotUserOmr(omrId);
-      if (status === 200) {
-        dispatch(setUser(data.data.user));
-        dispatch(setOmr(data.data.omr));
-        dispatch(setIsOwner(data.data.isOwner));
-      }
-    },
-    [auth.isLoggedIn, dispatch]
-  );
-
   const movePage = useCallback(
     async (move: number) => {
       const leftOrRight = omr.pageNum + move;
-      getOmr(user.omrList[leftOrRight]);
+      dispatch(setPage(leftOrRight));
+      const audio = new Audio(pageFlipAudio);
+      audio.currentTime = 0.3;
+      audio.play();
     },
-    [omr.pageNum, user.omrList, getOmr]
+    [omr.pageNum, dispatch]
   );
 
   const createNewPage = useCallback(async () => {
@@ -75,6 +56,7 @@ function OMR(): JSX.Element {
       pageNum: newPage,
       userId: user.userId,
     };
+
     try {
       const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
       if (status === 201) {
@@ -86,28 +68,18 @@ function OMR(): JSX.Element {
     }
   }, [user.userId, user.omrList, dispatch]);
 
-  // 즐겨찾기 조회하기 위해
-  // useEffect(() => {
-  //   const getLikeList = async () => {
-  //     const response = await OMRApi.note.likeList(user.codedEmail);
-  //     if (response.status === 200) {
-  //       dispatch(setLikeList(response.data.data));
-  //     }
-  //   };
-  //   getLikeList();
-  // }, [dispatch, user.codedEmail]);
   useEffect(() => {
-    const getLikeList = async () => {
-      const response = await OMRApi.note.likeList(user.omrList[omr.pageNum]);
-      if (response.status === 200) {
-        dispatch(setLikeList(response.data.data));
-      }
-    };
-    getLikeList();
+    if (user.omrList[omr.pageNum]) {
+      (async () => {
+        const response = await OMRApi.note.likeList(user.omrList[omr.pageNum]);
+        if (response.status === 200) {
+          dispatch(setLikeList(response.data.data));
+        }
+      })();
+    }
   }, [dispatch, user.omrList, omr.pageNum]);
-
   return (
-    <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
+    <div className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}>
       <div className={`${styles.omr} ${styles.body}`}>
         {/* OMR TOP */}
         <Code />
@@ -163,10 +135,7 @@ function OMR(): JSX.Element {
                 {/* 즐겨찾기 보여주는 부분 */}
                 {notice ? (
                   <div>
-                    <UseNotice omrBg={omrBg} isOwner={omr.isOwner} />
-                    {/* <div className={styles.pallet}>
-                      <Pallet colorList={colorList} />
-                    </div> */}
+                    <UseNotice isOwner={omr.isOwner} />
                   </div>
                 ) : (
                   <div>
@@ -194,7 +163,7 @@ function OMR(): JSX.Element {
               </div>
             </div>
             <div className={`${styles.body}  ${styles.pallet}`}>
-              <Pallet colorList={colorList} />
+              <Pallet />
             </div>
             <Info title={'감  독\n확인란'} content={'감독확인란'} />
           </div>

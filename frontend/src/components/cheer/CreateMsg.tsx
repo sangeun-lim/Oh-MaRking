@@ -5,8 +5,7 @@ import { BsCheckCircle } from 'react-icons/bs';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { FormEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import DYEditor, { getData } from 'dyeditor';
-import { getKey } from '../../utils/utils';
+import { getKey, COLOR_LIST } from '../../utils/utils';
 import { Toast } from '../common/Toast';
 import { NewNoteData } from '../../utils/Interface';
 import { NewNoteDefaultData } from '../../utils/DefaultData';
@@ -21,16 +20,7 @@ import '../../style/style.scss';
 function CreateMsg(): JSX.Element {
   const dispatch = useDispatch();
   const { omr, auth, modal } = useSelector((state: RootState) => state);
-  const colorList = [
-    'yellow',
-    'skyblue',
-    'purple',
-    'green',
-    'dark_yellow',
-    'navy',
-    'orange',
-    'pink',
-  ];
+
   const cheerTag = [
     '너의 꿈을 응원해!',
     '넌 할 수 있어!',
@@ -42,7 +32,6 @@ function CreateMsg(): JSX.Element {
     '고생했어!',
     '넌 최고야!',
     '끝나고 🍻 한 잔?',
-    // '니 성적에 잠이 와?',
     '❤',
     '👍',
     '👊',
@@ -64,21 +53,15 @@ function CreateMsg(): JSX.Element {
   const [disable, setDisable] = useState<boolean>(true);
   // 비밀번호 일치 체크
   const [pass, setPass] = useState<boolean>(true);
-  // const [passStyle, setPassStyle] = useState<string>(styles.form_control_error);
   const passwordCheckValid = () => {
     if (pwd.password1 === pwd.password2) {
-      // setPassStyle(styles.form_control_success);
       setPass(true);
       setDisable(false);
     } else {
-      // setPassStyle(styles.form_control_error);
       setPass(false);
       setDisable(true);
     }
   };
-
-  // const password = document.querySelector('#password-check');
-  // const password2 = document.querySelector('#password-check');
 
   document
     .querySelector('#password-check')
@@ -87,7 +70,11 @@ function CreateMsg(): JSX.Element {
     .querySelector('#password-check')
     ?.addEventListener('focusin', passwordCheckValid);
   // // 노트에 쓰는 모든 값들이 작성하면서 바뀔때마다 값 바꿔주는 함수
-  const onChangeData = (e: any) => {
+  const onChangeData = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNewNote((prev) => {
       return {
@@ -101,7 +88,7 @@ function CreateMsg(): JSX.Element {
     dispatch(setShow());
   };
 
-  const onChangePwd = (e: any) => {
+  const onChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPwd((prev) => {
       return {
@@ -119,7 +106,6 @@ function CreateMsg(): JSX.Element {
     const formData = {
       omrId: omrList[pageNum],
       nickname: newNote.nickname,
-      // content: getData(),
       content: newNote.content,
       pwd: pwd.password1,
       showDate: newNote.showDate,
@@ -152,7 +138,7 @@ function CreateMsg(): JSX.Element {
         <Modal
           show={modal.show}
           onHide={handleClose}
-          className={`${styles[colorList[omr.color]]} ${styles.test}`}
+          className={`${styles[COLOR_LIST[omr.color]]} ${styles.test}`}
         >
           <Modal.Header
             style={{ backgroundColor: 'rgb(253 253 229)', border: '0px' }}
@@ -189,7 +175,7 @@ function CreateMsg(): JSX.Element {
                                 name="nickname"
                                 id="nickname"
                                 type="text"
-                                placeholder="닉네임을 작성해주세요."
+                                placeholder="이름을 작성해주세요."
                                 onChange={onChangeData}
                                 maxLength={10}
                                 required
@@ -221,7 +207,6 @@ function CreateMsg(): JSX.Element {
                                 type="date"
                                 name="showDate"
                                 id="showDate"
-                                // 오늘날짜 기본으로
                                 value={newNote.showDate}
                                 onChange={onChangeData}
                                 required
@@ -312,9 +297,7 @@ function CreateMsg(): JSX.Element {
                   </Row>
                 </div>
               </div>
-              {/* {!pass ? <div>비밀번호가 일치하지 않습니다.</div> : null} */}
 
-              {/* <br /> */}
               <div>
                 {cheerTag.map((data) => (
                   <button
@@ -324,7 +307,6 @@ function CreateMsg(): JSX.Element {
                       fontSize: '20px',
                       border: '1px solid white',
                       borderRadius: '20px',
-                      // backgroundColor: 'white',
                     }}
                     type="button"
                     key={getKey()}
