@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
-import { setIsLoading, setIsOwner, setOmr } from '../../store/omr';
+import { setIsLoading, setIsOwner, setOmr, setPage } from '../../store/omr';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
@@ -17,6 +17,7 @@ import UseNotice from './UseNotice';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
+import pageFlipAudio from '../../audio/pageFlipAudio.mp3';
 import '../../style/style.scss';
 
 function OMR(): JSX.Element {
@@ -46,26 +47,32 @@ function OMR(): JSX.Element {
     setBtnActive(true);
   };
 
-  const getOmr = useCallback(
-    async (omrId: number) => {
-      const { status, data } = auth.isLoggedIn
-        ? await OMRApi.omr.getUserOmr(omrId)
-        : await OMRApi.omr.getNotUserOmr(omrId);
-      if (status === 200) {
-        dispatch(setUser(data.data.user));
-        dispatch(setOmr(data.data.omr));
-        dispatch(setIsOwner(data.data.isOwner));
-      }
-    },
-    [auth.isLoggedIn, dispatch]
-  );
+  // const getOmr = useCallback(
+  //   async (omrId: number) => {
+  //     const { status, data } = auth.isLoggedIn
+  //       ? await OMRApi.omr.getUserOmr(omrId)
+  //       : await OMRApi.omr.getNotUserOmr(omrId);
+  //     if (status === 200) {
+  //       dispatch(setUser(data.data.user));
+  //       dispatch(setOmr(data.data.omr));
+  //       dispatch(setIsOwner(data.data.isOwner));
+  //     }
+  //   },
+  //   [auth.isLoggedIn, dispatch]
+  // );
 
   const movePage = useCallback(
     async (move: number) => {
       const leftOrRight = omr.pageNum + move;
-      getOmr(user.omrList[leftOrRight]);
+      dispatch(setPage(leftOrRight));
+      dispatch(setIsLoading(true));
+      // await getOmr(user.omrList[leftOrRight]);
+      const audio = new Audio(pageFlipAudio);
+      audio.currentTime = 0.3;
+      audio.play();
     },
-    [omr.pageNum, user.omrList, getOmr]
+    // [omr.pageNum, user.omrList, getOmr]
+    [omr.pageNum, dispatch]
   );
 
   const createNewPage = useCallback(async () => {
