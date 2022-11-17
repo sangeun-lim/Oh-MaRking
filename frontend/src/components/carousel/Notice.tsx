@@ -1,4 +1,4 @@
-import { style } from '@mui/system';
+// import { style } from '@mui/system';
 import styles from './Notice.module.scss';
 
 function Notice(): JSX.Element {

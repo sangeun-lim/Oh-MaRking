@@ -16,20 +16,9 @@ import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
 import UpdateMsg from './UpdateMsg';
 import OMRApi from '../../api/OMRApi';
 import { RootState } from '../../store/store';
-import { heartUrl, heartFillUrl } from '../../utils/imgUrl';
 import { getLikeItem } from '../../utils/utils';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-
-const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    container: `${styles.container_class}`,
-    confirmButton: 'green',
-    cancelButton: 'red',
-    // width: 300,
-  },
-  buttonsStyling: false,
-});
 
 function DetailMsg(): JSX.Element {
   const dispatch = useDispatch();

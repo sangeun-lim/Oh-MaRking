@@ -1,13 +1,12 @@
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import Container from 'react-bootstrap/Container';
-import Spinner from 'react-bootstrap/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { setIsOwner, setOmr, setIsLoading } from '../store/omr';
 import { setUserInfo, setUser } from '../store/user';
 import OMRApi from '../api/OMRApi';
-import ExampleOmr from '../components/carousel/ExampleOmr';
+// import ExampleOmr from '../components/carousel/ExampleOmr';
 import OMR from '../components/cheer/OMR';
 import { RootState } from '../store/store';
 import styles from './CheerPage.module.scss';

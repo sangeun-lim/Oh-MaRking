@@ -1,4 +1,3 @@
-import { forwardRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Tooltip } from '@mui/material';
 import { getKey } from '../../utils/utils';
@@ -24,7 +23,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     canNotRead: 3,
   };
   const dispatch = useDispatch();
-  const { omr, modal } = useSelector((state: RootState) => state);
+  const { omr } = useSelector((state: RootState) => state);
 
   const openModal = (problemNum: number, elementNum: number) => {
     dispatch(setShow());

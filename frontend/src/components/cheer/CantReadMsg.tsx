@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -7,19 +7,17 @@ import { Toast } from '../common/Toast';
 import { setShow, setUpdate } from '../../store/modal';
 import { setUser } from '../../store/user';
 import { RootState } from '../../store/store';
-import { EditNote, EditNoteData } from '../../utils/Interface';
+import { EditNoteData } from '../../utils/Interface';
 import UpdateMsg from './UpdateMsg';
-import { EditDefaultNote, EditNoteDefaultData } from '../../utils/DefaultData';
+import { EditNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
 import styles from './DetailMsg.module.scss';
 import '../../style/style.scss';
-import { setIsOwner, setOmr, setNoteOpen, setNoteLike } from '../../store/omr';
+import { setIsOwner, setOmr } from '../../store/omr';
 
 function CantReadMsg(): JSX.Element {
   const dispatch = useDispatch();
-  const { modal, omr, note, user, auth } = useSelector(
-    (state: RootState) => state
-  );
+  const { modal, omr, user, auth } = useSelector((state: RootState) => state);
   const handleClose = () => {
     dispatch(setShow());
   };

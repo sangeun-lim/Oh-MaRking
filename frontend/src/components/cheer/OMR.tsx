@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
 import { addOmr, setUser } from '../../store/user';
-import { setIsLoading, setIsOwner, setOmr } from '../../store/omr';
+import { setIsOwner, setOmr } from '../../store/omr';
 import { setLikeList } from '../../store/likeList';
 import CreateMsg from './CreateMsg';
 import DetailMsg from './DetailMsg';
