@@ -25,7 +25,6 @@ function LikeList({
     dispatch(setShow());
     dispatch(setDetail());
   };
-
   return (
     <div onClick={DetailOpen} role="presentation">
       <div className={styles.letter}>

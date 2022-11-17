@@ -189,7 +189,7 @@ function CreateMsg(): JSX.Element {
                                 name="nickname"
                                 id="nickname"
                                 type="text"
-                                placeholder="닉네임을 작성해주세요."
+                                placeholder="이름을 작성해주세요."
                                 onChange={onChangeData}
                                 maxLength={10}
                                 required

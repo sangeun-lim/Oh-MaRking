@@ -5,9 +5,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Toast } from '../common/Toast';
 import { setShow, setUpdate } from '../../store/modal';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
 import { RootState } from '../../store/store';
-import { EditNoteData } from '../../utils/Interface';
+import { EditNote, EditNoteData } from '../../utils/Interface';
+import { isDeletedPage } from '../../utils/utils';
 import UpdateMsg from './UpdateMsg';
 import { EditNoteDefaultData } from '../../utils/DefaultData';
 import OMRApi from '../../api/OMRApi';
@@ -48,7 +49,6 @@ function CantReadMsg(): JSX.Element {
     try {
       const response = await OMRApi.password.checkPw(noteId, pw);
       if (response.status === 200) {
-        console.log(response.data.data);
         setFormData(response.data.data);
         dispatch(setUpdate());
       }
@@ -68,15 +68,16 @@ function CantReadMsg(): JSX.Element {
       );
       if (del) {
         try {
-          await OMRApi.note.deleteNote(noteId);
-          const { data } = await OMRApi.omr.getOmr(
-            user.omrList[omr.pageNum],
-            auth.isLoggedIn
-          );
+          let omrId = user.omrList[omr.pageNum];
+          const response = await OMRApi.note.deleteNote(noteId);
+          if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+            [omrId] = response.data.data.omrList;
+            dispatch(setOmrList(response.data.data.omrList));
+          }
+          const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
           dispatch(setUser(data.data.user));
           dispatch(setOmr(data.data.omr));
           dispatch(setIsOwner(data.data.isOwner));
-          // dispatch로 새로운 omrList를 가 필요할듯?
           dispatch(setShow());
           Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
         } catch (err) {
@@ -92,15 +93,16 @@ function CantReadMsg(): JSX.Element {
 
   const checkPwDelete = async () => {
     try {
-      await OMRApi.note.deleteNote(noteId);
-      const { data } = await OMRApi.omr.getOmr(
-        user.omrList[omr.pageNum],
-        auth.isLoggedIn
-      );
+      let omrId = user.omrList[omr.pageNum];
+      const response = await OMRApi.note.deleteNote(noteId);
+      if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+        [omrId] = response.data.data.omrList;
+        dispatch(setOmrList(response.data.data.omrList));
+      }
+      const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
-      // dispatch로 새로운 omrList를 가 필요할듯?
       dispatch(setShow());
       Toast('응원이 삭제되었습니다.', 'deleteNoteSuccess');
     } catch (err) {
@@ -139,14 +141,17 @@ function CantReadMsg(): JSX.Element {
                   className={`${styles[colorList[omr.color]]} ${styles.test}`}
                 >
                   <Modal.Header
-                    style={{ backgroundColor: '#FBFFFE', border: '0px' }}
+                    style={{
+                      backgroundColor: 'rgb(253 253 229)',
+                      border: '0px',
+                    }}
                     closeButton
                   >
                     <div className={styles.modalTitle}>
                       <Modal.Title>응원글 보기</Modal.Title>
                     </div>
                   </Modal.Header>
-                  <Modal.Body style={{ backgroundColor: '#FBFFFE' }}>
+                  <Modal.Body style={{ backgroundColor: 'rgb(253 253 229)' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <div style={{ width: '100%', padding: '0px' }}>
                         <Row style={{ margin: '0px' }}>
@@ -158,13 +163,15 @@ function CantReadMsg(): JSX.Element {
                                     className={styles.form_label}
                                     htmlFor="nickname"
                                   >
-                                    닉네임
+                                    이름
                                   </label>
                                 </Col>
                                 <Col className={`${styles.header}`}>
                                   <div>
                                     <input
-                                      style={{ backgroundColor: '#FBFFFE' }}
+                                      style={{
+                                        backgroundColor: 'rgb(250, 250, 242)',
+                                      }}
                                       name="nickname"
                                       id="nickname"
                                       type="text"
@@ -193,7 +200,9 @@ function CantReadMsg(): JSX.Element {
                                 <Col className={`${styles.header}`}>
                                   <div>
                                     <input
-                                      style={{ backgroundColor: '#FBFFFE' }}
+                                      style={{
+                                        backgroundColor: 'rgb(250, 250, 242)',
+                                      }}
                                       name="showDate"
                                       type="date"
                                       id="opendate"
@@ -222,15 +231,18 @@ function CantReadMsg(): JSX.Element {
                           서술형 응원
                         </label>
 
-                        <div className={styles.body}>
+                        <div
+                          style={{ backgroundColor: 'rgb(250, 250, 242)' }}
+                          className={styles.body}
+                        >
                           <textarea
                             name="content"
                             placeholder="응원글을 작성해주세요."
                             id="cheer-text-detail"
                             value="아직 확인할 수 없는 메시지입니다."
-                            style={{ backgroundColor: '#FBFFFE' }}
+                            style={{ backgroundColor: 'rgb(250, 250, 242)' }}
                             cols={30}
-                            rows={5}
+                            rows={10}
                             required
                             readOnly
                           />

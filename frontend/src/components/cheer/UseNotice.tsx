@@ -42,20 +42,20 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
             <Container>
               <div className={styles.rules}>
                 <Row>
-                  <Col>
+                  {/* <Col>
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[0]]}`}>{''}</span>
                       <span className={styles.noticetext}>{''}빈 답안</span>
                     </div>
-                  </Col>
+                  </Col> */}
                   <Col>
                     <div className={styles.nubi}>
-                      <span className={`${styles[omrBg[1]]}`}>{''}</span>
-                      <span className={styles.noticetext}>{''}읽은 답안</span>
+                      <span className={`${styles[omrBg[3]]}`}>{''}</span>
+                      <span className={styles.noticetext}>
+                        {''}아직 못보는 답안
+                      </span>
                     </div>
                   </Col>
-                </Row>
-                <Row>
                   <Col>
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[2]]}`}>{''}</span>
@@ -64,22 +64,36 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                       </span>
                     </div>
                   </Col>
+                </Row>
+                <Row>
                   <Col>
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[4]]}`}>{''}</span>
                       <span className={styles.noticetext}>{''}검토할 답안</span>
                     </div>
                   </Col>
+                  <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[1]]}`}>{''}</span>
+                      <span className={styles.noticetext}>{''}읽은 답안</span>
+                    </div>
+                  </Col>
+                  {/* <Col>
+                    <div className={styles.nubi}>
+                      <span className={`${styles[omrBg[4]]}`}>{''}</span>
+                      <span className={styles.noticetext}>{''}검토할 답안</span>
+                    </div>
+                  </Col> */}
                 </Row>
                 <Row>
-                  <Col>
+                  {/* <Col>
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[3]]}`}>{''}</span>
                       <span className={styles.noticetext}>
                         {''}아직 공개되지 않은 답안
                       </span>
                     </div>
-                  </Col>
+                  </Col> */}
                 </Row>
               </div>
             </Container>
@@ -117,7 +131,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[0]]}`}>{''}</span>
                       <span className={styles.noticetext}>
-                        {''}작성 가능한 칸
+                        {''}작성 가능한 답안
                       </span>
                     </div>
                   </Col>
@@ -125,7 +139,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[1]]}`}>{''}</span>
                       <span className={styles.noticetext}>
-                        {''}이미 읽은 칸
+                        {''}작성 완료된 답안
                       </span>
                     </div>
                   </Col>
@@ -135,7 +149,7 @@ function UseNotice({ omrBg, isOwner }: UseNoticeProps): JSX.Element {
                     <div className={styles.nubi}>
                       <span className={`${styles[omrBg[3]]}`}>{''}</span>
                       <span className={styles.noticetext}>
-                        {''}공개되지 않은 칸
+                        {''}공개되지 않은 답안
                       </span>
                     </div>
                   </Col>
