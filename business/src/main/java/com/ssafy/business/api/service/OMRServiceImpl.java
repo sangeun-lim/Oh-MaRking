@@ -208,7 +208,7 @@ public class OMRServiceImpl implements  OMRService{
                 omrInfo[r][c]=4;
             }else if(note.getIsOpened()){
                 omrInfo[r][c]=1;
-            }else if (day.isAfter(today)||day.isEqual(today)){
+            }else if (day.isAfter(today)){
                 omrInfo[r][c]=3;
             }else{
                 omrInfo[r][c]=2;
