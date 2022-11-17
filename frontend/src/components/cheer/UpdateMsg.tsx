@@ -7,10 +7,10 @@ import Col from 'react-bootstrap/Col';
 import { Toast } from '../common/Toast';
 import { setIsOwner, setOmr } from '../../store/omr';
 import { setShow } from '../../store/modal';
-import { setUser } from '../../store/user';
+import { setUser, setOmrList } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
-import { getLikeItem } from '../../utils/utils';
+import { getLikeItem, isDeletedPage } from '../../utils/utils';
 import { RootState } from '../../store/store';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
 
@@ -86,15 +86,16 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     );
     if (del) {
       try {
-        await OMRApi.note.deleteNote(noteId);
-        const { data } = await OMRApi.omr.getOmr(
-          user.omrList[omr.pageNum],
-          auth.isLoggedIn
-        );
+        let omrId = user.omrList[omr.pageNum];
+        const response = await OMRApi.note.deleteNote(noteId);
+        if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+          [omrId] = response.data.data.omrList;
+          dispatch(setOmrList(response.data.data.omrList));
+        }
+        const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
         dispatch(setUser(data.data.user));
         dispatch(setOmr(data.data.omr));
         dispatch(setIsOwner(data.data.isOwner));
-        // dispatch로 새로운 omrList를 가 필요할듯?
         dispatch(setShow());
         if (!note.isFavorite) {
           const { content, nickname, problemNum, checkNum } = note;
@@ -156,7 +157,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                             className={styles.form_label}
                             htmlFor="nickname"
                           >
-                            닉네임
+                            이름
                           </label>
                         </Col>
                         <Col
@@ -168,7 +169,7 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                               name="nickname"
                               id="nickname"
                               type="text"
-                              placeholder="닉네임을 입력해주세요."
+                              placeholder="이름을 입력해주세요."
                               value={formData.nickname}
                               maxLength={10}
                               disabled

@@ -10,7 +10,8 @@ import OMRApi from '../api/OMRApi';
 import OMR from '../components/cheer/OMR';
 import { RootState } from '../store/store';
 import styles from './CheerPage.module.scss';
-// import imgUrl from './img.png'
+import omrCharater from '../img/omrCharacter.gif';
+import loading from '../img/loading.gif';
 import omrGifUrl from '../img/omr.gif';
 import 'react-toastify/dist/ReactToastify.css';
 import '../style/toast.scss';
@@ -34,18 +35,17 @@ function CheerPage(): JSX.Element {
 
   // 처음 렌더링 될 때 -> 링크 접속 API 요청
   useEffect(() => {
-    linkAccess();
     dispatch(setIsLoading(true));
+    setTimeout(() => linkAccess(), 2000);
   }, [linkAccess, dispatch]);
 
   // Omr id 받아왔을 때 -> Omr 정보 API 요청
   useEffect(() => {
-    if (omr.isLoading && user.omrList[omr.pageNum] !== -1) {
+    if (user.omrList[omr.pageNum] !== -1) {
       OMRApi.omr
         .getOmr(user.omrList[omr.pageNum], auth.isLoggedIn)
         .then(({ data }) => {
           dispatch(setUser(data.data.user));
-          // setTimeout(() => dispatch(setOmr(data.data.omr)), 3000);
           dispatch(setOmr(data.data.omr));
           dispatch(setIsOwner(data.data.isOwner));
         });
@@ -55,13 +55,28 @@ function CheerPage(): JSX.Element {
   return (
     <Container className={styles.screen_container}>
       {omr.isLoading ? (
-        // <div className={styles.box_container}>
-        // <img src={omrGifUrl} alt="" width="1000px" />
-        // </div>
-        // <div style={{ height: '800px', width: }}>
-        <div className={styles.animation}>
-          <OMR />
-          {/* <Spinner style={{ marginTop: '400px' }} animation="border" /> */}
+        <div className={`${styles.box_container}`}>
+          <div className={`${styles.charater_container} ${styles.top_img}`}>
+            <img className={styles.charater} src={omrCharater} alt="" />
+            <img className={styles.charater} src={omrCharater} alt="" />
+            <img className={styles.charater} src={omrCharater} alt="" />
+            <img className={styles.charater} src={omrCharater} alt="" />
+          </div>
+          {/* <img className={styles.omr} src={omrGifUrl} alt="" /> */}
+          <div>
+            <img
+              className={styles.loading}
+              src={loading}
+              alt=""
+              width="1500px"
+            />
+          </div>
+          <div className={`${styles.bottom_img} ${styles.charater_container}`}>
+            <img className={styles.charater} src={omrCharater} alt="" />
+            <img className={styles.charater} src={omrCharater} alt="" />
+            <img className={styles.charater} src={omrCharater} alt="" />
+            <img className={styles.charater} src={omrCharater} alt="" />
+          </div>
         </div>
       ) : (
         <>

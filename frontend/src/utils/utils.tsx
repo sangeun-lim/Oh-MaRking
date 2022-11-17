@@ -33,3 +33,7 @@ export const getLikeItem = (likelist: likeList) => {
   };
   return payload;
 };
+
+export const isDeletedPage = (origin: number[], response: number[]) => {
+  return origin !== response;
+};

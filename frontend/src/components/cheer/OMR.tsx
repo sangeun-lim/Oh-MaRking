@@ -47,31 +47,14 @@ function OMR(): JSX.Element {
     setBtnActive(true);
   };
 
-  // const getOmr = useCallback(
-  //   async (omrId: number) => {
-  //     const { status, data } = auth.isLoggedIn
-  //       ? await OMRApi.omr.getUserOmr(omrId)
-  //       : await OMRApi.omr.getNotUserOmr(omrId);
-  //     if (status === 200) {
-  //       dispatch(setUser(data.data.user));
-  //       dispatch(setOmr(data.data.omr));
-  //       dispatch(setIsOwner(data.data.isOwner));
-  //     }
-  //   },
-  //   [auth.isLoggedIn, dispatch]
-  // );
-
   const movePage = useCallback(
     async (move: number) => {
       const leftOrRight = omr.pageNum + move;
       dispatch(setPage(leftOrRight));
-      dispatch(setIsLoading(true));
-      // await getOmr(user.omrList[leftOrRight]);
       const audio = new Audio(pageFlipAudio);
       audio.currentTime = 0.3;
       audio.play();
     },
-    // [omr.pageNum, user.omrList, getOmr]
     [omr.pageNum, dispatch]
   );
 
@@ -82,6 +65,7 @@ function OMR(): JSX.Element {
       pageNum: newPage,
       userId: user.userId,
     };
+
     try {
       const { status, data } = await OMRApi.omr.createNewOMR(NewOmr);
       if (status === 201) {
@@ -93,26 +77,16 @@ function OMR(): JSX.Element {
     }
   }, [user.userId, user.omrList, dispatch]);
 
-  // 즐겨찾기 조회하기 위해
-  // useEffect(() => {
-  //   const getLikeList = async () => {
-  //     const response = await OMRApi.note.likeList(user.codedEmail);
-  //     if (response.status === 200) {
-  //       dispatch(setLikeList(response.data.data));
-  //     }
-  //   };
-  //   getLikeList();
-  // }, [dispatch, user.codedEmail]);
   useEffect(() => {
-    const getLikeList = async () => {
-      const response = await OMRApi.note.likeList(user.omrList[omr.pageNum]);
-      if (response.status === 200) {
-        dispatch(setLikeList(response.data.data));
-      }
-    };
-    getLikeList();
+    if (user.omrList[omr.pageNum]) {
+      (async () => {
+        const response = await OMRApi.note.likeList(user.omrList[omr.pageNum]);
+        if (response.status === 200) {
+          dispatch(setLikeList(response.data.data));
+        }
+      })();
+    }
   }, [dispatch, user.omrList, omr.pageNum]);
-
   return (
     <div className={`${styles[colorList[omr.color]]} ${styles.test}`}>
       <div className={`${styles.omr} ${styles.body}`}>

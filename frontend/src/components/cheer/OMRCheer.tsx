@@ -56,7 +56,7 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
     if (showDate === null) {
       return 'plz..💬';
     }
-    return `닉네임: ${nickName} 공개날짜:${showDate}`;
+    return `이름: ${nickName} \n 공개날짜: ${showDate}`;
   };
   return (
     <div className={`${styles.section} ${styles.body}`}>
@@ -74,10 +74,13 @@ function Cheer({ msg, start }: CheerProps): JSX.Element {
             <span>{problemIdx + start + 1}</span>
             {problem.map((element, elementIdx) => (
               <Tooltip
-                title={getContent(problemIdx + start, elementIdx)}
+                title={
+                  <span className={styles.pre}>
+                    {getContent(problemIdx + start, elementIdx)}
+                  </span>
+                }
                 key={getKey()}
                 arrow
-                style={{ whiteSpace: 'pre' }}
                 placement="top"
                 classes={{ popper: `${styles.MuiTooltip_popper}` }}
               >
