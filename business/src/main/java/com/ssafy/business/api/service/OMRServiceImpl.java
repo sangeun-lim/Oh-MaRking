@@ -241,7 +241,7 @@ public class OMRServiceImpl implements  OMRService{
             int r=note.getProblemNum();
             int c=note.getCheckNum();
             LocalDate day = LocalDate.parse(note.getShowDate(), DateTimeFormatter.ISO_DATE);
-            if (day.isAfter(today)){
+            if (day.isAfter(today)||day.isEqual(today)){
                 omrInfo[r][c]=3;
             }else{
                 omrInfo[r][c]=1;
