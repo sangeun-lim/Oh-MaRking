@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
     Optional<Note> findById(Long id);
-    @Query("select count(id) from Note where omr.id=?1 and omr.pageNum =?2")
+    @Query("select count(id) from Note where omr.userid=?1 and omr.pageNum =?2")
     int getNoteCount(Long userId, Integer pageNum);
 
     @Query("select count(id) from Note where omr.id =?1")
