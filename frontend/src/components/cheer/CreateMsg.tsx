@@ -338,14 +338,12 @@ function CreateMsg(): JSX.Element {
                       rows={10}
                       required
                     />
-                    {/* <DYEditor /> */}
                     <ul style={{ margin: '0px' }}>
                       <li>
                         <button
                           className={styles.btn_hover_border_3}
                           type="submit"
                           disabled={disable}
-                          // onClick={() => getData()}
                         >
                           제출하기
                         </button>
