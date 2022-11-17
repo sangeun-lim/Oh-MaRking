@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import { setIsOwner, setOmr, setIsLoading } from '../store/omr';
 import { setUserInfo, setUser } from '../store/user';
 import OMRApi from '../api/OMRApi';
-import ExampleOmr from '../components/carousel/ExampleOmr';
 import OMR from '../components/cheer/OMR';
 import { RootState } from '../store/store';
 import styles from './CheerPage.module.scss';
@@ -56,8 +55,13 @@ function CheerPage(): JSX.Element {
   return (
     <Container className={styles.screen_container}>
       {omr.isLoading ? (
-        <div className={styles.box_container}>
-          <img src={omrGifUrl} alt="" width="1000px" />
+        // <div className={styles.box_container}>
+        // <img src={omrGifUrl} alt="" width="1000px" />
+        // </div>
+        // <div style={{ height: '800px', width: }}>
+        <div className={styles.animation}>
+          <OMR />
+          {/* <Spinner style={{ marginTop: '400px' }} animation="border" /> */}
         </div>
       ) : (
         <>

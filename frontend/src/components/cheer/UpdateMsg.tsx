@@ -62,7 +62,6 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
       content: editMsg.content,
       showDate: editMsg.showDate,
     };
-    console.log(changeFormData);
 
     await OMRApi.note.updateNote(noteId, changeFormData);
     const { data } = await OMRApi.omr.getOmr(

@@ -19,3 +19,10 @@
 .box_container {
   @include all.box_container;
 }
+
+.animation {
+  z-index: 1;
+  transform-origin: left center;
+  transition-duration: 1s;
+  transition-timing-function: ease-in;
+}
