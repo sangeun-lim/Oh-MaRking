@@ -89,7 +89,7 @@ function OMR(): JSX.Element {
             type="button"
             onClick={() => createNewPage()}
           >
-            답안지 교체
+            다음 교시
           </button>
         </div>
         {/* OMR BODY */}
