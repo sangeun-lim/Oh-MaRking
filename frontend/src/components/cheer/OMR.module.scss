@@ -1,0 +1,554 @@
+@use 'src/style/all';
+@use 'src/style/color';
+
+$cheer_front_width: 56px;
+$cheer_section_height: 30em;
+
+@mixin witdh_height($width, $height) {
+  width: #{$width};
+  height: #{$height};
+}
+
+@mixin fill_stroke($fill, $stroke) {
+  background-color: #{$fill};
+  border: 3px solid #{$stroke};
+}
+
+@mixin header($fill, $stroke) {
+  font-size: all.$OMR_header_font_size;
+  @include fill_stroke(#{$fill}, #{$stroke});
+}
+
+@mixin body($fill, $stroke) {
+  font-size: all.$OMR_body_font_size;
+  @include fill_stroke(#{color.$paper_light}, #{$stroke});
+}
+
+// OMR 마킹하는 곳
+@mixin omr($bg) {
+  @include all.box(30px, 40px);
+  @include all.flex(column, center, center);
+  @include fill-stroke(color.$before_marking, color.$primary);
+  display: inline-block;
+  border-radius: 50px;
+  color: color.$primary;
+  padding: 5px;
+  margin: 12px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 16px;
+  background: #{$bg};
+}
+
+// 바코드
+@mixin code() {
+  @include witdh_height(10px, 30px);
+  display: inline-block;
+  background-color: black;
+  margin-right: 7px;
+}
+
+// OMR 색깔
+@mixin color($bg, $line, $basic) {
+  strong {
+    @include all.underline($line);
+  }
+  .header {
+    @include header(#{$bg}, #{$line});
+  }
+
+  .cheer .header {
+    border: none;
+    border-bottom: 3px solid #{$line};
+  }
+  .body {
+    @include body(#{$basic}, #{$line});
+    .right {
+      border-left-style: hidden;
+    }
+    .bottom {
+      border-top-style: hidden;
+    }
+  }
+  .cheer span {
+    background-color: #{$bg};
+    border-right-color: #{$line};
+  }
+  .problem {
+    span {
+      border-right-color: #{$line};
+    }
+  }
+  .problem:nth-child(5) {
+    border-bottom: 3px solid #{$line};
+  }
+  .button_left {
+    border-right: 3px solid #{$line};
+    border-radius: 20px 0px 0px 0px;
+  }
+  .button_right {
+    border-radius: 0px 20px 0px 0px;
+  }
+  .active {
+    background-color: #{$line};
+  }
+}
+
+// 팔레트 버튼 색깔
+@mixin btn_color($bt_bg, $bt_ln) {
+  background-color: #{$bt_bg};
+  border: 2.7px solid #{$bt_ln};
+}
+
+* {
+  text-align: center;
+  font-weight: normal;
+  font-size: inherit;
+  :hover {
+    cursor: url(../img/cursorRotate.png), auto;
+  }
+}
+
+// 영역별
+.left {
+  @include witdh_height(all.$OMR_left, 90px);
+  border-radius: all.$IF_radius 0px 0px all.$IF_radius;
+  line-height: normal;
+  @include all.flex(column, center, center);
+  white-space: pre;
+  text-align: justify-all;
+}
+
+.right {
+  @include witdh_height(all.$OMR_right, 90px);
+  border-radius: 0px all.$IF_radius all.$IF_radius 0px;
+  @include all.flex(column, center, center);
+  font-weight: normal;
+}
+
+.top {
+  @include witdh_height(450px, 60px);
+  border-radius: all.$IF_radius all.$IF_radius 0px 0px;
+}
+
+.bottom {
+  @include witdh_height(450px, 300px);
+  border-radius: 0px 0px all.$IF_radius all.$IF_radius;
+  font-family: all.$OMR_body;
+}
+
+// 시험지
+.omr {
+  @include all.box(1388px, 854px);
+  font-family: all.$OMR_header;
+  white-space: pre-line;
+  position: relative;
+
+  // 위쪽 바코드
+  .code:first-child {
+    position: absolute;
+    left: 20px;
+    span {
+      @include code;
+    }
+  }
+
+  // 아래쪽 바코드
+  .code:last-child {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    height: 30px;
+    span {
+      @include code;
+    }
+  }
+
+  // 시험지 헤더(새 페이지, 검색)
+  .omr_head {
+    @include all.flex(row, flex-end, center);
+    height: 60px;
+    margin-right: 50px;
+    .header {
+      border-radius: all.$IF_radius;
+      font-size: 24px;
+      min-width: 100px;
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-right: 5px;
+    }
+  }
+
+  // 시험지 바디(응원영역, 응원한마디)
+  .omr_body {
+    @include all.flex(row, space-evenly, center);
+    height: $cheer_section_height;
+    > button {
+      @include all.box(30px, 100%);
+      font-size: 40px;
+    }
+  }
+
+  // 시험지 바디 중 찐한 색
+  .omr_body .header {
+    font-family: all.$OMR_header;
+    font-size: all.$OMR_header_font_size;
+  }
+
+  // 시험지 푸터
+  .omr_footer {
+    height: 20px;
+  }
+}
+
+// 시험지 좌측 - 정보 구역
+.info {
+  svg:hover {
+  }
+
+  @include all.box(34%, 100%);
+  @include all.flex(column, space-between, center);
+
+  .section {
+    @include all.flex(row, flex-start, center);
+  }
+
+  // ①교시 응원영역 파트
+  .page {
+    width: 100%;
+    margin-left: 30px;
+    height: 70px;
+
+    font-family: all.$OMR_header;
+    text-align: start;
+    // ①
+    > span:nth-child(1) {
+      display: inline-block;
+      vertical-align: text-bottom;
+      font-size: 40px;
+      font-weight: bold;
+      width: 70px;
+      border-radius: 50%;
+      padding-top: 7px;
+    }
+    // 교시 응원영역
+    > span:last-child {
+      display: inline-block;
+      margin-left: 3px;
+      font-size: 32px;
+      height: 40px;
+    }
+  }
+
+  // 이름 제목
+  > div:nth-child(2) > div {
+    height: 60px;
+  }
+  > div:nth-child(2) > .left {
+    border-radius: all.$IF_small_radius 0px 0px all.$IF_small_radius;
+  }
+  > div:nth-child(2) > .right {
+    border-radius: 0px all.$IF_small_radius all.$IF_small_radius 0px;
+  }
+
+  // '이름' 내용
+  .name {
+    width: inherit;
+    @include all.flex(row, center, center);
+    > span {
+      display: inline-block;
+      width: 90%;
+    }
+    > svg {
+      display: inline-block;
+      width: all.$OMR_info_btn;
+    }
+  }
+
+  // '필적 확인란' 내용
+  .intro {
+    width: inherit;
+    @include all.flex(row, center, center);
+    > span {
+      display: inline-block;
+      width: 90%;
+    }
+    > svg {
+      display: inline-block;
+      width: all.$OMR_info_btn;
+    }
+  }
+
+  .editing {
+    width: 100%;
+    height: 100%;
+    @include all.flex(row, center, center);
+    > textarea {
+      width: 90%;
+      resize: none;
+      border: none;
+      background-color: inherit;
+    }
+    > div {
+      width: 10%;
+    }
+    svg {
+      width: all.$OMR_info_btn;
+    }
+  }
+
+  // 주의사항 제목
+  .top {
+    @include all.flex(row, space-around, center);
+    button {
+      width: 50%;
+      height: 100%;
+    }
+  }
+
+  // 주의사항 내용
+  .bottom {
+    @include all.flex(column, space-between, center);
+    p {
+      font-size: 15px;
+      margin-top: 10px;
+      margin-inline: 5px;
+    }
+  }
+
+  // 감독 확인란 내용 파트
+  img {
+    @include witdh_height(80%, inherit);
+    object-fit: contain;
+  }
+}
+
+// 시험지 가운데, 우측 - 응원한마디 구역
+.cheer {
+  font-family: all.$OMR_body;
+  @include all.box(29%, 100%);
+
+  // 응원한마디 영역
+  .section {
+    @include witdh_height(93%, 100%);
+    margin: auto;
+    border-radius: all.$OMR_radius;
+    position: relative;
+
+    > .header {
+      @include all.flex(row, flex-end, center);
+      width: 100%;
+      border-radius: all.$OMR_small_radius all.$OMR_small_radius 0px 0px;
+      padding-right: 10px;
+      > span {
+        font-size: all.$OMR_header_font_size;
+        margin: 0px 17px;
+      }
+    }
+    > :nth-child(1) {
+      height: 55px;
+    }
+    > :nth-child(2) {
+      height: calc(100% - 55px);
+    }
+    .problem:nth-child(10) > span {
+      border-radius: 0px 0px 0px all.$OMR_small_radius;
+    }
+  }
+}
+
+// 문제(1~20번)
+.problem {
+  @include all.flex(row, flex-end, center);
+  position: relative;
+  height: 10%;
+  padding-right: 12px;
+  > span {
+    width: $cheer_front_width;
+    height: 100%;
+    line-height: 74px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: normal;
+    z-index: 500;
+    border-right: 3px solid color.$line_skyblue;
+  }
+}
+
+// 문항 - 마킹 O
+.empty {
+  @include omr(color.$before_marking);
+}
+
+// 문항 - 마킹 X
+.already {
+  @include omr(color.$after_marking);
+}
+
+.notyet {
+  @include omr(color.$notyet_marking);
+}
+
+.cannot {
+  @include omr(color.$after_marking);
+  background: linear-gradient(
+    120deg,
+    color.$before_marking 48%,
+    red 0,
+    red 60%,
+    color.$before_marking 0
+  );
+}
+
+.liked {
+  @include omr(color.$after_marking);
+  background-color: none;
+  background-image: url(all.$heart_url);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px;
+}
+
+// 색깔
+.skyblue {
+  @include color(color.$bg_skyblue, color.$line_skyblue, color.$before_marking);
+}
+
+.yellow {
+  @include color(color.$bg_yellow, color.$line_yellow, color.$before_marking);
+}
+
+.purple {
+  @include color(color.$bg_purple, color.$line_purple, color.$before_marking);
+}
+
+.green {
+  @include color(color.$bg_green, color.$line_green, color.$before_marking);
+}
+
+.dark_yellow {
+  @include color(
+    color.$bg_dark_yellow,
+    color.$line_dark_yellow,
+    color.$before_marking
+  );
+}
+
+.navy {
+  @include color(color.$bg_navy, color.$line_navy, color.$before_marking);
+}
+
+.orange {
+  @include color(color.$bg_orange, color.$line_orange, color.$before_marking);
+}
+
+.pink {
+  @include color(color.$bg_pink, color.$line_pink, color.$before_marking);
+}
+
+//hover
+.button:hover {
+  position: relative;
+  color: red;
+}
+.hover {
+  // 호버시 추가되는 클래스
+  position: absolute;
+
+  z-index: 985;
+  border: 5px;
+
+  animation-duration: 1s; // 애니메이션 3초동안 실행
+  animation-name: fadeout; // 애니메이션 효과는 fade-out
+}
+
+@keyframes fadeout {
+  // fade-out시 opacity를 흐릿하다가 선명하기 만들자
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.buhton_flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom_cursor:hover {
+  cursor: url(../img/cursorRotate.png), pointer;
+}
+
+.test > .omr,
+.body {
+  background-color: color.$paper;
+}
+
+#carousel_my {
+  .carousel-indicators {
+    button {
+      display: none;
+    }
+  }
+}
+
+.no_like {
+  font-family: 'hanna_11yrs';
+  font-weight: bold;
+  padding-top: 125px;
+}
+
+.pallet {
+  width: calc(all.$OMR_left + all.$OMR_right);
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: all.$IF_small_radius;
+  margin-bottom: 0px;
+  span:nth-child(1) button {
+    @include btn_color(color.$bg_yellow, color.$line_yellow);
+  }
+  span:nth-child(2) button {
+    @include btn_color(color.$bg_skyblue, color.$line_skyblue);
+  }
+  span:nth-child(3) button {
+    @include btn_color(color.$bg_purple, color.$line_purple);
+  }
+  span:nth-child(4) button {
+    @include btn_color(color.$bg_green, color.$line_green);
+  }
+  span:nth-child(5) button {
+    @include btn_color(color.$bg_dark_yellow, color.$line_dark_yellow);
+  }
+  span:nth-child(6) button {
+    @include btn_color(color.$bg_navy, color.$line_navy);
+  }
+  span:nth-child(7) button {
+    @include btn_color(color.$bg_orange, color.$line_orange);
+  }
+  span:nth-child(8) button {
+    @include btn_color(color.$bg_pink, color.$line_pink);
+  }
+  span {
+    button {
+      @include witdh_height(30px, 30px);
+      border-radius: 50%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.pre {
+  white-space: pre-line;
+  color: white;
+  font-size: 1.2em;
+  font-family: 'inter-bold';
+}

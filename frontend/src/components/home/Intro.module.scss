@@ -1,0 +1,124 @@
+@use 'src/style/all';
+
+.box_container {
+  @include all.box_container;
+}
+
+.carousel_center {
+  display: flex;
+  justify-content: center;
+}
+.carousel_item {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.bg_character {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.board_carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.board_item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.character_img {
+  position: absolute;
+  top: 60%;
+  left: 75%;
+  width: 25%;
+  height: 50%;
+  z-index: 2;
+}
+
+.pen {
+  border: 2px solid black;
+  height: 10px;
+  background-color: white;
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+}
+.red_pen {
+  border: 2px solid black;
+  height: 10px;
+  background-color: rgb(255, 153, 204);
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+}
+.blue_pen {
+  border: 2px solid black;
+  height: 10px;
+  background-color: rgb(0, 176, 240);
+  width: 70px;
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+}
+
+.eraser {
+  font-family: '동희체';
+  background-color: navy;
+  width: 150px;
+  height: 70px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  position: absolute;
+  bottom: 0;
+  left: 70%;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+.eraser_bg {
+  font-family: '동희체';
+  width: 150px;
+  height: 35px;
+  border-radius: 0px 0px 15px 15px;
+  background-color: darkorange;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  text-align: center;
+  position: relative;
+  top: 12px;
+  left: -2px;
+  border: 2px solid #000;
+}
+
+.hand_img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@media (max-width: 1900px) {
+  .hand_img {
+    img {
+      width: 350px;
+    }
+  }
+}
+
+@media (min-width: 1901px) {
+  .hand_img {
+    img {
+      width: 450px;
+    }
+  }
+}
