@@ -1,0 +1,7 @@
+{
+  "singleQuote": true, // 따옴표는 모두 '' 로 사용
+  "trailingComma": "es5",
+  "semi": true, // 세미콜론 사용
+  "tabWidth": 2, // tab 간격은 4
+  "printWidth": 80 // 자동 줄바꿈 적용 너비
+}

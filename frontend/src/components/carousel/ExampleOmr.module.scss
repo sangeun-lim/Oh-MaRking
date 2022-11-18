@@ -1,0 +1,19 @@
+.example_omr {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.example_content {
+  font-size: 50px;
+  font-family: 'notice_body';
+  color: white;
+  span {
+    font-size: 50px;
+  }
+}
+.cheerup_img {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

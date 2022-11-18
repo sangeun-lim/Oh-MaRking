@@ -1,0 +1,63 @@
+.logo {
+  width: 80px;
+  height: 60px;
+}
+
+.navList {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/stately-century-349715.appspot.com/o/bg1.jpg?alt=media&token=f4890c6e-341c-4d18-93f5-9c25a31d7536');
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  align-items: center;
+  box-shadow: #000000 0px 0px 27px 0px, rgba(0, 0, 0, 0.3) 0px 0px 16px 0px;
+}
+
+.navList > .left {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.navList > .right {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.nav_font {
+  font-family: 'hanna_11yrs';
+  font-size: 20px;
+  > button {
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color: var(--bs-nav-link-color);
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out;
+    font-size: 25px;
+  }
+  > button:hover {
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.navList > .box_container {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.custom_cursor:hover {
+  cursor: url(../img/cursorRotate.png), pointer;
+}
