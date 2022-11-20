@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
 import { Toast } from '../common/Toast';
@@ -18,7 +18,7 @@ import UseNotice from './UseNotice';
 import OMRApi from '../../api/OMRApi';
 import type { RootState } from '../../store/store';
 import styles from './OMR.module.scss';
-import pageFlipAudio from '../../audio/pageFlipAudio.mp3';
+// import pageFlipAudio from '../../audio/pageFlipAudio.mp3';
 import '../../style/style.scss';
 
 function OMR(): JSX.Element {
@@ -42,9 +42,9 @@ function OMR(): JSX.Element {
     async (move: number) => {
       const leftOrRight = omr.pageNum + move;
       dispatch(setPage(leftOrRight));
-      const audio = new Audio(pageFlipAudio);
-      audio.currentTime = 0.3;
-      audio.play();
+      // const audio = new Audio(pageFlipAudio);
+      // audio.currentTime = 0.3;
+      // audio.play();
     },
     [omr.pageNum, dispatch]
   );
@@ -89,7 +89,7 @@ function OMR(): JSX.Element {
             type="button"
             onClick={() => createNewPage()}
           >
-            답안지 교체
+            다음 교시
           </button>
         </div>
         {/* OMR BODY */}

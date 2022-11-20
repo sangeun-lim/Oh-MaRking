@@ -87,13 +87,18 @@ function DetailMsg(): JSX.Element {
       );
       if (del) {
         try {
-          let omrId = user.omrList[omr.pageNum];
-          const response = await OMRApi.note.deleteNote(noteId);
-          if (isDeletedPage(user.omrList, response.data.data.omrList)) {
-            [omrId] = response.data.data.omrList;
-            dispatch(setOmrList(response.data.data.omrList));
-          }
-          const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
+          await OMRApi.note.deleteNote(noteId);
+          const { data } = await OMRApi.omr.getOmr(
+            user.omrList[omr.pageNum],
+            auth.isLoggedIn
+          );
+          // let omrId = user.omrList[omr.pageNum];
+          // const response = await OMRApi.note.deleteNote(noteId);
+          // if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+          //   [omrId] = response.data.data.omrList;
+          //   dispatch(setOmrList(response.data.data.omrList));
+          // }
+          // const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
           dispatch(setUser(data.data.user));
           dispatch(setOmr(data.data.omr));
           dispatch(setIsOwner(data.data.isOwner));
@@ -126,13 +131,18 @@ function DetailMsg(): JSX.Element {
 
   const checkPwDelete = async () => {
     try {
-      let omrId = user.omrList[omr.pageNum];
-      const response = await OMRApi.note.deleteNote(noteId);
-      if (isDeletedPage(user.omrList, response.data.data.omrList)) {
-        [omrId] = response.data.data.omrList;
-        dispatch(setOmrList(response.data.data.omrList));
-      }
-      const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
+      await OMRApi.note.deleteNote(noteId);
+      const { data } = await OMRApi.omr.getOmr(
+        user.omrList[omr.pageNum],
+        auth.isLoggedIn
+      );
+      // let omrId = user.omrList[omr.pageNum];
+      // const response = await OMRApi.note.deleteNote(noteId);
+      // if (isDeletedPage(user.omrList, response.data.data.omrList)) {
+      //   [omrId] = response.data.data.omrList;
+      //   dispatch(setOmrList(response.data.data.omrList));
+      // }
+      // const { data } = await OMRApi.omr.getOmr(omrId, auth.isLoggedIn);
       dispatch(setUser(data.data.user));
       dispatch(setOmr(data.data.omr));
       dispatch(setIsOwner(data.data.isOwner));
