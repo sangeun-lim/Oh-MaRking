@@ -9,7 +9,12 @@ import { setShow } from '../../store/modal';
 import { setUser, setOmrList } from '../../store/user';
 import { EditNoteData, EditNote } from '../../utils/Interface';
 import OMRApi from '../../api/OMRApi';
-import { getLikeItem, isDeletedPage, COLOR_LIST } from '../../utils/utils';
+import {
+  getKey,
+  getLikeItem,
+  isDeletedPage,
+  COLOR_LIST,
+} from '../../utils/utils';
 import { RootState } from '../../store/store';
 import { addLikeList, removeLikeItem } from '../../store/likeList';
 import styles from './UpdateMsg.module.scss';
@@ -32,7 +37,30 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
     content: formData.content,
     showDate: formData.showDate,
   });
-
+  const cheerTag = [
+    '너의 꿈을 응원해!',
+    '넌 할 수 있어!',
+    '힘내!',
+    '응원할게!',
+    '항상!',
+    '파이팅!',
+    '수고했어!',
+    '고생했어!',
+    '넌 최고야!',
+    '끝나고 🍻 한 잔?',
+    '❤',
+    '👍',
+    '👊',
+    '🎈',
+  ];
+  const handleTag = (data: string) => {
+    setEditMsg((prev) => {
+      return {
+        ...prev,
+        content: prev.content + data,
+      };
+    });
+  };
   useEffect(() => {
     setEditMsg(formData);
   }, [formData]);
@@ -208,7 +236,23 @@ function UpdateMsg({ formData, noteId }: Props): JSX.Element {
                 </Row>
               </div>
             </div>
-            <br />
+            <div>
+              {cheerTag.map((data) => (
+                <button
+                  className={styles.btn_hover_border_3}
+                  onClick={() => handleTag(data)}
+                  style={{
+                    fontSize: '20px',
+                    border: '1px solid white',
+                    borderRadius: '20px',
+                  }}
+                  type="button"
+                  key={getKey()}
+                >
+                  #{data}
+                </button>
+              ))}
+            </div>
             <div>
               <div className={`${styles.cheerHeader}`}>
                 <label
