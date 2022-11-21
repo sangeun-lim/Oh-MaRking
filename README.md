@@ -216,9 +216,9 @@
 
 ## Ⅲ. 산출물
 
-#### 1. [포팅메뉴얼](https://lab.ssafy.com/s07-final/S07P31C102/-/blob/master/assets/Oh!MaRking_%EB%A9%94%EB%89%B4%EC%96%BC.pdf)
+#### 1. [포팅메뉴얼](assets/포팅메뉴얼.pdf)
 
-#### 2. [Oh!MaRking_메뉴얼](https://lab.ssafy.com/s07-final/S07P31C102/-/blob/master/assets/Oh!MaRking_%EB%A9%94%EB%89%B4%EC%96%BC.pdf)
+#### 2. [Oh!MaRking_메뉴얼](assets/Oh!MaRking_메뉴얼.pdf)
 
 #### 3. [UCC](https://youtu.be/GUN-JZtwqgE)
 
